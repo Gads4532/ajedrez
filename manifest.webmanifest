@@ -1,0 +1,18 @@
+{
+  "name": "Ajedrez Pro Academia",
+  "short_name": "Ajedrez Pro",
+  "description": "Academia de ajedrez: puzles, aperturas, estrategia, finales, metodologías y Stockfish 19.",
+  "lang": "es",
+  "start_url": "./index.html#inicio",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#302e2b",
+  "theme_color": "#1f1e1b",
+  "categories": ["games", "education"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
