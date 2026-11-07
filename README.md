@@ -17,7 +17,7 @@ Academia de ajedrez completa que funciona en el navegador, se instala como app e
 | **Visión y cálculo** | Coordenadas, nombrar casillas, color de casilla, rutas de caballo, memoria de posiciones y cálculo a ciegas |
 | **Aperturas** | 38 aperturas con estilo, objetivo, estadísticas aproximadas, ideas, planes, pros y contras, variantes y trampas. Modo **Aprender** (mueves las piezas de ambos bandos, solo blancas o solo negras, guiado por coordenadas: «Caballo de g1 a f3», con flecha opcional y el nombre de cada casilla en el tablero) y modo **Entrenar** con repetición espaciada |
 | **Para qué sirve cada jugada** | Cada jugada de aperturas y lecciones lleva etiquetas sencillas (Centro, Desarrollo, Rey seguro, Gambito, Clavada, Fianchetto…) con una explicación para principiantes, y cada apertura muestra su estilo |
-| **Tablero** | Piezas modernas (o clásicas, en Ajustes) con animaciones suaves: deslizamiento según la distancia, pieza que se levanta al arrastrar, capturas que se desvanecen y jaque con pulso |
+| **Tablero** | Tablero verde y crema con piezas planas de diseño propio (o modernas y clásicas, en Ajustes) con animaciones suaves: deslizamiento según la distancia, pieza que se levanta al arrastrar, capturas que se desvanecen y jaque con pulso |
 | **Cuenta** | Crea una cuenta con correo y contraseña (la misma de Organización Personal) y tu progreso se sincroniza entre el teléfono y el ordenador |
 | **Estrategia** | Test de estilo, repertorio por perfil, familias de aperturas, 17 elementos del juego y comparador de aperturas |
 | **Lecciones** | 56 lecciones de principios, táctica, medio juego y finales, con un entrenador (que se puede ocultar) y práctica contra el motor |
