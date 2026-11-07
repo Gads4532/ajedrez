@@ -378,8 +378,8 @@
 
   window.addEventListener('DOMContentLoaded', () => {
     $('#logoIc').innerHTML = pIc('wn');
-    $('#menuBtn').onclick = (e) => { e.stopPropagation(); $('#nav').classList.toggle('open'); };
-    document.addEventListener('click', (e) => { if (!e.target.closest('#nav')) $('#side').classList.remove('open'); });
+    $('#menuBtn').onclick = (e) => { e.stopPropagation(); $('#side').classList.toggle('open'); };
+    document.addEventListener('click', (e) => { if (!e.target.closest('#side')) $('#side').classList.remove('open'); });
     window.addEventListener('hashchange', route);
     route();
   });
