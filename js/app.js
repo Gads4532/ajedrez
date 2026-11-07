@@ -165,12 +165,12 @@
   function playSound(r) { if (!r) return; if (r.san.includes('#')) Sound.end(); else if (r.san.includes('+')) Sound.check(); else if (r.flags.includes('k') || r.flags.includes('q')) Sound.castle(); else if (r.captured) Sound.capture(); else Sound.move(); }
 
   /* Lista de jugadas navegable */
-  function moveList(container, sans, cur, onClick, badges, startTurn = 'w', startNum = 1) {
+  function moveList(container, sans, cur, onClick, badges, startTurn = 'w', startNum = 1, labels = null) {
     container.innerHTML = '';
     const g = h('<div class="moves"></div>');
     let i = 0, num = startNum;
     if (startTurn === 'b' && sans.length) { g.append(h(`<div class="n">${num}.</div>`), h('<div class="m dim">…</div>')); }
-    const cell = (k) => { const b = badges && badges[k] ? BADGES[badges[k]] : null; const d = h(`<div class="m ${k === cur ? 'cur' : ''}">${b ? `<span class="bd" style="background:${b.c}">${b.t}</span>` : ''}${esc(san(sans[k]))}</div>`); d.onclick = () => onClick(k); return d; };
+    const cell = (k) => { const b = badges && badges[k] ? BADGES[badges[k]] : null; const lb = labels && labels[k] && labels[k][0] && window.Purpose ? Purpose.TAGS[labels[k][0]] : null; const d = h(`<div class="m ${k === cur ? 'cur' : ''} ${lb ? 'has-tag' : ''}">${b ? `<span class="bd" style="background:${b.c}">${b.t}</span>` : ''}${lb ? `<span class="mv-w"><span>${esc(san(sans[k]))}</span><small class="mtag" style="--pc:${lb.c}">${lb.t}</small></span>` : esc(san(sans[k]))}</div>`); d.onclick = () => onClick(k); return d; };
     if (startTurn === 'b' && sans.length) { g.append(cell(0)); i = 1; num++; }
     for (; i < sans.length; i += 2) { g.append(h(`<div class="n">${num++}.</div>`), cell(i)); g.append(i + 1 < sans.length ? cell(i + 1) : h('<div></div>')); }
     container.appendChild(g);
@@ -355,6 +355,7 @@
         <div><div class="sec-t">Sonido</div><label class="ck"><input type="checkbox" id="snd" ${S.settings.sound !== false ? 'checked' : ''}> Sonidos de movimiento y aciertos</label></div>
         <div><div class="sec-t">Cuenta y sincronización</div><div id="setAcct" style="margin-top:6px"></div></div>
         <div><div class="sec-t">App</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;align-items:center"><span class="muted">Versión ${App.VERSION || ''}</span><button class="btn sm" id="updChk">Buscar actualización</button><button class="btn sm" id="instChk">⬇ Instalar app</button></div></div>
+        <div><div class="sec-t">Piezas</div><div class="chips" id="pcs" style="margin-top:6px"><button class="chip" data-v="moderno">Modernas</button><button class="chip" data-v="clasico">Clásicas</button></div></div>
         <div><div class="sec-t">Entrenador</div><label class="ck"><input type="checkbox" id="coachT" ${S.settings.coach !== false ? 'checked' : ''}> Mostrar el búho entrenador en lecciones, aperturas y la ruta</label></div>
         <div><div class="sec-t">Créditos</div><p class="muted" style="font-size:13.5px;margin:4px 0 0">Motor: Stockfish 10 (GPLv3, compilado a JavaScript por nmrugg/stockfish.js). Reglas: chess.js (BSD-2). Piezas: Cburnett, Wikimedia Commons (CC BY-SA 3.0), vía cm-chessboard. Las estadísticas de aperturas son aproximaciones de bases magistrales y los puzles generados se verificaron con Stockfish.</p></div>
       </div></div>`));
@@ -366,6 +367,8 @@
       if (a1) a1.onclick = () => { A.syncNow(); toast('Sincronizando…'); }; if (a2) a2.onclick = () => { A.signOut(); route(); }; if (a3) a3.onclick = () => A.form('in'); }
     $('#updChk', v).onclick = () => App.checkUpdate && App.checkUpdate();
     $('#instChk', v).onclick = () => App.installNow && App.installNow();
+    const pp = () => $$('#pcs .chip', v).forEach(c => c.classList.toggle('on', c.dataset.v === (S.settings.pieces || 'moderno')));
+    pp(); $$('#pcs .chip', v).forEach(c => c.onclick = () => { S.settings.pieces = c.dataset.v; save(); window.PIECE_SVG = window.PIECE_SETS[c.dataset.v]; pp(); toast('Piezas cambiadas'); });
     $('#coachT', v).onchange = (e) => { S.settings.coach = e.target.checked; save(); toast(e.target.checked ? 'Búho visible' : 'Búho oculto'); };
     $('#snd', v).onchange = (e) => { S.settings.sound = e.target.checked; Sound.enabled = e.target.checked; save(); };
   };

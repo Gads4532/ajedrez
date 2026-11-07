@@ -53,6 +53,12 @@ h1,h2,h3,h4{margin:0;line-height:1.2;text-wrap:balance}
 .side-foot b{color:var(--fg)}
 main{flex:1;min-width:0;padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .wrap{max-width:1240px;margin:0 auto}
+#view>*{animation:viewin .26s cubic-bezier(.22,1,.36,1)}
+@keyframes viewin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.btn{transition:filter .12s,transform .08s}
+.tile,.list-row{transition:background .15s,transform .15s}
+.tile:hover{transform:translateY(-2px)}
+.moves .m{transition:background .15s,color .15s}
 .topbar{display:none}
 
 /* ---------- Botones ---------- */
@@ -95,6 +101,14 @@ main{flex:1;min-width:0;padding-block:20px 40px;padding-left:max(16px,env(safe-a
 .acct-st{color:var(--fg3)} .acct-st.ok{color:var(--green-h)} .acct-st.error,.acct-st.notable{color:#f07a77}
 .acct .btn{justify-self:start;padding:4px 0}
 .upd-bar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));background:#fff;color:#222;border-radius:10px;padding:10px 12px 10px 16px;display:flex;gap:12px;align-items:center;font-weight:800;box-shadow:0 10px 30px rgba(0,0,0,.5);z-index:150;max-width:calc(100% - 32px)}
+.ptags{display:flex;flex-wrap:wrap;gap:4px;margin:2px 0 6px}
+.ptag{display:inline-flex;align-items:center;padding:1px 8px;border-radius:20px;font-size:12px;font-weight:800;color:#fff;background:var(--pc,#5c8bb0);white-space:nowrap}
+.ptags .ptag{cursor:help}
+.pdesc{margin-top:8px;padding-top:8px;border-top:1px solid #e6e3df;display:grid;gap:4px;font-size:13px;color:#5d5a57}
+.pdesc b{color:#312e2b}
+.mv-w{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.mtag{font-size:10.5px;font-weight:800;color:var(--pc);opacity:.95;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.moves .m.cur .mtag,.moves .m:hover .mtag{color:#fff}
 .chal{display:flex;flex-direction:column;gap:6px}
 .chal .t{display:flex;justify-content:space-between;font-weight:800;font-size:14px}
 .chal .bar{height:10px;background:var(--bg3);border-radius:10px;overflow:hidden}
@@ -154,8 +168,9 @@ label.ck{display:inline-flex;gap:8px;align-items:center;color:var(--fg2);font-si
 .cb-squares{position:absolute;inset:0;display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(8,1fr)}
 .cb-sq{position:relative}
 .cb-sq.light{background:var(--sq-l)} .cb-sq.dark{background:var(--sq-d)}
-.cb-sq.last::before,.cb-sq.sel::before{content:"";position:absolute;inset:0;background:var(--last)}
-.cb-sq.check{background:radial-gradient(circle,#ff0000 0%,#e70000 25%,rgba(169,0,0,0) 89%,rgba(158,0,0,0) 100%)!important}
+.cb-sq.last::before,.cb-sq.sel::before{content:"";position:absolute;inset:0;background:var(--last);animation:fi .18s ease-out}
+.cb-sq.check::after{content:"";position:absolute;inset:0;background:radial-gradient(circle,#ff0000 0%,#e70000 25%,rgba(169,0,0,0) 89%,rgba(158,0,0,0) 100%);animation:chk 1.2s ease-in-out infinite alternate}
+@keyframes chk{from{opacity:.75}to{opacity:1}}
 .cb-sq.mark::after{content:"";position:absolute;inset:0;background:rgba(235,97,80,.8)}
 .cb-sq.over::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 4px rgba(255,255,255,.65)}
 .cb-sq.flash-good::after{content:"";position:absolute;inset:0;background:rgba(129,182,76,.75);animation:fl .9s forwards}
@@ -167,16 +182,23 @@ label.ck{display:inline-flex;gap:8px;align-items:center;color:var(--fg2);font-si
 .co-all{position:absolute;left:0;right:0;bottom:6%;text-align:center;font-size:clamp(8px,1.35vw,12px);font-weight:800;pointer-events:none;opacity:.75;z-index:3}
 .cb-sq.light .co-all{color:var(--coord-l)} .cb-sq.dark .co-all{color:var(--coord-d)}
 .cb-sq.light .co{color:var(--coord-l)} .cb-sq.dark .co{color:var(--coord-d)}
-.hint{position:absolute;left:50%;top:50%;width:33%;height:33%;transform:translate(-50%,-50%);border-radius:50%;background:rgba(0,0,0,.14);pointer-events:none;z-index:1}
-.hintc{position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 0 calc(var(--bs,60px)*.09) rgba(0,0,0,.14);border:6px solid rgba(0,0,0,.14);pointer-events:none;z-index:1}
+.hint{position:absolute;left:50%;top:50%;width:33%;height:33%;transform:translate(-50%,-50%);border-radius:50%;background:rgba(0,0,0,.14);pointer-events:none;z-index:1;animation:hdot .16s ease-out}
+@keyframes hdot{from{transform:translate(-50%,-50%) scale(.3);opacity:0}to{transform:translate(-50%,-50%) scale(1);opacity:1}}
+.hintc{position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 0 calc(var(--bs,60px)*.09) rgba(0,0,0,.14);border:6px solid rgba(0,0,0,.14);pointer-events:none;z-index:1;animation:fi .16s ease-out}
 .cb-pieces{position:absolute;inset:0;pointer-events:none}
-.cb-pc{position:absolute;left:0;top:0;width:12.5%;height:12.5%;transition:transform .2s cubic-bezier(.25,.8,.35,1),opacity .2s;will-change:transform;z-index:2}
+.cb-pc{position:absolute;left:0;top:0;width:12.5%;height:12.5%;transition:transform .2s cubic-bezier(.22,1,.36,1),opacity .2s;will-change:transform;z-index:2;cursor:grab}
+.cb-pc svg{transition:transform .18s cubic-bezier(.22,1,.36,1),filter .18s}
+.cb-pc.ghost{opacity:.35;z-index:1}
+.cb-pc.settle svg{animation:settle .22s cubic-bezier(.22,1,.36,1)}
+@keyframes settle{0%{transform:scale(1.12)}100%{transform:scale(1)}}
 .cb-pc svg{width:100%;height:100%;display:block;filter:drop-shadow(0 1px 1px rgba(0,0,0,.18))}
 .cb-pc.noanim{transition:none!important}
 .cb-pc.dragging{transition:none;z-index:50;transform-origin:center;cursor:grabbing}
-.cb-pc.dragging svg{transform:scale(1.08)}
-.cb-pc.fadein{animation:fi .22s}
-.cb-pc.fadeout{opacity:0}
+.cb-pc.dragging svg{transform:scale(1.14) translateY(-4%);filter:drop-shadow(0 8px 10px rgba(0,0,0,.35))}
+.cb-pc.fadein svg{animation:pin .28s cubic-bezier(.22,1,.36,1)}
+@keyframes pin{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+.cb-pc.fadeout{opacity:0;transition:opacity .24s ease}
+.cb-pc.fadeout svg{transform:scale(.55)}
 @keyframes fi{from{opacity:0}to{opacity:1}}
 .cb.blind .cb-pc{opacity:0!important}
 .cb-arrows{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4}
@@ -335,6 +357,7 @@ svg.chart{width:100%;height:auto;display:block}
 <script src="data/puzzles.js"></script>
 <script src="js/app.js"></script>
 <script src="js/v-train.js"></script>
+<script src="js/purpose.js"></script>
 <script src="js/v-learn.js"></script>
 <script src="js/v-play.js"></script>
 <script src="js/v-strategy.js"></script>

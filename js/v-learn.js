@@ -7,12 +7,13 @@
   const ul = (a) => a && a.length ? `<ul>${a.map(x => `<li>${fixMv(x)}</li>`).join('')}</ul>` : '';
 
   /* ---------- Visor de líneas: tablero + navegación ---------- */
-  function LineViewer(board, startFen, moves, comments, onStep) {
+  function LineViewer(board, startFen, moves, comments, onStep, ctx) {
     const g = new Chess(startFen || START); const fens = [g.fen()], sans = [], last = [null];
-    for (const m of moves || []) { const r = g.move(m, { sloppy: true }); if (!r) break; fens.push(g.fen()); sans.push(r.san); last.push([r.from, r.to, r]); }
+    const tags = []; let prev = null;
+    for (const m of moves || []) { const f0 = g.fen(); const r = g.move(m, { sloppy: true }); if (!r) break; tags.push(window.Purpose ? Purpose.of(f0, r, prev, ctx) : []); prev = r; fens.push(g.fen()); sans.push(r.san); last.push([r.from, r.to, r]); }
     let i = 0;
     const lv = {
-      fens, sans, get i() { return i; },
+      fens, sans, tags, get i() { return i; },
       go(k, sound = true) {
         k = Math.max(0, Math.min(fens.length - 1, k)); const fwd = k === i + 1; i = k;
         board.setPosition(fens[i], true);
@@ -77,8 +78,8 @@
     let lv = null, tab = 'linea', drillStop = null;
     const loadLine = (moves, comments) => {
       lv = LineViewer(board, START, moves, comments, (i, c) => {
-        const ml = $('#ml', v); if (ml) moveList(ml, lv.sans, i - 1, (k) => lv.go(k + 1));
-        const cb = $('#cm', v); if (cb) { if (i === 0) App.coach(cb, null, esc(o.name), fixMv(esc(o.goal || o.summary || ''))); else App.coach(cb, 'ok', `${esc(san(lv.sans[i - 1]))} es la jugada`, c ? fixMv(esc(c)) : ''); }
+        const ml = $('#ml', v); if (ml) moveList(ml, lv.sans, i - 1, (k) => lv.go(k + 1), null, 'w', 1, lv.tags);
+        const cb = $('#cm', v); if (cb) { if (i === 0) App.coach(cb, null, esc(o.name), `${(o.style || []).length ? `<div class="ptags">Estilo: ${o.style.map(s => `<span class="ptag" style="--pc:#5c8bb0">${esc(s)}</span>`).join('')}</div>` : ''}${fixMv(esc(o.goal || o.summary || ''))}`); else App.coach(cb, 'ok', `${esc(san(lv.sans[i - 1]))} es la jugada`, `<div class="ptags">${Purpose.chips(lv.tags[i - 1] || [])}</div>` + (c ? fixMv(esc(c)) : '') + Purpose.chips(lv.tags[i - 1] || [], true).replace(/^.*?(<div class="pdesc">)/, '$1')); }
       });
       lv.go(0, false);
     };
@@ -146,9 +147,9 @@
           clearTimeout(autoT);
           if (side === 'both' || k >= line.length || g.turn() === side) { prompt(); return; }
           board.setArrows([]); App.coach($('#lco2', v), null, 'Juega el rival', 'Fíjate en su jugada…');
-          autoT = setTimeout(() => { const r = g.move(line[k], { sloppy: true }); played.push(r.san); playSound(r); board.sync(); k++; moveList($('#ml', v), played, played.length - 1, () => { }); autoOpp(); }, 650);
+          autoT = setTimeout(() => { const f0 = g.fen(); const r = g.move(line[k], { sloppy: true }); ltags.push(Purpose.of(f0, r, lastMv, Purpose.ctxOf(o))); lastMv = r; played.push(r.san); playSound(r); board.sync(); k++; moveList($('#ml', v), played, played.length - 1, () => { }, null, 'w', 1, ltags); autoOpp(); }, 650);
         };
-        let g, line, k, errors, played;
+        let g, line, k, errors, played, lastMv = null, ltags = [];
         const prompt = () => {
           board.setArrows([]);
           $('#lk', v).textContent = Math.min(k + 1, line.length); $('#ln', v).textContent = line.length; $('#lbar', v).style.width = (k / line.length * 100) + '%';
@@ -160,12 +161,13 @@
           }
           const m = new Chess(g.fen()).move(line[k], { sloppy: true });
           const who = g.turn() === 'w' ? 'Blancas' : 'Negras';
-          const txt = level === 'nada' ? `Juegan ${who.toLowerCase()}. ¿Recuerdas la jugada ${Math.floor(k / 2) + 1} de la línea?` : say(m) + ` (<span class="mv">${esc(san(m.san))}</span>).`;
+          const tg = Purpose.of(g.fen(), m, lastMv, Purpose.ctxOf(o));
+          const txt = level === 'nada' ? `Juegan ${who.toLowerCase()}. ¿Recuerdas la jugada ${Math.floor(k / 2) + 1} de la línea?` : `<div class="ptags">${Purpose.chips(tg)}</div>` + say(m) + ` (<span class="mv">${esc(san(m.san))}</span>).` + Purpose.chips(tg, true).replace(/^.*?(<div class="pdesc">)/, '$1');
           App.coach($('#lco2', v), null, `${who}: jugada ${Math.floor(k / 2) + 1}`, txt);
           if (level === 'guia') board.setArrows([[m.from, m.to, 'g']]);
         };
         const start = () => {
-          line = lines[+$('#lline', v).value]; g = new Chess(); k = 0; errors = 0; played = [];
+          line = lines[+$('#lline', v).value]; g = new Chess(); k = 0; errors = 0; played = []; lastMv = null; ltags = [];
           clearTimeout(autoT);
           board.game = g; board.setOrientation(side === 'b' ? 'black' : side === 'w' ? 'white' : (o.side === 'negras' ? 'black' : 'white')); board.setPosition(START, false); board.setLastMove(null); board.badge(null);
           board.opts.interactive = true; board.opts.movable = side; board.setAllCoords(coords);
@@ -173,10 +175,10 @@
           board.opts.onUserMove = async ({ from, to }) => {
             const exp = new Chess(g.fen()).move(line[k], { sloppy: true });
             if (exp && exp.from === from && exp.to === to) {
-              const r = g.move(line[k], { sloppy: true }); played.push(r.san); playSound(r); board.sync(); board.badge(to, 'book');
+              const f0 = g.fen(); const r = g.move(line[k], { sloppy: true }); const tg = Purpose.of(f0, r, lastMv, Purpose.ctxOf(o)); ltags.push(tg); lastMv = r; played.push(r.san); playSound(r); board.sync(); board.badge(to, 'book');
               const why = (lines.indexOf(line) === 0 && o.comments) ? o.comments[k] : '';
-              k++; moveList($('#ml', v), played, played.length - 1, () => { });
-              if (why) App.coach($('#lco2', v), 'ok', `${esc(san(r.san))} es la jugada`, fixMv(esc(why)));
+              k++; moveList($('#ml', v), played, played.length - 1, () => { }, null, 'w', 1, ltags);
+              if (why) App.coach($('#lco2', v), 'ok', `${esc(san(r.san))} es la jugada`, `<div class="ptags">${Purpose.chips(tg)}</div>` + fixMv(esc(why)));
               setTimeout(() => { board.badge(null); autoOpp(); }, why ? 1300 : 450);
               return true;
             }
@@ -272,8 +274,8 @@
       lv = LineViewer(board, p.fen, p.line || [], p.comments, (k, c) => {
         board.setArrows(k === 0 ? (p.arrows || []) : []);
         $$('.hl', board.el).forEach(e => e.classList.remove('hl')); if (k === 0) (p.highlights || []).forEach(s => board.squares[s] && board.squares[s].classList.add('hl'));
-        if (p.line && p.line.length) moveList($('#ml', v), lv.sans, k - 1, (j) => lv.go(j + 1), null, new Chess(p.fen).turn(), +p.fen.split(' ')[5] || 1);
-        if (k === 0) App.coach($('#cap', v), null, esc(L.title), fixMv(esc(p.caption || ''))); else App.coach($('#cap', v), 'ok', `${esc(san(lv.sans[k - 1]))}`, c ? fixMv(esc(c)) : '');
+        if (p.line && p.line.length) moveList($('#ml', v), lv.sans, k - 1, (j) => lv.go(j + 1), null, new Chess(p.fen).turn(), +p.fen.split(' ')[5] || 1, lv.tags);
+        if (k === 0) App.coach($('#cap', v), null, esc(L.title), fixMv(esc(p.caption || ''))); else App.coach($('#cap', v), 'ok', `${esc(san(lv.sans[k - 1]))}`, `<div class="ptags">${Purpose.chips(lv.tags[k - 1] || [])}</div>` + (c ? fixMv(esc(c)) : ''));
       });
       lv.go(0, false);
       const nb = $('.nav-btns', v); if (nb) nb.remove();

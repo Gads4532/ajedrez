@@ -123,11 +123,11 @@
         const code = board[sq];
         let best = -1, bd = 99;
         remainOld.forEach((o, i) => { if (o.code === code) { const [a, b] = sqXY(o.sq), [c, d] = sqXY(sq); const dist = Math.max(Math.abs(a - c), Math.abs(b - d)); if (dist < bd) { bd = dist; best = i; } } });
-        if (best >= 0 && animate) { const o = remainOld.splice(best, 1)[0]; next[sq] = o.el; o.el.style.zIndex = 3; this._place(o.el, sq); setTimeout(() => { o.el.style.zIndex = ''; }, 260); }
+        if (best >= 0 && animate) { const o = remainOld.splice(best, 1)[0]; next[sq] = o.el; o.el.style.zIndex = 3; o.el.style.transitionDuration = Math.min(0.32, 0.14 + bd * 0.025) + 's'; this._place(o.el, sq); setTimeout(() => { o.el.style.zIndex = ''; }, 260); }
         else { const el = this._pieceEl(code); el.classList.add('noanim'); this._place(el, sq); if (animate) el.classList.add('fadein'); this.pcLayer.appendChild(el); requestAnimationFrame(() => el.classList.remove('noanim')); next[sq] = el; }
       }
       // 3) eliminar el resto (capturadas)
-      for (const o of remainOld) { if (animate) { o.el.classList.add('fadeout'); setTimeout(() => o.el.remove(), 220); } else o.el.remove(); }
+      for (const o of remainOld) { if (animate) { o.el.style.zIndex = 1; setTimeout(() => o.el.classList.add('fadeout'), 90); setTimeout(() => o.el.remove(), 360); } else o.el.remove(); }
       this.pieces = next;
       this.el.classList.toggle('blind', !!this.opts.hideP);
     }
@@ -203,6 +203,7 @@
         if (!drag) return;
         if (!drag.started && Math.hypot(e.clientX - drag.x, e.clientY - drag.y) < 4) return;
         const r = this.el.getBoundingClientRect(), s = r.width / 8;
+        if (!drag.started) { drag.ghost = drag.el.cloneNode(true); drag.ghost.classList.add('ghost', 'noanim'); drag.ghost.classList.remove('dragging'); this.pcLayer.appendChild(drag.ghost); }
         drag.started = true; drag.el.classList.add('dragging');
         drag.el.style.transform = `translate(${e.clientX - r.left - s / 2}px, ${e.clientY - r.top - s / 2}px)`;
         const over = this._sqFromPoint(e.clientX, e.clientY);
@@ -221,11 +222,11 @@
         if (!drag) return;
         const d = drag; drag = null;
         if (this._over && this.squares[this._over]) this.squares[this._over].classList.remove('over'); this._over = null;
-        d.el.classList.remove('dragging');
+        d.el.classList.remove('dragging'); if (d.ghost) d.ghost.remove();
         if (!d.started) { if (d.wasSel) this._select(null); return; }
         const to = this._sqFromPoint(e.clientX, e.clientY);
         const legal = to && this.game.moves({ square: d.sq, verbose: true }).some(m => m.to === to);
-        if (legal) { d.el.classList.add('noanim'); this._place(d.el, to); this._select(null); requestAnimationFrame(() => d.el.classList.remove('noanim')); this._attempt(d.sq, to, true); }
+        if (legal) { d.el.classList.add('noanim', 'settle'); setTimeout(() => d.el.classList.remove('settle'), 220); this._place(d.el, to); this._select(null); requestAnimationFrame(() => d.el.classList.remove('noanim')); this._attempt(d.sq, to, true); }
         else { this._place(d.el, d.sq); }
       };
       this.el.addEventListener('pointerdown', onDown);
