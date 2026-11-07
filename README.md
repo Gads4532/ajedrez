@@ -15,7 +15,8 @@ Academia de ajedrez completa que funciona en el navegador, se instala como app e
 | **Juegos con puzles** | Contrarreloj (también por tema), batalla contra 7 bots, ruta de temas con estrellas, duelo para dos jugadores y método Woodpecker |
 | **Desafíos** | Misiones diarias, 25 logros, experiencia y niveles |
 | **Visión y cálculo** | Coordenadas, nombrar casillas, color de casilla, rutas de caballo, memoria de posiciones y cálculo a ciegas |
-| **Aperturas** | 38 aperturas con estilo, objetivo, estadísticas aproximadas, ideas, planes, pros y contras, variantes, trampas y entrenamiento con repetición espaciada |
+| **Aperturas** | 38 aperturas con estilo, objetivo, estadísticas aproximadas, ideas, planes, pros y contras, variantes y trampas. Modo **Aprender** (mueves las piezas de los dos bandos guiado por coordenadas: «Caballo de g1 a f3», con flecha opcional y el nombre de cada casilla en el tablero) y modo **Entrenar** con repetición espaciada |
+| **Cuenta** | Crea una cuenta con correo y contraseña (la misma de Organización Personal) y tu progreso se sincroniza entre el teléfono y el ordenador |
 | **Estrategia** | Test de estilo, repertorio por perfil, familias de aperturas, 17 elementos del juego y comparador de aperturas |
 | **Lecciones** | 56 lecciones de principios, táctica, medio juego y finales, con un entrenador (que se puede ocultar) y práctica contra el motor |
 | **Metodologías** | 25 métodos de entrenamiento profesionales (escuela soviética, Dvoretsky, Steps, Woodpecker, Kotov, Heisman, Aagaard, Silman…) con pros, contras y evidencia |
@@ -23,7 +24,20 @@ Academia de ajedrez completa que funciona en el navegador, se instala como app e
 | **Enciclopedia** | Reglas FIDE, historia y campeones, estadísticas, psicología y glosario |
 | **Progreso** | Gráfica de rating, mapa de actividad, precisión por tema, diario de errores y copia de seguridad |
 
+## Cuenta y sincronización
+
+En la barra lateral, **Crear cuenta / Entrar**. Con la sesión iniciada, cada cambio se sube a la nube a los pocos segundos y los demás dispositivos lo traen cada 30 segundos o al volver a la app. Nunca se elige entre un dispositivo y otro: se combinan.
+
+**Preparación (una sola vez):** en Supabase → SQL Editor → New query, pega el contenido de `supabase.sql` y pulsa **Run**. Crea la tabla `ajedrez_estados`, separada de la de Organización Personal.
+
+## Actualizaciones
+
+Cada vez que se sube una versión nueva a este repositorio, GitHub Pages la publica y la app instalada la descarga sola y se recarga, sin perder tu progreso. Si estás en mitad de una partida o un reto, aparece un botón **Actualizar** para hacerlo cuando termines. En **Ajustes → Buscar actualización** puedes forzarlo.
+
 ## Instalar como app
+
+Al entrar en la página aparece el aviso **Instala Ajedrez Pro**.
+
 
 - **Móvil (Android/Chrome):** abre el enlace, pulsa ⋮ y luego **Instalar app** (o **Añadir a pantalla de inicio**).
 - **iPhone/iPad (Safari):** abre el enlace, pulsa **Compartir** y luego **Añadir a pantalla de inicio**.

@@ -70,7 +70,7 @@
     const layout = h('<div class="play"></div>'); layout.appendChild(bb.el);
     const panel = h(`<div class="side-panel">
       <div class="sp-head" style="flex-direction:column;align-items:flex-start;gap:4px"><a href="#aperturas" class="dim" style="font-size:13px;text-decoration:none">← Aperturas</a><span>${esc(o.name)}</span><span class="eco">${esc(o.eco)} · ${esc(o.type || '')}</span></div>
-      <div class="sp-tabs" id="tabs"><button data-t="linea">Línea</button><button data-t="ideas">Ideas</button><button data-t="var">Variantes</button><button data-t="trampas">Trampas</button><button data-t="entrenar">Entrenar</button></div>
+      <div class="sp-tabs" id="tabs"><button data-t="linea">Línea</button><button data-t="aprender">Aprender</button><button data-t="ideas">Ideas</button><button data-t="var">Variantes</button><button data-t="trampas">Trampas</button><button data-t="entrenar">Entrenar</button></div>
       <div class="sp-body" id="body"></div>
       <div class="sp-foot" id="foot"></div></div>`);
     layout.appendChild(panel); v.appendChild(layout);
@@ -122,6 +122,66 @@
         $('#foot', v).innerHTML = ''; $('#foot', v).appendChild(navButtons(() => lv));
         $$('[data-i]', v).forEach(r => r.onclick = () => { $$('[data-i]', v).forEach(x => x.style.outline = ''); r.style.outline = '2px solid var(--red)'; const x = ts[+r.dataset.i]; loadLine(x.moves, null); lv.go(0, false); let k = 0; const step = () => { if (!lv || k >= lv.fens.length - 1 || tab !== 'trampas') return; lv.go(++k); setTimeout(step, 650); }; setTimeout(step, 300); });
       },
+      aprender() {
+        // Aprender moviendo: el usuario juega las jugadas de ambos bandos guiado por nombre de pieza y coordenadas.
+        const lines = [o.moves, ...(o.variations || []).map(x => x.moves)];
+        const PN = { p: 'Peón', n: 'Caballo', b: 'Alfil', r: 'Torre', q: 'Dama', k: 'Rey' };
+        const say = (m) => {
+          if (m.flags.includes('k')) return `Enroque corto: rey de <span class="mv">${m.from}</span> a <span class="mv">${m.to}</span> y la torre salta al otro lado`;
+          if (m.flags.includes('q')) return `Enroque largo: rey de <span class="mv">${m.from}</span> a <span class="mv">${m.to}</span> y la torre salta al otro lado`;
+          return `${PN[m.piece]} de <span class="mv">${m.from}</span> ${m.captured ? 'captura en' : 'a'} <span class="mv">${m.to}</span>${m.flags.includes('e') ? ' (captura al paso)' : ''}${m.promotion ? ' y corona' : ''}${m.san.includes('#') ? ' — jaque mate' : m.san.includes('+') ? ' con jaque' : ''}`;
+        };
+        let level = (S().settings.learnLvl) || 'guia', coords = S().settings.learnCoords !== false;
+        $('#body', v).innerHTML = `<p class="muted" style="margin:0">Aprende la apertura moviendo tú las piezas de <b>los dos bandos</b>. Cada jugada se indica con la pieza y sus casillas (de dónde sale y a dónde va), y el entrenador explica por qué se juega.</p>
+          <div><div class="sec-t" style="margin-bottom:6px">Ayuda</div><div class="chips" id="lvl"><button class="chip" data-l="guia">Flecha + coordenadas</button><button class="chip" data-l="coord">Solo coordenadas</button><button class="chip" data-l="nada">Sin ayuda</button></div></div>
+          <label class="ck"><input type="checkbox" id="lco" ${coords ? 'checked' : ''}> Mostrar el nombre de todas las casillas</label>
+          <div class="chal"><div class="t"><span>Jugada <span id="lk">1</span> de <span id="ln">${o.moves.length}</span></span><span id="lerr" class="dim"></span></div><div class="bar"><div id="lbar" style="width:0"></div></div></div>
+          <div id="lco2"></div><div id="ml"></div>`;
+        $('#foot', v).innerHTML = '<button class="btn pri" id="lgo">Empezar de nuevo</button><select id="lline">' + lines.map((l, i) => `<option value="${i}">${i === 0 ? 'Línea principal' : esc(o.variations[i - 1].name)}</option>`).join('') + '</select>';
+        const paintL = () => $$('#lvl .chip', v).forEach(c => c.classList.toggle('on', c.dataset.l === level));
+        let g, line, k, errors, played;
+        const prompt = () => {
+          board.setArrows([]);
+          $('#lk', v).textContent = Math.min(k + 1, line.length); $('#ln', v).textContent = line.length; $('#lbar', v).style.width = (k / line.length * 100) + '%';
+          $('#lerr', v).textContent = errors ? errors + ' error(es)' : '';
+          if (k >= line.length) {
+            board.opts.interactive = false; Sound.end(); App.track('open');
+            App.coach($('#lco2', v), 'ok', '¡Línea completada!', `Has jugado las ${line.length} jugadas${errors ? ` con ${errors} error(es)` : ' sin errores'}. Prueba ahora con menos ayuda, y cuando la domines pasa a <b>Entrenar</b> para fijarla con repetición espaciada.`);
+            return;
+          }
+          const m = new Chess(g.fen()).move(line[k], { sloppy: true });
+          const who = g.turn() === 'w' ? 'Blancas' : 'Negras';
+          const txt = level === 'nada' ? `Juegan ${who.toLowerCase()}. ¿Recuerdas la jugada ${Math.floor(k / 2) + 1} de la línea?` : say(m) + ` (<span class="mv">${esc(san(m.san))}</span>).`;
+          App.coach($('#lco2', v), null, `${who}: jugada ${Math.floor(k / 2) + 1}`, txt);
+          if (level === 'guia') board.setArrows([[m.from, m.to, 'g']]);
+        };
+        const start = () => {
+          line = lines[+$('#lline', v).value]; g = new Chess(); k = 0; errors = 0; played = [];
+          board.game = g; board.setOrientation(o.side === 'negras' ? 'black' : 'white'); board.setPosition(START, false); board.setLastMove(null); board.badge(null);
+          board.opts.interactive = true; board.opts.movable = 'both'; board.setAllCoords(coords);
+          moveList($('#ml', v), [], -1, () => { });
+          board.opts.onUserMove = async ({ from, to }) => {
+            const exp = new Chess(g.fen()).move(line[k], { sloppy: true });
+            if (exp && exp.from === from && exp.to === to) {
+              const r = g.move(line[k], { sloppy: true }); played.push(r.san); playSound(r); board.sync(); board.badge(to, 'book');
+              const why = (lines.indexOf(line) === 0 && o.comments) ? o.comments[k] : '';
+              k++; moveList($('#ml', v), played, played.length - 1, () => { });
+              if (why) App.coach($('#lco2', v), 'ok', `${esc(san(r.san))} es la jugada`, fixMv(esc(why)));
+              setTimeout(() => { board.badge(null); prompt(); }, why ? 1300 : 450);
+              return true;
+            }
+            errors++; Sound.bad();
+            App.coach($('#lco2', v), 'ko', 'Esa no es la jugada de la línea', say(exp) + '. Inténtalo otra vez.');
+            board.setArrows([[exp.from, exp.to, 'g']]); board.flashSquare(exp.from, 'flash-good');
+            return false;
+          };
+          prompt();
+        };
+        $$('#lvl .chip', v).forEach(c => c.onclick = () => { level = c.dataset.l; S().settings.learnLvl = level; save(); paintL(); if (g) prompt(); });
+        $('#lco', v).onchange = (e) => { coords = e.target.checked; S().settings.learnCoords = coords; save(); board.setAllCoords(coords); };
+        $('#lgo', v).onclick = start; $('#lline', v).onchange = start;
+        paintL(); start();
+      },
       entrenar() {
         // Repetición espaciada (sistema de cajas de Leitner)
         const me = o.side === 'negras' ? 'b' : 'w';
@@ -151,7 +211,7 @@
         };
       }
     };
-    const open = (t) => { tab = t; board.game = null; board.opts.interactive = false; board.badge(null); board.setArrows([]); $$('#tabs button', v).forEach(b => b.classList.toggle('on', b.dataset.t === t)); tabs[t](); };
+    const open = (t) => { tab = t; board.game = null; board.opts.interactive = false; board.opts.movable = null; if (t !== 'aprender' && board.opts.allCoords) board.setAllCoords(false); board.badge(null); board.setArrows([]); $$('#tabs button', v).forEach(b => b.classList.toggle('on', b.dataset.t === t)); tabs[t](); };
     $$('#tabs button', v).forEach(b => b.onclick = () => open(b.dataset.t));
     open('linea');
     return keyNav(() => lv);

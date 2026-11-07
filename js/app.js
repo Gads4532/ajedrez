@@ -25,7 +25,8 @@
   });
   let S = DEF();
   try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(DEF(), JSON.parse(raw)); } catch (e) { }
-  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { } };
+  const rawSave = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { } };
+  const save = () => { rawSave(); if (window.App && App.onSaved) App.onSaved(); };
   const bump = (n = 1) => { const d = today(); S.activity[d] = (S.activity[d] || 0) + n;
     if (S.pz.day !== d) { const y = new Date(Date.now() - 864e5); const yd = y.getFullYear() + '-' + String(y.getMonth() + 1).padStart(2, '0') + '-' + String(y.getDate()).padStart(2, '0'); S.pz.dayStreak = S.pz.day === yd ? (S.pz.dayStreak || 0) + 1 : 1; S.pz.day = d; }
     save(); };
@@ -173,7 +174,16 @@
     if (startTurn === 'b' && sans.length) { g.append(cell(0)); i = 1; num++; }
     for (; i < sans.length; i += 2) { g.append(h(`<div class="n">${num++}.</div>`), cell(i)); g.append(i + 1 < sans.length ? cell(i + 1) : h('<div></div>')); }
     container.appendChild(g);
-    const c = $('.cur', g); if (c) c.scrollIntoView({ block: 'nearest' });
+    // Desplaza solo el panel de jugadas, nunca la página (el tablero se queda donde está).
+    const c = $('.cur', g);
+    if (c) {
+      let sc = container.parentElement;
+      while (sc && sc !== document.body) { const oy = getComputedStyle(sc).overflowY; if ((oy === 'auto' || oy === 'scroll') && sc.scrollHeight > sc.clientHeight) break; sc = sc.parentElement; }
+      if (sc && sc !== document.body) {
+        const cr = c.getBoundingClientRect(), sr = sc.getBoundingClientRect();
+        if (cr.bottom > sr.bottom) sc.scrollTop += cr.bottom - sr.bottom + 8; else if (cr.top < sr.top) sc.scrollTop -= sr.top - cr.top + 8;
+      }
+    }
   }
   function proscons(pros, cons) {
     if (!(pros && pros.length) && !(cons && cons.length)) return '';
@@ -343,17 +353,25 @@
       <div class="card" style="display:grid;gap:14px;max-width:640px">
         <div><div class="sec-t">Notación</div><div class="chips" id="not"><button class="chip" data-v="es">Española (R D T A C)</button><button class="chip" data-v="en">Inglesa (K Q R B N)</button></div></div>
         <div><div class="sec-t">Sonido</div><label class="ck"><input type="checkbox" id="snd" ${S.settings.sound !== false ? 'checked' : ''}> Sonidos de movimiento y aciertos</label></div>
+        <div><div class="sec-t">Cuenta y sincronización</div><div id="setAcct" style="margin-top:6px"></div></div>
+        <div><div class="sec-t">App</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;align-items:center"><span class="muted">Versión ${App.VERSION || ''}</span><button class="btn sm" id="updChk">Buscar actualización</button><button class="btn sm" id="instChk">⬇ Instalar app</button></div></div>
         <div><div class="sec-t">Entrenador</div><label class="ck"><input type="checkbox" id="coachT" ${S.settings.coach !== false ? 'checked' : ''}> Mostrar el búho entrenador en lecciones, aperturas y la ruta</label></div>
         <div><div class="sec-t">Créditos</div><p class="muted" style="font-size:13.5px;margin:4px 0 0">Motor: Stockfish 10 (GPLv3, compilado a JavaScript por nmrugg/stockfish.js). Reglas: chess.js (BSD-2). Piezas: Cburnett, Wikimedia Commons (CC BY-SA 3.0), vía cm-chessboard. Las estadísticas de aperturas son aproximaciones de bases magistrales y los puzles generados se verificaron con Stockfish.</p></div>
       </div></div>`));
     const paint = () => $$('#not .chip', v).forEach(c => c.classList.toggle('on', c.dataset.v === S.settings.notation));
     paint(); $$('#not .chip', v).forEach(c => c.onclick = () => { S.settings.notation = c.dataset.v; save(); paint(); toast('Notación actualizada'); });
+    const sa = $('#setAcct', v), A = App.account;
+    if (A) { sa.innerHTML = A.auth ? `<div class="muted">Conectado como <b style="color:var(--fg)">${esc(A.auth.email || '')}</b></div><div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><button class="btn sm" id="sNow">Sincronizar ahora</button><button class="btn sm ghost" id="sOut">Cerrar sesión</button></div>` : `<p class="muted" style="margin:0 0 8px">Crea una cuenta para guardar tu progreso en la nube y usarlo en el teléfono y el ordenador.</p><button class="btn pri sm" id="sIn">Crear cuenta / Entrar</button>`;
+      const a1 = $('#sNow', v), a2 = $('#sOut', v), a3 = $('#sIn', v);
+      if (a1) a1.onclick = () => { A.syncNow(); toast('Sincronizando…'); }; if (a2) a2.onclick = () => { A.signOut(); route(); }; if (a3) a3.onclick = () => A.form('in'); }
+    $('#updChk', v).onclick = () => App.checkUpdate && App.checkUpdate();
+    $('#instChk', v).onclick = () => App.installNow && App.installNow();
     $('#coachT', v).onchange = (e) => { S.settings.coach = e.target.checked; save(); toast(e.target.checked ? 'Búho visible' : 'Búho oculto'); };
     $('#snd', v).onchange = (e) => { S.settings.sound = e.target.checked; Sound.enabled = e.target.checked; save(); };
   };
 
   /* ---------- Exportar API para otros módulos ---------- */
-  const App = window.App = { coach, COACH_SVG, $, $$, h, esc, rnd, shuffle, fmtTime, today, S, save, bump, san, fixMv, lineText, uciToMove, toast, VIEWS, boardBox, setEval, playerBar, playSound, moveList, proscons, statBar, ratePuzzle, themeName, THEME_ES, PZ_BY_ID, IC, pIc, route, areaRoute, engine: null,
+  const App = window.App = { rawSave: () => rawSave(), coach, COACH_SVG, $, $$, h, esc, rnd, shuffle, fmtTime, today, S, save, bump, san, fixMv, lineText, uciToMove, toast, VIEWS, boardBox, setEval, playerBar, playSound, moveList, proscons, statBar, ratePuzzle, themeName, THEME_ES, PZ_BY_ID, IC, pIc, route, areaRoute, engine: null,
     getEngine() { if (!App.engine) App.engine = new Engine(); return App.engine; }, setCleanup(fn) { cleanup = fn; },
     isView(k) { return (location.hash || '#inicio').slice(1).split('-')[0] === k; } };
   Object.defineProperty(App, 'S', { get: () => S, set: (x) => { S = x; } });
@@ -367,16 +385,3 @@
   });
 })();
 
-/* Instalación como app (PWA): solo cuando se sirve desde un sitio propio (GitHub Pages o local). */
-(function () {
-  if (!('serviceWorker' in navigator) || !/^https?:$/.test(location.protocol) || /claude\.ai|claudeusercontent/.test(location.host)) return;
-  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => { }); });
-  let deferred = null;
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault(); deferred = e;
-    const foot = document.getElementById('hdrRt'); if (!foot || document.getElementById('instBtn')) return;
-    const b = document.createElement('button'); b.id = 'instBtn'; b.className = 'btn pri sm'; b.style.marginTop = '8px'; b.textContent = '⬇ Instalar app';
-    b.onclick = async () => { if (!deferred) return; deferred.prompt(); await deferred.userChoice; deferred = null; b.remove(); };
-    foot.after(b);
-  });
-})();

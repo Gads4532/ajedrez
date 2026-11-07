@@ -90,6 +90,7 @@
           if (c === 0) d.insertAdjacentHTML('beforeend', `<span class="co co-r">${rank}</span>`);
           if (r === 7) d.insertAdjacentHTML('beforeend', `<span class="co co-f">${FILES[file]}</span>`);
         }
+        if (this.opts.allCoords) d.insertAdjacentHTML('beforeend', `<span class="co-all">${sq}</span>`);
         this.squares[sq] = d;
       }
       this._paintMarks();
@@ -105,6 +106,7 @@
       d.innerHTML = window.PIECE_SVG ? PIECE_SVG[code] : code; return d;
     }
     setOrientation(o) { this.opts.orientation = o; this._layoutSquares(); for (const sq in this.pieces) { this.pieces[sq].classList.add('noanim'); this._place(this.pieces[sq], sq); } requestAnimationFrame(() => { for (const sq in this.pieces) this.pieces[sq].classList.remove('noanim'); }); this.drawArrows(); }
+    setAllCoords(on) { this.opts.allCoords = on; this._layoutSquares(); }
     flip() { this.setOrientation(this.opts.orientation === 'white' ? 'black' : 'white'); }
 
     /* Posición: reconcilia piezas y anima los desplazamientos */
