@@ -2,7 +2,7 @@
    Usa el mismo proyecto de Supabase que «Organización Personal»: la misma cuenta sirve para las dos apps.
    El progreso del ajedrez se guarda aparte, en la tabla «ajedrez_estados» (ver supabase.sql). */
 (function () {
-  const APP_VERSION = '1.3.1';
+  const APP_VERSION = '1.3.2';
   App.VERSION = APP_VERSION;
   const { $, h, esc, toast } = App;
   const inArtifact = /claude\.ai|claudeusercontent/.test(location.host) || !/^https?:$/.test(location.protocol);

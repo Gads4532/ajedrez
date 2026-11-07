@@ -131,14 +131,23 @@
           if (m.flags.includes('q')) return `Enroque largo: rey de <span class="mv">${m.from}</span> a <span class="mv">${m.to}</span> y la torre salta al otro lado`;
           return `${PN[m.piece]} de <span class="mv">${m.from}</span> ${m.captured ? 'captura en' : 'a'} <span class="mv">${m.to}</span>${m.flags.includes('e') ? ' (captura al paso)' : ''}${m.promotion ? ' y corona' : ''}${m.san.includes('#') ? ' — jaque mate' : m.san.includes('+') ? ' con jaque' : ''}`;
         };
-        let level = (S().settings.learnLvl) || 'guia', coords = S().settings.learnCoords !== false;
+        let level = (S().settings.learnLvl) || 'guia', coords = S().settings.learnCoords !== false, side = S().settings.learnSide || 'both';
         $('#body', v).innerHTML = `<p class="muted" style="margin:0">Aprende la apertura moviendo tú las piezas de <b>los dos bandos</b>. Cada jugada se indica con la pieza y sus casillas (de dónde sale y a dónde va), y el entrenador explica por qué se juega.</p>
+          <div><div class="sec-t" style="margin-bottom:6px">Qué bando mueves</div><div class="chips" id="lside"><button class="chip" data-s="both">Ambos bandos</button><button class="chip" data-s="w">Solo blancas</button><button class="chip" data-s="b">Solo negras</button></div></div>
           <div><div class="sec-t" style="margin-bottom:6px">Ayuda</div><div class="chips" id="lvl"><button class="chip" data-l="guia">Flecha + coordenadas</button><button class="chip" data-l="coord">Solo coordenadas</button><button class="chip" data-l="nada">Sin ayuda</button></div></div>
           <label class="ck"><input type="checkbox" id="lco" ${coords ? 'checked' : ''}> Mostrar el nombre de todas las casillas</label>
           <div class="chal"><div class="t"><span>Jugada <span id="lk">1</span> de <span id="ln">${o.moves.length}</span></span><span id="lerr" class="dim"></span></div><div class="bar"><div id="lbar" style="width:0"></div></div></div>
           <div id="lco2"></div><div id="ml"></div>`;
         $('#foot', v).innerHTML = '<button class="btn pri" id="lgo">Empezar de nuevo</button><select id="lline">' + lines.map((l, i) => `<option value="${i}">${i === 0 ? 'Línea principal' : esc(o.variations[i - 1].name)}</option>`).join('') + '</select>';
-        const paintL = () => $$('#lvl .chip', v).forEach(c => c.classList.toggle('on', c.dataset.l === level));
+        const paintL = () => { $$('#lvl .chip', v).forEach(c => c.classList.toggle('on', c.dataset.l === level)); $$('#lside .chip', v).forEach(c => c.classList.toggle('on', c.dataset.s === side)); };
+        let autoT = null;
+        // Con un solo bando, la app juega las jugadas del rival (con una pausa para verlas) y luego te toca.
+        const autoOpp = () => {
+          clearTimeout(autoT);
+          if (side === 'both' || k >= line.length || g.turn() === side) { prompt(); return; }
+          board.setArrows([]); App.coach($('#lco2', v), null, 'Juega el rival', 'Fíjate en su jugada…');
+          autoT = setTimeout(() => { const r = g.move(line[k], { sloppy: true }); played.push(r.san); playSound(r); board.sync(); k++; moveList($('#ml', v), played, played.length - 1, () => { }); autoOpp(); }, 650);
+        };
         let g, line, k, errors, played;
         const prompt = () => {
           board.setArrows([]);
@@ -157,8 +166,9 @@
         };
         const start = () => {
           line = lines[+$('#lline', v).value]; g = new Chess(); k = 0; errors = 0; played = [];
-          board.game = g; board.setOrientation(o.side === 'negras' ? 'black' : 'white'); board.setPosition(START, false); board.setLastMove(null); board.badge(null);
-          board.opts.interactive = true; board.opts.movable = 'both'; board.setAllCoords(coords);
+          clearTimeout(autoT);
+          board.game = g; board.setOrientation(side === 'b' ? 'black' : side === 'w' ? 'white' : (o.side === 'negras' ? 'black' : 'white')); board.setPosition(START, false); board.setLastMove(null); board.badge(null);
+          board.opts.interactive = true; board.opts.movable = side; board.setAllCoords(coords);
           moveList($('#ml', v), [], -1, () => { });
           board.opts.onUserMove = async ({ from, to }) => {
             const exp = new Chess(g.fen()).move(line[k], { sloppy: true });
@@ -167,7 +177,7 @@
               const why = (lines.indexOf(line) === 0 && o.comments) ? o.comments[k] : '';
               k++; moveList($('#ml', v), played, played.length - 1, () => { });
               if (why) App.coach($('#lco2', v), 'ok', `${esc(san(r.san))} es la jugada`, fixMv(esc(why)));
-              setTimeout(() => { board.badge(null); prompt(); }, why ? 1300 : 450);
+              setTimeout(() => { board.badge(null); autoOpp(); }, why ? 1300 : 450);
               return true;
             }
             errors++; Sound.bad();
@@ -175,8 +185,9 @@
             board.setArrows([[exp.from, exp.to, 'g']]); board.flashSquare(exp.from, 'flash-good');
             return false;
           };
-          prompt();
+          autoOpp();
         };
+        $$('#lside .chip', v).forEach(c => c.onclick = () => { side = c.dataset.s; S().settings.learnSide = side; save(); paintL(); start(); });
         $$('#lvl .chip', v).forEach(c => c.onclick = () => { level = c.dataset.l; S().settings.learnLvl = level; save(); paintL(); if (g) prompt(); });
         $('#lco', v).onchange = (e) => { coords = e.target.checked; S().settings.learnCoords = coords; save(); board.setAllCoords(coords); };
         $('#lgo', v).onclick = start; $('#lline', v).onchange = start;
