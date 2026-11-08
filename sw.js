@@ -1,8 +1,8 @@
 /* Guarda la app para usarla sin internet. Pide primero a la red (así llegan las versiones nuevas) y, sin red, usa la caché.
    Cambiar VERSION en cada publicación hace que la app detecte la actualización y se recargue sola. */
-const VERSION = '1.4.1';
+const VERSION = '1.5.0';
 const CACHE = 'ajedrez-pro-' + VERSION;
-const CORE = ["./", "index.html", "manifest.webmanifest", "js/app.js", "js/board.js", "js/chess.js", "js/cloud.js", "js/engine.js", "js/pieces-flat.js", "js/pieces.js", "js/purpose.js", "js/sf19.js", "js/sf19.wasm", "js/stockfish.js", "js/v-games.js", "js/v-learn.js", "js/v-play.js", "js/v-roadmap.js", "js/v-strategy.js", "js/v-train.js", "data/knowledge.js", "data/lessons.js", "data/openings.js", "data/puzzles.js", "icons/apple-touch-icon.png", "icons/favicon-32.png", "icons/icon-192.png", "icons/icon-512-maskable.png", "icons/icon-512.png"];
+const CORE = ["./", "index.html", "manifest.webmanifest", "js/app.js", "js/board.js", "js/chess.js", "js/cloud.js", "js/engine.js", "js/pieces-flat.js", "js/pieces-pro.js", "js/pieces.js", "js/purpose.js", "js/sf19.js", "js/sf19.wasm", "js/stockfish.js", "js/v-games.js", "js/v-learn.js", "js/v-play.js", "js/v-roadmap.js", "js/v-strategy.js", "js/v-train.js", "data/knowledge.js", "data/lessons.js", "data/openings.js", "data/puzzles.js", "icons/apple-touch-icon.png", "icons/favicon-32.png", "icons/icon-192.png", "icons/icon-512-maskable.png", "icons/icon-512.png"];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE))); });
 self.addEventListener('message', e => { if (e.data === 'SKIP_WAITING') self.skipWaiting(); });
 self.addEventListener('activate', e => {
