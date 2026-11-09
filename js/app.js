@@ -66,7 +66,7 @@
     chart: '<svg viewBox="0 0 24 24"><rect x="3" y="12" width="4" height="9" rx="1" fill="#81b64c"/><rect x="10" y="7" width="4" height="14" rx="1" fill="#95c95f"/><rect x="17" y="3" width="4" height="18" rx="1" fill="#b2dc84"/></svg>',
     gear: '<svg viewBox="0 0 24 24" fill="none" stroke="#8b8987" stroke-width="2.2"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg>'
   };
-  const pIc = (c) => { const P = (window.PIECE_SETS && PIECE_SETS.pro) || window.PIECE_SVG; return P ? P[c] : ''; };
+  const pIc = (c) => { const P = (window.PIECE_SETS && PIECE_SETS.plano) || window.PIECE_SVG; return P ? P[c] : ''; };
   const LOGO_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="6.2" r="3.6" fill="#fff"/><path d="M8.6 11h6.8l1.6 7.4H7z" fill="#fff"/><rect x="5.5" y="19.2" width="13" height="2.8" rx="1.4" fill="#fff"/></svg>';
   const NAV = [
     { lbl: 'Jugar', items: [
@@ -356,9 +356,9 @@
         <div><div class="sec-t">Sonido</div><label class="ck"><input type="checkbox" id="snd" ${S.settings.sound !== false ? 'checked' : ''}> Sonidos de movimiento y aciertos</label></div>
         <div><div class="sec-t">Cuenta y sincronización</div><div id="setAcct" style="margin-top:6px"></div></div>
         <div><div class="sec-t">App</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;align-items:center"><span class="muted">Versión ${App.VERSION || ''}</span><button class="btn sm" id="updChk">Buscar actualización</button><button class="btn sm" id="instChk">⬇ Instalar app</button></div></div>
-        <div><div class="sec-t">Piezas</div><div class="chips" id="pcs" style="margin-top:6px"><button class="chip" data-v="pro">Pro</button><button class="chip" data-v="plano">Planas</button><button class="chip" data-v="moderno">Modernas</button><button class="chip" data-v="clasico">Clásicas</button><button class="chip" data-v="custom">Personalizadas</button></div><p class="muted" style="font-size:13px;margin:8px 0 6px">Personalizadas: elige las 12 imágenes de tus piezas (PNG o SVG) llamadas <b>wp, wn, wb, wr, wq, wk, bp, bn, bb, br, bq, bk</b> (también vale «white-pawn», «negro-caballo»…). Se guardan solo en este dispositivo.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><label class="btn sm">Subir imágenes<input type="file" id="pcUp" accept="image/*" multiple hidden></label><button class="btn sm ghost" id="pcClr">Quitar personalizadas</button></div></div>
+        <div><div class="sec-t">Piezas</div><div class="chips" id="pcs" style="margin-top:6px"><button class="chip" data-v="plano">Planas</button><button class="chip" data-v="moderno">Modernas</button><button class="chip" data-v="clasico">Clásicas</button><button class="chip" data-v="custom">Personalizadas</button></div><p class="muted" style="font-size:13px;margin:8px 0 6px">Personalizadas: elige las 12 imágenes de tus piezas (PNG o SVG) llamadas <b>wp, wn, wb, wr, wq, wk, bp, bn, bb, br, bq, bk</b> (también vale «white-pawn», «negro-caballo»…). Se guardan solo en este dispositivo.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><label class="btn sm">Subir imágenes<input type="file" id="pcUp" accept="image/*" multiple hidden></label><button class="btn sm ghost" id="pcClr">Quitar personalizadas</button></div></div>
         <div><div class="sec-t">Entrenador</div><label class="ck"><input type="checkbox" id="coachT" ${S.settings.coach !== false ? 'checked' : ''}> Mostrar el búho entrenador en lecciones, aperturas y la ruta</label></div>
-        <div><div class="sec-t">Créditos</div><p class="muted" style="font-size:13.5px;margin:4px 0 0">Motor: Stockfish 10 (GPLv3, compilado a JavaScript por nmrugg/stockfish.js). Reglas: chess.js (BSD-2). Piezas «Pro» y «Planas»: diseño propio. «Modernas» y «Clásicas»: Cburnett, Wikimedia Commons (CC BY-SA 3.0), vía cm-chessboard. Las estadísticas de aperturas son aproximaciones de bases magistrales y los puzles generados se verificaron con Stockfish.</p></div>
+        <div><div class="sec-t">Créditos</div><p class="muted" style="font-size:13.5px;margin:4px 0 0">Motor: Stockfish 10 (GPLv3, compilado a JavaScript por nmrugg/stockfish.js). Reglas: chess.js (BSD-2). Piezas «Planas»: diseño propio. «Modernas» y «Clásicas»: Cburnett, Wikimedia Commons (CC BY-SA 3.0), vía cm-chessboard. Las estadísticas de aperturas son aproximaciones de bases magistrales y los puzles generados se verificaron con Stockfish.</p></div>
       </div></div>`));
     const paint = () => $$('#not .chip', v).forEach(c => c.classList.toggle('on', c.dataset.v === S.settings.notation));
     paint(); $$('#not .chip', v).forEach(c => c.onclick = () => { S.settings.notation = c.dataset.v; save(); paint(); toast('Notación actualizada'); });
@@ -369,8 +369,8 @@
     $('#updChk', v).onclick = () => App.checkUpdate && App.checkUpdate();
     $('#instChk', v).onclick = () => App.installNow && App.installNow();
     const CP = window.CustomPieces;
-    const setPc = (k) => { S.settings.pieceSet = k; save(); window.PIECE_SVG = window.PIECE_SETS[k] || PIECE_SETS.pro; pp(); };
-    const pp = () => $$('#pcs .chip', v).forEach(c => { c.classList.toggle('on', c.dataset.v === (S.settings.pieceSet || 'pro')); if (c.dataset.v === 'custom') c.style.opacity = PIECE_SETS.custom ? '' : '.45'; });
+    const setPc = (k) => { S.settings.pieceSet = k; save(); window.PIECE_SVG = window.PIECE_SETS[k] || PIECE_SETS.plano; pp(); };
+    const pp = () => $$('#pcs .chip', v).forEach(c => { c.classList.toggle('on', c.dataset.v === (S.settings.pieceSet || S.settings.pieces || 'plano')); if (c.dataset.v === 'custom') c.style.opacity = PIECE_SETS.custom ? '' : '.45'; });
     pp(); $$('#pcs .chip', v).forEach(c => c.onclick = () => { if (!PIECE_SETS[c.dataset.v]) return toast('Primero sube tus imágenes'); setPc(c.dataset.v); toast('Piezas cambiadas'); });
     $('#pcUp', v).onchange = async (e) => {
       const files = [...e.target.files], m = {}; let bad = 0;
@@ -384,7 +384,7 @@
       setPc('custom');
       toast(`Piezas personalizadas: ${Object.keys(CP.load()).length}/12` + (bad ? ` · sin reconocer: ${bad}` : ''));
     };
-    $('#pcClr', v).onclick = () => { CP.clear(); if (S.settings.pieceSet === 'custom') setPc('pro'); else pp(); toast('Personalizadas eliminadas'); };
+    $('#pcClr', v).onclick = () => { CP.clear(); if (S.settings.pieceSet === 'custom') setPc('plano'); else pp(); toast('Personalizadas eliminadas'); };
     $('#coachT', v).onchange = (e) => { S.settings.coach = e.target.checked; save(); toast(e.target.checked ? 'Búho visible' : 'Búho oculto'); };
     $('#snd', v).onchange = (e) => { S.settings.sound = e.target.checked; Sound.enabled = e.target.checked; save(); };
   };

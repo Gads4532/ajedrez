@@ -17,7 +17,7 @@ Academia de ajedrez completa que funciona en el navegador, se instala como app e
 | **Visión y cálculo** | Coordenadas, nombrar casillas, color de casilla, rutas de caballo, memoria de posiciones y cálculo a ciegas |
 | **Aperturas** | 38 aperturas con estilo, objetivo, estadísticas aproximadas, ideas, planes, pros y contras, variantes y trampas. Modo **Aprender** (mueves las piezas de ambos bandos, solo blancas o solo negras, guiado por coordenadas: «Caballo de g1 a f3», con flecha opcional y el nombre de cada casilla en el tablero) y modo **Entrenar** con repetición espaciada |
 | **Para qué sirve cada jugada** | Cada jugada de aperturas y lecciones lleva etiquetas sencillas (Centro, Desarrollo, Rey seguro, Gambito, Clavada, Fianchetto…) con una explicación para principiantes, y cada apertura muestra su estilo |
-| **Tablero** | Tablero verde y crema (colores clásicos de plataforma online) con piezas «Pro» de diseño propio, con volumen y sombra (o planas, modernas, clásicas o **tus propias imágenes**, en Ajustes → Piezas) con animaciones suaves: deslizamiento según la distancia, pieza que se levanta al arrastrar, capturas que se desvanecen y jaque con pulso |
+| **Tablero** | Tablero verde y crema (colores clásicos de plataforma online) con piezas planas de diseño propio (o modernas, clásicas o **tus propias imágenes**, en Ajustes → Piezas) con animaciones suaves: deslizamiento según la distancia, pieza que se levanta al arrastrar, capturas que se desvanecen y jaque con pulso |
 | **Cuenta** | Crea una cuenta con correo y contraseña (la misma de Organización Personal) y tu progreso se sincroniza entre el teléfono y el ordenador |
 | **Estrategia** | Test de estilo, repertorio por perfil, familias de aperturas, 17 elementos del juego y comparador de aperturas |
 | **Lecciones** | 56 lecciones de principios, táctica, medio juego y finales, con un entrenador (que se puede ocultar) y práctica contra el motor |
@@ -69,7 +69,7 @@ icons/, manifest.webmanifest, sw.js   instalación como app y uso sin conexión
 
 - **Motor:** [Stockfish](https://stockfishchess.org) 19 (versión lite NNUE) y Stockfish 10 de respaldo, compilados a WebAssembly/JavaScript por [nmrugg/stockfish.js](https://github.com/nmrugg/stockfish.js). Licencia GPLv3.
 - **Reglas:** [chess.js](https://github.com/jhlywa/chess.js) 0.10.3, licencia BSD-2-Clause.
-- **Piezas:** «Pro» y «Planas», diseño propio. «Modernas» y «Clásicas»: Cburnett, [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces/Standard), licencia CC BY-SA 3.0, vía [cm-chessboard](https://github.com/shaack/cm-chessboard).
+- **Piezas:** «Planas», diseño propio. «Modernas» y «Clásicas»: Cburnett, [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces/Standard), licencia CC BY-SA 3.0, vía [cm-chessboard](https://github.com/shaack/cm-chessboard).
 - **Contenido:** todo el texto (lecciones, aperturas y metodologías) es de redacción propia. Las estadísticas de aperturas son aproximaciones de bases de partidas magistrales. Los puzles se generaron y verificaron con Stockfish.
 - Este proyecto se distribuye bajo la **GNU GPL v3** (ver `LICENSE`), por incluir Stockfish.
 
