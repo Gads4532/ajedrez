@@ -28,12 +28,11 @@
     return { name: best ? best.name : null, len };
   }
   App.bookInfo = bookInfo;
-  App.bookInfo = bookInfo;
 
   /* ======================= JUGAR ======================= */
   VIEWS.jugar = (v) => {
     const eng = App.getEngine();
-    const cfg = Object.assign({ lvl: 4, color: 'w', time: 0, inc: 0 }, S().playCfg || {});
+    const cfg = Object.assign({ lvl: 4, color: 'w', time: 0, inc: 0, help: true }, S().playCfg || {});
     const bb = boardBox({ players: true });
     const board = bb.board;
     const layout = h('<div class="play"></div>'); layout.appendChild(bb.el);
@@ -52,12 +51,16 @@
           <div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:20px" id="lvlT"></b><span class="dim" id="lvlE"></span></div></div>
         <div><div class="sec-t" style="margin-bottom:8px">Juegas con</div><div class="chips" id="col"><button class="chip" data-v="w">Blancas</button><button class="chip" data-v="r">Aleatorio</button><button class="chip" data-v="b">Negras</button></div></div>
         <div><div class="sec-t" style="margin-bottom:8px">Ritmo</div><div class="chips" id="tc">${[[0, 0, 'Sin reloj'], [3, 2, '3+2'], [5, 0, '5 min'], [10, 0, '10 min'], [15, 10, '15+10'], [30, 0, '30 min']].map(([m, i, t]) => `<button class="chip" data-m="${m}" data-i="${i}">${t}</button>`).join('')}</div></div>
+        <div><div class="sec-t" style="margin-bottom:8px">Ayudas</div><div class="chips" id="hlp"><button class="chip" data-v="1">Con ayudas</button><button class="chip" data-v="0">Sin ayudas</button></div>
+          <div class="dim" id="hlpT" style="font-size:13px;margin-top:6px"></div></div>
         <div><div class="sec-t" style="margin-bottom:8px">Posición inicial (FEN opcional)</div><input type="text" id="fen" placeholder="Vacío = posición inicial" style="width:100%"></div>
         <p class="dim" style="font-size:13px;margin:0">Las partidas lentas contra un rival algo más fuerte son la mejor forma de practicar lo aprendido. Al terminar, revisa la partida con el motor y anota tus errores en el diario.</p>`;
       $('#pf', v).innerHTML = '<button class="btn pri big" id="go">Jugar</button>';
       const paintL = () => { const l = LV[cfg.lvl - 1]; $('#lvlT', v).textContent = 'Nivel ' + cfg.lvl; $('#lvlE', v).textContent = cfg.lvl === 10 ? 'Fuerza máxima' : '≈ ' + l.elo + ' Elo'; };
       $('#lvl', v).oninput = (e) => { cfg.lvl = +e.target.value; paintL(); }; paintL();
       const paintC = () => { $$('#col .chip', v).forEach(c => c.classList.toggle('on', c.dataset.v === cfg.color)); $$('#tc .chip', v).forEach(c => c.classList.toggle('on', +c.dataset.m === cfg.time && +c.dataset.i === cfg.inc)); };
+      const paintH = () => { $$('#hlp .chip', v).forEach(c => c.classList.toggle('on', (c.dataset.v === '1') === !!cfg.help)); $('#hlpT', v).textContent = cfg.help ? 'Puedes deshacer jugadas, pedir pistas y ver el nombre de la apertura.' : 'Como una partida de verdad: sin deshacer, sin pistas y sin nombre de apertura. Sí puedes retroceder para ver lo ya jugado.'; };
+      $$('#hlp .chip', v).forEach(c => c.onclick = () => { cfg.help = c.dataset.v === '1'; paintH(); }); paintH();
       $$('#col .chip', v).forEach(c => c.onclick = () => { cfg.color = c.dataset.v; paintC(); });
       $$('#tc .chip', v).forEach(c => c.onclick = () => { cfg.time = +c.dataset.m; cfg.inc = +c.dataset.i; paintC(); }); paintC();
       $('#go', v).onclick = () => {
@@ -67,7 +70,23 @@
       };
     };
 
+    // Ver jugadas anteriores sin deshacerlas: view = nº de medias jugadas mostradas, o null si se ve la posición actual.
+    let view = null;
+    const showPly = (k) => {
+      if (!g) return; const total = g.history().length; k = Math.max(0, Math.min(total, k));
+      board.setArrows([]);
+      if (k >= total) { view = null; board.opts.interactive = !over; board.sync(true); }
+      else {
+        view = k; board.opts.interactive = false;
+        const t = new Chess(startFen), hv = g.history({ verbose: true }); for (let i = 0; i < k; i++) t.move(hv[i]);
+        board.selected = null; board.setPosition(t.fen(), true); board.setLastMove(k ? [hv[k - 1].from, hv[k - 1].to] : null); board.setCheck(t.in_check() ? findKing(t, t.turn()) : null);
+      }
+      refresh();
+    };
+    const stepPly = (d) => { if (!g) return; const total = g.history().length; showPly((view == null ? total : view) + d); };
+    let helps = true;
     const start = (fen, color, prac) => {
+      view = null; helps = !!prac || cfg.help !== false;
       practice = prac || null; startFen = fen;
       g = new Chess(fen); me = color; over = false; eng.newGame();
       board.game = g; board.opts.movable = me; board.opts.interactive = true;
@@ -77,10 +96,11 @@
       playerBar(bb.bot, 'Tú', '', me === 'w' ? 'wk' : 'bk');
       clocks = cfg.time && !practice ? { w: cfg.time * 60, b: cfg.time * 60 } : null;
       if (clocks) { $('.clock', bb.top).hidden = false; $('.clock', bb.bot).hidden = false; paintClocks(); clearInterval(tick); let last = Date.now(); tick = setInterval(() => { if (over) return; const now = Date.now(); clocks[g.turn()] -= (now - last) / 1000; last = now; paintClocks(); if (clocks[g.turn()] <= 0) finish(g.turn() === me ? 'loss' : 'win', 'por tiempo'); }, 200); }
-      $('#pb', v).innerHTML = `${practice ? `<div class="fb info"><span class="dot">🎯</span><div>Objetivo: ${esc(practice.goal)}<small>${esc(practice.text || '')}</small></div></div>` : ''}<div id="op" class="dim" style="font-size:13px;font-weight:700"></div><div id="ml"></div><div id="pmsg"></div>`;
-      $('#pf', v).innerHTML = '<button class="btn sm" id="undo" title="Deshacer">↶ Deshacer</button><button class="btn sm" id="hint">💡 Pista</button><button class="btn sm" id="flip" title="Girar">⇅</button><button class="btn sm" id="draw">½ Tablas</button><button class="btn sm" id="resign">🏳 Abandonar</button>';
-      $('#undo', v).onclick = () => { if (thinking || over) return; g.undo(); if (g.turn() !== me) g.undo(); board.sync(); board.setArrows([]); refresh(); };
-      $('#hint', v).onclick = async () => { if (over || g.turn() !== me) return; const r = await eng.analyze(g.fen(), { depth: 16 }); if (r && r.bestmove) board.setArrows([[r.bestmove.slice(0, 2), r.bestmove.slice(2, 4), 'g']]); };
+      $('#pb', v).innerHTML = `${practice ? `<div class="fb info"><span class="dot">🎯</span><div>Objetivo: ${esc(practice.goal)}<small>${esc(practice.text || '')}</small></div></div>` : ''}<div id="op" class="dim" style="font-size:13px;font-weight:700"></div><div id="vw"></div><div id="ml"></div><div id="pmsg"></div>`;
+      $('#pf', v).innerHTML = '<div class="nav-btns" style="flex:1 0 100%"><button class="btn sm" data-n="first" title="Inicio">⏮</button><button class="btn sm" data-n="prev" title="Jugada anterior (←)">◀</button><button class="btn sm" data-n="next" title="Jugada siguiente (→)">▶</button><button class="btn sm" data-n="last" title="Posición actual">⏭</button></div>' + (helps ? '<button class="btn sm" id="undo" title="Deshacer">↶ Deshacer</button><button class="btn sm" id="hint">💡 Pista</button>' : '<span class="tag" title="Sin deshacer ni pistas">Sin ayudas</span>') + '<button class="btn sm" id="flip" title="Girar">⇅</button><button class="btn sm" id="draw">½ Tablas</button><button class="btn sm" id="resign">🏳 Abandonar</button>';
+      $$('[data-n]', v).forEach(b => b.onclick = () => { const a = b.dataset.n; a === 'first' ? showPly(0) : a === 'last' ? showPly(1e9) : stepPly(a === 'prev' ? -1 : 1); });
+      if (helps) $('#undo', v).onclick = () => { if (thinking || over) return; if (view != null) showPly(1e9); g.undo(); if (g.turn() !== me) g.undo(); board.sync(); board.setArrows([]); refresh(); };
+      if (helps) $('#hint', v).onclick = async () => { if (over || g.turn() !== me || view != null) return; const r = await eng.analyze(g.fen(), { depth: 16 }); if (r && r.bestmove) board.setArrows([[r.bestmove.slice(0, 2), r.bestmove.slice(2, 4), 'g']]); };
       $('#flip', v).onclick = () => board.flip();
       $('#resign', v).onclick = () => { if (!over) finish('loss', 'por abandono'); };
       $('#draw', v).onclick = async () => { if (over) return; const r = await eng.analyze(g.fen(), { depth: 12 }); const cp = r && r.lines[0] ? EvalUtil.toCp(r.lines[0]) * (me === 'w' ? 1 : -1) : 0; if (g.history().length > 30 && cp > -40) finish('draw', 'por acuerdo'); else toast('Stockfish rechaza las tablas'); };
@@ -90,8 +110,15 @@
     const paintClocks = () => { if (!clocks) return; const top = me === 'w' ? 'b' : 'w'; const ct = $('.clock', bb.top), cb = $('.clock', bb.bot); ct.textContent = fmtTime(clocks[top]); cb.textContent = fmtTime(clocks[me]); ct.classList.toggle('on', g.turn() === top && !over); cb.classList.toggle('on', g.turn() === me && !over); cb.classList.toggle('low', clocks[me] < 20); };
     const refresh = () => {
       const sans = g.history(); const st = new Chess(startFen);
-      moveList($('#ml', v), sans, sans.length - 1, () => { }, null, st.turn(), +startFen.split(' ')[5] || 1);
-      if (startFen === START) { const b = bookInfo(sans); $('#op', v).textContent = b.name ? 'Apertura: ' + b.name : ''; }
+      moveList($('#ml', v), sans, (view == null ? sans.length : view) - 1, (k) => showPly(k + 1), null, st.turn(), +startFen.split(' ')[5] || 1);
+      const cap = App.captures(g.history({ verbose: true }), view == null ? sans.length : view), topCol = me === 'w' ? 'b' : 'w';
+      App.paintCaptures(bb.top, topCol, cap); App.paintCaptures(bb.bot, me, cap);
+      const vw = $('#vw', v);
+      if (vw) {
+        if (view == null) vw.innerHTML = '';
+        else { const behind = sans.length - view; vw.innerHTML = `<div class="fb info" style="animation:none;padding:10px 12px;font-size:14px"><span class="dot" style="width:30px;height:30px;font-size:15px">👁</span><div>Estás viendo ${view ? 'la jugada ' + Math.ceil(view / 2) + (view % 2 ? ' de blancas' : ' de negras') : 'la posición inicial'}<small>${over ? 'Partida terminada.' : 'La partida sigue igual: nada se ha deshecho.'} ${behind} ${behind > 1 ? 'jugadas' : 'jugada'} después.</small></div><button class="btn pri sm" id="vwBack" style="margin-left:auto">Volver</button></div>`; $('#vwBack', v).onclick = () => showPly(1e9); }
+      }
+      if (startFen === START) { const b = bookInfo(sans); $('#op', v).textContent = b.name && (helps || over) ? 'Apertura: ' + b.name : ''; }
       paintClocks();
     };
     const checkEnd = () => {
@@ -120,11 +147,11 @@
       const m = g.move(uciToMove(r.bestmove)); thinking = false;
       if (!m) return;
       if (clocks) clocks[m.color] += cfg.inc;
-      playSound(m); board.sync(); refresh(); checkEnd();
+      playSound(m); if (view == null) board.sync(); else toast('Stockfish ha movido'); refresh(); checkEnd();
     };
     const finish = (res, why) => {
       if (over) return; over = true; clearInterval(tick); board.opts.interactive = false; paintClocks(); Sound.end();
-      const pgn = g.pgn(), gd = Date.now(); S().games.push({ pgn, res, why, me, lvl: practice ? 0 : cfg.lvl, d: gd, fen: startFen !== START ? startFen : null }); if (S().games.length > 200) S().games.shift(); save(); bump(); App.track('game', { res });
+      const pgn = g.pgn(), gd = Date.now(); S().games.push({ pgn, res, why, me, noHelp: !helps || undefined, lvl: practice ? 0 : cfg.lvl, d: gd, fen: startFen !== START ? startFen : null }); if (S().games.length > 200) S().games.shift(); save(); bump(); App.track('game', { res });
       let title = res === 'win' ? '¡Has ganado!' : res === 'loss' ? 'Has perdido' : 'Tablas', icon = res === 'win' ? '🏆' : res === 'loss' ? '✕' : '½';
       let sub = why;
       if (practice) { const goal = practice.goal; const okGoal = (goal === 'tablas' && res !== 'loss') || ((goal === 'ganar' || goal === 'mate') && res === 'win'); title = okGoal ? 'Objetivo cumplido' : 'Objetivo no cumplido'; icon = okGoal ? '★' : '✕'; sub = `${why}. ${okGoal ? 'Has demostrado la técnica.' : 'Repasa la lección y vuelve a intentarlo.'}`; }
@@ -133,9 +160,11 @@
       $('#rev', v).onclick = () => { App.reviewGame = { pgn, fen: startFen, me, res, d: gd }; location.hash = '#analisis'; };
       $('#again', v).onclick = () => practice ? start(practice.fen, practice.side, practice) : setup();
     };
+    const kn = (e) => { if (!g || e.target.closest('input,textarea,select')) return; if (e.key === 'ArrowLeft') { stepPly(-1); e.preventDefault(); } else if (e.key === 'ArrowRight') { stepPly(1); e.preventDefault(); } };
+    document.addEventListener('keydown', kn);
     const pg = App.pendingGame; App.pendingGame = null;
     if (pg) start(pg.fen, pg.side || new Chess(pg.fen).turn(), pg); else setup();
-    return () => { clearInterval(tick); over = true; window.removeEventListener('engine-ready', engTag); };
+    return () => { clearInterval(tick); over = true; window.removeEventListener('engine-ready', engTag); document.removeEventListener('keydown', kn); };
   };
 
   /* ======================= ANÁLISIS ======================= */

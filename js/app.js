@@ -170,7 +170,26 @@
     top.textContent = showBottom ? '' : txt.replace('-', ''); bot.textContent = showBottom ? txt.replace('-', '') : '';
     top.style.color = flip ? '#403d39' : '#fff'; bot.style.color = flip ? '#fff' : '#403d39';
   }
-  function playerBar(el, name, sub, piece) { if (!el) return; el.innerHTML = `<span class="av">${pIc(piece)}</span><span>${esc(name)} <span class="dim" style="font-weight:600">${esc(sub || '')}</span></span><span class="clock" hidden>0:00</span>`; }
+  function playerBar(el, name, sub, piece) { if (!el) return; el.innerHTML = `<span class="av">${pIc(piece)}</span><span class="pn"><span>${esc(name)} <span class="dim" style="font-weight:600">${esc(sub || '')}</span></span><span class="caps"></span></span><span class="clock" hidden>0:00</span>`; }
+  // Piezas capturadas por cada bando y ventaja de material, tras las primeras «ply» medias jugadas.
+  const CAP_VAL = { p: 1, n: 3, b: 3, r: 5, q: 9 }, CAP_ORD = 'pnbrq';
+  function captures(hist, ply) {
+    const by = { w: [], b: [] }; let diff = 0; // diff > 0: ventaja de las blancas
+    hist.slice(0, ply).forEach(m => {
+      if (m.captured) { by[m.color].push(m.captured); diff += (m.color === 'w' ? 1 : -1) * CAP_VAL[m.captured]; }
+      if (m.promotion) diff += (m.color === 'w' ? 1 : -1) * (CAP_VAL[m.promotion] - 1);
+    });
+    for (const c of ['w', 'b']) by[c].sort((x, y) => CAP_ORD.indexOf(x) - CAP_ORD.indexOf(y));
+    return { by, diff };
+  }
+  // Pinta en la barra de un jugador (color «col») las piezas rivales que ha capturado y su ventaja.
+  function paintCaptures(el, col, cap) {
+    const box = el && el.querySelector('.caps'); if (!box) return;
+    const opp = col === 'w' ? 'b' : 'w', adv = (col === 'w' ? 1 : -1) * cap.diff, P = window.PIECE_SVG || {};
+    let html = '', last = '';
+    cap.by[col].forEach(t => { html += `<span class="cp${t !== last ? ' gap' : ''}">${P[opp + t] || ''}</span>`; last = t; });
+    box.innerHTML = html + (adv > 0 ? `<span class="adv">+${adv}</span>` : '');
+  }
   function playSound(r) { if (!r) return; if (r.san.includes('#')) Sound.end(); else if (r.san.includes('+')) Sound.check(); else if (r.flags.includes('k') || r.flags.includes('q')) Sound.castle(); else if (r.captured) Sound.capture(); else Sound.move(); }
 
   /* Lista de jugadas navegable */
@@ -401,7 +420,7 @@
   };
 
   /* ---------- Exportar API para otros módulos ---------- */
-  const App = window.App = { rawSave: () => rawSave(), coach, COACH_SVG, $, $$, h, esc, rnd, shuffle, fmtTime, today, S, save, bump, san, fixMv, lineText, uciToMove, toast, VIEWS, boardBox, setEval, playerBar, playSound, moveList, proscons, statBar, ratePuzzle, themeName, THEME_ES, PZ_BY_ID, IC, pIc, route, areaRoute, engine: null,
+  const App = window.App = { rawSave: () => rawSave(), coach, COACH_SVG, $, $$, h, esc, rnd, shuffle, fmtTime, today, S, save, bump, san, fixMv, lineText, uciToMove, toast, VIEWS, boardBox, setEval, playerBar, playSound, moveList, proscons, statBar, ratePuzzle, captures, paintCaptures, themeName, THEME_ES, PZ_BY_ID, IC, pIc, route, areaRoute, engine: null,
     getEngine() { if (!App.engine) App.engine = new Engine(); return App.engine; }, setCleanup(fn) { cleanup = fn; },
     isView(k) { return (location.hash || '#inicio').slice(1).split('-')[0] === k; } };
   Object.defineProperty(App, 'S', { get: () => S, set: (x) => { S = x; } });

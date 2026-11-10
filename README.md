@@ -8,7 +8,7 @@ Academia de ajedrez completa que funciona en el navegador, se instala como app e
 
 | Sección | Contenido |
 |---|---|
-| **Jugar** | Partidas contra Stockfish 19 NNUE en 10 niveles (≈400 a fuerza máxima), con reloj, pistas y deshacer |
+| **Jugar** | Partidas contra Stockfish 19 NNUE en 10 niveles (≈400 a fuerza máxima), con reloj, pistas y deshacer, o en modo **sin ayudas**. Durante la partida puedes retroceder para ver las jugadas anteriores sin deshacerlas, y junto a cada jugador se ven las piezas capturadas y la ventaja de material |
 | **Análisis** | Barra de evaluación, 3 mejores líneas y revisión de la partida jugada a jugada (brillante, mejor, imprecisión, error, error grave) con la precisión de cada bando |
 | **Importar y exportar** | Pega o abre archivos PGN de chess.com, Lichess o ChessBase (con varias partidas); copia el PGN o el FEN para llevarlos a otra web |
 | **Puzles** | Más de 3.400 puzles verificados con Stockfish, de 400 a 2800 de Elo y de más de 50 temas, con rating propio, pistas, modo a ciegas y repaso de fallos |
