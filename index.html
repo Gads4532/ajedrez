@@ -10,6 +10,7 @@
 <meta name="description" content="Academia de ajedrez gratuita: puzles con rating, aperturas, estrategia, finales, metodologías profesionales y Stockfish 19.">
 <meta charset="utf-8">
 <title>Ajedrez Pro Academia</title>
+<script>try{var b=(JSON.parse(localStorage.getItem('ajedrezpro_v1')||'{}').settings||{}).board;if(b)document.documentElement.dataset.board=b}catch(e){}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap">
@@ -22,7 +23,7 @@
   --green:#81b64c; --green-d:#45753c; --green-h:#95c95f;
   --gray-btn:#3d3b38; --gray-btn-d:#2a2926;
   --red:#ca3431; --yellow:#f0c15c; --blue:#5c8bb0; --teal:#1baca6;
-  --sq-l:#ebecd0; --sq-d:#739552; --last:rgba(255,255,51,.5); --sel:rgba(255,255,51,.5); --coord-l:#739552; --coord-d:#ebecd0;
+  --sq-l:#f0d9b5; --sq-d:#b58863; --last:rgba(155,199,0,.41); --sel:rgba(20,85,30,.5); --coord-l:#b58863; --coord-d:#f0d9b5;
   --f-ui:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --r:6px;
   color-scheme:dark;
@@ -169,6 +170,9 @@ label.ck{display:inline-flex;gap:8px;align-items:center;color:var(--fg2);font-si
 .cb-sq{position:relative}
 .cb-sq.light{background:var(--sq-l)} .cb-sq.dark{background:var(--sq-d)}
 .cb-sq.last::before,.cb-sq.sel::before{content:"";position:absolute;inset:0;background:var(--last);animation:fi .18s ease-out}
+.cb-sq.sel::before{background:var(--sel)}
+/* Tablero verde (opcional, en Ajustes > Tablero) */
+html[data-board="verde"]{--sq-l:#ebecd0; --sq-d:#739552; --last:rgba(255,255,51,.5); --sel:rgba(255,255,51,.5); --coord-l:#739552; --coord-d:#ebecd0}
 .cb-sq.check::after{content:"";position:absolute;inset:0;background:radial-gradient(circle,#ff0000 0%,#e70000 25%,rgba(169,0,0,0) 89%,rgba(158,0,0,0) 100%);animation:chk 1.2s ease-in-out infinite alternate}
 @keyframes chk{from{opacity:.75}to{opacity:1}}
 .cb-sq.mark::after{content:"";position:absolute;inset:0;background:rgba(235,97,80,.8)}
