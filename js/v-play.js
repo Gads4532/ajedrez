@@ -12,12 +12,19 @@
 
   /* ---------- Libro: detectar apertura ---------- */
   const BOOK = []; (window.OPENINGS || []).forEach(o => { BOOK.push({ name: o.name, moves: o.moves }); (o.variations || []).forEach(v => BOOK.push({ name: o.name + ': ' + v.name, moves: v.moves })); });
+  const GENERIC = { 'e4 e5': 'Apertura abierta (1.e4 e5)', 'e4 e5 Nf3 Nc6': 'Apertura abierta (2.Cf3 Cc6)', 'd4 d5': 'Apertura cerrada (1.d4 d5)', 'd4 d5 c4': 'Gambito de Dama', 'd4 Nf6': 'Defensa india', 'd4 Nf6 c4 g6': 'India de Rey / Grünfeld', 'd4 Nf6 c4 e6': 'Defensas indias con ...e6' };
   const normSan = (s) => s.replace(/[+#?!]/g, '');
   function bookInfo(sans) {
     let best = null, len = 0;
     for (const b of BOOK) { let k = 0; while (k < sans.length && k < b.moves.length && normSan(sans[k]) === normSan(b.moves[k])) k++; if (k > len && k === Math.min(b.moves.length, k)) { len = k; best = b; } }
     // El nombre solo vale si las jugadas coincidentes identifican una única apertura (p. ej. 1.d4 a secas no).
-    if (best) { const pre = sans.slice(0, len).map(normSan).join(' '); const fam = new Set(BOOK.filter(b => b.moves.length >= len && b.moves.slice(0, len).map(normSan).join(' ') === pre).map(b => b.name.split(':')[0])); if (fam.size > 1) best = null; }
+    if (best) { const pre = sans.slice(0, len).map(normSan).join(' '); const fam = new Set(BOOK.filter(b => b.moves.length >= len && b.moves.slice(0, len).map(normSan).join(' ') === pre).map(b => b.name.split(':')[0])); if (fam.size > 1) {
+        // Varias aperturas comparten estas jugadas: usa las palabras iniciales comunes (p. ej. «Siciliana») o un nombre genérico.
+        const ws = [...fam].map(x => x.split(' ')); let k = 0; while (ws.every(w => w[k] && w[k] === ws[0][k])) k++;
+        const common = ws[0].slice(0, k).join(' ').replace(/\s+(de|del|la|el)$/, '');
+        let gen = null; for (let j = len; j > 0 && !gen; j--) gen = GENERIC[sans.slice(0, j).map(normSan).join(' ')] || null;
+        best = k && !/^(Defensa|Apertura|Gambito|Sistema|Ataque|Contragambito)$/.test(common) ? { name: common } : gen ? { name: gen } : null;
+      } }
     return { name: best ? best.name : null, len };
   }
   App.bookInfo = bookInfo;
