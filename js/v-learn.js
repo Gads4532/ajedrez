@@ -156,7 +156,7 @@
           $('#lerr', v).textContent = errors ? errors + ' error(es)' : '';
           if (k >= line.length) {
             board.opts.interactive = false; Sound.end(); App.track('open');
-            App.coach($('#lco2', v), 'ok', '¡Línea completada!', `Has jugado las ${line.length} jugadas${errors ? ` con ${errors} error(es)` : ' sin errores'}. Prueba ahora con menos ayuda, y cuando la domines pasa a <b>Entrenar</b> para fijarla con repetición espaciada.`);
+            App.coach($('#lco2', v), 'ok', '¡Línea completada!', `Jugaste las ${line.length} jugadas${errors ? ` con ${errors} error(es)` : ' sin errores'}. Prueba ahora con menos ayuda, y cuando la domines pasa a <b>Entrenar</b> para fijarla con repetición espaciada.`);
             return;
           }
           const m = new Chess(g.fen()).move(line[k], { sloppy: true });

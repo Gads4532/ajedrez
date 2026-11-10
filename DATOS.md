@@ -76,3 +76,7 @@ Se edita a mano cuando hay novedades (ver `docs/ANALISIS.md`, apartado Mantenimi
 
 ## Partidas y su análisis → `S.games[]`
 El formato de cada partida guardada y del resumen de su revisión (`rev`) está en `docs/ANALISIS.md`, apartado 3.
+
+## Idioma
+Todos los textos van en **español latinoamericano**: «ustedes» en lugar de «vosotros» (se turnan, resuelven), computadora, celular,
+presionar en lugar de pulsar, error en lugar de fallo, y pretérito simple en los mensajes (¡Ganaste!, Perdiste).

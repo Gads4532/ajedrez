@@ -64,7 +64,7 @@
       <div class="sp-body">
         <div id="fb"></div>
         <div id="info" class="muted" style="font-size:14px"></div>
-        <div><div class="sec-t" style="margin-bottom:6px">Modo</div><div class="chips" id="modes"><button class="chip" data-m="adapt">Adaptativo</button><button class="chip" data-m="theme">Por tema</button><button class="chip" data-m="review">Repasar fallos</button></div></div>
+        <div><div class="sec-t" style="margin-bottom:6px">Modo</div><div class="chips" id="modes"><button class="chip" data-m="adapt">Adaptativo</button><button class="chip" data-m="theme">Por tema</button><button class="chip" data-m="review">Repasar errores</button></div></div>
         <div id="themeBox" hidden><select id="themeSel" style="width:100%"></select></div>
         <label class="ck"><input type="checkbox" id="blind"> Modo a ciegas (las piezas desaparecen a los 6 s)</label>
         <div id="themesOut"></div>
@@ -89,7 +89,7 @@
         onDone(ok) {
           board.setBlind(false);
           if (!rated) { rated = true; const d = ratePuzzle(p, ok); fb(ok ? 'win' : 'ok', ok ? '★' : '✓', ok ? '¡Resuelto!' : 'Completado', `Rating ${S().pz.rating} (${d >= 0 ? '+' : ''}${d})`); }
-          else fb('ok', '✓', 'Completado', 'Este puzle ya contó como fallo.');
+          else fb('ok', '✓', 'Completado', 'Este puzle ya contó como error.');
           $('#rt', v).textContent = S().pz.rating; showThemes(p);
         }
       });
@@ -130,7 +130,7 @@
     let timer = null, run = null;
     const intro = () => {
       const best = S().rush.best || {};
-      $('#rb', v).innerHTML = `<p class="muted" style="margin:0">Resuelve el máximo de puzles. La dificultad sube con cada acierto. Tres fallos y se acaba. Entrena la <b>velocidad de reconocimiento de patrones</b>, que es lo que decide las partidas rápidas y los apuros de tiempo.</p>
+      $('#rb', v).innerHTML = `<p class="muted" style="margin:0">Resuelve el máximo de puzles. La dificultad sube con cada acierto. Tres errores y se acaba. Entrena la <b>velocidad de reconocimiento de patrones</b>, que es lo que decide las partidas rápidas y los apuros de tiempo.</p>
         <div><div class="sec-t" style="margin-bottom:6px">Tema</div><select id="rth" style="width:100%"><option value="">Todos los temas</option>${Object.keys(THEME_ES).filter(t => PUZZLES.filter(p => (p.themes || []).includes(t)).length >= 15).map(t => `<option value="${t}">${esc(themeName(t))}</option>`).join('')}</select></div>
         <div class="grid" style="gap:10px">${[['3', '3 minutos'], ['5', '5 minutos'], ['surv', 'Supervivencia (sin reloj)']].map(([k, t]) => `<button class="btn ${k === '3' ? 'pri' : ''} big" data-k="${k}">${t}<span style="font-size:13px;opacity:.8;margin-left:auto">Récord ${best[k] || 0}</span></button>`).join('')}</div>`;
       $('#rf', v).innerHTML = '';
@@ -174,7 +174,7 @@
       if (rec) best[run.k] = run.score; S().rush.best = best; S().rush.runs.push({ k: run.k, s: run.score, d: Date.now() }); bump(run.results.length); App.track('rush', { score: run.score });
       Sound.end();
       $('#rb', v).innerHTML = `<div class="fb ${rec ? 'win' : 'ok'}"><span class="dot">${rec ? '🏆' : '✓'}</span><div>${run.score} puzles resueltos<small>${rec ? '¡Nuevo récord personal!' : 'Récord: ' + best[run.k]}</small></div></div><div class="rush-list">${run.results.map(r => `<span class="${r ? 'ok' : 'ko'}">${r ? '✓' : '✕'}</span>`).join('')}</div>
-        <p class="muted" style="font-size:14px">Consejo: los puzles que fallas aquí quedan en “Repasar fallos” del modo Puzles. Resuélvelos despacio, sin reloj.</p>`;
+        <p class="muted" style="font-size:14px">Consejo: los puzles que fallas aquí quedan en “Repasar errores” del modo Puzles. Resuélvelos despacio, sin reloj.</p>`;
       $('#rf', v).innerHTML = '<button class="btn pri" id="ag">Jugar otra vez</button>'; $('#ag', v).onclick = intro;
     };
     intro();
@@ -239,7 +239,7 @@
       $('#wfb', v).innerHTML = `<div class="fb info"><span class="dot">${colorOf(p) === 'w' ? '♔' : '♚'}</span><div>Juegan ${colorOf(p) === 'w' ? 'blancas' : 'negras'}<small>rating ${p.rating}</small></div></div>`;
       let failed = false;
       const run = PuzzleRunner(board, p, {
-        onWrong() { failed = true; $('#wfb', v).innerHTML = '<div class="fb bad"><span class="dot">✕</span><div>Incorrecto<small>Cuenta como fallo; sigue intentándolo.</small></div></div>'; },
+        onWrong() { failed = true; $('#wfb', v).innerHTML = '<div class="fb bad"><span class="dot">✕</span><div>Incorrecto<small>Cuenta como error; sigue intentándolo.</small></div></div>'; },
         onDone(ok) { if (ok && !failed) cyc.ok++; cyc.pos++; save(); bump(); setTimeout(nextW, 600); }
       });
       $('#wskip', v).onclick = () => { failed = true; run.playAll(); };

@@ -116,7 +116,7 @@
     const stopAll = () => { timers.forEach(t => { clearInterval(t); clearTimeout(t); }); timers = []; };
     const pick = () => {
       stopAll();
-      $('#bb', v).innerHTML = `<p class="muted" style="margin:0">Elige rival. Ambos resolvéis puzles de dificultad creciente durante 3 minutos; el bot acierta o falla según su Elo. Tres fallos y quedas eliminado.</p>
+      $('#bb', v).innerHTML = `<p class="muted" style="margin:0">Elige rival. Ambos resuelven puzles de dificultad creciente durante 3 minutos; el bot acierta o falla según su Elo. Tres errores y quedas eliminado.</p>
         <div style="display:grid;gap:8px">${BOTS.map((b, i) => `<div class="list-row" data-b="${i}">${botFace(b)}<div class="grow"><h3>${esc(b.n)} <span class="dim" style="font-weight:600">(${b.elo})</span></h3><p>${esc(b.s)}</p></div>${(S().battles || {})[b.n] ? '<span class="tag g">Vencido</span>' : ''}</div>`).join('')}</div>`;
       $('#bf', v).innerHTML = '';
       $$('[data-b]', v).forEach(r => r.onclick = () => start(BOTS[+r.dataset.b]));
@@ -207,7 +207,7 @@
       const fin = () => {
         $('#rbar', v).style.width = '100%'; const pass = ok >= 8;
         if (pass && (S().route[t] || 0) <= tier) { S().route[t] = tier + 1; App.track('route', { stars: stars() }); Sound.end(); }
-        App.coach($('#rco', v), pass ? 'ok' : 'ko', pass ? `¡Estrella de ${tn}!` : `${ok}/10: necesitas 8`, pass ? 'Has dominado este nivel. Prueba el siguiente o pasa a otro tema.' : 'Repasa la lección de este tema en Táctica y vuelve a intentarlo.');
+        App.coach($('#rco', v), pass ? 'ok' : 'ko', pass ? `¡Estrella de ${tn}!` : `${ok}/10: necesitas 8`, pass ? 'Dominaste este nivel. Prueba el siguiente o pasa a otro tema.' : 'Repasa la lección de este tema en Táctica y vuelve a intentarlo.');
         $('#rf', v).innerHTML = `<button class="btn pri" id="ra">${pass && tier < 2 ? 'Siguiente nivel' : 'Repetir'}</button><button class="btn" id="rm">Mapa</button>`;
         $('#ra', v).onclick = () => play([t, name]); $('#rm', v).onclick = map;
       };
@@ -225,7 +225,7 @@
     const board = bb.board; board.opts.interactive = false; board.setPosition('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', false);
     let st = null, tmr = null;
     const setup = () => {
-      $('#db', v).innerHTML = `<p class="muted" style="margin:0">Dos jugadores, un dispositivo. Os turnáis puzles de la misma dificultad, que sube cada ronda. Cada uno tiene 3 vidas y 45 segundos por puzle.</p>
+      $('#db', v).innerHTML = `<p class="muted" style="margin:0">Dos jugadores, un dispositivo. Se turnan puzles de la misma dificultad, que sube cada ronda. Cada uno tiene 3 vidas y 45 segundos por puzle.</p>
         <input type="text" id="n1" value="Jugador 1"><input type="text" id="n2" value="Jugador 2">
         <div class="chips" id="dl">${[[600, 'Fácil'], [1100, 'Medio'], [1600, 'Difícil'], [2000, 'Experto']].map(([r, t], i) => `<button class="chip ${i === 1 ? 'on' : ''}" data-r="${r}">${t}</button>`).join('')}</div>`;
       $$('#dl .chip', v).forEach(c => c.onclick = () => { $$('#dl .chip', v).forEach(x => x.classList.remove('on')); c.classList.add('on'); });

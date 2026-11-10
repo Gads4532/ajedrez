@@ -121,7 +121,7 @@
   /* ---------- Cuenta ---------- */
   function accountForm(mode = 'in') {
     const d = dialog(`<h2 style="font-size:22px;font-weight:900;margin-bottom:6px">${mode === 'up' ? 'Crear cuenta' : 'Iniciar sesión'}</h2>
-      <p class="muted" style="margin:0 0 14px;font-size:14px">Con una cuenta tu progreso (rating, puzles, lecciones, partidas, logros) se guarda en la nube y lo ves en cualquier teléfono u ordenador. Es la misma cuenta de Organización Personal.</p>
+      <p class="muted" style="margin:0 0 14px;font-size:14px">Con una cuenta tu progreso (rating, puzles, lecciones, partidas, logros) se guarda en la nube y lo ves en cualquier teléfono o computadora. Es la misma cuenta de Organización Personal.</p>
       <div style="display:grid;gap:10px"><label class="fl">Correo<input id="a-email" type="email" autocomplete="email" placeholder="tu@correo.com"></label>
       <label class="fl">Contraseña<input id="a-pass" type="password" autocomplete="${mode === 'up' ? 'new-password' : 'current-password'}" placeholder="Mínimo 6 caracteres"></label></div>
       <p class="muted" id="a-msg" style="min-height:1.4em;margin:10px 0;font-size:14px"></p>

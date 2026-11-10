@@ -1,6 +1,6 @@
 # ♞ Ajedrez Pro Academia
 
-Academia de ajedrez completa que funciona en el navegador, se instala como app en el móvil o el ordenador y sigue funcionando sin conexión.
+Academia de ajedrez completa que funciona en el navegador, se instala como app en el celular o la computadora y sigue funcionando sin conexión.
 
 **▶ Usar la app:** https://gads4532.github.io/ajedrez/
 
@@ -11,14 +11,14 @@ Academia de ajedrez completa que funciona en el navegador, se instala como app e
 | **Jugar** | Partidas contra Stockfish 19 NNUE en 10 niveles (≈400 a fuerza máxima), con reloj, pistas y deshacer, o en modo **sin ayudas**. Durante la partida puedes retroceder para ver las jugadas anteriores sin deshacerlas, y junto a cada jugador se ven las piezas capturadas y la ventaja de material |
 | **Análisis** | Barra de evaluación, 3 mejores líneas y revisión de la partida jugada a jugada (brillante, mejor, imprecisión, error, error grave) con la precisión de cada bando |
 | **Importar y exportar** | Pega o abre archivos PGN de chess.com, Lichess o ChessBase (con varias partidas); copia el PGN o el FEN para llevarlos a otra web |
-| **Puzles** | Más de 3.400 puzles verificados con Stockfish, de 400 a 2800 de Elo y de más de 50 temas, con rating propio, pistas, modo a ciegas y repaso de fallos |
+| **Puzles** | Más de 3.400 puzles verificados con Stockfish, de 400 a 2800 de Elo y de más de 50 temas, con rating propio, pistas, modo a ciegas y repaso de errores |
 | **Juegos con puzles** | Contrarreloj (también por tema), batalla contra 7 bots, ruta de temas con estrellas, duelo para dos jugadores y método Woodpecker |
 | **Desafíos** | Misiones diarias, 25 logros, experiencia y niveles |
 | **Visión y cálculo** | Coordenadas, nombrar casillas, color de casilla, rutas de caballo, **captura** (capturar todos los peones con una pieza en el mínimo de jugadas), memoria de posiciones y cálculo a ciegas |
 | **Aperturas** | 38 aperturas con estilo, objetivo, estadísticas aproximadas, ideas, planes, pros y contras, variantes y trampas. Modo **Aprender** (mueves las piezas de ambos bandos, solo blancas o solo negras, guiado por coordenadas: «Caballo de g1 a f3», con flecha opcional y el nombre de cada casilla en el tablero) y modo **Entrenar** con repetición espaciada |
 | **Para qué sirve cada jugada** | Cada jugada de aperturas y lecciones lleva etiquetas sencillas (Centro, Desarrollo, Rey seguro, Gambito, Clavada, Fianchetto…) con una explicación para principiantes, y cada apertura muestra su estilo |
 | **Tablero** | Tablero verde y crema (o marrón, en Ajustes → Tablero) con las piezas clásicas Cburnett, las mismas de Lichess (o modernas, planas o **tus propias imágenes**, en Ajustes → Piezas) con animaciones suaves: deslizamiento según la distancia, pieza que se levanta al arrastrar, capturas que se desvanecen y jaque con pulso |
-| **Cuenta** | Crea una cuenta con correo y contraseña (la misma de Organización Personal) y tu progreso se sincroniza entre el teléfono y el ordenador |
+| **Cuenta** | Crea una cuenta con correo y contraseña (la misma de Organización Personal) y tu progreso se sincroniza entre el teléfono y la computadora |
 | **Estrategia** | Test de estilo, repertorio por perfil, familias de aperturas, 17 elementos del juego y comparador de aperturas |
 | **Lecciones** | Lecciones por secciones, como en las grandes plataformas: **Aprender a jugar** (desde cero), principios de apertura, táctica, medio juego y estrategia, **ataque**, finales y **partidas magistrales** comentadas jugada a jugada, con un entrenador (que se puede ocultar) y práctica contra el motor |
 | **Mi análisis** | Recoge el análisis de todas tus partidas (las de la app y las que importes de chess.com, Lichess o un PGN) y detecta tendencias: evolución de la precisión, fase más débil, en qué jugadas fallas, errores que repites, aperturas, color y gestión de la ventaja. Genera un diagnóstico, un informe semanal y un plan de mejora con una lección y un ejercicio por cada punto débil. Documentado en [`docs/ANALISIS.md`](docs/ANALISIS.md) |
@@ -32,7 +32,7 @@ Academia de ajedrez completa que funciona en el navegador, se instala como app e
 
 En la barra lateral, **Crear cuenta / Entrar**. Con la sesión iniciada, cada cambio se sube a la nube a los pocos segundos y los demás dispositivos lo traen cada 30 segundos o al volver a la app. Nunca se elige entre un dispositivo y otro: se combinan.
 
-**Preparación (una sola vez):** en Supabase → SQL Editor → New query, pega el contenido de `supabase.sql` y pulsa **Run**. Crea la tabla `ajedrez_estados`, separada de la de Organización Personal.
+**Preparación (una sola vez):** en Supabase → SQL Editor → New query, pega el contenido de `supabase.sql` y presiona **Run**. Crea la tabla `ajedrez_estados`, separada de la de Organización Personal.
 
 ## Actualizaciones
 
@@ -43,15 +43,15 @@ Cada vez que se sube una versión nueva a este repositorio, GitHub Pages la publ
 Al entrar en la página aparece el aviso **Instala Ajedrez Pro**.
 
 
-- **Móvil (Android/Chrome):** abre el enlace, pulsa ⋮ y luego **Instalar app** (o **Añadir a pantalla de inicio**).
-- **iPhone/iPad (Safari):** abre el enlace, pulsa **Compartir** y luego **Añadir a pantalla de inicio**.
-- **Ordenador (Chrome/Edge):** pulsa el icono de instalar de la barra de direcciones, o el botón **⬇ Instalar app** de la barra lateral.
+- **Celular (Android/Chrome):** abre el enlace, presiona ⋮ y luego **Instalar app** (o **Añadir a pantalla de inicio**).
+- **iPhone/iPad (Safari):** abre el enlace, presiona **Compartir** y luego **Añadir a pantalla de inicio**.
+- **Computadora (Chrome/Edge):** presiona el icono de instalar de la barra de direcciones, o el botón **⬇ Instalar app** de la barra lateral.
 
 Después de abrirla una vez con conexión, funciona sin internet.
 
-## Descargar y usar en tu ordenador
+## Descargar y usar en tu computadora
 
-1. Pulsa **Code → Download ZIP** en esta página y descomprímelo.
+1. Presiona **Code → Download ZIP** en esta página y descomprímelo.
 2. Necesitas [Python 3](https://www.python.org/downloads/), porque el motor no se puede cargar abriendo el archivo con doble clic.
 3. Windows: haz doble clic en `iniciar-windows.bat`. Mac/Linux: ejecuta `./iniciar-mac-linux.sh`.
 4. Se abrirá `http://localhost:8080` en tu navegador.

@@ -661,7 +661,7 @@
     summary: 'Una defensa puede aguantar en un solo sector; amenazar en los dos flancos y cambiar el frente de ataque en el momento justo desborda al rival.',
     html: '<p>Las posiciones cerradas suelen ofrecer <b>dos rupturas posibles</b>, una en cada flanco. El bando que sabe preparar ambas y elegir cuál ejecutar obliga al rival a repartir sus fuerzas. La idea es sencilla: si el rival concentra sus piezas en defender un flanco, el otro queda debilitado.</p>' +
       '<h4>Por qué funciona</h4>' +
-      '<ul><li>El bando con <b>más espacio</b> traslada sus piezas de un flanco a otro más deprisa que el defensor.</li>' +
+      '<ul><li>El bando con <b>más espacio</b> traslada sus piezas de un flanco a otro más rápido que el defensor.</li>' +
       '<li>Una amenaza en un flanco obliga a hacer concesiones (movimientos de peones, piezas pasivas) que se pagan luego en el otro.</li>' +
       '<li>El defensor no puede saber dónde llegará el golpe y tiene que cubrirlo todo.</li></ul>' +
       '<h4>Cómo hacerlo en la práctica</h4>' +

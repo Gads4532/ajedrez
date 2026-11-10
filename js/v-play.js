@@ -152,9 +152,9 @@
     const finish = (res, why) => {
       if (over) return; over = true; clearInterval(tick); board.opts.interactive = false; paintClocks(); Sound.end();
       const pgn = g.pgn(), gd = Date.now(); S().games.push({ pgn, res, why, me, noHelp: !helps || undefined, lvl: practice ? 0 : cfg.lvl, d: gd, fen: startFen !== START ? startFen : null }); if (S().games.length > 200) S().games.shift(); save(); bump(); App.track('game', { res });
-      let title = res === 'win' ? '¡Has ganado!' : res === 'loss' ? 'Has perdido' : 'Tablas', icon = res === 'win' ? '🏆' : res === 'loss' ? '✕' : '½';
+      let title = res === 'win' ? '¡Ganaste!' : res === 'loss' ? 'Perdiste' : 'Tablas', icon = res === 'win' ? '🏆' : res === 'loss' ? '✕' : '½';
       let sub = why;
-      if (practice) { const goal = practice.goal; const okGoal = (goal === 'tablas' && res !== 'loss') || ((goal === 'ganar' || goal === 'mate') && res === 'win'); title = okGoal ? 'Objetivo cumplido' : 'Objetivo no cumplido'; icon = okGoal ? '★' : '✕'; sub = `${why}. ${okGoal ? 'Has demostrado la técnica.' : 'Repasa la lección y vuelve a intentarlo.'}`; }
+      if (practice) { const goal = practice.goal; const okGoal = (goal === 'tablas' && res !== 'loss') || ((goal === 'ganar' || goal === 'mate') && res === 'win'); title = okGoal ? 'Objetivo cumplido' : 'Objetivo no cumplido'; icon = okGoal ? '★' : '✕'; sub = `${why}. ${okGoal ? 'Demostraste la técnica.' : 'Repasa la lección y vuelve a intentarlo.'}`; }
       $('#pmsg', v).innerHTML = `<div class="fb ${res === 'win' || icon === '★' ? 'win' : res === 'loss' ? 'bad' : 'info'}"><span class="dot">${icon}</span><div>${title}<small>${esc(sub)}</small></div></div>`;
       $('#pf', v).innerHTML = `<button class="btn pri" id="rev">Revisar partida</button><button class="btn" id="again">${practice ? 'Reintentar' : 'Nueva partida'}</button>${practice && practice.back ? `<a class="btn ghost" href="${practice.back}">Volver a la lección</a>` : ''}`;
       $('#rev', v).onclick = () => { App.reviewGame = { pgn, fen: startFen, me, res, d: gd }; location.hash = '#analisis'; };
@@ -203,7 +203,7 @@
       if (retry) {
         const rt = retry; const r = g.move({ from, to, promotion: promotion || 'q' }); if (!r) return false; playSound(r);
         const uci = r.from + r.to + (r.promotion || ''); const fenAfter = g.fen();
-        const show = (ok, msg) => { $('#cmt', v).innerHTML = `<div class="fb ${ok ? 'ok' : 'bad'}" style="animation:none"><span class="dot">${ok ? '✓' : '✕'}</span><div>${msg}<small>${ok ? '' : 'Inténtalo otra vez o pulsa «Ver la mejor».'}</small></div></div><div class="rv-acts"><button class="btn sm" id="rtAgain">↻ Otra vez</button><button class="btn sm ghost" id="rtBack">Volver a la partida</button></div>`;
+        const show = (ok, msg) => { $('#cmt', v).innerHTML = `<div class="fb ${ok ? 'ok' : 'bad'}" style="animation:none"><span class="dot">${ok ? '✓' : '✕'}</span><div>${msg}<small>${ok ? '' : 'Inténtalo otra vez o presiona «Ver la mejor».'}</small></div></div><div class="rv-acts"><button class="btn sm" id="rtAgain">↻ Otra vez</button><button class="btn sm ghost" id="rtBack">Volver a la partida</button></div>`;
           $('#rtAgain', v).onclick = () => { g.load(fens[rt.i]); board.setPosition(fens[rt.i], true); board.setArrows([]); retry = rt; $('#cmt', v).innerHTML = '<div class="fb info" style="animation:none"><span class="dot">↻</span><div>Busca la mejor jugada</div></div>'; };
           $('#rtBack', v).onclick = () => { retry = null; go(rt.i + 1); }; };
         retry = null;
@@ -301,7 +301,7 @@
       if (reviewGameD) { const gm = S().games.find(x => x.d === reviewGameD); if (gm) { gm.rev = R.summary; save(); } }
       showReview(); Sound.good();
     };
-    const coachTitle = (acc, res) => res === 'win' ? (acc >= 85 ? '¡Gran victoria, muy bien jugada!' : 'Has ganado, aunque hay cosas que pulir.') : res === 'loss' ? (acc >= 85 ? 'Has perdido, pero jugaste a buen nivel.' : 'Partida para aprender: vamos a ver qué pasó.') : res === 'draw' ? 'Tablas: veamos dónde había más.' : (acc >= 85 ? '¡Gran partida!' : acc >= 70 ? 'Buena partida, con cosas que pulir.' : 'Partida para aprender: vamos a ver qué pasó.');
+    const coachTitle = (acc, res) => res === 'win' ? (acc >= 85 ? '¡Gran victoria, muy bien jugada!' : 'Ganaste, aunque hay cosas que pulir.') : res === 'loss' ? (acc >= 85 ? 'Perdiste, pero jugaste a buen nivel.' : 'Partida para aprender: vamos a ver qué pasó.') : res === 'draw' ? 'Tablas: veamos dónde había más.' : (acc >= 85 ? '¡Gran partida!' : acc >= 70 ? 'Buena partida, con cosas que pulir.' : 'Partida para aprender: vamos a ver qué pasó.');
     const showReview = () => {
       const R = review.R, rep = R.report, me = review.me, n = R.items.length + 1;
       const W = 400, H = 90;
@@ -391,7 +391,7 @@
       if (tab === 'an') $('#af', v).appendChild(h('<button class="btn pri sm" id="rvb">★ Revisar partida</button>'));
       const rb = $('#rvb', v); if (rb) rb.onclick = runReview;
     };
-    $$('#at button', v).forEach(b => b.onclick = () => { tab = b.dataset.t; paintTabs(); $('#ab', v).innerHTML = ''; if (tab === 'an') { paint(); analyzeLive(); } else if (tab === 'rev') { review ? showReview() : ($('#ab', v).innerHTML = '<p class="muted">Pulsa “Revisar partida” para que Stockfish clasifique cada jugada (mejor, excelente, imprecisión, error, error grave…) y calcule la precisión de cada bando.</p><button class="btn pri" id="rv2">★ Revisar partida</button>', $('#rv2', v).onclick = runReview); } else showImport(); });
+    $$('#at button', v).forEach(b => b.onclick = () => { tab = b.dataset.t; paintTabs(); $('#ab', v).innerHTML = ''; if (tab === 'an') { paint(); analyzeLive(); } else if (tab === 'rev') { review ? showReview() : ($('#ab', v).innerHTML = '<p class="muted">Presiona “Revisar partida” para que Stockfish clasifique cada jugada (mejor, excelente, imprecisión, error, error grave…) y calcule la precisión de cada bando.</p><button class="btn pri" id="rv2">★ Revisar partida</button>', $('#rv2', v).onclick = runReview); } else showImport(); });
     $('#eon', v).onchange = (e) => { engineOn = e.target.checked; if (!engineOn) { liveId++; eng.stop(); board.setArrows([]); } analyzeLive(); };
     const kf = (e) => { if (e.target.closest('input,textarea,select')) return; if (e.key === 'ArrowRight') go(cur + 1); if (e.key === 'ArrowLeft') go(cur - 1); };
     document.addEventListener('keydown', kf);

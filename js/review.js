@@ -122,7 +122,7 @@
 
     // Apertura
     if (D.opening) report.opening.push({ t: `Apertura: <b>${D.opening}</b>.`, k: 'info' });
-    if (D.book > 0 && D.book < n) report.opening.push({ t: `Seguisteis la teoría hasta la jugada ${moveNo(D.fens[D.book])} ${mv(D.sans[D.book])}.`, k: 'info' });
+    if (D.book > 0 && D.book < n) report.opening.push({ t: `Siguieron la teoría hasta la jugada ${moveNo(D.fens[D.book])} ${mv(D.sans[D.book])}.`, k: 'info' });
     const myOpen = mine.filter(i => phase[i] === 'o');
     const castle = mine.find(i => D.moves[i].flags.includes('k') || D.moves[i].flags.includes('q'));
     const castleMove = castle != null ? +D.fens[castle].split(' ')[5] : null;
@@ -151,7 +151,7 @@
     if (castle != null && oppCastle != null) {
       const side = (i) => (D.moves[i].flags.includes('k') ? 'k' : 'q');
       if (side(castle) !== side(oppCastle)) report.strategy.push({ t: 'Enroques opuestos: una partida de ataques mutuos donde manda la velocidad (tormenta de peones contra el rey rival).', k: 'info' }), addSug('opuestos', 'Enroques opuestos: carrera de ataques', '#lec-m-enroques');
-      else report.strategy.push({ t: `Ambos enrocasteis ${side(castle) === 'k' ? 'corto' : 'largo'}: partida de maniobras, donde cuentan la estructura y las casillas.`, k: 'info' });
+      else report.strategy.push({ t: `Ambos enrocaron ${side(castle) === 'k' ? 'corto' : 'largo'}: partida de maniobras, donde cuentan la estructura y las casillas.`, k: 'info' });
     }
     const midEnd = D.fens[Math.min(n, phase.indexOf('e') > 0 ? phase.indexOf('e') : n)];
     const struct = (fen, col) => {
@@ -181,7 +181,7 @@
 
     // Táctica
     let hung = 0, mates = 0, missedMate = 0, allowedMate = 0, missedWin = 0;
-    const errs = []; // registro compacto de cada fallo propio, para el análisis de tendencias
+    const errs = []; // registro compacto de cada error propio, para el análisis de tendencias
     mine.forEach(i => {
       const x = explain(D, i);
       const bad = ['blunder', 'mistake', 'miss', 'inaccuracy'].includes(cls[i]);

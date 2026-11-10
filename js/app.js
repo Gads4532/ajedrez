@@ -372,7 +372,7 @@
     $('#bk', v).value = JSON.stringify(S);
     $('#bkCopy', v).onclick = () => { const ta = $('#bk', v); ta.value = JSON.stringify(S); (navigator.clipboard ? navigator.clipboard.writeText(ta.value) : Promise.reject()).then(() => toast('Datos copiados'), () => { ta.select(); toast('Selecciona y copia el texto'); }); };
     $('#bkLoad', v).onclick = () => { try { const d = JSON.parse($('#bk', v).value); S = Object.assign(DEF(), d); save(); App.S = S; toast('Datos restaurados'); route(); } catch (e) { toast('El texto no es una copia válida'); } };
-    let resetArm = false; $('#bkReset', v).onclick = (e) => { if (!resetArm) { resetArm = true; e.target.textContent = 'Pulsa otra vez para confirmar'; return; } S = DEF(); save(); App.S = S; toast('Datos borrados'); route(); };
+    let resetArm = false; $('#bkReset', v).onclick = (e) => { if (!resetArm) { resetArm = true; e.target.textContent = 'Presiona otra vez para confirmar'; return; } S = DEF(); save(); App.S = S; toast('Datos borrados'); route(); };
   };
 
   /* ======================= AJUSTES ======================= */
@@ -391,7 +391,7 @@
     const paint = () => $$('#not .chip', v).forEach(c => c.classList.toggle('on', c.dataset.v === S.settings.notation));
     paint(); $$('#not .chip', v).forEach(c => c.onclick = () => { S.settings.notation = c.dataset.v; save(); paint(); toast('Notación actualizada'); });
     const sa = $('#setAcct', v), A = App.account;
-    if (A) { sa.innerHTML = A.auth ? `<div class="muted">Conectado como <b style="color:var(--fg)">${esc(A.auth.email || '')}</b></div><div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><button class="btn sm" id="sNow">Sincronizar ahora</button><button class="btn sm ghost" id="sOut">Cerrar sesión</button></div>` : `<p class="muted" style="margin:0 0 8px">Crea una cuenta para guardar tu progreso en la nube y usarlo en el teléfono y el ordenador.</p><button class="btn pri sm" id="sIn">Crear cuenta / Entrar</button>`;
+    if (A) { sa.innerHTML = A.auth ? `<div class="muted">Conectado como <b style="color:var(--fg)">${esc(A.auth.email || '')}</b></div><div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><button class="btn sm" id="sNow">Sincronizar ahora</button><button class="btn sm ghost" id="sOut">Cerrar sesión</button></div>` : `<p class="muted" style="margin:0 0 8px">Crea una cuenta para guardar tu progreso en la nube y usarlo en el teléfono y la computadora.</p><button class="btn pri sm" id="sIn">Crear cuenta / Entrar</button>`;
       const a1 = $('#sNow', v), a2 = $('#sOut', v), a3 = $('#sIn', v);
       if (a1) a1.onclick = () => { A.syncNow(); toast('Sincronizando…'); }; if (a2) a2.onclick = () => { A.signOut(); route(); }; if (a3) a3.onclick = () => A.form('in'); }
     $('#updChk', v).onclick = () => App.checkUpdate && App.checkUpdate();

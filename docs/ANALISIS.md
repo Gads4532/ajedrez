@@ -7,13 +7,13 @@ Este documento explica cómo funcionan la **revisión de partida** (`js/review.j
 
 1. Juegas una partida en **Jugar** (o importas partidas en **Mi análisis** o en **Análisis → Cargar**).
 2. Stockfish evalúa todas las posiciones de la partida, en tu dispositivo.
-3. `GameReport.build()` clasifica cada jugada, explica los fallos y genera el informe de esa partida.
+3. `GameReport.build()` clasifica cada jugada, explica los errores y genera el informe de esa partida.
 4. Se guarda un **resumen** de la revisión dentro de la partida (`game.rev`).
 5. `Insights.stats()` reúne los resúmenes de todas las partidas y `Insights.diagnose()` saca conclusiones.
 6. **Mi análisis** muestra las tendencias y un plan de mejora con una lección y un ejercicio por cada punto débil.
 
 Nada sale de tu dispositivo, salvo tu progreso si has iniciado sesión (se sincroniza con tu cuenta) y las peticiones
-a chess.com o Lichess cuando tú pulsas importar.
+a chess.com o Lichess cuando tú presionas importar.
 
 ## 2. Revisión de una partida (`js/review.js`)
 
@@ -39,7 +39,7 @@ a chess.com o Lichess cuando tú pulsas importar.
 
 Los símbolos y colores son de diseño propio (`BADGES` en `js/board.js`).
 
-### 2.3 Explicación de cada fallo
+### 2.3 Explicación de cada error
 `explain()` busca, por este orden, el motivo concreto:
 - **Permite mate en N** (la evaluación posterior es mate para el rival).
 - **Había mate en N y se escapó.**
@@ -149,7 +149,7 @@ Cuando el problema es «piezas sin defender», el plan añade el ejercicio **Cap
 búsqueda en anchura sobre (casilla, peones ya capturados) y el récord de racha se guarda en `S.vision.captura`.
 
 El plan muestra si ya completaste la lección y cuántos puzles llevas de ese tema con tu porcentaje de acierto.
-Se recalcula con cada partida: cuando un fallo deja de repetirse, pierde peso y entra el siguiente.
+Se recalcula con cada partida: cuando un error deja de repetirse, pierde peso y entra el siguiente.
 
 ## 5. Recogida de partidas
 
