@@ -232,10 +232,13 @@
 
   /* ======================= LECCIONES ======================= */
   const AREA_INFO = {
+    basico: { areas: ['basico'], t: 'Aprender a jugar', d: 'Desde cero: el tablero, cómo se mueve cada pieza, las reglas especiales, cómo termina una partida y tus primeros pasos.' },
     principios: { areas: ['apertura-principios'], t: 'Principios de apertura', d: 'Lo que hay que saber antes de memorizar ninguna línea: desarrollo, centro, seguridad del rey y cómo construir un repertorio.' },
     tactica: { areas: ['tactica'], t: 'Táctica', d: 'Cada motivo táctico explicado con ejemplos, y los patrones de mate clásicos. Después, entrénalos en Puzles por tema.' },
     medio: { areas: ['estrategia', 'medio'], t: 'Medio juego', d: 'Estrategia profesional: estructuras de peones, desequilibrios, casillas débiles, profilaxis, planes y ataque al rey.' },
-    finales: { areas: ['final'], t: 'Finales', d: 'Las posiciones teóricas que todo jugador debe dominar, con práctica contra el motor desde cada posición.' }
+    finales: { areas: ['final'], t: 'Finales', d: 'Las posiciones teóricas que todo jugador debe dominar, con práctica contra el motor desde cada posición.' },
+    ataque: { areas: ['ataque'], t: 'Ataque', d: 'Cómo atacar al rey: cuándo se puede, los sacrificios típicos, cómo romper cada tipo de enroque, los patrones de mate de ataque y cómo defenderse.' },
+    partidas: { areas: ['partidas'], t: 'Partidas magistrales', d: 'Las partidas más célebres de la historia, jugada a jugada y comentadas: de la época romántica a la era de los motores.' }
   };
   const lessonList = (key) => (v) => {
     const A = AREA_INFO[key]; const ls = LESSONS.filter(l => A.areas.includes(l.area));
@@ -246,7 +249,7 @@
       ${key === 'tactica' ? '<div class="card" style="margin-top:20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div class="grow" style="flex:1;min-width:200px"><h3 style="font-weight:900">Teoría + práctica</h3><p class="muted" style="margin:4px 0 0">Después de cada lección, resuelve 10-20 puzles del mismo tema. Es la base de la práctica deliberada.</p></div><a class="btn pri" href="#puzles">Ir a Puzles</a></div>' : ''}
     </div>`));
   };
-  VIEWS.principios = lessonList('principios'); VIEWS.tactica = lessonList('tactica'); VIEWS.medio = lessonList('medio'); VIEWS.finales = lessonList('finales');
+  VIEWS.principios = lessonList('principios'); VIEWS.tactica = lessonList('tactica'); VIEWS.medio = lessonList('medio'); VIEWS.finales = lessonList('finales'); VIEWS.basico = lessonList('basico'); VIEWS.ataque = lessonList('ataque'); VIEWS.partidas = lessonList('partidas');
 
   VIEWS.lec = (v, id) => {
     const L = LESSONS.find(l => l.id === id); if (!L) { location.hash = '#medio'; return; }

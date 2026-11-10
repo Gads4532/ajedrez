@@ -20,7 +20,8 @@ Academia de ajedrez completa que funciona en el navegador, se instala como app e
 | **Tablero** | Tablero verde y crema (colores clásicos de plataforma online) con piezas planas de diseño propio (o modernas, clásicas o **tus propias imágenes**, en Ajustes → Piezas) con animaciones suaves: deslizamiento según la distancia, pieza que se levanta al arrastrar, capturas que se desvanecen y jaque con pulso |
 | **Cuenta** | Crea una cuenta con correo y contraseña (la misma de Organización Personal) y tu progreso se sincroniza entre el teléfono y el ordenador |
 | **Estrategia** | Test de estilo, repertorio por perfil, familias de aperturas, 17 elementos del juego y comparador de aperturas |
-| **Lecciones** | 56 lecciones de principios, táctica, medio juego y finales, con un entrenador (que se puede ocultar) y práctica contra el motor |
+| **Lecciones** | Lecciones por secciones, como en las grandes plataformas: **Aprender a jugar** (desde cero), principios de apertura, táctica, medio juego y estrategia, **ataque**, finales y **partidas magistrales** comentadas jugada a jugada, con un entrenador (que se puede ocultar) y práctica contra el motor |
+| **Actualidad** | Campeones vigentes, próximos Mundiales, ranking FIDE y tendencias del ajedrez actual (Freestyle, motores, aperturas de moda), con fuentes |
 | **Metodologías** | 25 métodos de entrenamiento profesionales (escuela soviética, Dvoretsky, Steps, Woodpecker, Kotov, Heisman, Aagaard, Silman…) con pros, contras y evidencia |
 | **Roadmap** | Camino de 10 etapas, de cero a Gran Maestro, con el progreso detectado automáticamente |
 | **Enciclopedia** | Reglas FIDE, historia y campeones, estadísticas, psicología y glosario |
@@ -61,7 +62,8 @@ Tu progreso se guarda en el navegador. En **Progreso → Copia de seguridad** pu
 ```
 index.html            interfaz y estilos
 js/                   tablero, motor, vistas y Stockfish (sf19.js + sf19.wasm; stockfish.js de respaldo)
-data/                 aperturas, lecciones, metodologías/enciclopedia y puzles
+data/                 aperturas, lecciones (lessons*.js), actualidad, metodologías/enciclopedia y puzles
+tools/                validador de lecciones (node tools/validate-lessons.js data/lessons*.js)
 icons/, manifest.webmanifest, sw.js   instalación como app y uso sin conexión
 ```
 

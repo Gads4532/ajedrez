@@ -49,6 +49,9 @@
 
   /* ---------- Iconos de navegación ---------- */
   const IC = {
+    news: '<svg viewBox="0 0 24 24" fill="none" stroke="#81b64c" stroke-width="2.2" stroke-linejoin="round"><rect x="3" y="4" width="15" height="16" rx="2"/><path d="M18 8h3v10a2 2 0 0 1-2 2" /><path d="M7 8h7M7 12h7M7 16h4" stroke-linecap="round"/></svg>',
+    flame: '<svg viewBox="0 0 24 24"><path d="M12 2c1 4 5 6 5 11a5 5 0 0 1-10 0c0-3 2-4 2-7 2 1 3 3 3 5 1-1 1-3 0-9z" fill="#e5603a"/></svg>',
+    games: '<svg viewBox="0 0 24 24" fill="none" stroke="#c9a26b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11l3 3v13H5z"/><path d="M9 10h6M9 14h6M9 18h3"/></svg>',
     lightning: '<svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z" fill="#f0c15c"/></svg>',
     loop: '<svg viewBox="0 0 24 24" fill="none" stroke="#5c8bb0" stroke-width="2.6" stroke-linecap="round"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8.7M20 4v4.7h-4.7M20 12a8 8 0 0 1-13.7 5.6L4 15.3M4 20v-4.7h4.7"/></svg>',
     search: '<svg viewBox="0 0 24 24" fill="none" stroke="#c3c2c1" stroke-width="2.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>',
@@ -72,7 +75,8 @@
     { lbl: 'Jugar', items: [
       { id: 'jugar', t: 'Jugar', ic: pIc('wp') },
       { id: 'analisis', t: 'Análisis', ic: IC.search },
-      { id: 'inicio', t: 'Inicio', ic: pIc('wk') }] },
+      { id: 'inicio', t: 'Inicio', ic: pIc('wk') },
+      { id: 'actualidad', t: 'Actualidad', ic: IC.news }] },
     { lbl: 'Puzles', items: [
       { id: 'puzles', t: 'Puzles', ic: pIc('wn') },
       { id: 'contrarreloj', t: 'Contrarreloj', ic: IC.lightning },
@@ -83,12 +87,15 @@
       { id: 'ruta', t: 'Ruta', ic: IC.map },
       { id: 'duelo', t: 'Duelo local', ic: IC.duel }] },
     { lbl: 'Aprender', items: [
+      { id: 'basico', t: 'Aprender a jugar', ic: pIc('wp') },
       { id: 'aperturas', t: 'Aperturas', ic: IC.book },
       { id: 'estrategia', t: 'Estrategia', ic: IC.compass },
       { id: 'principios', t: 'Principios', ic: pIc('wb') },
       { id: 'tactica', t: 'Táctica', ic: pIc('bn') },
       { id: 'medio', t: 'Medio juego', ic: pIc('wq') },
-      { id: 'finales', t: 'Finales', ic: pIc('wr') }] },
+      { id: 'ataque', t: 'Ataque', ic: IC.flame },
+      { id: 'finales', t: 'Finales', ic: pIc('wr') },
+      { id: 'partidas', t: 'Partidas magistrales', ic: IC.games }] },
     { lbl: 'Método', items: [
       { id: 'roadmap', t: 'Roadmap', ic: IC.road },
       { id: 'metodos', t: 'Metodologías', ic: IC.cap },
@@ -136,7 +143,7 @@
     window.scrollTo(0, 0);
     try { cleanup = fn(v, VIEWS[raw] ? null : arg) || null; } catch (e) { console.error(e); v.innerHTML = `<div class="card">Error al cargar la vista: ${esc(e.message)}</div>`; }
   }
-  const areaRoute = (a) => ({ final: 'finales', 'apertura-principios': 'principios', tactica: 'tactica', estrategia: 'medio', medio: 'medio' }[a] || 'medio');
+  const areaRoute = (a) => ({ final: 'finales', 'apertura-principios': 'principios', tactica: 'tactica', estrategia: 'medio', medio: 'medio', basico: 'basico', ataque: 'ataque', partidas: 'partidas' }[a] || 'medio');
 
   /* ---------- Componente: tablero con barras de jugador ---------- */
   function boardBox(opts = {}) {
