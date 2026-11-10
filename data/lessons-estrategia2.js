@@ -77,7 +77,7 @@
       '<li>El <b>alfil de c8</b> queda encerrado detrás de sus propios peones. Hay tres soluciones clásicas: el fianchetto …b6 y …Bb7, la maniobra …<span class="mv">Bd7</span>-e8-h5 para sacarlo por fuera de la cadena, o cambiarlo.</li>' +
       '<li>Las casillas negras en general (e5, c5, d6) son débiles, de modo que el <b>alfil de casillas negras</b> es la pieza más valiosa de las negras.</li></ul>' +
       '<h4>El plan del rival</h4>' +
-      '<p>Contra la Stonewall, el plan más recomendado es <b>cambiar los alfiles de casillas negras</b> (con <span class="mv">b3</span> y <span class="mv">Ba3</span>, o con <span class="mv">Bf4</span>) y después ocupar e5 con un caballo apoyado por otro caballo desde d3 o f3. Sin su alfil bueno, al bando de la Stonewall le quedan peones fijos en casillas blancas y un alfil malo: si se cambian muchas piezas, el final suele ser incómodo. Los módulos modernos valoran la Stonewall como algo pasiva, pero su solidez la mantiene viva en la práctica.</p>',
+      '<p>Contra la Stonewall, el plan más recomendado es <b>cambiar los alfiles de casillas negras</b> (con <span class="mv">b3</span> y <span class="mv">Ba3</span>, o con <span class="mv">Bf4</span>) y después ocupar e5 con un caballo apoyado por otro caballo desde d3 o f3. Sin su alfil bueno, al bando de la Stonewall le quedan peones fijos en casillas blancas y un alfil malo: si se cambian muchas piezas, el final suele ser incómodo. Los motores modernos valoran la Stonewall como algo pasiva, pero su solidez la mantiene viva en la práctica.</p>',
     keyPoints: [
       'Peones en casillas blancas: control de e4, agujero permanente en e5.',
       'El alfil de c8 es el problema: fianchetto, maniobra Bd7-e8-h5 o cambio.',
@@ -218,7 +218,7 @@
           'Presión sobre f5.',
           'Refuerza f5.',
           'Las blancas completan su desarrollo.',
-          'Las negras eliminan el peón c3: el peón c4 queda más expuesto.',
+          'Las negras deshacen los peones doblados, pero el peón c4 queda como objetivo fijo.',
           '',
           'La torre se une al asedio de c4, junto al alfil de a6 y el futuro …Na5.'
         ],
@@ -229,7 +229,7 @@
         caption: 'Española del Cambio sin damas: las negras tienen peones doblados en c7-c5 y la pareja de alfiles.',
         line: ['Bg4', 'f3', 'Be6', 'Nc3', 'Bd6', 'Be3', 'b6', 'a4'],
         comments: [
-          'Usa los alfiles con tempo: obliga a f3, que quita casillas al caballo blanco.',
+          'Usa los alfiles con tempo: ataca la torre de d1 e invita a f3, que quita la casilla f3 al caballo.',
           '',
           'El alfil vuelve a una buena diagonal.',
           '',
@@ -278,7 +278,7 @@
           'Impide …b5, que daría a las negras espacio y la amenaza …b4 contra el defensor de d5.',
           'La torre a la columna c semiabierta: contrajuego negro.',
           'Gana espacio y quita la casilla b6 al caballo negro.',
-          'Conecta torres y presiona c2.',
+          'Conecta torres y refuerza la presión por la columna c.',
           'Columna d semiabierta: el peón d6 ya es un objetivo, y d5 está bajo control blanco.'
         ],
         highlights: ['d6', 'd5'], arrows: [['d1', 'd6', 'r']]
@@ -289,7 +289,7 @@
         line: ['Rfd8', 'Bf3', 'h6', 'Nd5', 'Bxd5', 'exd5', 'Nc5', 'Nxc5', 'dxc5'],
         comments: [
           'Defiende d6 una vez más.',
-          'El alfil también apunta a d5.',
+          'El alfil protege e4 y quedará en la diagonal de d5 si la estructura cambia.',
           'Jugada útil: da aire al rey.',
           'El caballo ocupa la casilla de bloqueo.',
           'Las negras eliminan el caballo: no pueden tolerarlo en d5.',
@@ -334,7 +334,7 @@
         caption: 'India de Rey, variante clásica: centro cerrado. Cada bando ataca en el flanco hacia donde apunta su cadena.',
         line: ['Bd2', 'Nf6', 'f3', 'f4', 'c5', 'g5', 'Rc1', 'Ng6', 'cxd6', 'cxd6'],
         comments: [
-          'Desarrolla y apoya el futuro c5.',
+          'Desarrolla y deja c1 libre para la torre.',
           'El caballo vuelve a f6 para apoyar el ataque en el flanco de rey.',
           'Refuerza e4 y prepara un muro defensivo.',
           'Las negras cierran el flanco de rey y preparan …g5-g4.',
@@ -343,7 +343,7 @@
           'La torre se prepara para la columna c.',
           'El caballo se acerca a h4 y f4 para el ataque.',
           'Abre la columna c.',
-          'Las blancas invadirán por c7; las negras seguirán con …h5 y …g4. El centro cerrado decide dónde se juega.'
+          'Las blancas buscarán invadir por la columna c; las negras seguirán con …h5 y …g4. El centro cerrado decide dónde se juega.'
         ],
         arrows: [['c4', 'c5', 'g'], ['g5', 'g4', 'r']]
       },
@@ -352,9 +352,9 @@
         caption: 'Ataque Max Lange: centro abierto. El rey negro sigue en e8 y cada tempo cuenta.',
         line: ['Qd5', 'Nc3', 'Qf5', 'Nce4', 'O-O-O'],
         comments: [
-          'Defiende e6 y g7 de golpe; la dama es la única pieza que puede hacerlo.',
+          'Defiende el alfil de e6, atacado por el caballo, y centraliza la dama.',
           'Desarrollo con ataque a la dama: en posiciones abiertas, el desarrollo con tempo es oro.',
-          'La dama mantiene la defensa de e6 y g7.',
+          'La dama sigue defendiendo e6 desde una casilla segura.',
           'Los caballos blancos dominan el centro.',
           'El rey abandona la columna e abierta: con centro abierto no puede quedarse en el centro.'
         ],
@@ -398,7 +398,7 @@
           'El caballo del borde vuelve al juego presionando d4.',
           'Desde g3 el caballo mira f5 y h5, casillas cercanas al rey negro.',
           'La torre ocupa la columna abierta.',
-          'El alfil protege b1 y e4 desde otra casilla.',
+          'El alfil apunta ahora a b5 y a6.',
           'El antiguo caballo de a5 es ahora una pieza activa que obliga al alfil a decidir. Ambos bandos han mejorado su peor pieza.'
         ],
         arrows: [['d2', 'f1', 'g'], ['f1', 'g3', 'g'], ['a5', 'c6', 'y']]
@@ -470,7 +470,7 @@
           'Desde e8 la torre apoya …e5 o …d5 en el futuro.',
           'Las blancas también maniobran: vigilan c4 y la columna c.',
           'La torre va detrás del peón c para apoyar …b5.',
-          'La dama sale de la diagonal del alfil de f6 y protege e4.',
+          'La dama se aparta de la columna d y sigue protegiendo e4.',
           'Típico del Erizo: el alfil se coloca en f8 para defender d6.',
           'Las blancas ganan una casilla de escape y vigilan g4.',
           'La dama va a b8 para apoyar …b5. Con poco espacio, cada pieza tiene una casilla útil y las rupturas están preparadas.'
@@ -523,7 +523,7 @@
         caption: 'Mismo peón, mal bloqueador: con la dama en d6, el caballo blanco la desaloja con tempo y el peón avanza.',
         line: ['Rxe8+', 'Rxe8', 'Ne4', 'Qe5', 'd6', 'Rd8', 'd7'],
         comments: [
-          'Primero cambia una torre para debilitar el control negro de la octava fila.',
+          'Primero cambia una pareja de torres: a las negras les queda una sola torre para defender.',
           '',
           'El caballo ataca a la dama bloqueadora.',
           'La dama debe apartarse y la casilla d6 queda libre.',
@@ -550,7 +550,7 @@
       '<li>Lleva <b>caballos</b> a las casillas débiles: no pueden ser expulsados por peones.</li>' +
       '<li>Conserva tu alfil de ese color y la dama; juntos son devastadores en las casillas sin defensa.</li></ul>' +
       '<h4>Ejemplos</h4>' +
-      '<p>En la <b>Nimzoindia Hübner</b> las negras entregan su alfil de b4 por el caballo de c3, colocan los peones en c5, d6 y e5 (casillas negras) y dejan a las blancas con dos alfiles que tienen poco que hacer: el de casillas blancas tropieza con sus propios peones de c4, d5 y e4, y el de casillas negras choca contra la cadena negra. Las casillas d4 y f4 son puestos para los caballos negros. Una partida célebre con esta idea es la quinta del match Spassky-Fischer de 1972. En la <b>Sveshnikov</b> las blancas hacen lo contrario: entregan su alfil de casillas negras por el caballo de f6 para dominar las casillas blancas, sobre todo d5, y las negras a cambio obtienen la pareja de alfiles.</p>',
+      '<p>En la <b>Nimzoindia Hübner</b> las negras entregan su alfil de b4 por el caballo de c3, colocan los peones en c5, d6 y e5 (casillas negras) y dejan a las blancas con dos alfiles que tienen poco que hacer: el de casillas blancas tropieza con sus propios peones de c4, d5 y e4, y el de casillas negras choca contra la cadena negra. Las casillas d4 y f4 son puestos para los caballos negros. En la <b>Sveshnikov</b> las blancas hacen lo contrario: entregan su alfil de casillas negras por el caballo de f6 para dominar las casillas blancas, sobre todo d5, y las negras a cambio obtienen la pareja de alfiles.</p>',
     keyPoints: [
       'Debilidad de color: falta el alfil de ese color y los peones están en el otro.',
       'Pon tus peones en el color contrario a las casillas débiles del rival.',
