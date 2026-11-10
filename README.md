@@ -14,7 +14,7 @@ Academia de ajedrez completa que funciona en el navegador, se instala como app e
 | **Puzles** | Más de 3.400 puzles verificados con Stockfish, de 400 a 2800 de Elo y de más de 50 temas, con rating propio, pistas, modo a ciegas y repaso de fallos |
 | **Juegos con puzles** | Contrarreloj (también por tema), batalla contra 7 bots, ruta de temas con estrellas, duelo para dos jugadores y método Woodpecker |
 | **Desafíos** | Misiones diarias, 25 logros, experiencia y niveles |
-| **Visión y cálculo** | Coordenadas, nombrar casillas, color de casilla, rutas de caballo, memoria de posiciones y cálculo a ciegas |
+| **Visión y cálculo** | Coordenadas, nombrar casillas, color de casilla, rutas de caballo, **captura** (capturar todos los peones con una pieza en el mínimo de jugadas), memoria de posiciones y cálculo a ciegas |
 | **Aperturas** | 38 aperturas con estilo, objetivo, estadísticas aproximadas, ideas, planes, pros y contras, variantes y trampas. Modo **Aprender** (mueves las piezas de ambos bandos, solo blancas o solo negras, guiado por coordenadas: «Caballo de g1 a f3», con flecha opcional y el nombre de cada casilla en el tablero) y modo **Entrenar** con repetición espaciada |
 | **Para qué sirve cada jugada** | Cada jugada de aperturas y lecciones lleva etiquetas sencillas (Centro, Desarrollo, Rey seguro, Gambito, Clavada, Fianchetto…) con una explicación para principiantes, y cada apertura muestra su estilo |
 | **Tablero** | Tablero verde y crema (colores clásicos de plataforma online) con piezas planas de diseño propio (o modernas, clásicas o **tus propias imágenes**, en Ajustes → Piezas) con animaciones suaves: deslizamiento según la distancia, pieza que se levanta al arrastrar, capturas que se desvanecen y jaque con pulso |

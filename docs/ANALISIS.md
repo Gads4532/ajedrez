@@ -144,6 +144,10 @@ Las 3 conclusiones de más peso forman el plan. Cada una tiene una **lección** 
 | Final débil o ventaja no convertida | sección Finales / `m2-transformar` | `final` |
 | Enroque tardío | `ap-enroque` | `enroque` |
 
+Cuando el problema es «piezas sin defender», el plan añade el ejercicio **Captura** de Visión y cálculo
+(`#vision-captura`): capturar todos los peones con una sola pieza en el mínimo de jugadas; el mínimo se calcula con una
+búsqueda en anchura sobre (casilla, peones ya capturados) y el récord de racha se guarda en `S.vision.captura`.
+
 El plan muestra si ya completaste la lección y cuántos puzles llevas de ese tema con tu porcentaje de acierto.
 Se recalcula con cada partida: cuando un fallo deja de repetirse, pierde peso y entra el siguiente.
 

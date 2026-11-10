@@ -62,7 +62,7 @@
         ${top.length ? `${sec('Tu plan de mejora: aprender y practicar')}
         <div class="grid g3">${top.map((d, i) => { const lid = /^#lec-(.+)$/.exec(d.href); const done = lid && S().lessons[lid[1]]; const th = d.ex && S().pz.theme[d.ex]; return `<div class="card ia-plan"><div class="dim k">PRIORIDAD ${i + 1}</div><div class="prose" style="font-size:14px">${fixMv(d.t)}</div>
             <a class="btn sm" href="${esc(d.href)}">📖 Aprender: ${esc(d.lbl)}${done ? ' ✓' : ''}</a>
-            ${d.ex ? `<a class="btn pri sm" href="#puzles-tema_${esc(d.ex)}">🧩 Practicar: 10 puzles de ${esc(themeName(d.ex))}</a><div class="dim" style="font-size:12.5px">${th ? `Llevas ${th.n} resueltos de este tema (${Math.round(th.ok / th.n * 100)}% de acierto).` : 'Aún no has hecho puzles de este tema.'}</div>` : ''}</div>`; }).join('')}</div>
+            ${d.ex ? `<a class="btn pri sm" href="#puzles-tema_${esc(d.ex)}">🧩 Practicar: 10 puzles de ${esc(themeName(d.ex))}</a><div class="dim" style="font-size:12.5px">${th ? `Llevas ${th.n} resueltos de este tema (${Math.round(th.ok / th.n * 100)}% de acierto).` : 'Aún no has hecho puzles de este tema.'}</div>` : ''}${d.ex === 'piezaColgada' ? '<a class="btn sm" href="#vision-captura">👁 Visión: ejercicio de Captura</a>' : ''}</div>`; }).join('')}</div>
         <p class="muted" style="font-size:13px;margin:8px 0 0">El plan se recalcula con cada partida nueva: cuando un fallo deja de repetirse, baja de prioridad y entra el siguiente.</p>` : ''}
 
         ${sec('Evolución de tu precisión')}<div class="card">${chart(st.accs)}</div>
