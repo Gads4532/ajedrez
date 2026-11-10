@@ -20,6 +20,6 @@
     }
   };
   window.CustomPieces.load();
-  let pick = 'plano'; try { const st = JSON.parse(localStorage.getItem('ajedrezpro_v1') || '{}'); if (st.settings) pick = st.settings.pieceSet || st.settings.pieces || pick; } catch (e) { }
-  window.PIECE_SVG = SETS[pick] || SETS.plano;
+  let pick = 'clasico'; try { const st = JSON.parse(localStorage.getItem('ajedrezpro_v1') || '{}'); if (st.settings && st.settings.pieceSet) pick = st.settings.pieceSet; } catch (e) { }
+  window.PIECE_SVG = SETS[pick] || SETS.clasico;
 })();
