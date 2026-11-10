@@ -190,10 +190,10 @@
     mine.forEach(i => { if (new Chess(D.fens[i + 1]).in_checkmate()) mates++; });
     if (mates) report.tactics.push({ t: '¡Diste jaque mate!', k: 'good' });
     if (top.length) report.tactics.push({ t: `Encontraste ${top.length} ${top.length > 1 ? 'jugadas brillantes o geniales' : 'jugada brillante o genial'}: ${top.slice(0, 3).map(at).join(', ')}.`, k: 'good' });
-    if (hung) report.tactics.push({ t: `Dejaste piezas sin defender ${hung} ${hung > 1 ? 'veces' : 'vez'}. Antes de cada jugada, comprueba qué piezas quedan atacadas.`, k: 'fix' }), addSug('sueltas', 'Táctica: piezas sin defender', '#tactica');
-    if (missedWin) report.tactics.push({ t: `No viste ${missedWin} ${missedWin > 1 ? 'ocasiones' : 'ocasión'} de ganar material.`, k: 'fix' }), addSug('ccr', 'Puzles: jaques, capturas y amenazas', '#puzles');
+    if (hung) report.tactics.push({ t: `Dejaste piezas sin defender ${hung} ${hung > 1 ? 'veces' : 'vez'}. Antes de cada jugada, comprueba qué piezas quedan atacadas.`, k: 'fix' }), addSug('sueltas', 'Piezas sin defender', '#lec-t2-sueltas');
+    if (missedWin) report.tactics.push({ t: `No viste ${missedWin} ${missedWin > 1 ? 'ocasiones' : 'ocasión'} de ganar material.`, k: 'fix' }), addSug('ccr', 'Jaques, capturas y amenazas', '#lec-t2-ccj');
     if (missedMate) report.tactics.push({ t: `Se te escaparon ${missedMate} ${missedMate > 1 ? 'mates' : 'mate'}.`, k: 'fix' }), addSug('mates', 'Patrones de mate', '#lec-t-mates1');
-    if (allowedMate) report.tactics.push({ t: `Permitiste mate ${allowedMate} ${allowedMate > 1 ? 'veces' : 'vez'}: revisa siempre los jaques del rival.`, k: 'fix' }), addSug('defensa', 'Ataque y defensa del rey', '#ataque');
+    if (allowedMate) report.tactics.push({ t: `Permitiste mate ${allowedMate} ${allowedMate > 1 ? 'veces' : 'vez'}: revisa siempre los jaques del rival.`, k: 'fix' }), addSug('defensa', 'Cómo defenderse de un ataque', '#lec-a-defensa');
     if (!report.tactics.length) report.tactics.push({ t: 'Sin errores tácticos importantes.', k: 'good' });
 
     // Finales
@@ -210,7 +210,7 @@
     // Gestión de la ventaja
     const peak = Math.max(...mine.map(i => items[i].wpB), 0);
     const res = D.result; // 'win' | 'loss' | 'draw' | null (desde el punto de vista de me)
-    if (peak >= 85 && res && res !== 'win') report.advantage.push({ t: 'Llegaste a tener una posición ganadora y se te escapó. Con ventaja: simplifica, elimina contrajuego y no te precipites.', k: 'fix' }), addSug('conv', 'Transformar ventajas y cuándo cambiar', '#lec-m-cambios');
+    if (peak >= 85 && res && res !== 'win') report.advantage.push({ t: 'Llegaste a tener una posición ganadora y se te escapó. Con ventaja: simplifica, elimina contrajuego y no te precipites.', k: 'fix' }), addSug('conv', 'Transformar ventajas', '#lec-m2-transformar');
     else if (peak >= 85 && res === 'win') report.advantage.push({ t: 'Convertiste tu ventaja en victoria.', k: 'good' });
     const low = Math.min(...mine.map(i => items[i].wpB), 100);
     if (low <= 15 && res && res !== 'loss') report.advantage.push({ t: 'Te salvaste de una posición perdida: buena resistencia.', k: 'good' });
