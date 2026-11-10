@@ -181,11 +181,15 @@
 
     // Táctica
     let hung = 0, mates = 0, missedMate = 0, allowedMate = 0, missedWin = 0;
+    const errs = []; // registro compacto de cada fallo propio, para el análisis de tendencias
     mine.forEach(i => {
       const x = explain(D, i);
       const bad = ['blunder', 'mistake', 'miss', 'inaccuracy'].includes(cls[i]);
       if (!bad) return;
-      x.why.forEach(w => { if (/^Deja /.test(w)) hung++; if (/^Permite mate/.test(w)) allowedMate++; if (/^Había mate/.test(w)) missedMate++; if (/^Se podía ganar/.test(w)) missedWin++; });
+      const t = [];
+      x.why.forEach(w => { if (/^Deja /.test(w)) { hung++; t.push('hung'); } if (/^Permite mate/.test(w)) { allowedMate++; t.push('allowMate'); } if (/^Había mate/.test(w)) { missedMate++; t.push('missMate'); } if (/^Se podía ganar/.test(w)) { missedWin++; t.push('missWin'); } if (/^Permite ganar un peón/.test(w)) t.push('pawn'); });
+      const rep = sanOf(D.fens[i + 1], D.bests[i + 1]);
+      errs.push({ m: +D.fens[i].split(' ')[5], ph: phase[i], c: cls[i], t, p: t.includes('hung') && rep && rep.captured ? rep.captured : D.moves[i].piece, l: Math.round(items[i].loss) });
     });
     mine.forEach(i => { if (new Chess(D.fens[i + 1]).in_checkmate()) mates++; });
     if (mates) report.tactics.push({ t: '¡Diste jaque mate!', k: 'good' });
@@ -225,7 +229,8 @@
     if (!report.suggest.length) report.suggest.push({ t: 'Sigue con puzles diarios para mantener la vista táctica', href: '#puzles' });
     report.me = me;
     R.report = report;
-    R.summary = { acc: acc[me], elo: R.elo[me], ph: { o: ph.o[me], m: ph.m[me], e: ph.e[me] }, cnt: Object.fromEntries(['brilliant', 'great', 'best', 'excellent', 'good', 'book', 'inaccuracy', 'mistake', 'miss', 'blunder'].map(c => [c, count(c, me)])), issues: [...sug.keys()] };
+    R.summary = { v: 2, me, res: res || null, opening: D.opening || null, plies: n, castle: castleMove, peak: Math.round(peak), low: Math.round(low), mates, errs,
+      motifs: { hung, missWin: missedWin, missMate: missedMate, allowMate: allowedMate, miss: count('miss', me) }, acc: acc[me], elo: R.elo[me], ph: { o: ph.o[me], m: ph.m[me], e: ph.e[me] }, cnt: Object.fromEntries(['brilliant', 'great', 'best', 'excellent', 'good', 'book', 'inaccuracy', 'mistake', 'miss', 'blunder'].map(c => [c, count(c, me)])), issues: [...sug.keys()] };
     return R;
   }
 

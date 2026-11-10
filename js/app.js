@@ -75,6 +75,7 @@
     { lbl: 'Jugar', items: [
       { id: 'jugar', t: 'Jugar', ic: pIc('wp') },
       { id: 'analisis', t: 'Análisis', ic: IC.search },
+      { id: 'mianalisis', t: 'Mi análisis', ic: IC.chart },
       { id: 'inicio', t: 'Inicio', ic: pIc('wk') },
       { id: 'actualidad', t: 'Actualidad', ic: IC.news }] },
     { lbl: 'Puzles', items: [

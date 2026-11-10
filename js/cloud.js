@@ -2,7 +2,7 @@
    Usa el mismo proyecto de Supabase que «Organización Personal»: la misma cuenta sirve para las dos apps.
    El progreso del ajedrez se guarda aparte, en la tabla «ajedrez_estados» (ver supabase.sql). */
 (function () {
-  const APP_VERSION = '1.6.0';
+  const APP_VERSION = '1.7.0';
   App.VERSION = APP_VERSION;
   const { $, h, esc, toast } = App;
   const inArtifact = /claude\.ai|claudeusercontent/.test(location.host) || !/^https?:$/.test(location.protocol);
@@ -53,7 +53,7 @@
     for (const [k, r] of Object.entries(pr.theme || {})) { const l = o.pz.theme[k]; o.pz.theme[k] = !l || r.n > l.n ? r : l; }
     o.lessons = { ...(R.lessons || {}), ...(L.lessons || {}) };
     o.open = { ...(R.open || {}) }; for (const [k, v] of Object.entries(L.open || {})) { const r = o.open[k]; o.open[k] = !r || (v.reps || 0) >= (r.reps || 0) ? v : r; }
-    o.games = uniq([...(R.games || []), ...(L.games || [])], g => g.d).sort((a, b) => a.d - b.d).slice(-200);
+    { const gm = new Map(); for (const g of [...(R.games || []), ...(L.games || [])]) { const p = gm.get(g.d); gm.set(g.d, p && p.rev && !g.rev ? p : g); } o.games = [...gm.values()].sort((a, b) => a.d - b.d).slice(-200); } // conserva el análisis (rev) si solo lo tiene una copia
     o.journal = uniq([...(R.journal || []), ...(L.journal || [])], j => j.date + '|' + j.text);
     o.activity = maxObj(L.activity, R.activity);
     o.rush = { best: maxObj((L.rush || {}).best, (R.rush || {}).best), runs: uniq([...((R.rush || {}).runs || []), ...((L.rush || {}).runs || [])], r => r.d).slice(-300) };

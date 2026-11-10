@@ -329,6 +329,18 @@ details.acc>div{padding:0 18px 16px}
 .rv-list li::before{position:absolute;left:0;top:0;font-weight:900}
 .rv-list li.good::before{content:"✓";color:var(--green)} .rv-list li.fix::before{content:"✕";color:var(--red)} .rv-list li.info::before{content:"•";color:var(--fg3)}
 .rv-sec summary{font-weight:800}
+/* ---------- Mi análisis ---------- */
+.grid.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.grid.g4{grid-template-columns:repeat(2,1fr)}}
+.ia-kpi .k,.ia-plan .k{font-size:12px;font-weight:800;letter-spacing:.5px}
+.ia-kpi .s{font-size:12.5px;margin-top:2px}
+.ia-diag{margin:0;padding-left:20px;display:grid;gap:8px;font-size:14.5px;color:var(--fg2)}
+.ia-plan{display:grid;gap:8px;align-content:start}
+.ia-bars{display:flex;gap:12px;align-items:flex-end;height:150px}
+.ia-bars>div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:3px}
+.ia-bars .b{width:100%;max-width:70px;background:var(--red);border-radius:4px 4px 0 0;min-height:2px}
+.ia-bars span{font-weight:800;font-size:13px;order:-1}
+.ia-bars small{color:var(--fg3);font-size:12px}
 svg.chart{width:100%;height:auto;display:block}
 
 /* ---------- Responsive ---------- */
@@ -398,6 +410,8 @@ svg.chart{width:100%;height:auto;display:block}
 <script src="js/v-games.js"></script>
 <script src="js/v-roadmap.js"></script>
 <script src="js/v-news.js"></script>
+<script src="js/insights.js"></script>
+<script src="js/v-insights.js"></script>
 <script src="js/cloud.js"></script>
 </body>
 </html>

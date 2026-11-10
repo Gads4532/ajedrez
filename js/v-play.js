@@ -16,8 +16,11 @@
   function bookInfo(sans) {
     let best = null, len = 0;
     for (const b of BOOK) { let k = 0; while (k < sans.length && k < b.moves.length && normSan(sans[k]) === normSan(b.moves[k])) k++; if (k > len && k === Math.min(b.moves.length, k)) { len = k; best = b; } }
+    // El nombre solo vale si las jugadas coincidentes identifican una única apertura (p. ej. 1.d4 a secas no).
+    if (best) { const pre = sans.slice(0, len).map(normSan).join(' '); const fam = new Set(BOOK.filter(b => b.moves.length >= len && b.moves.slice(0, len).map(normSan).join(' ') === pre).map(b => b.name.split(':')[0])); if (fam.size > 1) best = null; }
     return { name: best ? best.name : null, len };
   }
+  App.bookInfo = bookInfo;
   App.bookInfo = bookInfo;
 
   /* ======================= JUGAR ======================= */
