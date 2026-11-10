@@ -307,6 +307,28 @@ details.acc>div{padding:0 18px 16px}
 .acc-big{display:flex;justify-content:space-around;gap:10px;text-align:center}
 .acc-big .v{font-size:26px;font-weight:900;padding:6px 14px;border-radius:6px;font-variant-numeric:tabular-nums}
 .acc-big .vw{background:#fff;color:#222} .acc-big .vb{background:#403d39;color:#fff}
+/* ---------- Informe de partida ---------- */
+.bd.big{width:30px;height:30px;font-size:13px}
+.rv-move{display:grid;gap:10px;background:var(--bg3);border-radius:8px;padding:12px 14px}
+.rv-head{display:flex;align-items:center;gap:10px;font-size:15px}
+.rv-head .bd,.rv-best .bd,.rv-key .bd,.acc-grid .bd{border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900;flex:none}
+.rv-best .bd,.rv-key .bd{width:20px;height:20px;font-size:10px}
+.rv-why{margin:0;padding-left:18px;color:var(--fg2);font-size:14px;display:grid;gap:4px}
+.rv-best{display:flex;gap:10px;align-items:flex-start;font-size:14px}
+.rv-best small{display:block;color:var(--fg3);font-size:12.5px;margin-top:2px}
+.rv-acts{display:flex;gap:8px;flex-wrap:wrap}
+.rv-coach{display:flex;gap:12px;align-items:center;background:var(--bg3);border-radius:10px;padding:12px}
+.rv-coach svg{width:54px;height:54px;flex:none}
+.rv-coach small{display:block;color:var(--fg2);font-size:13px;margin-top:3px;font-weight:600}
+.rv-keys{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.rv-key{display:flex;align-items:center;gap:6px;background:var(--gray-btn);border:0;color:var(--fg);border-radius:6px;padding:6px 10px;font-weight:800;font-size:13px;cursor:pointer}
+.rv-key:hover{background:var(--hover)}
+.rv-gb{gap:10px}
+.rv-list{margin:6px 0 0;padding:0;list-style:none;display:grid;gap:6px;font-size:13.5px;color:var(--fg2)}
+.rv-list li{padding-left:22px;position:relative}
+.rv-list li::before{position:absolute;left:0;top:0;font-weight:900}
+.rv-list li.good::before{content:"✓";color:var(--green)} .rv-list li.fix::before{content:"✕";color:var(--red)} .rv-list li.info::before{content:"•";color:var(--fg3)}
+.rv-sec summary{font-weight:800}
 svg.chart{width:100%;height:auto;display:block}
 
 /* ---------- Responsive ---------- */
@@ -370,6 +392,7 @@ svg.chart{width:100%;height:auto;display:block}
 <script src="js/v-train.js"></script>
 <script src="js/purpose.js"></script>
 <script src="js/v-learn.js"></script>
+<script src="js/review.js"></script>
 <script src="js/v-play.js"></script>
 <script src="js/v-strategy.js"></script>
 <script src="js/v-games.js"></script>
