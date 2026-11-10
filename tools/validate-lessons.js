@@ -4,7 +4,8 @@
 const path = require('path');
 const { Chess } = require(path.join(__dirname, '..', 'js', 'chess.js'));
 global.window = {};
-const files = process.argv.slice(2);
+// lessons.js reasigna window.LESSONS: debe cargarse antes que los archivos que añaden lecciones.
+const files = process.argv.slice(2).sort((a, b) => (path.basename(b) === 'lessons.js') - (path.basename(a) === 'lessons.js'));
 if (!files.length) { console.error('Uso: node tools/validate-lessons.js <archivo.js>...'); process.exit(2); }
 for (const f of files) require(path.resolve(f));
 const L = window.LESSONS || [];
