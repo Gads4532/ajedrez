@@ -71,40 +71,72 @@
   };
   const pIc = (c) => { const P = (window.PIECE_SETS && PIECE_SETS.plano) || window.PIECE_SVG; return P ? P[c] : ''; };
   const LOGO_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="6.2" r="3.6" fill="#fff"/><path d="M8.6 11h6.8l1.6 7.4H7z" fill="#fff"/><rect x="5.5" y="19.2" width="13" height="2.8" rx="1.4" fill="#fff"/></svg>';
+  // Iconos de línea minimalistas (un color, heredan el color del texto). Diseño propio.
+  const LINE_IC = {
+    jugar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z"/></svg>',
+    analisis: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>',
+    mianalisis: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 17v-5M11 17V7M16 17v-8"/></svg>',
+    inicio: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-6.5 8 6.5V20H4z"/><path d="M10 20v-5h4v5"/></svg>',
+    actualidad: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="13.5" height="14" rx="1.5"/><path d="M17 9h3v8.5a1.5 1.5 0 0 1-3 0M7 9h6.5M7 12.5h6.5M7 16h4"/></svg>',
+    puzles: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h3a2 2 0 1 1 4 0h3v3a2 2 0 1 1 0 4v4H5z"/></svg>',
+    contrarreloj: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13.5" r="7"/><path d="M12 13.5V10M10 3h4M12 3v3.5"/></svg>',
+    woodpecker: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg>',
+    vision: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+    desafios: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8.5 20h7"/></svg>',
+    batalla: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l11 11M19 5L8 16M14 19l5-5M10 19l-5-5"/></svg>',
+    ruta: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>',
+    duelo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8.5" r="3"/><circle cx="16.5" cy="8.5" r="3"/><path d="M2.5 19a5.5 5.5 0 0 1 11 0M13.5 18a5 5 0 0 1 8 1"/></svg>',
+    rutas: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6.5a3.5 3.5 0 0 0 0-7h-5a3.5 3.5 0 0 1 0-7H16"/></svg>',
+    basico: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5v4M10 5.5h4"/><path d="M5 20h14M7 20l1.5-5.5h7L17 20M9.5 14.5l-1-4.5h7l-1 4.5"/></svg>',
+    aperturas: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.5c3-1 6-1 9 1 3-2 6-2 9-1V19c-3-1-6-1-9 1-3-2-6-2-9-1z"/><path d="M12 6.5V20"/></svg>',
+    estrategia: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>',
+    principios: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17h6M10 20h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9V17h7v-3.1A6 6 0 0 0 12 3z"/></svg>',
+    tactica: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>',
+    medio: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M4 12h16M12 4v16"/></svg>',
+    ataque: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c.5 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2.5 1.5-3.5 1.5-6 1.5 1 2.5 2.5 2.5 4 1-1.5 1.5-4 1-8z"/></svg>',
+    finales: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg>',
+    partidas: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-5 9 5M5 9v9M9.5 9v9M14.5 9v9M19 9v9M3 20h18"/></svg>',
+    roadmap: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M6 6h11l2 2.5-2 2.5H6zM18 13H7l-2 2.5L7 18h11"/></svg>',
+    metodos: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9L12 4.5 21.5 9 12 13.5z"/><path d="M6.5 11v4.5c3 2.5 8 2.5 11 0V11"/></svg>',
+    plan: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>',
+    teoria: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg>',
+    progreso: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>',
+    ajustes: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>'
+  };
   const NAV = [
     { lbl: 'Jugar', items: [
-      { id: 'jugar', t: 'Jugar', ic: pIc('wp') },
-      { id: 'analisis', t: 'Análisis', ic: IC.search },
-      { id: 'mianalisis', t: 'Mi análisis', ic: IC.chart },
-      { id: 'inicio', t: 'Inicio', ic: pIc('wk') },
-      { id: 'actualidad', t: 'Actualidad', ic: IC.news }] },
+      { id: 'jugar', t: 'Jugar', ic: LINE_IC.jugar },
+      { id: 'analisis', t: 'Análisis', ic: LINE_IC.analisis },
+      { id: 'mianalisis', t: 'Mi análisis', ic: LINE_IC.mianalisis },
+      { id: 'inicio', t: 'Inicio', ic: LINE_IC.inicio },
+      { id: 'actualidad', t: 'Actualidad', ic: LINE_IC.actualidad }] },
     { lbl: 'Puzles', items: [
-      { id: 'puzles', t: 'Puzles', ic: pIc('wn') },
-      { id: 'contrarreloj', t: 'Contrarreloj', ic: IC.lightning },
-      { id: 'woodpecker', t: 'Woodpecker', ic: IC.loop },
-      { id: 'vision', t: 'Visión y cálculo', ic: IC.eye },
-      { id: 'desafios', t: 'Desafíos', ic: IC.trophy },
-      { id: 'batalla', t: 'Batalla', ic: IC.swords },
-      { id: 'ruta', t: 'Ruta', ic: IC.map },
-      { id: 'duelo', t: 'Duelo local', ic: IC.duel }] },
+      { id: 'puzles', t: 'Puzles', ic: LINE_IC.puzles },
+      { id: 'contrarreloj', t: 'Contrarreloj', ic: LINE_IC.contrarreloj },
+      { id: 'woodpecker', t: 'Woodpecker', ic: LINE_IC.woodpecker },
+      { id: 'vision', t: 'Visión y cálculo', ic: LINE_IC.vision },
+      { id: 'desafios', t: 'Desafíos', ic: LINE_IC.desafios },
+      { id: 'batalla', t: 'Batalla', ic: LINE_IC.batalla },
+      { id: 'ruta', t: 'Ruta', ic: LINE_IC.ruta },
+      { id: 'duelo', t: 'Duelo local', ic: LINE_IC.duelo }] },
     { lbl: 'Aprender', items: [
-      { id: 'rutas', t: 'Rutas y XP', ic: IC.map },
-      { id: 'basico', t: 'Aprender a jugar', ic: pIc('wp') },
-      { id: 'aperturas', t: 'Aperturas', ic: IC.book },
-      { id: 'estrategia', t: 'Estrategia', ic: IC.compass },
-      { id: 'principios', t: 'Principios', ic: pIc('wb') },
-      { id: 'tactica', t: 'Táctica', ic: pIc('bn') },
-      { id: 'medio', t: 'Medio juego', ic: pIc('wq') },
-      { id: 'ataque', t: 'Ataque', ic: IC.flame },
-      { id: 'finales', t: 'Finales', ic: pIc('wr') },
-      { id: 'partidas', t: 'Partidas magistrales', ic: IC.games }] },
+      { id: 'rutas', t: 'Rutas y XP', ic: LINE_IC.rutas },
+      { id: 'basico', t: 'Aprender a jugar', ic: LINE_IC.basico },
+      { id: 'aperturas', t: 'Aperturas', ic: LINE_IC.aperturas },
+      { id: 'estrategia', t: 'Estrategia', ic: LINE_IC.estrategia },
+      { id: 'principios', t: 'Principios', ic: LINE_IC.principios },
+      { id: 'tactica', t: 'Táctica', ic: LINE_IC.tactica },
+      { id: 'medio', t: 'Medio juego', ic: LINE_IC.medio },
+      { id: 'ataque', t: 'Ataque', ic: LINE_IC.ataque },
+      { id: 'finales', t: 'Finales', ic: LINE_IC.finales },
+      { id: 'partidas', t: 'Partidas magistrales', ic: LINE_IC.partidas }] },
     { lbl: 'Método', items: [
-      { id: 'roadmap', t: 'Roadmap', ic: IC.road },
-      { id: 'metodos', t: 'Metodologías', ic: IC.cap },
-      { id: 'plan', t: 'Mi plan', ic: IC.cal },
-      { id: 'teoria', t: 'Enciclopedia', ic: IC.scroll },
-      { id: 'progreso', t: 'Progreso', ic: IC.chart },
-      { id: 'ajustes', t: 'Ajustes', ic: IC.gear }] }
+      { id: 'roadmap', t: 'Roadmap', ic: LINE_IC.roadmap },
+      { id: 'metodos', t: 'Metodologías', ic: LINE_IC.metodos },
+      { id: 'plan', t: 'Mi plan', ic: LINE_IC.plan },
+      { id: 'teoria', t: 'Enciclopedia', ic: LINE_IC.teoria },
+      { id: 'progreso', t: 'Progreso', ic: LINE_IC.progreso },
+      { id: 'ajustes', t: 'Ajustes', ic: LINE_IC.ajustes }] }
   ];
   const ROUTE_PARENT = { ap: 'aperturas', met: 'metodos', ejercicios: 'rutas', examen: 'rutas' };
 
@@ -422,7 +454,7 @@
   };
 
   /* ---------- Exportar API para otros módulos ---------- */
-  const App = window.App = { rawSave: () => rawSave(), coach, COACH_SVG, $, $$, h, esc, rnd, shuffle, fmtTime, today, S, save, bump, san, fixMv, lineText, uciToMove, toast, VIEWS, boardBox, setEval, playerBar, playSound, moveList, proscons, statBar, ratePuzzle, captures, paintCaptures, themeName, THEME_ES, PZ_BY_ID, IC, pIc, route, areaRoute, engine: null,
+  const App = window.App = { rawSave: () => rawSave(), coach, COACH_SVG, $, $$, h, esc, rnd, shuffle, fmtTime, today, S, save, bump, san, fixMv, lineText, uciToMove, toast, VIEWS, boardBox, setEval, playerBar, playSound, moveList, proscons, statBar, ratePuzzle, LINE_IC, captures, paintCaptures, themeName, THEME_ES, PZ_BY_ID, IC, pIc, route, areaRoute, engine: null,
     getEngine() { if (!App.engine) App.engine = new Engine(); return App.engine; }, setCleanup(fn) { cleanup = fn; },
     isView(k) { return (location.hash || '#inicio').slice(1).split('-')[0] === k; } };
   Object.defineProperty(App, 'S', { get: () => S, set: (x) => { S = x; } });
