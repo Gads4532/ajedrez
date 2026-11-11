@@ -44,11 +44,13 @@ h1,h2,h3,h4{margin:0;line-height:1.2;text-wrap:balance}
 .logo .lg svg{width:20px;height:20px}
 .logo small{display:block;font-size:10px;font-weight:700;color:var(--green-h);letter-spacing:1.5px;text-transform:uppercase}
 .nav{display:flex;flex-direction:column;padding:4px 0 16px}
-.nav a{display:flex;align-items:center;gap:10px;padding:8px 12px;color:var(--fg2);text-decoration:none;font-weight:700;font-size:14.5px;border-left:3px solid transparent;transition:background .12s,color .12s}
+.nav a{display:flex;align-items:center;gap:12px;padding:8px 14px;color:var(--fg2);text-decoration:none;font-weight:600;font-size:14px;border-left:3px solid transparent;transition:background .12s,color .12s}
 .nav a:hover{background:var(--hover);color:var(--fg)}
 .nav a.on{background:var(--bg2);color:var(--fg);border-left-color:var(--green)}
-.nav .ic{width:26px;height:26px;flex:none;display:grid;place-items:center}
-.nav .ic svg{width:26px;height:26px}
+.nav .ic{width:20px;height:20px;flex:none;display:grid;place-items:center;color:var(--fg3);transition:color .12s}
+.nav .ic svg{width:20px;height:20px}
+.nav a:hover .ic{color:var(--fg)} .nav a.on .ic{color:var(--green)}
+.rt-card .rt-ic svg{width:26px;height:26px;color:var(--fg3)}
 .nav .lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:1.4px;color:var(--fg3);padding:10px 15px 2px;font-weight:800}
 .side-foot{margin-top:auto;padding:10px 12px 14px;color:var(--fg3);font-size:12.5px;border-top:1px solid var(--line)}
 .side-foot b{color:var(--fg)}

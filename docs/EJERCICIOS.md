@@ -70,6 +70,12 @@ Al terminar la sesión (o desde la lección) el botón **🧩 Practicar más** a
 límite, primero los no resueltos (`#ejercicios-<id>~mas`). Cada lección tiene al menos 25 puzles de su tema (mediana
 844; por ejemplo, Lucena 542 de finales de torres). Cada tanda da XP según el acierto (2 por cada 10 %).
 
+### 1.3c Repetir por partes
+Al terminar una sesión (y en la ficha de la lección ya completada) se puede **repetir todo**, **solo la teoría**
+(`#ejercicios-<id>~teoria`) o **solo la práctica** (`#ejercicios-<id>~practica`, con puzles nuevos). Los repasos dan
+XP según el acierto (2 por cada 10 %) y no cambian la nota guardada de la lección. En la pantalla entre teoría y
+práctica también se puede repetir la teoría.
+
 ### 1.4 Puntuación, estrellas y finalización
 
 - Por ejercicio: **1** sin errores ni ayudas, **0,5** con algún error o pista, **0** si se ve la solución.

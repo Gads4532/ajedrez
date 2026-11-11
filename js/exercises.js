@@ -108,7 +108,7 @@
         const ok = scores.slice(0, nMc).reduce((a, b) => a + b, 0);
         $('#exHead', v).innerHTML = `<div class="ex-res"><div style="font-size:40px">📖</div><h3>Teoría terminada: ${ok} de ${nMc}</h3><div class="dim">${ok === nMc ? '¡Todas correctas!' : ok >= nMc / 2 ? 'Bien. Repasa en la lección las que fallaste.' : 'Conviene releer la lección antes de seguir.'}</div><p class="muted" style="margin:10px 0 0">Ahora la <b>parte práctica</b>: ${nPr} ejercicios en el tablero.</p></div>`;
         $('#exFb', v).innerHTML = '';
-        foot(`<a class="btn" href="${esc(opt.back)}">📖 Releer la lección</a><button class="btn pri" id="exGo" style="margin-left:auto">Empezar la práctica →</button>`);
+        foot(`<a class="btn" href="${esc(opt.back)}">📖 Releer la lección</a>${opt.lessonId ? `<a class="btn" href="#ejercicios-${opt.lessonId}~teoria">↻ Repetir teoría</a>` : ''}<button class="btn pri" id="exGo" style="margin-left:auto">Empezar la práctica →</button>`);
         $('#exGo', v).onclick = load; return;
       }
       if (i < steps.length) load(); else finish();
@@ -158,8 +158,8 @@
       const res = opt.onFinish(pct, scores);
       $('#exHead', v).innerHTML = `<div class="ex-res"><div class="stars">${[1, 2, 3].map(k => `<span class="${k <= res.stars ? 'on' : ''}">★</span>`).join('')}</div><h3>${esc(res.title)}</h3><div class="dim">${pct.toFixed(0)}% de acierto · <b style="color:var(--green)">+${res.xp} XP</b></div></div>`;
       $('#exFb', v).innerHTML = res.msg ? `<p class="muted">${res.msg}</p>` : '';
-      foot(`<button class="btn" id="exAgain">↻ Repetir</button>${opt.moreHref ? `<a class="btn" href="${esc(opt.moreHref)}">🧩 Practicar más (10 puzles)</a>` : ''}${res.nextHref ? `<a class="btn pri" href="${esc(res.nextHref)}" style="margin-left:auto">${esc(res.nextT)}</a>` : `<a class="btn pri" href="${esc(opt.back)}" style="margin-left:auto">Volver</a>`}`);
-      $('#exAgain', v).onclick = () => App.route();
+      foot(`<button class="btn" id="exAgain">↻ Repetir todo</button>${opt.lessonId ? `<a class="btn" href="#ejercicios-${opt.lessonId}~teoria">↻ Solo teoría</a><a class="btn" href="#ejercicios-${opt.lessonId}~practica">↻ Solo práctica</a>` : ''}${opt.moreHref ? `<a class="btn" href="${esc(opt.moreHref)}">🧩 Practicar más (10 puzles)</a>` : ''}${res.nextHref ? `<a class="btn pri" href="${esc(res.nextHref)}" style="margin-left:auto">${esc(res.nextT)}</a>` : `<a class="btn pri" href="${esc(opt.back)}" style="margin-left:auto">Volver</a>`}`);
+      $('#exAgain', v).onclick = () => { if (opt.lessonId && location.hash !== '#ejercicios-' + opt.lessonId) location.hash = '#ejercicios-' + opt.lessonId; else App.route(); };
       board.opts.interactive = false; Sound.end();
     };
     load();
@@ -167,19 +167,21 @@
   }
 
   const starsOf = (pct) => (pct >= 90 ? 3 : pct >= 70 ? 2 : 1);
-  const lessonSteps = (L) => {
+  const lessonSteps = (L, mode) => {
     const quiz = (window.EXERCISES && EXERCISES[L.id]) || [];
     const nPz = quiz.length >= 3 ? 3 : 5;
     const seed = Math.floor(Date.now() / 864e5) + L.id.length * 31;
     const strict = L.area === 'basico' || L.area === 'partidas';
     const mc = ((window.LESSON_QUIZ || {})[L.id] || []).map(q => ({ kind: 'mc', q, fen: (L.positions && L.positions[0] && L.positions[0].fen) || null, o: L.positions && L.positions[0] && L.positions[0].orientation }));
-    return [...mc, ...quiz.map(item => ({ kind: 'quiz', item, strict })), ...pickPuzzles(themesFor(L), nPz, L.level, L.area, seed).map(p => ({ kind: 'puzzle', p }))];
+    if (mode === 'teoria') return mc;
+    const practica = [...quiz.map(item => ({ kind: 'quiz', item, strict })), ...pickPuzzles(themesFor(L), nPz, L.level, L.area, mode === 'practica' ? Date.now() : seed).map(p => ({ kind: 'puzzle', p }))];
+    return mode === 'practica' ? practica : [...mc, ...practica];
   };
   const poolSize = (L) => { const th = themesFor(L); return (window.PUZZLES || []).filter(p => (p.themes || []).some(t => th.includes(t))).length; };
   App.lessonExercises = (L) => { const q = (window.EXERCISES && EXERCISES[L.id]) || []; return { mc: ((window.LESSON_QUIZ || {})[L.id] || []).length, quiz: q.length, puzzles: q.length >= 3 ? 3 : 5, practice: !!L.practice, pool: poolSize(L) }; };
 
   VIEWS.ejercicios = (v, arg) => {
-    const more = /~mas$/.test(arg || ''), id = String(arg || '').replace(/~mas$/, '');
+    const mode = (/~(mas|teoria|practica)$/.exec(arg || '') || [])[1] || '', more = mode === 'mas', id = String(arg || '').replace(/~(mas|teoria|practica)$/, '');
     const L = (window.LESSONS || []).find(l => l.id === id); if (!L) { location.hash = '#rutas'; return; }
     if (more) {
       // Tanda extra: 10 puzles del tema (primero los no resueltos), sin límite de tandas.
@@ -189,8 +191,16 @@
         onFinish(pct) { const xp = Math.round(pct / 10) * 2; if (xp) App.addXP(xp); save(); return { stars: starsOf(pct), xp, title: pct >= 90 ? '¡Excelente tanda!' : 'Tanda completada', msg: '', nextHref: '#lec-' + L.id, nextT: 'Volver a la lección' }; }
       });
     }
+    if (mode === 'teoria' || mode === 'practica') {
+      const steps = lessonSteps(L, mode);
+      if (!steps.length) { location.hash = '#ejercicios-' + L.id; return; }
+      return session(v, {
+        title: (mode === 'teoria' ? 'Repaso de teoría: ' : 'Repaso de práctica: ') + L.title, back: '#lec-' + L.id, backT: L.title, lessonId: L.id, moreHref: '#ejercicios-' + L.id + '~mas', steps,
+        onFinish(pct) { const xp = Math.round(pct / 10) * 2; if (xp) App.addXP(xp); save(); return { stars: starsOf(pct), xp, title: pct >= 90 ? '¡Repaso perfecto!' : 'Repaso completado', msg: '', nextHref: '#lec-' + L.id, nextT: 'Volver a la lección' }; }
+      });
+    }
     return session(v, {
-      title: 'Ejercicios: ' + L.title, back: '#lec-' + L.id, backT: L.title, steps: lessonSteps(L), moreHref: '#ejercicios-' + L.id + '~mas',
+      title: 'Ejercicios: ' + L.title, back: '#lec-' + L.id, backT: L.title, lessonId: L.id, steps: lessonSteps(L), moreHref: '#ejercicios-' + L.id + '~mas',
       onFinish(pct) {
         const ex = S().lessonEx = S().lessonEx || {}; const prev = ex[L.id] || { best: 0, stars: 0, xp: 0 }; const stars = starsOf(pct);
         let xp = Math.round(pct / 10) * 3; if (!prev.stars) xp += 20; else xp = Math.max(0, stars - prev.stars) * 20;
