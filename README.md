@@ -21,6 +21,8 @@ Academia de ajedrez completa que funciona en el navegador, se instala como app e
 | **Cuenta** | Crea una cuenta con correo y contraseña (la misma de Organización Personal) y tu progreso se sincroniza entre el teléfono y la computadora |
 | **Estrategia** | Test de estilo, repertorio por perfil, familias de aperturas, 17 elementos del juego y comparador de aperturas |
 | **Lecciones** | Lecciones por secciones, como en las grandes plataformas: **Aprender a jugar** (desde cero), principios de apertura, táctica, medio juego y estrategia, **ataque**, finales y **partidas magistrales** comentadas jugada a jugada, con un entrenador (que se puede ocultar) y práctica contra el motor |
+| **Ejercicios en cada lección** | Todas las lecciones tienen ejercicios: las posiciones de la propia lección (cada jugada comprobada con Stockfish), puzles del tema ajustados a tu nivel y, si la tiene, práctica contra el motor. Puntuación con estrellas |
+| **Rutas y XP** | Una ruta por sección (aprender a jugar, principios, aperturas, táctica, estrategia, ataque, finales y partidas magistrales) con las lecciones por nivel, estrellas y un examen al final de cada nivel. Nivel y XP siempre visibles. Documentado en [`docs/EJERCICIOS.md`](docs/EJERCICIOS.md) |
 | **Mi análisis** | Recoge el análisis de todas tus partidas (las de la app y las que importes de chess.com, Lichess o un PGN) y detecta tendencias: evolución de la precisión, fase más débil, en qué jugadas fallas, errores que repites, aperturas, color y gestión de la ventaja. Genera un diagnóstico, un informe semanal y un plan de mejora con una lección y un ejercicio por cada punto débil. Documentado en [`docs/ANALISIS.md`](docs/ANALISIS.md) |
 | **Actualidad** | Campeones vigentes, próximos Mundiales, ranking FIDE y tendencias del ajedrez actual (Freestyle, motores, aperturas de moda), con fuentes |
 | **Metodologías** | 25 métodos de entrenamiento profesionales (escuela soviética, Dvoretsky, Steps, Woodpecker, Kotov, Heisman, Aagaard, Silman…) con pros, contras y evidencia |
@@ -64,6 +66,8 @@ Tu progreso se guarda en el navegador. En **Progreso → Copia de seguridad** pu
 index.html            interfaz y estilos
 js/                   tablero, motor, vistas y Stockfish (sf19.js + sf19.wasm; stockfish.js de respaldo)
 data/                 aperturas, lecciones (lessons*.js), actualidad, metodologías/enciclopedia y puzles
+docs/EJERCICIOS.md    ejercicios de las lecciones, exámenes, rutas y XP
+tools/build-exercises.js   genera data/exercises.js con Stockfish (volver a ejecutar al cambiar lecciones)
 docs/ANALISIS.md      cómo funcionan la revisión de partida, las tendencias y el plan de mejora
 tools/                validador de lecciones (node tools/validate-lessons.js data/lessons*.js)
 icons/, manifest.webmanifest, sw.js   instalación como app y uso sin conexión

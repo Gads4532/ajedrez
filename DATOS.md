@@ -80,3 +80,7 @@ El formato de cada partida guardada y del resumen de su revisión (`rev`) está 
 ## Idioma
 Todos los textos van en **español latinoamericano**: «ustedes» en lugar de «vosotros» (se turnan, resuelven), computadora, celular,
 presionar en lugar de pulsar, error en lugar de fallo, y pretérito simple en los mensajes (¡Ganaste!, Perdiste).
+
+## data/exercises.js → `window.EXERCISES` (generado)
+{ idLección: [{ fen, line:[SAN…], ask:[índices de line que juega el alumno], o:'w'|'b', title, find?:1 }] }
+No se edita a mano: `node tools/build-exercises.js` (ver `docs/EJERCICIOS.md`). Volver a generarlo tras cambiar lecciones.

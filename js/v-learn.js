@@ -40,6 +40,7 @@
     let grp = 'todas', side = 'todas', q = '';
     v.appendChild(h(`<div>
       <div class="page-h"><div><h1>Aperturas</h1><p>${OPENINGS.length} aperturas con su línea principal comentada, estadísticas aproximadas de bases magistrales, ideas y planes de ambos bandos, pros y contras, variantes y trampas. Cada una tiene un modo de entrenamiento con repetición espaciada.</p></div></div>
+      <details class="acc" style="margin-bottom:16px" ${S().settings.opRoute === false ? '' : 'open'} id="opRt"><summary>🗺 Ruta de aperturas: de las sencillas a la teoría avanzada</summary><div>${App.routeHTML ? App.routeHTML('aperturas') : ''}<p class="dim" style="font-size:12.5px;margin:8px 0 0">Una apertura cuenta como superada al llegar a la caja 2 en «Entrenar» (★ caja 2, ★★ caja 3-4, ★★★ caja 5).</p></div></details>
       <div class="card" style="display:grid;gap:10px;margin-bottom:16px">
         <input type="text" id="oq" placeholder="Buscar por nombre o código ECO…" style="width:100%">
         <div style="display:flex;gap:16px;flex-wrap:wrap"><div class="chips" id="og">${[['todas', 'Todas'], ['e4', '1.e4'], ['d4', '1.d4'], ['flancos', 'Flancos']].map(([k, t]) => `<button class="chip" data-v="${k}">${t}</button>`).join('')}</div>
@@ -245,9 +246,13 @@
     const cats = [...new Set(ls.map(l => l.category || 'General'))];
     const done = ls.filter(l => S().lessons[l.id]).length;
     v.appendChild(h(`<div><div class="page-h"><div><h1>${A.t}</h1><p>${A.d}</p></div><div style="min-width:200px"><div class="dim" style="font-size:13px;font-weight:800">${done}/${ls.length} completadas</div><div class="meter" style="margin-top:6px"><div style="width:${ls.length ? done / ls.length * 100 : 0}%"></div></div></div></div>
-      ${cats.map(c => `<h2 class="sec-t" style="margin:18px 0 10px;font-size:13px">${esc(c)}</h2><div class="grid g3">${ls.filter(l => (l.category || 'General') === c).map(l => `<a class="tile" href="#lec-${l.id}"><div style="display:flex;justify-content:space-between;gap:8px">${lvlTag(l.level)}${S().lessons[l.id] ? '<span class="tag g">✓ Hecha</span>' : ''}${l.practice ? '<span class="tag b">Práctica</span>' : ''}</div><h3>${esc(l.title)}</h3><p>${fixMv(esc(l.summary || ''))}</p></a>`).join('')}</div>`).join('')}
-      ${key === 'tactica' ? '<div class="card" style="margin-top:20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div class="grow" style="flex:1;min-width:200px"><h3 style="font-weight:900">Teoría + práctica</h3><p class="muted" style="margin:4px 0 0">Después de cada lección, resuelve 10-20 puzles del mismo tema. Es la base de la práctica deliberada.</p></div><a class="btn pri" href="#puzles">Ir a Puzles</a></div>' : ''}
+      <div class="chips" id="secTab" style="margin-bottom:14px"><button class="chip" data-v="ruta">🗺 Ruta</button><button class="chip" data-v="lista">☰ Lista</button></div>
+      <div id="secRoute">${App.routeHTML ? App.routeHTML(key) : ''}</div><div id="secList">
+      ${cats.map(c => `<h2 class="sec-t" style="margin:18px 0 10px;font-size:13px">${esc(c)}</h2><div class="grid g3">${ls.filter(l => (l.category || 'General') === c).map(l => `<a class="tile" href="#lec-${l.id}"><div style="display:flex;justify-content:space-between;gap:8px">${lvlTag(l.level)}${S().lessons[l.id] ? `<span class="tag g">${'★'.repeat(((S().lessonEx || {})[l.id] || {}).stars || 1)}</span>` : ''}<span class="tag b">🧩 Ejercicios</span></div><h3>${esc(l.title)}</h3><p>${fixMv(esc(l.summary || ''))}</p></a>`).join('')}</div>`).join('')}
+      </div>${key === 'tactica' ? '<div class="card" style="margin-top:20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div class="grow" style="flex:1;min-width:200px"><h3 style="font-weight:900">Teoría + práctica</h3><p class="muted" style="margin:4px 0 0">Después de cada lección, resuelve 10-20 puzles del mismo tema. Es la base de la práctica deliberada.</p></div><a class="btn pri" href="#puzles">Ir a Puzles</a></div>' : ''}
     </div>`));
+    const tab = (t) => { $('#secRoute', v).hidden = t !== 'ruta'; $('#secList', v).hidden = t !== 'lista'; $$('#secTab .chip', v).forEach(c => c.classList.toggle('on', c.dataset.v === t)); S().settings.secView = t; };
+    $$('#secTab .chip', v).forEach(c => c.onclick = () => { tab(c.dataset.v); save(); }); tab(S().settings.secView || 'ruta');
   };
   VIEWS.principios = lessonList('principios'); VIEWS.tactica = lessonList('tactica'); VIEWS.medio = lessonList('medio'); VIEWS.finales = lessonList('finales'); VIEWS.basico = lessonList('basico'); VIEWS.ataque = lessonList('ataque'); VIEWS.partidas = lessonList('partidas');
 
@@ -266,9 +271,10 @@
         <div class="prose">${fixMv(L.html || '')}</div>
         ${L.keyPoints && L.keyPoints.length ? `<div><div class="sec-t">Puntos clave</div><div class="prose">${ul(L.keyPoints)}</div></div>` : ''}
         ${proscons(L.pros, L.cons)}
+        ${(() => { const E = App.lessonExercises ? App.lessonExercises(L) : null; if (!E) return ''; const ex = (S().lessonEx || {})[L.id]; return `<div class="card ex-card"><div class="sec-t">🧩 Ejercicios de esta lección</div><p class="muted" style="margin:6px 0 10px">${E.quiz ? `${E.quiz} ${E.quiz > 1 ? 'posiciones' : 'posición'} de la lección + ` : ''}${E.puzzles} puzles del tema${E.practice ? ' + práctica contra el motor' : ''}. Complétalos para terminar la lección y ganar XP.</p>${ex ? `<div style="margin-bottom:8px"><span class="tag g">${'★'.repeat(ex.stars)}${'☆'.repeat(3 - ex.stars)}</span> <span class="dim" style="font-size:13px">Mejor resultado: ${ex.best}%</span></div>` : ''}<a class="btn pri" href="#ejercicios-${L.id}">${ex ? '↻ Repetir ejercicios' : '▶ Hacer los ejercicios'}</a></div>`; })()}
         ${L.practice ? `<div class="card" style="background:var(--bg3)"><div class="sec-t">Práctica contra el motor</div><p class="muted" style="margin:6px 0 10px">${fixMv(esc(L.practice.text || ''))}</p><a class="btn pri sm" href="#jugar" id="prac">Jugar esta posición (${L.practice.goal})</a></div>` : ''}
       </div>
-      <div class="sp-foot" id="foot"><button class="btn sm ${S().lessons[L.id] ? '' : 'pri'}" id="done">${S().lessons[L.id] ? '✓ Completada' : 'Marcar como completada'}</button></div></div>`);
+      <div class="sp-foot" id="foot"><a class="btn sm ${S().lessons[L.id] ? '' : 'pri'}" id="done" href="#ejercicios-${L.id}">${S().lessons[L.id] ? '✓ Completada · repetir ejercicios' : '🧩 Ir a los ejercicios'}</a></div></div>`);
     layout.appendChild(panel); v.appendChild(layout);
     let lv = null;
     const loadPos = (i) => {
@@ -286,7 +292,7 @@
     };
     $$('#pp .chip', v).forEach(c => c.onclick = () => loadPos(+c.dataset.i));
     if (ps.length) loadPos(0); else board.setPosition(START, false);
-    $('#done', v).onclick = (e) => { const first = !S().lessons[L.id]; S().lessons[L.id] = Date.now(); save(); bump(); if (first) App.track('lesson'); e.target.textContent = '✓ Completada'; e.target.classList.remove('pri'); toast('Lección completada'); };
+    if (false) $('#done', v).onclick = (e) => { const first = !S().lessons[L.id]; S().lessons[L.id] = Date.now(); save(); bump(); if (first) App.track('lesson'); e.target.textContent = '✓ Completada'; e.target.classList.remove('pri'); toast('Lección completada'); };
     if (L.practice) $('#prac', v).onclick = (e) => { e.preventDefault(); App.pendingGame = { fen: L.practice.fen, side: L.practice.side, goal: L.practice.goal, text: L.practice.text, title: L.title, back: '#lec-' + L.id }; location.hash = '#jugar'; };
     return keyNav(() => lv);
   };

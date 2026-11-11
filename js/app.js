@@ -88,6 +88,7 @@
       { id: 'ruta', t: 'Ruta', ic: IC.map },
       { id: 'duelo', t: 'Duelo local', ic: IC.duel }] },
     { lbl: 'Aprender', items: [
+      { id: 'rutas', t: 'Rutas y XP', ic: IC.map },
       { id: 'basico', t: 'Aprender a jugar', ic: pIc('wp') },
       { id: 'aperturas', t: 'Aperturas', ic: IC.book },
       { id: 'estrategia', t: 'Estrategia', ic: IC.compass },
@@ -105,7 +106,7 @@
       { id: 'progreso', t: 'Progreso', ic: IC.chart },
       { id: 'ajustes', t: 'Ajustes', ic: IC.gear }] }
   ];
-  const ROUTE_PARENT = { ap: 'aperturas', met: 'metodos' };
+  const ROUTE_PARENT = { ap: 'aperturas', met: 'metodos', ejercicios: 'rutas', examen: 'rutas' };
 
   function renderNav(cur) {
     const nav = $('#nav'); nav.innerHTML = '';
@@ -113,6 +114,7 @@
       nav.appendChild(h(`<div class="lbl">${g.lbl}</div>`));
       for (const n of g.items) nav.appendChild(h(`<a href="#${n.id}" class="${n.id === cur ? 'on' : ''}"><span class="ic">${n.ic}</span>${n.t}</a>`));
     }
+    const xb = $('#xpBox'); if (xb && App.level) { const L = App.level(); xb.innerHTML = `<a href="#rutas" class="xp-side" title="${S.xp || 0} XP en total"><span class="xp-lvl sm">${L.lvl}</span><span style="flex:1;min-width:0"><b>Nivel ${L.lvl}</b> <span class="dim">· ${L.into}/${L.need} XP</span><span class="meter" style="height:5px;margin-top:4px;display:block"><span style="display:block;height:100%;width:${L.into / L.need * 100}%;background:var(--green);border-radius:3px"></span></span></span></a>`; }
     const rt = $('#hdrRt'); if (rt) rt.innerHTML = `Puzles <b>${S.pz.rating}</b> · Nivel <b>${App.level ? App.level().lvl : 1}</b><br>Racha de días <b>${S.pz.dayStreak || 0}</b>`;
   }
   /* Entrenador: búho original con globo de diálogo */

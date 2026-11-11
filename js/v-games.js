@@ -8,7 +8,9 @@
   /* ---------- XP y niveles ---------- */
   const lvlFor = (xp) => { let l = 1, need = 100, acc = 0; while (xp >= acc + need) { acc += need; l++; need = Math.round(need * 1.18); } return { lvl: l, into: xp - acc, need }; };
   App.level = () => lvlFor(S().xp || 0);
-  App.addXP = (n) => { const before = lvlFor(S().xp || 0).lvl; S().xp = (S().xp || 0) + Math.round(n); const after = lvlFor(S().xp).lvl; save(); if (after > before) { toast(`¡Subes al nivel ${after}!`); Sound.end(); } };
+  // Aviso flotante «+N XP» (se agrupan los que llegan seguidos).
+  let popN = 0, popT = null; const xpPop = (n) => { popN += n; let el = document.getElementById('xpPop'); if (!el) { el = document.createElement('div'); el.id = 'xpPop'; el.className = 'xp-pop'; document.body.appendChild(el); } el.textContent = `+${popN} XP`; el.classList.remove('show'); void el.offsetWidth; el.classList.add('show'); clearTimeout(popT); popT = setTimeout(() => { popN = 0; el.classList.remove('show'); }, 1800); };
+  App.addXP = (n) => { if (!n) return; const before = lvlFor(S().xp || 0).lvl; S().xp = (S().xp || 0) + Math.round(n); const after = lvlFor(S().xp).lvl; save(); xpPop(Math.round(n)); if (after > before) { toast(`¡Subes al nivel ${after}!`); Sound.end(); } };
 
   /* ---------- Seguimiento de eventos para misiones y logros ---------- */
   const day = () => { const d = S().daily; if (!d || d.date !== todayKey()) S().daily = { date: todayKey(), solved: 0, theme: {}, maxRating: 0, rush: 0, lessons: 0, games: 0, wins: 0, battles: 0, bwins: 0, route: 0, streak: 0, best: 0, vision: 0, open: 0 }; return S().daily; };
