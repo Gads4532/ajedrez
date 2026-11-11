@@ -96,14 +96,29 @@
       <div class="sp-body"><div class="ex-dots" id="exDots"></div><div id="exHead"></div><div id="exFb"></div></div>
       <div class="sp-foot" id="exFoot"></div></div>`);
     layout.appendChild(panel); v.appendChild(layout);
-    const dots = () => { $('#exDots', v).innerHTML = steps.map((s, k) => `<span class="${k < scores.length ? (scores[k] === 1 ? 'ok' : scores[k] > 0 ? 'half' : 'bad') : k === i ? 'cur' : ''}" title="${esc(s.kind === 'quiz' ? 'Posición' : 'Puzle')}"></span>`).join(''); };
+    const dots = () => { $('#exDots', v).innerHTML = steps.map((s, k) => `<span class="${k < scores.length ? (scores[k] === 1 ? 'ok' : scores[k] > 0 ? 'half' : 'bad') : k === i ? 'cur' : ''}" title="${esc(s.kind === 'mc' ? 'Teoría' : s.kind === 'quiz' ? 'Posición' : 'Puzle')}"></span>`).join(''); };
     const fb = (cls, ic, t, sub) => { $('#exFb', v).innerHTML = `<div class="fb ${cls}" style="animation:none"><span class="dot">${ic}</span><div>${t}${sub ? `<small>${sub}</small>` : ''}</div></div>`; };
     const foot = (html) => { $('#exFoot', v).innerHTML = html; };
     const next = () => { i++; if (i < steps.length) load(); else finish(); };
     const stepDone = (sc) => { scores.push(sc); dots(); fb(sc === 1 ? 'win' : sc > 0 ? 'ok' : 'info', sc === 1 ? '★' : '✓', sc === 1 ? '¡Perfecto!' : sc > 0 ? 'Resuelto' : 'Solución vista', sc === 1 ? 'Sin errores ni ayudas.' : sc > 0 ? 'Con algún error o pista.' : 'Repasa la idea y vuelve a intentarlo más tarde.'); foot(`<button class="btn pri" id="exNext" style="margin-left:auto">${i + 1 < steps.length ? 'Siguiente →' : 'Ver resultado'}</button>`); $('#exNext', v).onclick = next; };
     const load = () => {
       dots(); $('#exFb', v).innerHTML = ''; const st = steps[i];
-      if (st.kind === 'quiz') {
+      if (st.kind === 'mc') {
+        // Pregunta teórica de triple elección: 1 punto si se acierta a la primera, 0 si no.
+        const q = st.q, order = [0, 1, 2].sort(() => Math.random() - 0.5);
+        board.game = null; board.opts.interactive = false; board.setArrows([]); board.badge(null); board.setLastMove(null);
+        if (st.fen) { board.setOrientation(st.o || 'white'); board.setPosition(st.fen, false); }
+        $('#exHead', v).innerHTML = `<div class="dim k">EJERCICIO ${i + 1} DE ${steps.length} · TEORÍA</div><h3 class="ex-t">${fixMv(q.q)}</h3><div class="mc-opts">${order.map((k, j) => `<button class="mc-opt" data-k="${k}"><span class="mc-l">${'ABC'[j]}</span><span>${fixMv(q.opts[k])}</span></button>`).join('')}</div>`;
+        foot('');
+        $$('.mc-opt', v).forEach(b => b.onclick = () => {
+          const k = +b.dataset.k, ok = k === q.ok;
+          $$('.mc-opt', v).forEach(x => { x.disabled = true; if (+x.dataset.k === q.ok) x.classList.add('right'); });
+          if (!ok) { b.classList.add('wrong'); Sound.bad(); } else Sound.good();
+          scores.push(ok ? 1 : 0); dots();
+          fb(ok ? 'win' : 'bad', ok ? '✓' : '✕', ok ? '¡Correcto!' : 'No es correcta', fixMv(q.why));
+          foot(`<button class="btn pri" id="exNext" style="margin-left:auto">${i + 1 < steps.length ? 'Siguiente →' : 'Ver resultado'}</button>`); $('#exNext', v).onclick = next;
+        });
+      } else if (st.kind === 'quiz') {
         const it = st.item, nAsk = it.ask.length;
         $('#exHead', v).innerHTML = `<div class="dim k">EJERCICIO ${i + 1} DE ${steps.length} · POSICIÓN DE LA LECCIÓN</div><h3 class="ex-t">${esc(it.title)}</h3><p class="muted" style="margin:0">${it.find ? 'Encuentra la mejor jugada.' : `Juegas con <b>${it.o === 'w' ? 'blancas' : 'negras'}</b>. Encuentra ${nAsk > 1 ? `las ${nAsk} jugadas de la idea; el rival responde solo` : 'la jugada clave'}.`}</p>`;
         foot('<button class="btn sm" id="exHint">💡 Pista</button><button class="btn sm" id="exSol">Solución</button>');
@@ -144,10 +159,11 @@
     const nPz = quiz.length >= 3 ? 3 : 5;
     const seed = Math.floor(Date.now() / 864e5) + L.id.length * 31;
     const strict = L.area === 'basico' || L.area === 'partidas';
-    return [...quiz.map(item => ({ kind: 'quiz', item, strict })), ...pickPuzzles(themesFor(L), nPz, L.level, L.area, seed).map(p => ({ kind: 'puzzle', p }))];
+    const mc = ((window.LESSON_QUIZ || {})[L.id] || []).map(q => ({ kind: 'mc', q, fen: (L.positions && L.positions[0] && L.positions[0].fen) || null, o: L.positions && L.positions[0] && L.positions[0].orientation }));
+    return [...mc, ...quiz.map(item => ({ kind: 'quiz', item, strict })), ...pickPuzzles(themesFor(L), nPz, L.level, L.area, seed).map(p => ({ kind: 'puzzle', p }))];
   };
   const poolSize = (L) => { const th = themesFor(L); return (window.PUZZLES || []).filter(p => (p.themes || []).some(t => th.includes(t))).length; };
-  App.lessonExercises = (L) => { const q = (window.EXERCISES && EXERCISES[L.id]) || []; return { quiz: q.length, puzzles: q.length >= 3 ? 3 : 5, practice: !!L.practice, pool: poolSize(L) }; };
+  App.lessonExercises = (L) => { const q = (window.EXERCISES && EXERCISES[L.id]) || []; return { mc: ((window.LESSON_QUIZ || {})[L.id] || []).length, quiz: q.length, puzzles: q.length >= 3 ? 3 : 5, practice: !!L.practice, pool: poolSize(L) }; };
 
   VIEWS.ejercicios = (v, arg) => {
     const more = /~mas$/.test(arg || ''), id = String(arg || '').replace(/~mas$/, '');

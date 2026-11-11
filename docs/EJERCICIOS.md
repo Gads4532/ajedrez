@@ -12,9 +12,16 @@ Una sesión tiene, en este orden:
 
 | Parte | Contenido | Cuántos |
 |---|---|---|
+| **Teoría** | Preguntas de triple elección sobre las ideas de la lección (`data/quiz-*.js`), con explicación tras responder. Las opciones se mezclan cada vez. | 4 por lección |
 | **Posiciones de la lección** | Las posiciones de la propia lección: juegas un bando y el rival responde siguiendo la línea. | Las que haya en `data/exercises.js` |
 | **Puzles del tema** | Puzles de `data/puzzles.js` con los temas de la lección. | 3 si hay 3+ posiciones; si no, 5 |
 | **Práctica contra el motor** | La posición de práctica de la lección (si la tiene), como remate opcional. | 0 o 1 |
+
+### 1.0 Preguntas de teoría (`data/quiz-*.js`)
+`window.LESSON_QUIZ = { idLección: [{ q, opts: [3 opciones], ok: 0|1|2, why }] }`. Se validan con
+`node tools/validate-quiz.js`: al menos 3 preguntas por lección, exactamente 3 opciones distintas, índice de la correcta
+válido, explicación presente, solo etiquetas `<b>`, `<i>` y `<span class="mv">`, y español latinoamericano. Puntúan
+1 si se aciertan a la primera y 0 si no.
 
 ### 1.1 Cómo se generan las posiciones (`tools/build-exercises.js`)
 
