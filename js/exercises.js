@@ -130,7 +130,7 @@
       const res = opt.onFinish(pct, scores);
       $('#exHead', v).innerHTML = `<div class="ex-res"><div class="stars">${[1, 2, 3].map(k => `<span class="${k <= res.stars ? 'on' : ''}">★</span>`).join('')}</div><h3>${esc(res.title)}</h3><div class="dim">${pct.toFixed(0)}% de acierto · <b style="color:var(--green)">+${res.xp} XP</b></div></div>`;
       $('#exFb', v).innerHTML = res.msg ? `<p class="muted">${res.msg}</p>` : '';
-      foot(`<button class="btn" id="exAgain">↻ Repetir</button>${res.nextHref ? `<a class="btn pri" href="${esc(res.nextHref)}" style="margin-left:auto">${esc(res.nextT)}</a>` : `<a class="btn pri" href="${esc(opt.back)}" style="margin-left:auto">Volver</a>`}`);
+      foot(`<button class="btn" id="exAgain">↻ Repetir</button>${opt.moreHref ? `<a class="btn" href="${esc(opt.moreHref)}">🧩 Practicar más (10 puzles)</a>` : ''}${res.nextHref ? `<a class="btn pri" href="${esc(res.nextHref)}" style="margin-left:auto">${esc(res.nextT)}</a>` : `<a class="btn pri" href="${esc(opt.back)}" style="margin-left:auto">Volver</a>`}`);
       $('#exAgain', v).onclick = () => App.route();
       board.opts.interactive = false; Sound.end();
     };
@@ -146,12 +146,22 @@
     const strict = L.area === 'basico' || L.area === 'partidas';
     return [...quiz.map(item => ({ kind: 'quiz', item, strict })), ...pickPuzzles(themesFor(L), nPz, L.level, L.area, seed).map(p => ({ kind: 'puzzle', p }))];
   };
-  App.lessonExercises = (L) => { const q = (window.EXERCISES && EXERCISES[L.id]) || []; return { quiz: q.length, puzzles: q.length >= 3 ? 3 : 5, practice: !!L.practice }; };
+  const poolSize = (L) => { const th = themesFor(L); return (window.PUZZLES || []).filter(p => (p.themes || []).some(t => th.includes(t))).length; };
+  App.lessonExercises = (L) => { const q = (window.EXERCISES && EXERCISES[L.id]) || []; return { quiz: q.length, puzzles: q.length >= 3 ? 3 : 5, practice: !!L.practice, pool: poolSize(L) }; };
 
-  VIEWS.ejercicios = (v, id) => {
+  VIEWS.ejercicios = (v, arg) => {
+    const more = /~mas$/.test(arg || ''), id = String(arg || '').replace(/~mas$/, '');
     const L = (window.LESSONS || []).find(l => l.id === id); if (!L) { location.hash = '#rutas'; return; }
+    if (more) {
+      // Tanda extra: 10 puzles del tema (primero los no resueltos), sin límite de tandas.
+      return session(v, {
+        title: 'Más práctica: ' + L.title, back: '#lec-' + L.id, backT: L.title, moreHref: '#ejercicios-' + L.id + '~mas',
+        steps: pickPuzzles(themesFor(L), 10, L.level, L.area, Date.now()).map(p => ({ kind: 'puzzle', p })),
+        onFinish(pct) { const xp = Math.round(pct / 10) * 2; if (xp) App.addXP(xp); save(); return { stars: starsOf(pct), xp, title: pct >= 90 ? '¡Excelente tanda!' : 'Tanda completada', msg: '', nextHref: '#lec-' + L.id, nextT: 'Volver a la lección' }; }
+      });
+    }
     return session(v, {
-      title: 'Ejercicios: ' + L.title, back: '#lec-' + L.id, backT: L.title, steps: lessonSteps(L),
+      title: 'Ejercicios: ' + L.title, back: '#lec-' + L.id, backT: L.title, steps: lessonSteps(L), moreHref: '#ejercicios-' + L.id + '~mas',
       onFinish(pct) {
         const ex = S().lessonEx = S().lessonEx || {}; const prev = ex[L.id] || { best: 0, stars: 0, xp: 0 }; const stars = starsOf(pct);
         let xp = Math.round(pct / 10) * 3; if (!prev.stars) xp += 20; else xp = Math.max(0, stars - prev.stars) * 20;

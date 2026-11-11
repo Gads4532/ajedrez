@@ -57,6 +57,11 @@ generador las trata igual que las posiciones de la lección y el validador las c
 - Dificultad: tu rating de puzles + ajuste por nivel (principiante −100, intermedio +50, avanzado +200);
   en *Aprender a jugar* como mucho 850. Se prefieren los no resueltos. Cuentan para tu rating y tus estadísticas.
 
+### 1.3b Practicar más
+Al terminar la sesión (o desde la lección) el botón **🧩 Practicar más** abre tandas de **10 puzles del tema**, sin
+límite, primero los no resueltos (`#ejercicios-<id>~mas`). Cada lección tiene al menos 25 puzles de su tema (mediana
+844; por ejemplo, Lucena 542 de finales de torres). Cada tanda da XP según el acierto (2 por cada 10 %).
+
 ### 1.4 Puntuación, estrellas y finalización
 
 - Por ejercicio: **1** sin errores ni ayudas, **0,5** con algún error o pista, **0** si se ve la solución.
