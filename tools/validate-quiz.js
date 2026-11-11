@@ -21,7 +21,7 @@ for (const L of window.LESSONS) {
     if (![0, 1, 2].includes(q.ok)) err(L.id, `${w}: ok debe ser 0, 1 o 2`);
     if (!q.why || q.why.length < 15) err(L.id, `${w}: falta la explicación (why)`);
     for (const t of [q.q, ...(q.opts || []), q.why]) { let m; TAGS.lastIndex = 0; while ((m = TAGS.exec(String(t || '')))) if (!OK_TAGS.has(m[1].toLowerCase())) err(L.id, `${w}: etiqueta no permitida <${m[1]}>`); }
-    if (/\bvosotr|\bos (turn|ha)|\b[a-z]+[áé]is\b/i.test([q.q, ...(q.opts || []), q.why].join(' '))) err(L.id, `${w}: usa español latinoamericano (ustedes, no vosotros)`);
+    if (/(^|[^\p{L}])(vosotr|os (turn|ha)|\p{L}+[áé]is(?![\p{L}]))/iu.test([q.q, ...(q.opts || []), q.why].join(' '))) err(L.id, `${w}: usa español latinoamericano (ustedes, no vosotros)`);
   });
 }
 const pos = Object.values(Q).flat().reduce((a, q) => { a[q.ok] = (a[q.ok] || 0) + 1; return a; }, {});

@@ -84,3 +84,6 @@ presionar en lugar de pulsar, error en lugar de fallo, y pretérito simple en lo
 ## data/exercises.js → `window.EXERCISES` (generado)
 { idLección: [{ fen, line:[SAN…], ask:[índices de line que juega el alumno], o:'w'|'b', title, find?:1 }] }
 No se edita a mano: `node tools/build-exercises.js` (ver `docs/EJERCICIOS.md`). Volver a generarlo tras cambiar lecciones.
+
+## data/quiz-*.js → `window.LESSON_QUIZ`
+{ idLección: [{ q, opts:[3 opciones], ok:0|1|2, why }] } — parte teórica de cada lección. Validar con `node tools/validate-quiz.js`.

@@ -8,7 +8,8 @@ Archivos: `js/exercises.js` (ejercicios y exámenes), `js/v-routes.js` (rutas), 
 Todas las lecciones tienen ejercicios. Se abren desde la lección (**🧩 Hacer los ejercicios**) o desde la ruta.
 Ruta en la app: `#ejercicios-<idLección>`.
 
-Una sesión tiene, en este orden:
+Una sesión tiene dos partes: **Parte 1 · Teoría** (las preguntas) y **Parte 2 · Práctica** (el tablero). Entre ambas, una
+pantalla muestra cuántas preguntas acertaste y permite releer la lección antes de practicar. En orden:
 
 | Parte | Contenido | Cuántos |
 |---|---|---|
