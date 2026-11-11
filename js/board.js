@@ -277,8 +277,8 @@
         if (knight) {
           const mx = Math.abs(y2 - y1) > Math.abs(x2 - x1) ? ax : bx, my = Math.abs(y2 - y1) > Math.abs(x2 - x1) ? by : ay;
           const ddx = bx - mx, ddy = by - my, LL = Math.hypot(ddx, ddy), kx = bx - ddx / LL * 40, ky = by - ddy / LL * 40;
-          html += `<polyline points="${ax},${ay} ${mx},${my} ${kx},${ky}" fill="none" stroke="${cols[c]}" stroke-width="18" stroke-linejoin="round" marker-end="url(#ah-${c})"/>`;
-        } else html += `<line x1="${ax}" y1="${ay}" x2="${ex}" y2="${ey}" stroke="${cols[c]}" stroke-width="18" marker-end="url(#ah-${c})"/>`;
+          html += `<polyline data-from="${f}" data-to="${t}" points="${ax},${ay} ${mx},${my} ${kx},${ky}" fill="none" stroke="${cols[c]}" stroke-width="18" stroke-linejoin="round" marker-end="url(#ah-${c})"/>`;
+        } else html += `<line data-from="${f}" data-to="${t}" x1="${ax}" y1="${ay}" x2="${ex}" y2="${ey}" stroke="${cols[c]}" stroke-width="18" marker-end="url(#ah-${c})"/>`;
       }
       this.svg.innerHTML = html;
     }

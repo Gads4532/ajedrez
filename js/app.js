@@ -49,6 +49,9 @@
 
   /* ---------- Iconos de navegación ---------- */
   const IC = {
+    news: '<svg viewBox="0 0 24 24" fill="none" stroke="#81b64c" stroke-width="2.2" stroke-linejoin="round"><rect x="3" y="4" width="15" height="16" rx="2"/><path d="M18 8h3v10a2 2 0 0 1-2 2" /><path d="M7 8h7M7 12h7M7 16h4" stroke-linecap="round"/></svg>',
+    flame: '<svg viewBox="0 0 24 24"><path d="M12 2c1 4 5 6 5 11a5 5 0 0 1-10 0c0-3 2-4 2-7 2 1 3 3 3 5 1-1 1-3 0-9z" fill="#e5603a"/></svg>',
+    games: '<svg viewBox="0 0 24 24" fill="none" stroke="#c9a26b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11l3 3v13H5z"/><path d="M9 10h6M9 14h6M9 18h3"/></svg>',
     lightning: '<svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z" fill="#f0c15c"/></svg>',
     loop: '<svg viewBox="0 0 24 24" fill="none" stroke="#5c8bb0" stroke-width="2.6" stroke-linecap="round"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8.7M20 4v4.7h-4.7M20 12a8 8 0 0 1-13.7 5.6L4 15.3M4 20v-4.7h4.7"/></svg>',
     search: '<svg viewBox="0 0 24 24" fill="none" stroke="#c3c2c1" stroke-width="2.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>',
@@ -66,12 +69,15 @@
     chart: '<svg viewBox="0 0 24 24"><rect x="3" y="12" width="4" height="9" rx="1" fill="#81b64c"/><rect x="10" y="7" width="4" height="14" rx="1" fill="#95c95f"/><rect x="17" y="3" width="4" height="18" rx="1" fill="#b2dc84"/></svg>',
     gear: '<svg viewBox="0 0 24 24" fill="none" stroke="#8b8987" stroke-width="2.2"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg>'
   };
-  const pIc = (c) => window.PIECE_SVG ? PIECE_SVG[c] : '';
+  const pIc = (c) => { const P = (window.PIECE_SETS && PIECE_SETS.plano) || window.PIECE_SVG; return P ? P[c] : ''; };
+  const LOGO_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="6.2" r="3.6" fill="#fff"/><path d="M8.6 11h6.8l1.6 7.4H7z" fill="#fff"/><rect x="5.5" y="19.2" width="13" height="2.8" rx="1.4" fill="#fff"/></svg>';
   const NAV = [
     { lbl: 'Jugar', items: [
       { id: 'jugar', t: 'Jugar', ic: pIc('wp') },
       { id: 'analisis', t: 'Análisis', ic: IC.search },
-      { id: 'inicio', t: 'Inicio', ic: pIc('wk') }] },
+      { id: 'mianalisis', t: 'Mi análisis', ic: IC.chart },
+      { id: 'inicio', t: 'Inicio', ic: pIc('wk') },
+      { id: 'actualidad', t: 'Actualidad', ic: IC.news }] },
     { lbl: 'Puzles', items: [
       { id: 'puzles', t: 'Puzles', ic: pIc('wn') },
       { id: 'contrarreloj', t: 'Contrarreloj', ic: IC.lightning },
@@ -82,12 +88,16 @@
       { id: 'ruta', t: 'Ruta', ic: IC.map },
       { id: 'duelo', t: 'Duelo local', ic: IC.duel }] },
     { lbl: 'Aprender', items: [
+      { id: 'rutas', t: 'Rutas y XP', ic: IC.map },
+      { id: 'basico', t: 'Aprender a jugar', ic: pIc('wp') },
       { id: 'aperturas', t: 'Aperturas', ic: IC.book },
       { id: 'estrategia', t: 'Estrategia', ic: IC.compass },
       { id: 'principios', t: 'Principios', ic: pIc('wb') },
       { id: 'tactica', t: 'Táctica', ic: pIc('bn') },
       { id: 'medio', t: 'Medio juego', ic: pIc('wq') },
-      { id: 'finales', t: 'Finales', ic: pIc('wr') }] },
+      { id: 'ataque', t: 'Ataque', ic: IC.flame },
+      { id: 'finales', t: 'Finales', ic: pIc('wr') },
+      { id: 'partidas', t: 'Partidas magistrales', ic: IC.games }] },
     { lbl: 'Método', items: [
       { id: 'roadmap', t: 'Roadmap', ic: IC.road },
       { id: 'metodos', t: 'Metodologías', ic: IC.cap },
@@ -96,7 +106,7 @@
       { id: 'progreso', t: 'Progreso', ic: IC.chart },
       { id: 'ajustes', t: 'Ajustes', ic: IC.gear }] }
   ];
-  const ROUTE_PARENT = { ap: 'aperturas', met: 'metodos' };
+  const ROUTE_PARENT = { ap: 'aperturas', met: 'metodos', ejercicios: 'rutas', examen: 'rutas' };
 
   function renderNav(cur) {
     const nav = $('#nav'); nav.innerHTML = '';
@@ -104,6 +114,7 @@
       nav.appendChild(h(`<div class="lbl">${g.lbl}</div>`));
       for (const n of g.items) nav.appendChild(h(`<a href="#${n.id}" class="${n.id === cur ? 'on' : ''}"><span class="ic">${n.ic}</span>${n.t}</a>`));
     }
+    const xb = $('#xpBox'); if (xb && App.level) { const L = App.level(); xb.innerHTML = `<a href="#rutas" class="xp-side" title="${S.xp || 0} XP en total"><span class="xp-lvl sm">${L.lvl}</span><span style="flex:1;min-width:0"><b>Nivel ${L.lvl}</b> <span class="dim">· ${L.into}/${L.need} XP</span><span class="meter" style="height:5px;margin-top:4px;display:block"><span style="display:block;height:100%;width:${L.into / L.need * 100}%;background:var(--green);border-radius:3px"></span></span></span></a>`; }
     const rt = $('#hdrRt'); if (rt) rt.innerHTML = `Puzles <b>${S.pz.rating}</b> · Nivel <b>${App.level ? App.level().lvl : 1}</b><br>Racha de días <b>${S.pz.dayStreak || 0}</b>`;
   }
   /* Entrenador: búho original con globo de diálogo */
@@ -135,7 +146,7 @@
     window.scrollTo(0, 0);
     try { cleanup = fn(v, VIEWS[raw] ? null : arg) || null; } catch (e) { console.error(e); v.innerHTML = `<div class="card">Error al cargar la vista: ${esc(e.message)}</div>`; }
   }
-  const areaRoute = (a) => ({ final: 'finales', 'apertura-principios': 'principios', tactica: 'tactica', estrategia: 'medio', medio: 'medio' }[a] || 'medio');
+  const areaRoute = (a) => ({ final: 'finales', 'apertura-principios': 'principios', tactica: 'tactica', estrategia: 'medio', medio: 'medio', basico: 'basico', ataque: 'ataque', partidas: 'partidas' }[a] || 'medio');
 
   /* ---------- Componente: tablero con barras de jugador ---------- */
   function boardBox(opts = {}) {
@@ -161,7 +172,26 @@
     top.textContent = showBottom ? '' : txt.replace('-', ''); bot.textContent = showBottom ? txt.replace('-', '') : '';
     top.style.color = flip ? '#403d39' : '#fff'; bot.style.color = flip ? '#fff' : '#403d39';
   }
-  function playerBar(el, name, sub, piece) { if (!el) return; el.innerHTML = `<span class="av">${pIc(piece)}</span><span>${esc(name)} <span class="dim" style="font-weight:600">${esc(sub || '')}</span></span><span class="clock" hidden>0:00</span>`; }
+  function playerBar(el, name, sub, piece) { if (!el) return; el.innerHTML = `<span class="av">${pIc(piece)}</span><span class="pn"><span>${esc(name)} <span class="dim" style="font-weight:600">${esc(sub || '')}</span></span><span class="caps"></span></span><span class="clock" hidden>0:00</span>`; }
+  // Piezas capturadas por cada bando y ventaja de material, tras las primeras «ply» medias jugadas.
+  const CAP_VAL = { p: 1, n: 3, b: 3, r: 5, q: 9 }, CAP_ORD = 'pnbrq';
+  function captures(hist, ply) {
+    const by = { w: [], b: [] }; let diff = 0; // diff > 0: ventaja de las blancas
+    hist.slice(0, ply).forEach(m => {
+      if (m.captured) { by[m.color].push(m.captured); diff += (m.color === 'w' ? 1 : -1) * CAP_VAL[m.captured]; }
+      if (m.promotion) diff += (m.color === 'w' ? 1 : -1) * (CAP_VAL[m.promotion] - 1);
+    });
+    for (const c of ['w', 'b']) by[c].sort((x, y) => CAP_ORD.indexOf(x) - CAP_ORD.indexOf(y));
+    return { by, diff };
+  }
+  // Pinta en la barra de un jugador (color «col») las piezas rivales que ha capturado y su ventaja.
+  function paintCaptures(el, col, cap) {
+    const box = el && el.querySelector('.caps'); if (!box) return;
+    const opp = col === 'w' ? 'b' : 'w', adv = (col === 'w' ? 1 : -1) * cap.diff, P = window.PIECE_SVG || {};
+    let html = '', last = '';
+    cap.by[col].forEach(t => { html += `<span class="cp${t !== last ? ' gap' : ''}">${P[opp + t] || ''}</span>`; last = t; });
+    box.innerHTML = html + (adv > 0 ? `<span class="adv">+${adv}</span>` : '');
+  }
   function playSound(r) { if (!r) return; if (r.san.includes('#')) Sound.end(); else if (r.san.includes('+')) Sound.check(); else if (r.flags.includes('k') || r.flags.includes('q')) Sound.castle(); else if (r.captured) Sound.capture(); else Sound.move(); }
 
   /* Lista de jugadas navegable */
@@ -344,7 +374,7 @@
     $('#bk', v).value = JSON.stringify(S);
     $('#bkCopy', v).onclick = () => { const ta = $('#bk', v); ta.value = JSON.stringify(S); (navigator.clipboard ? navigator.clipboard.writeText(ta.value) : Promise.reject()).then(() => toast('Datos copiados'), () => { ta.select(); toast('Selecciona y copia el texto'); }); };
     $('#bkLoad', v).onclick = () => { try { const d = JSON.parse($('#bk', v).value); S = Object.assign(DEF(), d); save(); App.S = S; toast('Datos restaurados'); route(); } catch (e) { toast('El texto no es una copia válida'); } };
-    let resetArm = false; $('#bkReset', v).onclick = (e) => { if (!resetArm) { resetArm = true; e.target.textContent = 'Pulsa otra vez para confirmar'; return; } S = DEF(); save(); App.S = S; toast('Datos borrados'); route(); };
+    let resetArm = false; $('#bkReset', v).onclick = (e) => { if (!resetArm) { resetArm = true; e.target.textContent = 'Presiona otra vez para confirmar'; return; } S = DEF(); save(); App.S = S; toast('Datos borrados'); route(); };
   };
 
   /* ======================= AJUSTES ======================= */
@@ -355,32 +385,50 @@
         <div><div class="sec-t">Sonido</div><label class="ck"><input type="checkbox" id="snd" ${S.settings.sound !== false ? 'checked' : ''}> Sonidos de movimiento y aciertos</label></div>
         <div><div class="sec-t">Cuenta y sincronización</div><div id="setAcct" style="margin-top:6px"></div></div>
         <div><div class="sec-t">App</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;align-items:center"><span class="muted">Versión ${App.VERSION || ''}</span><button class="btn sm" id="updChk">Buscar actualización</button><button class="btn sm" id="instChk">⬇ Instalar app</button></div></div>
-        <div><div class="sec-t">Piezas</div><div class="chips" id="pcs" style="margin-top:6px"><button class="chip" data-v="plano">Planas</button><button class="chip" data-v="moderno">Modernas</button><button class="chip" data-v="clasico">Clásicas</button></div></div>
+        <div><div class="sec-t">Tablero</div><div class="chips" id="brd" style="margin-top:6px"><button class="chip" data-v="verde">Verde</button><button class="chip" data-v="marron">Marrón</button></div></div>
+        <div><div class="sec-t">Piezas</div><div class="chips" id="pcs" style="margin-top:6px"><button class="chip" data-v="clasico">Clásicas</button><button class="chip" data-v="moderno">Modernas</button><button class="chip" data-v="plano">Planas</button><button class="chip" data-v="custom">Personalizadas</button></div><p class="muted" style="font-size:13px;margin:8px 0 6px">Personalizadas: elige las 12 imágenes de tus piezas (PNG o SVG) llamadas <b>wp, wn, wb, wr, wq, wk, bp, bn, bb, br, bq, bk</b> (también vale «white-pawn», «negro-caballo»…). Se guardan solo en este dispositivo.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><label class="btn sm">Subir imágenes<input type="file" id="pcUp" accept="image/*" multiple hidden></label><button class="btn sm ghost" id="pcClr">Quitar personalizadas</button></div></div>
         <div><div class="sec-t">Entrenador</div><label class="ck"><input type="checkbox" id="coachT" ${S.settings.coach !== false ? 'checked' : ''}> Mostrar el búho entrenador en lecciones, aperturas y la ruta</label></div>
-        <div><div class="sec-t">Créditos</div><p class="muted" style="font-size:13.5px;margin:4px 0 0">Motor: Stockfish 10 (GPLv3, compilado a JavaScript por nmrugg/stockfish.js). Reglas: chess.js (BSD-2). Piezas: Cburnett, Wikimedia Commons (CC BY-SA 3.0), vía cm-chessboard. Las estadísticas de aperturas son aproximaciones de bases magistrales y los puzles generados se verificaron con Stockfish.</p></div>
+        <div><div class="sec-t">Créditos</div><p class="muted" style="font-size:13.5px;margin:4px 0 0">Motor: Stockfish 10 (GPLv3, compilado a JavaScript por nmrugg/stockfish.js). Reglas: chess.js (BSD-2). Piezas «Planas»: diseño propio. «Modernas» y «Clásicas»: Cburnett, Wikimedia Commons (CC BY-SA 3.0), vía cm-chessboard. Las estadísticas de aperturas son aproximaciones de bases magistrales y los puzles generados se verificaron con Stockfish.</p></div>
       </div></div>`));
     const paint = () => $$('#not .chip', v).forEach(c => c.classList.toggle('on', c.dataset.v === S.settings.notation));
     paint(); $$('#not .chip', v).forEach(c => c.onclick = () => { S.settings.notation = c.dataset.v; save(); paint(); toast('Notación actualizada'); });
     const sa = $('#setAcct', v), A = App.account;
-    if (A) { sa.innerHTML = A.auth ? `<div class="muted">Conectado como <b style="color:var(--fg)">${esc(A.auth.email || '')}</b></div><div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><button class="btn sm" id="sNow">Sincronizar ahora</button><button class="btn sm ghost" id="sOut">Cerrar sesión</button></div>` : `<p class="muted" style="margin:0 0 8px">Crea una cuenta para guardar tu progreso en la nube y usarlo en el teléfono y el ordenador.</p><button class="btn pri sm" id="sIn">Crear cuenta / Entrar</button>`;
+    if (A) { sa.innerHTML = A.auth ? `<div class="muted">Conectado como <b style="color:var(--fg)">${esc(A.auth.email || '')}</b></div><div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><button class="btn sm" id="sNow">Sincronizar ahora</button><button class="btn sm ghost" id="sOut">Cerrar sesión</button></div>` : `<p class="muted" style="margin:0 0 8px">Crea una cuenta para guardar tu progreso en la nube y usarlo en el teléfono y la computadora.</p><button class="btn pri sm" id="sIn">Crear cuenta / Entrar</button>`;
       const a1 = $('#sNow', v), a2 = $('#sOut', v), a3 = $('#sIn', v);
       if (a1) a1.onclick = () => { A.syncNow(); toast('Sincronizando…'); }; if (a2) a2.onclick = () => { A.signOut(); route(); }; if (a3) a3.onclick = () => A.form('in'); }
     $('#updChk', v).onclick = () => App.checkUpdate && App.checkUpdate();
     $('#instChk', v).onclick = () => App.installNow && App.installNow();
-    const pp = () => $$('#pcs .chip', v).forEach(c => c.classList.toggle('on', c.dataset.v === (S.settings.pieces || 'plano')));
-    pp(); $$('#pcs .chip', v).forEach(c => c.onclick = () => { S.settings.pieces = c.dataset.v; save(); window.PIECE_SVG = window.PIECE_SETS[c.dataset.v]; pp(); toast('Piezas cambiadas'); });
+    const pb = () => $$('#brd .chip', v).forEach(c => c.classList.toggle('on', c.dataset.v === (S.settings.board || 'verde')));
+    pb(); $$('#brd .chip', v).forEach(c => c.onclick = () => { S.settings.board = c.dataset.v; save(); document.documentElement.dataset.board = c.dataset.v; pb(); toast('Tablero cambiado'); });
+    const CP = window.CustomPieces;
+    const setPc = (k) => { S.settings.pieceSet = k; save(); window.PIECE_SVG = window.PIECE_SETS[k] || PIECE_SETS.clasico; pp(); };
+    const pp = () => $$('#pcs .chip', v).forEach(c => { c.classList.toggle('on', c.dataset.v === (S.settings.pieceSet || 'clasico')); if (c.dataset.v === 'custom') c.style.opacity = PIECE_SETS.custom ? '' : '.45'; });
+    pp(); $$('#pcs .chip', v).forEach(c => c.onclick = () => { if (!PIECE_SETS[c.dataset.v]) return toast('Primero sube tus imágenes'); setPc(c.dataset.v); toast('Piezas cambiadas'); });
+    $('#pcUp', v).onchange = async (e) => {
+      const files = [...e.target.files], m = {}; let bad = 0;
+      for (const f of files) {
+        const k = CP.keyOf(f.name); if (!k) { bad++; continue; }
+        m[k] = await new Promise((ok, ko) => { const r = new FileReader(); r.onload = () => ok(r.result); r.onerror = ko; r.readAsDataURL(f); });
+      }
+      e.target.value = '';
+      if (!Object.keys(m).length) return toast('No reconocí los nombres. Usa wp, wn, wb… bk');
+      try { CP.save(Object.assign(CP.load() || {}, m)); } catch (err) { return toast('Las imágenes son demasiado grandes'); }
+      setPc('custom');
+      toast(`Piezas personalizadas: ${Object.keys(CP.load()).length}/12` + (bad ? ` · sin reconocer: ${bad}` : ''));
+    };
+    $('#pcClr', v).onclick = () => { CP.clear(); if (S.settings.pieceSet === 'custom') setPc('clasico'); else pp(); toast('Personalizadas eliminadas'); };
     $('#coachT', v).onchange = (e) => { S.settings.coach = e.target.checked; save(); toast(e.target.checked ? 'Búho visible' : 'Búho oculto'); };
     $('#snd', v).onchange = (e) => { S.settings.sound = e.target.checked; Sound.enabled = e.target.checked; save(); };
   };
 
   /* ---------- Exportar API para otros módulos ---------- */
-  const App = window.App = { rawSave: () => rawSave(), coach, COACH_SVG, $, $$, h, esc, rnd, shuffle, fmtTime, today, S, save, bump, san, fixMv, lineText, uciToMove, toast, VIEWS, boardBox, setEval, playerBar, playSound, moveList, proscons, statBar, ratePuzzle, themeName, THEME_ES, PZ_BY_ID, IC, pIc, route, areaRoute, engine: null,
+  const App = window.App = { rawSave: () => rawSave(), coach, COACH_SVG, $, $$, h, esc, rnd, shuffle, fmtTime, today, S, save, bump, san, fixMv, lineText, uciToMove, toast, VIEWS, boardBox, setEval, playerBar, playSound, moveList, proscons, statBar, ratePuzzle, captures, paintCaptures, themeName, THEME_ES, PZ_BY_ID, IC, pIc, route, areaRoute, engine: null,
     getEngine() { if (!App.engine) App.engine = new Engine(); return App.engine; }, setCleanup(fn) { cleanup = fn; },
     isView(k) { return (location.hash || '#inicio').slice(1).split('-')[0] === k; } };
   Object.defineProperty(App, 'S', { get: () => S, set: (x) => { S = x; } });
 
   window.addEventListener('DOMContentLoaded', () => {
-    $('#logoIc').innerHTML = pIc('wn');
+    $('#logoIc').innerHTML = LOGO_SVG;
     $('#menuBtn').onclick = (e) => { e.stopPropagation(); $('#side').classList.toggle('open'); };
     document.addEventListener('click', (e) => { if (!e.target.closest('#side')) $('#side').classList.remove('open'); });
     window.addEventListener('hashchange', route);

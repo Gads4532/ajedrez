@@ -64,7 +64,7 @@
       <div class="sp-body">
         <div id="fb"></div>
         <div id="info" class="muted" style="font-size:14px"></div>
-        <div><div class="sec-t" style="margin-bottom:6px">Modo</div><div class="chips" id="modes"><button class="chip" data-m="adapt">Adaptativo</button><button class="chip" data-m="theme">Por tema</button><button class="chip" data-m="review">Repasar fallos</button></div></div>
+        <div><div class="sec-t" style="margin-bottom:6px">Modo</div><div class="chips" id="modes"><button class="chip" data-m="adapt">Adaptativo</button><button class="chip" data-m="theme">Por tema</button><button class="chip" data-m="review">Repasar errores</button></div></div>
         <div id="themeBox" hidden><select id="themeSel" style="width:100%"></select></div>
         <label class="ck"><input type="checkbox" id="blind"> Modo a ciegas (las piezas desaparecen a los 6 s)</label>
         <div id="themesOut"></div>
@@ -89,7 +89,7 @@
         onDone(ok) {
           board.setBlind(false);
           if (!rated) { rated = true; const d = ratePuzzle(p, ok); fb(ok ? 'win' : 'ok', ok ? '★' : '✓', ok ? '¡Resuelto!' : 'Completado', `Rating ${S().pz.rating} (${d >= 0 ? '+' : ''}${d})`); }
-          else fb('ok', '✓', 'Completado', 'Este puzle ya contó como fallo.');
+          else fb('ok', '✓', 'Completado', 'Este puzle ya contó como error.');
           $('#rt', v).textContent = S().pz.rating; showThemes(p);
         }
       });
@@ -130,7 +130,7 @@
     let timer = null, run = null;
     const intro = () => {
       const best = S().rush.best || {};
-      $('#rb', v).innerHTML = `<p class="muted" style="margin:0">Resuelve el máximo de puzles. La dificultad sube con cada acierto. Tres fallos y se acaba. Entrena la <b>velocidad de reconocimiento de patrones</b>, que es lo que decide las partidas rápidas y los apuros de tiempo.</p>
+      $('#rb', v).innerHTML = `<p class="muted" style="margin:0">Resuelve el máximo de puzles. La dificultad sube con cada acierto. Tres errores y se acaba. Entrena la <b>velocidad de reconocimiento de patrones</b>, que es lo que decide las partidas rápidas y los apuros de tiempo.</p>
         <div><div class="sec-t" style="margin-bottom:6px">Tema</div><select id="rth" style="width:100%"><option value="">Todos los temas</option>${Object.keys(THEME_ES).filter(t => PUZZLES.filter(p => (p.themes || []).includes(t)).length >= 15).map(t => `<option value="${t}">${esc(themeName(t))}</option>`).join('')}</select></div>
         <div class="grid" style="gap:10px">${[['3', '3 minutos'], ['5', '5 minutos'], ['surv', 'Supervivencia (sin reloj)']].map(([k, t]) => `<button class="btn ${k === '3' ? 'pri' : ''} big" data-k="${k}">${t}<span style="font-size:13px;opacity:.8;margin-left:auto">Récord ${best[k] || 0}</span></button>`).join('')}</div>`;
       $('#rf', v).innerHTML = '';
@@ -174,7 +174,7 @@
       if (rec) best[run.k] = run.score; S().rush.best = best; S().rush.runs.push({ k: run.k, s: run.score, d: Date.now() }); bump(run.results.length); App.track('rush', { score: run.score });
       Sound.end();
       $('#rb', v).innerHTML = `<div class="fb ${rec ? 'win' : 'ok'}"><span class="dot">${rec ? '🏆' : '✓'}</span><div>${run.score} puzles resueltos<small>${rec ? '¡Nuevo récord personal!' : 'Récord: ' + best[run.k]}</small></div></div><div class="rush-list">${run.results.map(r => `<span class="${r ? 'ok' : 'ko'}">${r ? '✓' : '✕'}</span>`).join('')}</div>
-        <p class="muted" style="font-size:14px">Consejo: los puzles que fallas aquí quedan en “Repasar fallos” del modo Puzles. Resuélvelos despacio, sin reloj.</p>`;
+        <p class="muted" style="font-size:14px">Consejo: los puzles que fallas aquí quedan en “Repasar errores” del modo Puzles. Resuélvelos despacio, sin reloj.</p>`;
       $('#rf', v).innerHTML = '<button class="btn pri" id="ag">Jugar otra vez</button>'; $('#ag', v).onclick = intro;
     };
     intro();
@@ -239,7 +239,7 @@
       $('#wfb', v).innerHTML = `<div class="fb info"><span class="dot">${colorOf(p) === 'w' ? '♔' : '♚'}</span><div>Juegan ${colorOf(p) === 'w' ? 'blancas' : 'negras'}<small>rating ${p.rating}</small></div></div>`;
       let failed = false;
       const run = PuzzleRunner(board, p, {
-        onWrong() { failed = true; $('#wfb', v).innerHTML = '<div class="fb bad"><span class="dot">✕</span><div>Incorrecto<small>Cuenta como fallo; sigue intentándolo.</small></div></div>'; },
+        onWrong() { failed = true; $('#wfb', v).innerHTML = '<div class="fb bad"><span class="dot">✕</span><div>Incorrecto<small>Cuenta como error; sigue intentándolo.</small></div></div>'; },
         onDone(ok) { if (ok && !failed) cyc.ok++; cyc.pos++; save(); bump(); setTimeout(nextW, 600); }
       });
       $('#wskip', v).onclick = () => { failed = true; run.playAll(); };
@@ -250,7 +250,7 @@
 
   /* ======================= VISIÓN Y CÁLCULO ======================= */
   VIEWS.vision = (v, arg) => {
-    const tabs = [['coord', 'Coordenadas'], ['nombre', 'Nombra casilla'], ['color', 'Color de casilla'], ['caballo', 'Rutas de caballo'], ['memoria', 'Memoria'], ['calculo', 'Cálculo a ciegas']];
+    const tabs = [['coord', 'Coordenadas'], ['nombre', 'Nombra casilla'], ['color', 'Color de casilla'], ['caballo', 'Rutas de caballo'], ['captura', 'Captura'], ['memoria', 'Memoria'], ['calculo', 'Cálculo a ciegas']];
     let tab = tabs.some(t => t[0] === arg) ? arg : 'coord';
     const bb = boardBox({ showCoords: true });
     const layout = h(`<div class="play"></div>`); layout.appendChild(bb.el);
@@ -302,6 +302,40 @@
         };
         $('#cl', v).onclick = () => ans(false); $('#cd', v).onclick = () => ans(true);
         return () => { board.el.style.visibility = ''; };
+      },
+      captura() {
+        // Captura todas las piezas rivales con una sola pieza en el mínimo de jugadas (los peones no se mueven).
+        resetBoard(true);
+        const DIRS = { n: [[1, 2], [2, 1], [-1, 2], [-2, 1], [1, -2], [2, -1], [-1, -2], [-2, -1]], b: [[1, 1], [1, -1], [-1, 1], [-1, -1]], r: [[1, 0], [-1, 0], [0, 1], [0, -1]] }; DIRS.q = DIRS.b.concat(DIRS.r);
+        const NAME = { n: 'caballo', b: 'alfil', r: 'torre', q: 'dama' };
+        const reach = (pc, from, blockers) => { const f = FILES.indexOf(from[0]), r = +from[1], o = []; for (const [a, b] of DIRS[pc]) { let nf = f + a, nr = r + b; while (nf >= 0 && nf < 8 && nr >= 1 && nr <= 8) { const sq = FILES[nf] + nr; o.push(sq); if (pc === 'n' || blockers.has(sq)) break; nf += a; nr += b; } } return o; };
+        // Mínimo de jugadas: búsqueda en anchura sobre (casilla, piezas ya capturadas).
+        const minMoves = (pc, start, targets) => { const full = (1 << targets.length) - 1, seen = new Set([start + '|0']); let q = [[start, 0]], d = 0; while (q.length) { const nx = []; for (const [sq, mask] of q) { if (mask === full) return d; const bl = new Set(targets.filter((_, i) => !(mask & (1 << i)))); for (const t of reach(pc, sq, bl)) { const i = targets.indexOf(t); const m2 = i >= 0 ? mask | (1 << i) : mask; const k = t + '|' + m2; if (!seen.has(k)) { seen.add(k); nx.push([t, m2]); } } } q = nx; d++; if (d > 14) return -1; } return -1; };
+        let pc, pos, targets, moves, minD, solved = 0, streak = 0, locked = false;
+        const fenOf = () => { const rows = []; for (let r = 8; r >= 1; r--) { let row = '', e = 0; for (let f = 0; f < 8; f++) { const sq = FILES[f] + r; const ch = sq === pos ? pc.toUpperCase() : targets.includes(sq) ? 'p' : ''; if (ch) { if (e) row += e; e = 0; row += ch; } else e++; } if (e) row += e; rows.push(row); } return rows.join('/') + ' w - - 0 1'; };
+        const fake = { get: (sq) => sq === pos ? { type: pc, color: 'w' } : targets.includes(sq) ? { type: 'p', color: 'b' } : null, moves: ({ square }) => square === pos ? reach(pc, pos, new Set(targets)).map(t => ({ from: pos, to: t, captured: targets.includes(t) ? 'p' : null })) : [], turn: () => 'w', in_check: () => false, fen: () => fenOf() };
+        const info = () => { $('#vmv', v).textContent = `Jugadas: ${moves} · mínimo posible: ${minD} · quedan ${targets.length}`; };
+        const setup = () => {
+          const n = Math.min(6, 3 + Math.floor(solved / 3)); const pool = solved < 2 ? ['r', 'q'] : ['n', 'b', 'r', 'q', 'n'];
+          do { pc = pool[Math.floor(Math.random() * pool.length)]; pos = rsq(); const set = new Set(); while (set.size < n) { const sq = rsq(); if (sq !== pos) set.add(sq); } targets = [...set]; minD = minMoves(pc, pos, targets); } while (minD < n || minD > n + 5);
+          moves = 0; locked = false; board.game = fake; board.opts.movable = 'w'; board.opts.interactive = true; board.setPosition(fenOf(), false); board.setLastMove(null);
+          $('#vtg', v).innerHTML = `Captura los ${n} peones con ${pc === 'q' || pc === 'r' ? 'la' : 'el'} ${NAME[pc]}`; info();
+        };
+        board.opts.onUserMove = async ({ from, to }) => {
+          if (locked) return false;
+          const cap = targets.includes(to); moves++; targets = targets.filter(t => t !== to); pos = to;
+          board.setPosition(fenOf()); board.setLastMove([from, to]); cap ? Sound.capture() : Sound.move(); info();
+          if (!targets.length) {
+            locked = true; const perfect = moves === minD; if (perfect) { solved++; streak++; Sound.good(); board.badge(to, 'best'); best('captura', streak); } else { streak = 0; Sound.bad(); board.badge(to, 'inaccuracy'); }
+            $('#vsc', v).textContent = `Perfectas: ${solved} · racha: ${streak} · récord de racha: ${S().vision.captura || 0}`;
+            $('#vmv', v).textContent = perfect ? `¡Perfecto! ${moves} jugadas, el mínimo.` : `Lo hiciste en ${moves}; se podía en ${minD}. Calcula la ruta completa antes de mover.`;
+            setTimeout(() => { board.badge(null); setup(); }, perfect ? 900 : 1800);
+          }
+          return true;
+        };
+        $('#vb', v).innerHTML = `<p class="muted" style="margin:0">Captura todos los peones con una sola pieza en el <b>menor número de jugadas</b>. Los peones no se mueven. Antes de tocar la pieza, calcula la ruta entera: entrena la visión de tablero y el hábito de ver qué piezas están atacadas. Cada 3 aciertos hay un peón más.</p><div class="vision-target" id="vtg" style="font-size:22px"></div><div id="vmv" class="muted"></div><b id="vsc">Perfectas: 0 · racha: 0 · récord de racha: ${S().vision.captura || 0}</b>`;
+        $('#vf', v).innerHTML = '<button class="btn sm" id="vnew">Otra posición</button>'; $('#vnew', v).onclick = () => { streak = 0; setup(); };
+        setup();
       },
       caballo() {
         resetBoard(true);

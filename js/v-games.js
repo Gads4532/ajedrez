@@ -8,7 +8,9 @@
   /* ---------- XP y niveles ---------- */
   const lvlFor = (xp) => { let l = 1, need = 100, acc = 0; while (xp >= acc + need) { acc += need; l++; need = Math.round(need * 1.18); } return { lvl: l, into: xp - acc, need }; };
   App.level = () => lvlFor(S().xp || 0);
-  App.addXP = (n) => { const before = lvlFor(S().xp || 0).lvl; S().xp = (S().xp || 0) + Math.round(n); const after = lvlFor(S().xp).lvl; save(); if (after > before) { toast(`¡Subes al nivel ${after}!`); Sound.end(); } };
+  // Aviso flotante «+N XP» (se agrupan los que llegan seguidos).
+  let popN = 0, popT = null; const xpPop = (n) => { popN += n; let el = document.getElementById('xpPop'); if (!el) { el = document.createElement('div'); el.id = 'xpPop'; el.className = 'xp-pop'; document.body.appendChild(el); } el.textContent = `+${popN} XP`; el.classList.remove('show'); void el.offsetWidth; el.classList.add('show'); clearTimeout(popT); popT = setTimeout(() => { popN = 0; el.classList.remove('show'); }, 1800); };
+  App.addXP = (n) => { if (!n) return; const before = lvlFor(S().xp || 0).lvl; S().xp = (S().xp || 0) + Math.round(n); const after = lvlFor(S().xp).lvl; save(); xpPop(Math.round(n)); if (after > before) { toast(`¡Subes al nivel ${after}!`); Sound.end(); } };
 
   /* ---------- Seguimiento de eventos para misiones y logros ---------- */
   const day = () => { const d = S().daily; if (!d || d.date !== todayKey()) S().daily = { date: todayKey(), solved: 0, theme: {}, maxRating: 0, rush: 0, lessons: 0, games: 0, wins: 0, battles: 0, bwins: 0, route: 0, streak: 0, best: 0, vision: 0, open: 0 }; return S().daily; };
@@ -116,7 +118,7 @@
     const stopAll = () => { timers.forEach(t => { clearInterval(t); clearTimeout(t); }); timers = []; };
     const pick = () => {
       stopAll();
-      $('#bb', v).innerHTML = `<p class="muted" style="margin:0">Elige rival. Ambos resolvéis puzles de dificultad creciente durante 3 minutos; el bot acierta o falla según su Elo. Tres fallos y quedas eliminado.</p>
+      $('#bb', v).innerHTML = `<p class="muted" style="margin:0">Elige rival. Ambos resuelven puzles de dificultad creciente durante 3 minutos; el bot acierta o falla según su Elo. Tres errores y quedas eliminado.</p>
         <div style="display:grid;gap:8px">${BOTS.map((b, i) => `<div class="list-row" data-b="${i}">${botFace(b)}<div class="grow"><h3>${esc(b.n)} <span class="dim" style="font-weight:600">(${b.elo})</span></h3><p>${esc(b.s)}</p></div>${(S().battles || {})[b.n] ? '<span class="tag g">Vencido</span>' : ''}</div>`).join('')}</div>`;
       $('#bf', v).innerHTML = '';
       $$('[data-b]', v).forEach(r => r.onclick = () => start(BOTS[+r.dataset.b]));
@@ -207,7 +209,7 @@
       const fin = () => {
         $('#rbar', v).style.width = '100%'; const pass = ok >= 8;
         if (pass && (S().route[t] || 0) <= tier) { S().route[t] = tier + 1; App.track('route', { stars: stars() }); Sound.end(); }
-        App.coach($('#rco', v), pass ? 'ok' : 'ko', pass ? `¡Estrella de ${tn}!` : `${ok}/10: necesitas 8`, pass ? 'Has dominado este nivel. Prueba el siguiente o pasa a otro tema.' : 'Repasa la lección de este tema en Táctica y vuelve a intentarlo.');
+        App.coach($('#rco', v), pass ? 'ok' : 'ko', pass ? `¡Estrella de ${tn}!` : `${ok}/10: necesitas 8`, pass ? 'Dominaste este nivel. Prueba el siguiente o pasa a otro tema.' : 'Repasa la lección de este tema en Táctica y vuelve a intentarlo.');
         $('#rf', v).innerHTML = `<button class="btn pri" id="ra">${pass && tier < 2 ? 'Siguiente nivel' : 'Repetir'}</button><button class="btn" id="rm">Mapa</button>`;
         $('#ra', v).onclick = () => play([t, name]); $('#rm', v).onclick = map;
       };
@@ -225,7 +227,7 @@
     const board = bb.board; board.opts.interactive = false; board.setPosition('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', false);
     let st = null, tmr = null;
     const setup = () => {
-      $('#db', v).innerHTML = `<p class="muted" style="margin:0">Dos jugadores, un dispositivo. Os turnáis puzles de la misma dificultad, que sube cada ronda. Cada uno tiene 3 vidas y 45 segundos por puzle.</p>
+      $('#db', v).innerHTML = `<p class="muted" style="margin:0">Dos jugadores, un dispositivo. Se turnan puzles de la misma dificultad, que sube cada ronda. Cada uno tiene 3 vidas y 45 segundos por puzle.</p>
         <input type="text" id="n1" value="Jugador 1"><input type="text" id="n2" value="Jugador 2">
         <div class="chips" id="dl">${[[600, 'Fácil'], [1100, 'Medio'], [1600, 'Difícil'], [2000, 'Experto']].map(([r, t], i) => `<button class="chip ${i === 1 ? 'on' : ''}" data-r="${r}">${t}</button>`).join('')}</div>`;
       $$('#dl .chip', v).forEach(c => c.onclick = () => { $$('#dl .chip', v).forEach(x => x.classList.remove('on')); c.classList.add('on'); });

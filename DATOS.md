@@ -61,3 +61,26 @@ jaqueDoble, desviacion, atraccion, sobrecarga, eliminacionDefensor, intermedia, 
 coronacion, final, finalPeones, finalTorres, ahogado, defensa, ventajaMaterial, piezaColgada, mateCorredor,
 mateAhogado(asfixia de Philidor), mateAnastasia, mateArabe, mateBoden, mateEpaulette, sacrificioGriego, quietMove(jugada tranquila),
 zugzwang, apertura, medioJuego, corto, largo, muyLargo
+
+## Lecciones en varios archivos
+`data/lessons.js` asigna `window.LESSONS`; los archivos `data/lessons-*.js` **añaden** lecciones con
+`(window.LESSONS = window.LESSONS || []).push(...)` y deben cargarse después. Áreas (`area`) y sección donde aparecen:
+`basico` → Aprender a jugar · `apertura-principios` → Principios · `tactica` → Táctica · `estrategia`/`medio` → Medio juego ·
+`ataque` → Ataque · `final` → Finales · `partidas` → Partidas magistrales.
+Validar siempre: `node tools/validate-lessons.js data/lessons*.js` (FEN, legalidad de cada jugada, longitudes y etiquetas HTML).
+
+## data/actualidad.js → `window.ACTUALIDAD`
+{ updated:'fecha en texto', next:[{ title, when, where, html }], champions:[{ title, who, flag, note }],
+  ranking:{ title, note, open:[[puesto, jugador, país, elo]], women:[...] }, trends:[{ title, html }], sources:[[título, url]] }
+Se edita a mano cuando hay novedades (ver `docs/ANALISIS.md`, apartado Mantenimiento).
+
+## Partidas y su análisis → `S.games[]`
+El formato de cada partida guardada y del resumen de su revisión (`rev`) está en `docs/ANALISIS.md`, apartado 3.
+
+## Idioma
+Todos los textos van en **español latinoamericano**: «ustedes» en lugar de «vosotros» (se turnan, resuelven), computadora, celular,
+presionar en lugar de pulsar, error en lugar de fallo, y pretérito simple en los mensajes (¡Ganaste!, Perdiste).
+
+## data/exercises.js → `window.EXERCISES` (generado)
+{ idLección: [{ fen, line:[SAN…], ask:[índices de line que juega el alumno], o:'w'|'b', title, find?:1 }] }
+No se edita a mano: `node tools/build-exercises.js` (ver `docs/EJERCICIOS.md`). Volver a generarlo tras cambiar lecciones.

@@ -2,7 +2,7 @@
    Usa el mismo proyecto de Supabase que «Organización Personal»: la misma cuenta sirve para las dos apps.
    El progreso del ajedrez se guarda aparte, en la tabla «ajedrez_estados» (ver supabase.sql). */
 (function () {
-  const APP_VERSION = '1.4.1';
+  const APP_VERSION = '1.8.0';
   App.VERSION = APP_VERSION;
   const { $, h, esc, toast } = App;
   const inArtifact = /claude\.ai|claudeusercontent/.test(location.host) || !/^https?:$/.test(location.protocol);
@@ -53,12 +53,14 @@
     for (const [k, r] of Object.entries(pr.theme || {})) { const l = o.pz.theme[k]; o.pz.theme[k] = !l || r.n > l.n ? r : l; }
     o.lessons = { ...(R.lessons || {}), ...(L.lessons || {}) };
     o.open = { ...(R.open || {}) }; for (const [k, v] of Object.entries(L.open || {})) { const r = o.open[k]; o.open[k] = !r || (v.reps || 0) >= (r.reps || 0) ? v : r; }
-    o.games = uniq([...(R.games || []), ...(L.games || [])], g => g.d).sort((a, b) => a.d - b.d).slice(-200);
+    { const gm = new Map(); for (const g of [...(R.games || []), ...(L.games || [])]) { const p = gm.get(g.d); gm.set(g.d, p && p.rev && !g.rev ? p : g); } o.games = [...gm.values()].sort((a, b) => a.d - b.d).slice(-200); } // conserva el análisis (rev) si solo lo tiene una copia
     o.journal = uniq([...(R.journal || []), ...(L.journal || [])], j => j.date + '|' + j.text);
     o.activity = maxObj(L.activity, R.activity);
     o.rush = { best: maxObj((L.rush || {}).best, (R.rush || {}).best), runs: uniq([...((R.rush || {}).runs || []), ...((L.rush || {}).runs || [])], r => r.d).slice(-300) };
     o.wood = { sets: uniq([...((R.wood || {}).sets || []), ...((L.wood || {}).sets || [])].sort((a, b) => a.cycles.length - b.cycles.length), s => s.name) };
     o.route = maxObj(L.route, R.route); o.vision = maxObj(L.vision, R.vision); o.totals = maxObj(L.totals, R.totals); o.battles = maxObj(L.battles, R.battles);
+    const best = (a = {}, b = {}) => { const r = { ...a }; for (const k in b) if (!r[k] || (b[k].best || 0) > (r[k].best || 0) || (b[k].stars || 0) > (r[k].stars || 0)) r[k] = { ...b[k], stars: Math.max((r[k] || {}).stars || 0, b[k].stars || 0), best: Math.max((r[k] || {}).best || 0, b[k].best || 0) }; return r; };
+    o.lessonEx = best(R.lessonEx, L.lessonEx); o.exams = best(R.exams, L.exams);
     o.ach = { ...(R.ach || {}), ...(L.ach || {}) }; o.rm = { ...(R.rm || {}), ...(L.rm || {}) };
     o.xp = Math.max(L.xp || 0, R.xp || 0);
     const dl = L.daily, dr = R.daily; o.daily = !dl ? dr : !dr ? dl : dl.date === dr.date ? { ...maxObj(dl, dr), date: dl.date, theme: maxObj(dl.theme, dr.theme), done: { ...(dr.done || {}), ...(dl.done || {}) } } : (dl.date > dr.date ? dl : dr);
@@ -121,7 +123,7 @@
   /* ---------- Cuenta ---------- */
   function accountForm(mode = 'in') {
     const d = dialog(`<h2 style="font-size:22px;font-weight:900;margin-bottom:6px">${mode === 'up' ? 'Crear cuenta' : 'Iniciar sesión'}</h2>
-      <p class="muted" style="margin:0 0 14px;font-size:14px">Con una cuenta tu progreso (rating, puzles, lecciones, partidas, logros) se guarda en la nube y lo ves en cualquier teléfono u ordenador. Es la misma cuenta de Organización Personal.</p>
+      <p class="muted" style="margin:0 0 14px;font-size:14px">Con una cuenta tu progreso (rating, puzles, lecciones, partidas, logros) se guarda en la nube y lo ves en cualquier teléfono o computadora. Es la misma cuenta de Organización Personal.</p>
       <div style="display:grid;gap:10px"><label class="fl">Correo<input id="a-email" type="email" autocomplete="email" placeholder="tu@correo.com"></label>
       <label class="fl">Contraseña<input id="a-pass" type="password" autocomplete="${mode === 'up' ? 'new-password' : 'current-password'}" placeholder="Mínimo 6 caracteres"></label></div>
       <p class="muted" id="a-msg" style="min-height:1.4em;margin:10px 0;font-size:14px"></p>
