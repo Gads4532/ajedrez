@@ -35,6 +35,12 @@ for (const l of L) {
     (p.arrows || []).forEach(a => { if (!SQ.test(a[0]) || !SQ.test(a[1])) err(id, `${w}: flecha inválida ${a}`); });
     (p.highlights || []).forEach(s => { if (!SQ.test(s)) err(id, `${w}: casilla inválida ${s}`); });
   });
+  (l.drills || []).forEach((p, i) => {
+    const w = `ejercicio ${i + 1}`;
+    if (!p.caption) err(id, `${w}: falta caption`);
+    if (!p.line || !p.line.length) err(id, `${w}: un ejercicio necesita line`);
+    checkLine(id, w, p.fen, p.line, p.comments);
+  });
   if (l.practice) {
     const p = l.practice; checkLine(id, 'practice', p.fen, [], null);
     if (!['ganar', 'tablas', 'mate'].includes(p.goal)) err(id, `practice.goal inválido ${p.goal}`);

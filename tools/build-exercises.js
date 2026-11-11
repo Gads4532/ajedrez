@@ -52,7 +52,8 @@ async function goodMove(fen, san) {
 
 async function buildLesson(L) {
   const items = [];
-  for (const [pi, P] of (L.positions || []).entries()) {
+  // drills: posiciones pensadas solo como ejercicio (se tratan igual que las de la lección)
+  for (const [pi, P] of [...(L.positions || []), ...(L.drills || [])].entries()) {
     if (!P.line || !P.line.length) {
       // Posición sin línea: se pregunta la mejor jugada solo si es claramente la mejor (mate, o 12+ puntos sobre la segunda).
       const c0 = new Chess(P.fen); if (c0.game_over()) continue;
