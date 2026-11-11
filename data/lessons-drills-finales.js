@@ -12,6 +12,14 @@
         line: ['Kf5', 'Ke2', 'd4'],
         comments: ['El rey se acerca en diagonal, hacia e5 y d4. Cualquier otra jugada de rey llega tarde y el final es tablas.', 'El negro ataca el peón de d2.', 'El peón se pone a salvo avanzando, y el rey blanco de f5 lo acompaña desde e5: el negro ya no puede frenarlo.'] },
     ],
+    'f-triangulacion': [
+      { fen: '8/8/3p4/3Pk3/2K1P3/8/8/8 w - - 0 1', caption: 'Juegan blancas: el rey negro ataca tu peón de e4. Defiéndelo y recorre un triángulo con el rey para volver a c4 en mejores condiciones.',
+        line: ['Kd3', 'Kf6', 'Kd4', 'Ke7', 'Kc4', 'Kd7', 'Kb5'],
+        comments: ['Única forma de salvar el peón de e4: aquí empieza el triángulo c4-d3-d4.', 'El negro no puede seguir en e5 y se aparta.', 'Con el rey negro fuera de e5, el blanco ocupa d4.', 'El rey negro vuelve para proteger d6.', 'El rey cierra el triángulo y vuelve a c4. Las piezas blancas están igual que al principio, pero el rey negro ya no está en e5 sino en e7, y le toca mover a él.', 'El negro tiene que seguir cuidando d6.', 'El rey entra por b5 rumbo a b6 y c7: el peón de d6 caerá y el final está ganado.'] },
+      { fen: '8/8/8/2p5/2Pk4/8/3K4/8 w - - 0 1', caption: 'Juegan blancas: el rey negro amenaza tu peón de c4. Encuentra las casillas correspondientes que salvan la partida.',
+        line: ['Kd1', 'Kd3', 'Kc1', 'Kxc4', 'Kc2'],
+        comments: ['El rey retrocede a la primera fila (Rc1 también sirve). Rc2 o Re2 pierden: el negro gana el peón y además se queda con la oposición.', 'El rey negro se acerca a c3 y d3.', 'Al rey negro en d3 le corresponde c1: es la única casilla que mantiene las tablas.', 'El negro gana el peón.', 'El rey blanco toma la oposición frente al rey negro: el peón de c5 no puede coronar. Tablas.'] },
+    ],
     'f-dama-rey': [
       { fen: '3k4/8/1K6/8/8/1Q6/8/8 w - - 0 1', caption: 'Juegan blancas: el rey negro está en el borde. Con una jugada tranquila de dama, encierra al rey y prepara el mate.',
         line: ['Qf7', 'Kc8', 'Qc7#'],

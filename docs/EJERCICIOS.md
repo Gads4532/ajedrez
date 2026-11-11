@@ -31,9 +31,14 @@ node tools/build-exercises.js [profundidad=11] [procesos=4]
   segunda opción del motor) y la posición no está perdida.
 - Hay que volver a ejecutarlo cada vez que se añaden o cambian lecciones (tarda unos segundos).
 
-Resultado actual: 133 lecciones, 304 ejercicios de posición, 727 jugadas a encontrar. 22 lecciones (las de posiciones
-ilustrativas sin una jugada única, como estructuras de peones o mates básicos) no tienen ejercicio de posición: tienen
-5 puzles del tema y, si existe, su práctica contra el motor.
+Resultado actual: **las 133 lecciones tienen ejercicios de posición**: 359 ejercicios con 864 jugadas a encontrar.
+Las lecciones cuyas posiciones son solo ilustrativas (estructuras, mates básicos) tienen además ejercicios propios
+(`drills`) en `data/lessons-drills-estrategia.js` y `data/lessons-drills-finales.js`, escritos para practicar la idea de
+la lección y verificados con Stockfish a profundidad 16 (cada jugada del alumno es la mejor o pierde ≤ 4 puntos).
+
+### 1.1b Ejercicios propios (`drills`)
+Una lección puede tener `drills: [{ fen, caption, line, comments }]`: posiciones pensadas solo como ejercicio. El
+generador las trata igual que las posiciones de la lección y el validador las comprueba (deben tener `line`).
 
 ### 1.2 Cómo se corrige una jugada (`QuizRunner`)
 
