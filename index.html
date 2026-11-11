@@ -369,6 +369,7 @@ details.acc>div{padding:0 18px 16px}
 /* ---------- Ejercicios ---------- */
 .ex-dots{display:flex;gap:6px;flex-wrap:wrap}
 .ex-dots span{width:22px;height:8px;border-radius:4px;background:var(--gray-btn)}
+.ex-dots .sep{width:2px;height:14px;background:var(--fg3);margin:-3px 4px 0;border-radius:1px}
 .ex-dots span.cur{background:var(--blue)} .ex-dots span.ok{background:var(--green)} .ex-dots span.half{background:var(--yellow)} .ex-dots span.bad{background:var(--red)}
 #exHead .k{font-size:12px;font-weight:800;letter-spacing:.5px}
 .ex-t{font-weight:900;font-size:17px;margin:4px 0 6px}
@@ -377,6 +378,13 @@ details.acc>div{padding:0 18px 16px}
 .ex-res .stars .on{color:#f0c15c}
 .ex-res h3{font-weight:900;font-size:22px}
 .ex-card{border:2px solid var(--green)}
+.mc-opts{display:grid;gap:8px;margin-top:10px}
+.mc-opt{display:flex;gap:10px;align-items:center;text-align:left;background:var(--gray-btn);border:2px solid transparent;color:var(--fg);border-radius:8px;padding:10px 12px;font:inherit;font-weight:700;font-size:14.5px;cursor:pointer;box-shadow:0 3px 0 var(--gray-btn-d)}
+.mc-opt:hover:not(:disabled){background:var(--hover)}
+.mc-opt:disabled{cursor:default}
+.mc-opt .mc-l{width:26px;height:26px;border-radius:50%;background:var(--bg3);display:grid;place-items:center;font-weight:900;font-size:13px;flex:none}
+.mc-opt.right{border-color:var(--green);background:rgba(129,182,76,.18)} .mc-opt.right .mc-l{background:var(--green);color:#fff}
+.mc-opt.wrong{border-color:var(--red);background:rgba(202,52,49,.18)} .mc-opt.wrong .mc-l{background:var(--red);color:#fff}
 /* ---------- Mi análisis ---------- */
 .grid.g4{grid-template-columns:repeat(4,1fr)}
 @media(max-width:900px){.grid.g4{grid-template-columns:repeat(2,1fr)}}
@@ -449,6 +457,11 @@ svg.chart{width:100%;height:auto;display:block}
 <script src="data/lessons-drills-finales.js"></script>
 <script src="data/actualidad.js"></script>
 <script src="data/exercises.js"></script>
+<script src="data/quiz-basico.js"></script>
+<script src="data/quiz-tactica.js"></script>
+<script src="data/quiz-estrategia.js"></script>
+<script src="data/quiz-finales.js"></script>
+<script src="data/quiz-ataque.js"></script>
 <script src="data/knowledge.js"></script>
 <script src="data/puzzles.js"></script>
 <script src="js/app.js"></script>
