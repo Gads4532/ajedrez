@@ -84,9 +84,9 @@
       refresh();
     };
     const stepPly = (d) => { if (!g) return; const total = g.history().length; showPly((view == null ? total : view) + d); };
-    let helps = true;
+    let helps = true, lastOpening = null;
     const start = (fen, color, prac) => {
-      view = null; helps = !!prac || cfg.help !== false;
+      view = null; lastOpening = null; helps = !!prac || cfg.help !== false;
       practice = prac || null; startFen = fen;
       g = new Chess(fen); me = color; over = false; eng.newGame();
       board.game = g; board.opts.movable = me; board.opts.interactive = true;
@@ -118,7 +118,8 @@
         if (view == null) vw.innerHTML = '';
         else { const behind = sans.length - view; vw.innerHTML = `<div class="fb info" style="animation:none;padding:10px 12px;font-size:14px"><span class="dot" style="width:30px;height:30px;font-size:15px">👁</span><div>Estás viendo ${view ? 'la jugada ' + Math.ceil(view / 2) + (view % 2 ? ' de blancas' : ' de negras') : 'la posición inicial'}<small>${over ? 'Partida terminada.' : 'La partida sigue igual: nada se ha deshecho.'} ${behind} ${behind > 1 ? 'jugadas' : 'jugada'} después.</small></div><button class="btn pri sm" id="vwBack" style="margin-left:auto">Volver</button></div>`; $('#vwBack', v).onclick = () => showPly(1e9); }
       }
-      if (startFen === START) { const b = bookInfo(sans); $('#op', v).textContent = b.name && (helps || over) ? 'Apertura: ' + b.name : ''; }
+      // Nombre de la apertura según se juega (como en las grandes plataformas): siempre visible, también sin ayudas.
+      if (startFen === START) { const b = bookInfo(sans.slice(0, view == null ? sans.length : view)); if (b.name) lastOpening = b.name; const op = $('#op', v); if (op) op.innerHTML = lastOpening ? `<span class="op-name">${App.LINE_IC ? App.LINE_IC.aperturas : ''}<span>${esc(lastOpening)}</span></span>` : ''; }
       paintClocks();
     };
     const checkEnd = () => {

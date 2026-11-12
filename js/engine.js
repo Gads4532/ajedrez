@@ -41,7 +41,7 @@
         if (j.onInfo) j.onInfo(j.lines.slice(), depth);
       } else if (line.startsWith('bestmove')) {
         const bm = line.split(' ')[1];
-        this.cur = null; this.busy = false;
+        this.cur = null; this.busy = false; clearTimeout(this._wd);
         if (!j.cancelled) j.resolve({ bestmove: bm, lines: j.lines.filter(Boolean), depth: j.depth });
         this._next();
       }
@@ -50,6 +50,8 @@
       if (this.busy || !this.ready) return;
       const j = this.queue.shift(); if (!j) return;
       this.cur = j; this.busy = true;
+      // Vigilante: si el motor no termina en un tiempo razonable (se colgó en este dispositivo), se pasa al motor de respaldo.
+      clearTimeout(this._wd); this._wd = setTimeout(() => { if (this.cur === j && !this.failed) { try { this.w.terminate(); } catch (e) { } this.failed = true; this.ready = true; this.busy = false; this.name = 'Motor JS básico (respaldo)'; this._flushFail(); window.dispatchEvent(new Event('engine-ready')); if (window.App && App.toast) App.toast('El motor no respondía en este dispositivo: se usa el motor de respaldo.'); } }, (j.movetime || 0) + 30000);
       this.w.postMessage('setoption name MultiPV value ' + (j.multipv || 1));
       this.w.postMessage('setoption name Skill Level value ' + (j.skill == null ? 20 : j.skill));
       this.w.postMessage('position fen ' + j.fen);

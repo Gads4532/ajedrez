@@ -142,7 +142,7 @@
         $('#exHint', v).onclick = () => runner.hint(); $('#exSol', v).onclick = () => runner.solution();
       } else {
         const p = st.p;
-        $('#exHead', v).innerHTML = `<div class="dim k">${label('puzzle')}</div><h3 class="ex-t">${esc((p.themes || []).filter(t => !['corto', 'largo', 'muyLargo', 'final', 'medioJuego', 'apertura'].includes(t)).slice(0, 2).map(themeName).join(' · ') || 'Puzle')}</h3><p class="muted" style="margin:0">Juegan <b>${new Chess(p.fen).turn() === 'w' ? 'negras' : 'blancas'}</b> · dificultad ${p.rating}</p>`;
+        $('#exHead', v).innerHTML = `<div class="dim k">${label('puzzle')}</div><h3 class="ex-t">${esc((p.themes || []).filter(t => !['corto', 'largo', 'muyLargo', 'final', 'medioJuego', 'apertura'].includes(t)).slice(0, 2).map(themeName).join(' · ') || 'Puzle')}</h3><p class="muted" style="margin:0">Juegas con <b>${new Chess(p.fen).turn() === 'w' ? 'blancas' : 'negras'}</b> · dificultad ${p.rating}</p>`;
         foot('<button class="btn sm" id="exHint">💡 Pista</button><button class="btn sm" id="exSol">Solución</button>');
         let wrong = 0, helped = false;
         runner = PuzzleRunner(board, p, {
