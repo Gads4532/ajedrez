@@ -292,12 +292,11 @@
     v.appendChild(h(`<div>
       <div class="hero">
         <div class="hero-main">
-          <div class="bgk">${pIc('wn')}</div>
           <span class="tag g" style="align-self:flex-start">Academia de ajedrez</span>
           <h1>Entrena como un profesional, una sesión cada día.</h1>
           <p class="muted" style="margin:0;max-width:52ch">Puzles con rating, aperturas con estadísticas, lecciones de medio juego y finales, las metodologías de los grandes entrenadores y un motor para jugar y revisar tus partidas.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:auto">
-            <a class="btn pri" href="#puzles">${pIc('wn').replace('<svg', '<svg width="22" height="22"')} Resolver puzles</a>
+            <a class="btn pri" href="#puzles">Resolver puzles</a>
             <a class="btn" href="#jugar">Jugar contra el motor</a>
             <a class="btn" href="#plan">${plan ? 'Ver mi plan' : 'Crear mi plan'}</a>
           </div>
@@ -310,7 +309,7 @@
       </div>
       <div class="grid g4" style="margin-top:16px">
         <div class="card"><div class="dim" style="font-weight:800;font-size:13px">RATING DE PUZLES</div><div class="big-num">${S.pz.rating}</div><div class="dim" style="font-size:13px">${S.pz.n} intentos</div></div>
-        <div class="card"><div class="dim" style="font-weight:800;font-size:13px">RACHA DE DÍAS</div><div class="big-num">🔥 ${S.pz.dayStreak || 0}</div><div class="dim" style="font-size:13px">Mejor racha de aciertos: ${S.pz.best}</div></div>
+        <div class="card"><div class="dim" style="font-weight:800;font-size:13px">RACHA DE DÍAS</div><div class="big-num">${S.pz.dayStreak || 0}</div><div class="dim" style="font-size:13px">Mejor racha de aciertos: ${S.pz.best}</div></div>
         <div class="card"><div class="dim" style="font-weight:800;font-size:13px">PUZLES RESUELTOS</div><div class="big-num">${solvedN}</div><div class="dim" style="font-size:13px">de ${PUZZLES.length} disponibles</div></div>
         <div class="card"><div class="dim" style="font-weight:800;font-size:13px">LECCIONES COMPLETADAS</div><div class="big-num">${lessonsN}</div><div class="dim" style="font-size:13px">de ${LESSONS.length} lecciones</div></div>
       </div>
@@ -328,19 +327,19 @@
       </div>
       <h2 style="font-size:20px;font-weight:900;margin:24px 0 12px">Explora</h2>
       <div class="grid g4">
-        ${[['aperturas', 'Aperturas', `${OPENINGS.length} aperturas con estadísticas, ideas, pros, contras y trampas.`, IC.book],
-        ['medio', 'Medio juego', 'Estructuras de peones, planes, ataque, profilaxis.', pIc('wq')],
-        ['finales', 'Finales', 'Lucena, Philidor, oposición y práctica contra el motor.', pIc('wr')],
-        ['metodos', 'Metodologías', `${METHODS.length} métodos de entrenamiento profesionales.`, IC.cap],
-        ['contrarreloj', 'Contrarreloj', 'Resuelve tantos puzles como puedas en 3 o 5 minutos.', IC.lightning],
-        ['woodpecker', 'Woodpecker', 'Ciclos de repetición para automatizar patrones.', IC.loop],
-        ['vision', 'Visión y cálculo', 'Coordenadas, memoria, rutas de caballo y cálculo a ciegas.', IC.eye],
-        ['teoria', 'Enciclopedia', 'Reglas, historia, estadísticas, psicología y glosario.', IC.scroll],
-        ['roadmap', 'Roadmap 0 → GM', 'El camino completo, etapa por etapa, con tu progreso.', IC.road],
-        ['desafios', 'Desafíos y logros', 'Misiones diarias, XP, niveles y medallas.', IC.trophy],
-        ['batalla', 'Batalla de puzles', 'Compite contra bots de 600 a 2500 de Elo.', IC.swords],
-        ['ruta', 'Ruta de puzles', 'Tema a tema: bronce, plata y oro.', IC.map]]
-        .map(([id, t, d, ic]) => `<a class="tile" href="#${id}"><span style="width:34px;height:34px;display:block">${ic}</span><h3>${t}</h3><p>${d}</p></a>`).join('')}
+        ${[['aperturas', 'Aperturas', `${OPENINGS.length} aperturas con estadísticas, ideas, pros, contras y trampas.`, LINE_IC.aperturas],
+        ['medio', 'Medio juego', 'Estructuras de peones, planes, ataque, profilaxis.', LINE_IC.medio],
+        ['finales', 'Finales', 'Lucena, Philidor, oposición y práctica contra el motor.', LINE_IC.finales],
+        ['metodos', 'Metodologías', `${METHODS.length} métodos de entrenamiento profesionales.`, LINE_IC.metodos],
+        ['contrarreloj', 'Contrarreloj', 'Resuelve tantos puzles como puedas en 3 o 5 minutos.', LINE_IC.contrarreloj],
+        ['woodpecker', 'Woodpecker', 'Ciclos de repetición para automatizar patrones.', LINE_IC.woodpecker],
+        ['vision', 'Visión y cálculo', 'Coordenadas, memoria, rutas de caballo y cálculo a ciegas.', LINE_IC.vision],
+        ['teoria', 'Enciclopedia', 'Reglas, historia, estadísticas, psicología y glosario.', LINE_IC.teoria],
+        ['roadmap', 'Roadmap 0 → GM', 'El camino completo, etapa por etapa, con tu progreso.', LINE_IC.roadmap],
+        ['desafios', 'Desafíos y logros', 'Misiones diarias, XP, niveles y medallas.', LINE_IC.desafios],
+        ['batalla', 'Batalla de puzles', 'Compite contra bots de 600 a 2500 de Elo.', LINE_IC.batalla],
+        ['ruta', 'Ruta de puzles', 'Tema a tema: bronce, plata y oro.', LINE_IC.ruta]]
+        .map(([id, t, d, ic]) => `<a class="tile tile-ic" href="#${id}"><span class="t-ic">${ic}</span><h3>${t}</h3><p>${d}</p></a>`).join('')}
       </div></div>`));
     if (pzDaily) { const b = new Board($('#dailyB', v), { interactive: false, orientation: pzDaily.fen.split(' ')[1] === 'w' ? 'white' : 'black' }); b.setPosition(pzDaily.fen, false); }
   };

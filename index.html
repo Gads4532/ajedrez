@@ -300,9 +300,13 @@ details.acc>div{padding:0 18px 16px}
 .rush-list .ok{background:var(--green)} .rush-list .ko{background:var(--red)}
 .vision-target{font-size:64px;font-weight:900;text-align:center;letter-spacing:-2px;animation:pop .2s}
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:stretch}
-.hero-main{background:linear-gradient(135deg,#2b3a22,#262522 60%);border-radius:10px;padding:26px;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
+.hero-main{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:26px;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
 .hero-main h1{font-size:34px;font-weight:900;letter-spacing:-.6px;max-width:18ch}
-.hero-main .bgk{position:absolute;right:-30px;bottom:-40px;width:230px;opacity:.08}
+.op-name{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:14px;color:var(--fg)}
+.op-name svg{width:18px;height:18px;color:var(--fg3);flex:none}
+.tile-ic .t-ic{width:24px;height:24px;display:block;color:var(--fg3)}
+.tile-ic .t-ic svg{width:24px;height:24px}
+.tile-ic:hover .t-ic{color:var(--green)}
 .mini-board{width:100%;max-width:340px}
 .list-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:8px;background:var(--panel);cursor:pointer;transition:background .12s;text-decoration:none;color:inherit}
 .list-row:hover{background:var(--hover)}
