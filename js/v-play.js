@@ -169,7 +169,7 @@
   };
 
   /* ======================= ANÁLISIS ======================= */
-  const CLS = { brilliant: 'Brillante', great: 'Genial', best: 'Mejor', excellent: 'Excelente', good: 'Buena', book: 'Teoría', inaccuracy: 'Imprecisión', mistake: 'Error', miss: 'Oportunidad perdida', blunder: 'Error grave' };
+  const CLS = { brilliant: 'Brillante', great: 'Genial', best: 'Mejor', excellent: 'Excelente', good: 'Buena', book: 'Teoría', forced: 'Forzada', inaccuracy: 'Imprecisión', mistake: 'Error', miss: 'Oportunidad perdida', blunder: 'Error grave' };
   const VAL = { p: 1, n: 3, b: 3, r: 5, q: 9, k: 0 };
 
   VIEWS.analisis = (v) => {
@@ -238,8 +238,25 @@
         }
       });
     };
+    // Convierte texto pegado (PGN, «1. e4 e5 2. Nf3» o notación española «2. Cf3») en jugadas.
+    const parseMoves = (txt) => {
+      const clean = String(txt || '').replace(/\{[^}]*\}/g, ' ').replace(/\([^)]*\)/g, ' ').replace(/\$\d+/g, ' ');
+      const t = new Chess();
+      if (/\[\w+ "/.test(clean) && t.load_pgn(clean, { sloppy: true }) && t.history().length) return { fen: t.header().FEN || START, moves: t.history(), hdr: t.header() };
+      const toks = clean.replace(/\d+\.(\.\.)?/g, ' ').replace(/\b(1-0|0-1|1\/2-1\/2|\*)\b/g, ' ').replace(/0-0-0/g, 'O-O-O').replace(/0-0/g, 'O-O').split(/\s+/).filter(Boolean);
+      const tryAll = (map) => { const c = new Chess(), out = []; for (const raw of toks) { const tk = map ? raw.replace(/^[CATDR]/, x => ({ C: 'N', A: 'B', T: 'R', D: 'Q', R: 'K' })[x]).replace(/=([CATD])/, (_, x) => '=' + ({ C: 'N', A: 'B', T: 'R', D: 'Q' })[x]) : raw; const m = c.move(tk, { sloppy: true }); if (!m) return out.length === toks.length ? out : null; out.push(m.san); } return out; };
+      const en = tryAll(false), es = en ? null : tryAll(true), mv = en || es;
+      return mv && mv.length ? { fen: START, moves: mv, hdr: {} } : null;
+    };
     const paint = () => {
+      if (tab === 'an' && !sans.length) {
+        $('#ab', v).innerHTML = `<div class="paste-box"><div class="sec-t">Pega los movimientos de tu partida</div><p class="dim" style="font-size:13px;margin:4px 0 8px">Sirve el PGN de chess.com o Lichess, o una lista como <b>1. e4 e5 2. Nf3 Nc6</b> (también en español: <b>2. Cf3 Cc6</b>).</p><textarea id="pasteMv" placeholder="1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 …"></textarea><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="btn pri" id="pasteGo">★ Analizar partida</button><button class="btn" id="pasteLd">Solo cargar</button></div><p class="dim" style="font-size:12.5px;margin:10px 0 0">O mueve las piezas en el tablero para analizar una posición.</p></div><div id="ml" hidden></div>`;
+        const take = (rev) => { const r = parseMoves($('#pasteMv', v).value); if (!r) { toast('No pude leer esas jugadas. Revisa que sean legales.'); return; } headers = r.hdr || {}; load(r.fen, r.moves); toast(`${r.moves.length} jugadas cargadas`); if (rev) runReview(); };
+        $('#pasteGo', v).onclick = () => take(true); $('#pasteLd', v).onclick = () => take(false);
+        return;
+      }
       if (tab === 'an') {
+        if ($('.paste-box', v)) $('#ab', v).innerHTML = '';
         if (!$('#ml', v)) {
           $('#ab', v).innerHTML = `<div class="lines" id="lines"></div><div id="opn" class="dim" style="font-size:13px;font-weight:700"></div><div id="cmt"></div><div id="ml"></div>`;
         }
@@ -255,10 +272,20 @@
       const B = BADGES[c], x = review.R.explain(i);
       const line = (arr, fen) => arr.length ? arr.map(s => esc(san(s))).join(' ') : '';
       const bad = ['inaccuracy', 'mistake', 'miss', 'blunder'].includes(c);
-      return `<div class="rv-move"><div class="rv-head"><span class="bd big" style="background:${B.c}">${B.t}</span><div><b>${esc(san(sans[i]))}</b> ${esc(CLS_TXT[c])}</div></div>
-        <ul class="rv-why">${x.why.map(w => `<li>${fixMv(esc(w))}</li>`).join('')}</ul>
+      const mover = moves[i].color === review.me ? 'Tu jugada' : 'La jugada del rival';
+      const OWL = { brilliant: '¡Qué jugada! Un sacrificio de verdad.', great: '¡Muy bien! Encontraste la única jugada buena.', best: 'Perfecto: es lo que jugaría el motor.', excellent: 'Muy precisa.', good: 'Correcta, aunque había algo un poco mejor.', book: 'Teoría de aperturas: vas por buen camino.', forced: 'No había otra.', inaccuracy: 'Cuidado: se podía mejorar.', mistake: 'Esto es un error.', miss: 'El rival se equivocó y lo dejaste pasar.', blunder: '¡Ay! Error grave.' };
+      // Ejercicios recomendados según el motivo del fallo (lección + tema de puzles)
+      const recs = []; const addR = (h, t) => { if (!recs.some(r => r[0] === h)) recs.push([h, t]); };
+      if (bad) {
+        x.why.forEach(w => { if (/^Deja /.test(w)) addR('#lec-t2-sueltas', 'Lección: piezas sin defender'), addR('#puzles-tema_piezaColgada', 'Puzles: pieza colgada'); if (/^Permite mate/.test(w)) addR('#lec-a-defensa', 'Lección: cómo defenderse'), addR('#puzles-tema_defensa', 'Puzles de defensa'); if (/^Había mate/.test(w)) addR('#lec-t-mates1', 'Lección: patrones de mate'), addR('#puzles-tema_mateIn2', 'Puzles: mate en 2'); if (/^Se podía ganar/.test(w)) addR('#lec-t2-ccj', 'Lección: jaques, capturas y amenazas'), addR('#puzles-tema_ventajaMaterial', 'Puzles: ganar material'); if (/^Permite ganar un peón/.test(w)) addR('#lec-t2-conteo', 'Lección: contar atacantes y defensores'); });
+        const ph = review.R.phase ? review.R.phase[i] : null;
+        if (!recs.length) { if (ph === 'o') addR('#principios', 'Principios de apertura'), addR('#puzles-tema_apertura', 'Puzles de apertura'); else if (ph === 'e') addR('#finales', 'Lecciones de finales'), addR('#puzles-tema_final', 'Puzles de finales'); else addR('#lec-t2-calculo', 'Lección: cómo calcular variantes'), addR('#puzles-tema_medioJuego', 'Puzles de medio juego'); }
+      }
+      return `<div class="owl-c">${App.COACH_SVG || ''}<div class="owl-b"><div class="owl-who">${mover}</div>${esc(OWL[c] || '')}</div></div><div class="rv-move"><div class="rv-head"><span class="bd big" style="background:${B.c}">${B.t}</span><div><b>${esc(san(sans[i]))}</b> ${esc(CLS_TXT[c])}</div></div>
+        <ul class="rv-why">${x.why.map(w => `<li>${fixMv(w)}</li>`).join('')}</ul>
         ${bad && x.best ? `<div class="rv-best"><span class="bd" style="background:${BADGES.best.c}">${BADGES.best.t}</span><div>La mejor era <b>${esc(san(x.best))}</b>${x.bestLine.length > 1 ? `<small>Línea: ${line(x.bestLine)}</small>` : ''}</div></div>` : ''}
         ${bad && x.reply && x.replyLine.length ? `<div class="dim" style="font-size:12.5px">Respuesta del rival: ${line(x.replyLine.slice(0, 5))}</div>` : ''}
+        ${recs.length ? `<div class="rv-recs"><div class="sec-t" style="font-size:11.5px">Ejercicios para corregirlo</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px">${recs.map(r => `<a class="btn sm" href="${r[0]}">${esc(r[1])}</a>`).join('')}</div></div>` : ''}
         <div class="rv-acts">${bad && x.best ? `<button class="btn sm" id="rvShow">${BADGES.best.t} Ver la mejor</button><button class="btn sm" id="rvRetry">↻ Reintentar</button>` : ''}<button class="btn sm ghost" id="rvNext">Siguiente error ⏭</button></div></div>`;
     };
     const bindComment = (i) => {
@@ -273,7 +300,7 @@
       return x;
     };
     let retry = null;
-    const CLS_TXT = { brilliant: 'es brillante (!!)', great: 'es genial (!)', best: 'es la mejor', excellent: 'es excelente', good: 'es buena', book: 'es teoría', inaccuracy: 'es una imprecisión (?!)', mistake: 'es un error (?)', miss: 'es una oportunidad perdida', blunder: 'es un error grave (??)' };
+    const CLS_TXT = { brilliant: 'es brillante (!!)', great: 'es genial (!)', best: 'es la mejor', excellent: 'es excelente', good: 'es buena', book: 'es teoría', forced: 'es forzada', inaccuracy: 'es una imprecisión (?!)', mistake: 'es un error (?)', miss: 'es una oportunidad perdida', blunder: 'es un error grave (??)' };
     const runReview = async () => {
       if (!sans.length) { toast('Carga o juega una partida primero'); return; }
       tab = 'rev'; paintTabs();

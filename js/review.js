@@ -22,6 +22,8 @@
     const wpB = wp(D.evals[i], mover), wpA = wp(D.evals[i + 1], mover), loss = Math.max(0, wpB - wpA);
     const m = D.moves[i], uci = m.from + m.to + (m.promotion || ''), bm = D.bests[i];
     if (i < book) return { c: 'book', loss, wpB, wpA };
+    // Forzada: era la única jugada legal.
+    if (new Chess(D.fens[i]).moves().length === 1) return { c: 'forced', loss, wpB, wpA };
     if (uci === bm || loss < 0.6) {
       const t = new Chess(D.fens[i + 1]); const attacked = t.moves({ verbose: true }).some(x => x.to === m.to);
       const sac = attacked && VAL[m.piece] - (m.captured ? VAL[m.captured] : 0) >= 2 && m.piece !== 'p';
@@ -49,9 +51,10 @@
     const after = new Chess(D.fens[i + 1]);
     if (after.in_checkmate()) why.push('¡Jaque mate!');
     const mateMissed = mateFor(D.evals[i], mover), mateAllowed = mateFor(D.evals[i + 1], opp);
-    const good = ['brilliant', 'great', 'best', 'excellent', 'good', 'book'].includes(c);
+    const good = ['brilliant', 'great', 'best', 'excellent', 'good', 'book', 'forced'].includes(c);
     if (good) {
       if (c === 'book') why.push('Es teoría: la jugada que recomiendan los libros de aperturas en esta posición.');
+      if (c === 'forced') why.push('Era la única jugada legal: no había elección.');
       if (c === 'brilliant') why.push(`Sacrificas ${NAME[m.piece]} y la posición lo justifica: el rival no puede aprovechar la pieza de más.`);
       if (c === 'great') why.push('Era la única jugada que mantenía la ventaja (o salvaba la posición): cualquier otra empeoraba mucho.');
       if (m.captured && !after.in_checkmate()) {
@@ -65,15 +68,15 @@
       if (!why.length) why.push(c === 'best' ? 'Es la jugada que elige el motor.' : 'Mantiene la evaluación de la posición.');
       return { why, best: null, bestLine: [], reply: null, replyLine: [] };
     }
-    if (mateAllowed) why.push(`Permite mate en ${mateAllowed}${replyLine.length ? `: ${replyLine.join(' ')}` : ''}.`);
+    if (mateAllowed) why.push(`Permite mate en ${mateAllowed}${replyLine.length ? `: ${replyLine.map(x => `<span class="mv">${x}</span>`).join(' ')}` : ''}.`);
     else if (mateMissed && !mateFor(D.evals[i + 1], mover)) why.push(`Había mate en ${mateMissed} y se escapó.`);
     if (!mateAllowed && reply && reply.captured && VAL[reply.captured] >= 3) {
       const defended = new Chess(D.fens[i + 2] || D.fens[i + 1]);
-      why.push(`Deja ${NAME[reply.captured]} de ${reply.to} sin defensa suficiente: el rival lo captura con ${reply.san}.`);
+      why.push(`Deja ${NAME[reply.captured]} de ${reply.to} sin defensa suficiente: el rival lo captura con <span class="mv">${reply.san}</span>.`);
       if (defended) { /* el comentario basta */ }
     }
-    if (!mateAllowed && reply && reply.captured === 'p' && !(m.captured)) why.push(`Permite ganar un peón con ${reply.san}.`);
-    if (!mateMissed && best) { const bm = sanOf(fen, D.bests[i]); if (bm && bm.captured && VAL[bm.captured] >= 3 && !(m.captured && VAL[m.captured] >= VAL[bm.captured])) why.push(`Se podía ganar ${NAME[bm.captured]} con ${bm.san}.`); }
+    if (!mateAllowed && reply && reply.captured === 'p' && !(m.captured)) why.push(`Permite ganar un peón con <span class="mv">${reply.san}</span>.`);
+    if (!mateMissed && best) { const bm = sanOf(fen, D.bests[i]); if (bm && bm.captured && VAL[bm.captured] >= 3 && !(m.captured && VAL[m.captured] >= VAL[bm.captured])) why.push(`Se podía ganar ${NAME[bm.captured]} con <span class="mv">${bm.san}</span>.`); }
     if (c === 'miss') why.push('El rival acababa de equivocarse y no lo aprovechaste.');
     if (!why.length) {
       if (R.items[i].wpB >= 70 && R.items[i].wpA < 60) why.push('Desperdicia una posición ganadora.');
@@ -230,7 +233,7 @@
     report.me = me;
     R.report = report;
     R.summary = { v: 2, me, res: res || null, opening: D.opening || null, plies: n, castle: castleMove, peak: Math.round(peak), low: Math.round(low), mates, errs,
-      motifs: { hung, missWin: missedWin, missMate: missedMate, allowMate: allowedMate, miss: count('miss', me) }, acc: acc[me], elo: R.elo[me], ph: { o: ph.o[me], m: ph.m[me], e: ph.e[me] }, cnt: Object.fromEntries(['brilliant', 'great', 'best', 'excellent', 'good', 'book', 'inaccuracy', 'mistake', 'miss', 'blunder'].map(c => [c, count(c, me)])), issues: [...sug.keys()] };
+      motifs: { hung, missWin: missedWin, missMate: missedMate, allowMate: allowedMate, miss: count('miss', me) }, acc: acc[me], elo: R.elo[me], ph: { o: ph.o[me], m: ph.m[me], e: ph.e[me] }, cnt: Object.fromEntries(['brilliant', 'great', 'best', 'excellent', 'good', 'book', 'forced', 'inaccuracy', 'mistake', 'miss', 'blunder'].map(c => [c, count(c, me)])), issues: [...sug.keys()] };
     return R;
   }
 

@@ -326,6 +326,16 @@ details.acc>div{padding:0 18px 16px}
 .acc-big .vw{background:#fff;color:#222} .acc-big .vb{background:#403d39;color:#fff}
 /* ---------- Informe de partida ---------- */
 .bd.big{width:30px;height:30px;font-size:13px}
+.owl-c{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px}
+.owl-c svg{width:46px;height:46px;flex:none;border-radius:8px}
+.owl-b{position:relative;background:#fff;color:#222;border-radius:12px;padding:8px 12px;font-weight:700;font-size:14px;line-height:1.35}
+.owl-b::before{content:"";position:absolute;left:-7px;top:14px;border:7px solid transparent;border-right-color:#fff;border-left:0}
+.owl-who{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:#6b6966;margin-bottom:2px}
+.rv-recs{border-top:1px solid var(--line);padding-top:8px}
+.paste-box textarea{width:100%;min-height:110px;font-family:inherit}
+.ex-exp{display:flex;gap:10px;align-items:flex-start;background:var(--bg3);border-radius:10px;padding:10px 12px;font-size:14px;color:var(--fg2);line-height:1.45}
+.ex-exp svg{width:40px;height:40px;flex:none;border-radius:8px}
+.ex-exp b{color:var(--fg)}
 .rv-move{display:grid;gap:10px;background:var(--bg3);border-radius:8px;padding:12px 14px}
 .rv-head{display:flex;align-items:center;gap:10px;font-size:15px}
 .rv-head .bd,.rv-best .bd,.rv-key .bd,.acc-grid .bd{border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900;flex:none}
@@ -375,6 +385,18 @@ details.acc>div{padding:0 18px 16px}
 /* ---------- Ejercicios ---------- */
 .ex-dots{display:flex;gap:6px;flex-wrap:wrap}
 .ex-dots span{width:22px;height:8px;border-radius:4px;background:var(--gray-btn)}
+.cat-list{display:grid;gap:6px}
+.cat-row{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.cat-main{display:flex;gap:10px;align-items:center;flex:1;min-width:0;text-decoration:none;color:var(--fg)}
+.cat-st{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;font-weight:900;flex:none;color:#fff}
+.cat-row.done .cat-st{background:var(--green);border-color:var(--green)}
+.cat-tx{display:flex;flex-direction:column;min-width:0}
+.cat-tx small{color:var(--fg3);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cat-meta{display:flex;gap:8px;align-items:center;flex:none}
+.cat-stars{color:#f0c15c;font-size:13px;letter-spacing:1px}
+.cat-acts{display:flex;gap:6px;flex:none}
+@media(max-width:700px){.cat-row{flex-wrap:wrap}.cat-meta{order:3}.cat-acts{width:100%;justify-content:flex-end}}
+.ex-endless{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;font-size:13.5px;color:var(--fg2)}
 .ex-dots .sep{width:2px;height:14px;background:var(--fg3);margin:-3px 4px 0;border-radius:1px}
 .ex-dots span.cur{background:var(--blue)} .ex-dots span.ok{background:var(--green)} .ex-dots span.half{background:var(--yellow)} .ex-dots span.bad{background:var(--red)}
 #exHead .k{font-size:12px;font-weight:800;letter-spacing:.5px}
@@ -484,6 +506,7 @@ svg.chart{width:100%;height:auto;display:block}
 <script src="js/v-insights.js"></script>
 <script src="js/exercises.js"></script>
 <script src="js/v-routes.js"></script>
+<script src="js/v-catalog.js"></script>
 <script src="js/cloud.js"></script>
 </body>
 </html>
