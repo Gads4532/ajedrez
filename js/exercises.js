@@ -36,7 +36,7 @@
   const EXIG = {
     normal: { t: 'Normal', d: 'Puzles cerca de tu rating, 4 preguntas básicas, pistas sin castigo.', pz: [5, 3], stars: [90, 70], exam: [8, 75] },
     alta: { t: 'Alta', d: 'Puzles 250 puntos por encima de tu rating, 8 preguntas (básicas y profesionales).', pz: [6, 4], stars: [92, 80], exam: [10, 80] },
-    gm: { t: 'Gran maestro', d: 'Puzles de 2200 a 2750 y largos, 8 preguntas de nivel profesional, la pista cuenta como fallo y las estrellas exigen casi la perfección.', pz: [8, 6], stars: [95, 85], exam: [12, 80] }
+    gm: { t: 'Gran maestro', d: 'Puzles de 2200 a 2750 y largos, 8 preguntas (básicas y profesionales), la pista cuenta como fallo y las estrellas exigen casi la perfección.', pz: [8, 6], stars: [95, 85], exam: [12, 80] }
   };
   App.EXIG = EXIG; App.exigencia = LEVEL;
   // Puzles de unos temas, cerca del nivel del alumno; primero los no resueltos.

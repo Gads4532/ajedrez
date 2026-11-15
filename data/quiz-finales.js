@@ -75,7 +75,7 @@
   'f-vancura': [
     { q: '¿En qué tipo de posición se aplica la defensa de Vancura?', opts: ['Peón de torre en sexta con la torre atacante delante de él', 'Peón central en séptima con el rey atacante delante', 'Peón de caballo con ambas torres detrás de él'], ok: 0, why: 'Es la defensa típica contra un peón de torre en sexta con la torre atacante en la casilla de coronación (por ejemplo a8 con peón en a6).' },
     { q: 'Con torre blanca en a8 y peón en a6, ¿dónde coloca el negro su torre?', opts: ['Detrás del peón, en a1', 'En la sexta fila, atacando el peón de lado (por ejemplo f6)', 'En la octava fila, junto a su rey'], ok: 1, why: 'La torre lateral impide que la torre atacante deje la columna a sin perder el peón.' },
-    { q: 'En la posición de Vancura, ¿qué hace la torre defensora si el rey atacante se acerca al peón?', opts: ['Captura el peón de inmediato', 'Se retira a la octava fila', 'Da jaques desde atrás'], ok: 2, why: 'El rey atacante no encuentra refugio y la torre lo hostiga con jaques.' },
+    { q: 'En la posición de Vancura, ¿qué hace la torre defensora si el rey atacante se acerca al peón?', opts: ['Captura el peón de inmediato', 'Se retira a la octava fila', 'Le da jaques laterales'], ok: 2, why: 'El rey atacante no encuentra refugio: la torre, desde el costado, lo hostiga con jaques laterales.' },
     { q: 'Si el peón avanza a a7, ¿cómo se organiza la defensa?', opts: ['El rey defensor corre hacia b7', 'El rey vigila g7/h7 y la torre se coloca en la columna a desde atrás', 'La torre vuelve a la octava fila'], ok: 1, why: 'Con el peón en séptima, la torre va detrás del peón y el rey se queda en g7/h7.' }
   ],
   'f-tarrasch': [

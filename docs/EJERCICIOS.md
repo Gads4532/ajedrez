@@ -16,7 +16,7 @@ Se elige en **Ajustes** o en **Rutas y XP** y cambia todas las sesiones, los rep
 |---|---|---|---|---|---|---|
 | Normal | 4 básicas | 3 / 5 | tu rating ± ajuste por nivel | sin castigo (0,5) | 90 % / 70 % | 8 puzles, 75 % |
 | Alta | 8 (básicas y profesionales) | 4 / 6 | tu rating + 250 | 0,5 | 92 % / 80 % | 10 puzles, 80 % |
-| Gran maestro | 8 profesionales | 6 / 8 | entre 2200 y 2750 (tu rating + 400 si es mayor), se prefieren puzles de 4+ jugadas | **cuenta como fallo (0)** | 95 % / 85 % | 12 puzles, 80 % |
+| Gran maestro | 8 (básicas y profesionales) | 6 / 8 | entre 2200 y 2750 (tu rating + 400 si es mayor), se prefieren puzles de 4+ jugadas | **cuenta como fallo (0)** | 95 % / 85 % | 12 puzles, 80 % |
 
 En *Aprender a jugar* el rating de los puzles tiene tope (850 normal, 1100 alta, 1400 gran maestro) porque el tema
 es la regla, no el cálculo.
@@ -40,7 +40,7 @@ pantalla muestra cuántas preguntas acertaste y permite releer la lección antes
 
 | Parte | Contenido | Cuántos |
 |---|---|---|
-| **Teoría** | Preguntas de triple elección sobre las ideas de la lección (`data/quiz-*.js`), con explicación tras responder. Las opciones se mezclan cada vez. | 4 por lección |
+| **Teoría** | Preguntas de triple elección sobre las ideas de la lección (`data/quiz-*.js`), con explicación tras responder. Las opciones se mezclan cada vez. Hay 8 por lección (4 básicas y 4 profesionales; 1.064 en total). | 4 (normal) u 8 (alta y gran maestro) |
 | **Posiciones de la lección** | Las posiciones de la propia lección: juegas un bando y el rival responde siguiendo la línea. | Las que haya en `data/exercises.js` |
 | **Puzles del tema** | Puzles de `data/puzzles.js` con los temas de la lección. | 3 si hay 3+ posiciones; si no, 5 |
 | **Práctica contra el motor** | La posición de práctica de la lección (si la tiene), como remate opcional. | 0 o 1 |
@@ -49,7 +49,7 @@ pantalla muestra cuántas preguntas acertaste y permite releer la lección antes
 `window.LESSON_QUIZ = { idLección: [{ q, opts: [3 opciones], ok: 0|1|2, why, lvl? }] }`.
 Hay dos niveles: las **básicas** (`data/quiz-<sección>.js`) y las **profesionales** (`lvl: 'pro'`,
 `data/quiz-pro-<sección>.js`), que piden cálculo concreto, excepciones y matices de nivel maestro. En exigencia normal
-solo salen las básicas; en alta se mezclan; en gran maestro se priorizan las profesionales. Los archivos se combinan
+solo salen las básicas; en alta y gran maestro salen las 8 (las profesionales llevan la etiqueta «NIVEL PROFESIONAL»). Los archivos se combinan
 (cada archivo añade preguntas a las de la misma lección, no las reemplaza), así que el orden de carga no importa. Se validan con
 `node tools/validate-quiz.js`: al menos 3 preguntas por lección, exactamente 3 opciones distintas, índice de la correcta
 válido, explicación presente, solo etiquetas `<b>`, `<i>` y `<span class="mv">`, y español latinoamericano. Puntúan
@@ -70,7 +70,7 @@ node tools/build-exercises.js [profundidad=11] [procesos=4]
   segunda opción del motor) y la posición no está perdida.
 - Hay que volver a ejecutarlo cada vez que se añaden o cambian lecciones (tarda unos segundos).
 
-Resultado actual: **las 133 lecciones tienen ejercicios de posición**: 358 ejercicios con 864 jugadas a encontrar.
+Resultado actual: **las 133 lecciones tienen ejercicios de posición**: 359 ejercicios con 875 jugadas a encontrar.
 Las lecciones cuyas posiciones son solo ilustrativas (estructuras, mates básicos) tienen además ejercicios propios
 (`drills`) en `data/lessons-drills-estrategia.js` y `data/lessons-drills-finales.js`, escritos para practicar la idea de
 la lección y verificados con Stockfish a profundidad 16 (cada jugada del alumno es la mejor o pierde ≤ 4 puntos).
