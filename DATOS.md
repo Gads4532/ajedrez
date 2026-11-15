@@ -88,3 +88,8 @@ No se edita a mano: `node tools/build-exercises.js` (ver `docs/EJERCICIOS.md`). 
 ## data/quiz-*.js → `window.LESSON_QUIZ`
 { idLección: [{ q, opts:[3 opciones], ok:0|1|2, why, lvl?:'pro' }] } — parte teórica de cada lección. Los archivos
 `quiz-pro-*.js` añaden preguntas de nivel profesional (`lvl:'pro'`); todos los archivos se combinan por lección. Validar con `node tools/validate-quiz.js`.
+
+## Estado nuevo (v2.1)
+- `S.clases[id | 'ap:'+idApertura] = { max, n, done }`: progreso de la clase paso a paso (`docs/CLASES.md`).
+- `S.exams['ap~'+idApertura] = { best, stars, t }`: examen de cada apertura.
+- `S.coordStats = { games, wins, clean }` y `S.settings.coord`: Coordenadas a ciegas (`docs/COORDENADAS.md`). Las partidas a ciegas se guardan en `S.games` con `blind`.

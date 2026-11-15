@@ -114,6 +114,10 @@ práctica también se puede repetir la teoría.
 - Al terminar la sesión la lección queda **completada** (se guarda en `S.lessons`). El resultado se guarda en
   `S.lessonEx[id] = { best, stars, xp, t }`; al repetir se conserva el mejor.
 
+## 1.5 Clase paso a paso y examen de cada apertura
+Antes de la práctica, cada lección y cada apertura tiene su **clase guiada** y cada apertura su **examen** (teoría
+generada de sus datos + jugar las líneas de memoria). Ver [`docs/CLASES.md`](CLASES.md).
+
 ## 2. Exámenes de nivel
 
 Al final de cada nivel (principiante, intermedio, avanzado) de cada ruta hay un examen: **8 puzles** con los temas de las

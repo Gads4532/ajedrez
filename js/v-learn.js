@@ -71,7 +71,7 @@
     const board = bb.board; board.opts.interactive = false;
     const layout = h('<div class="play"></div>'); layout.appendChild(bb.el);
     const panel = h(`<div class="side-panel">
-      <div class="sp-head" style="flex-direction:column;align-items:flex-start;gap:4px"><a href="#aperturas" class="dim" style="font-size:13px;text-decoration:none">← Aperturas</a><span>${esc(o.name)}</span><span class="eco">${esc(o.eco)} · ${esc(o.type || '')}</span></div>
+      <div class="sp-head" style="flex-direction:column;align-items:flex-start;gap:4px"><a href="#aperturas" class="dim" style="font-size:13px;text-decoration:none">← Aperturas</a><span>${esc(o.name)}</span><span class="eco">${esc(o.eco)} · ${esc(o.type || '')}</span><span style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px"><a class="btn sm pri" href="#claseap-${o.id}">▶ Clase paso a paso</a><a class="btn sm" href="#apexamen-${o.id}">📝 Examen${(() => { const e = (S().exams || {})['ap~' + o.id]; return e && e.stars ? ' ' + '★'.repeat(e.stars) : ''; })()}</a></span></div>
       <div class="sp-tabs" id="tabs"><button data-t="linea">Línea</button><button data-t="aprender">Aprender</button><button data-t="ideas">Ideas</button><button data-t="var">Variantes</button><button data-t="trampas">Trampas</button><button data-t="entrenar">Entrenar</button></div>
       <div class="sp-body" id="body"></div>
       <div class="sp-foot" id="foot"></div></div>`);
@@ -266,6 +266,7 @@
     const panel = h(`<div class="side-panel">
       <div class="sp-head" style="flex-direction:column;align-items:flex-start;gap:4px"><a href="#${back}" class="dim" style="font-size:13px;text-decoration:none">← ${esc(AREA_INFO[back] ? AREA_INFO[back].t : 'Lecciones')}</a><span>${esc(L.title)}</span><span class="tags">${lvlTag(L.level)}<span class="tag">${esc(L.category || '')}</span></span></div>
       <div class="sp-body">
+        <a class="cl-cta" href="#clase-${L.id}"><b>▶ Clase paso a paso</b><span>${(() => { const c = (S().clases || {})[L.id]; return c && c.done ? '✓ Vista · repasar la teoría y las jugadas con explicación' : c && c.max ? `Continuar (paso ${c.max + 1} de ${c.n})` : 'La teoría y cada jugada explicadas, una a una'; })()}</span></a>
         ${ps.length > 1 ? `<div class="chips" id="pp">${ps.map((p, i) => `<button class="chip" data-i="${i}">Posición ${i + 1}</button>`).join('')}</div>` : ''}
         <div id="cap"></div><div id="ml"></div>
         <div class="prose">${fixMv(L.html || '')}</div>
