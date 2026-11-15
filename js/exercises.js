@@ -264,5 +264,75 @@
     });
   };
 
+  /* ---------- Examen de una apertura (#apexamen-<id>) ----------
+     Teoría: preguntas generadas a partir de los datos de la apertura (siguiente jugada de la línea, nombre de una
+     variante, objetivo, ventajas e inconvenientes, planes, trampas). Práctica: jugar de memoria la línea principal y
+     las variantes con el bando de la apertura (solo vale la jugada de la teoría). */
+  const PL = { p: 0, n: 3, b: 3, r: 1, q: 1, k: 0 };
+  function openingQuiz(o, rnd) {
+    const pick = (a) => a[Math.floor(rnd() * a.length)];
+    const shuf = (a) => a.map(x => [rnd(), x]).sort((x, y) => x[0] - y[0]).map(x => x[1]);
+    const OP = (window.OPENINGS || []).filter(x => x.id !== o.id);
+    const mk = (q, ok, bad, why) => { bad = [...new Set(bad.filter(b => b && b !== ok))].slice(0, 2); if (bad.length < 2) return null; const opts = shuf([ok, ...bad]); return { q, opts, ok: opts.indexOf(ok), why }; };
+    const line = (ms, upto) => { const g = new Chess(); return ms.slice(0, upto).map((m, k) => { const r = g.move(m, { sloppy: true }); return (k % 2 === 0 ? `${k / 2 + 1}.` : '') + `<span class="mv">${r.san}</span>`; }).join(' '); };
+    const out = [];
+    // 1-3. ¿Qué jugada sigue en la línea principal? (los distractores son jugadas legales que no son teoría en esa posición)
+    const ks = shuf([...Array(o.moves.length).keys()].filter(k => k >= 2)).slice(0, 3).sort((a, b) => a - b);
+    ks.forEach(k => {
+      const g = new Chess(); o.moves.slice(0, k).forEach(m => g.move(m, { sloppy: true }));
+      const theo = new Set([o.moves[k], ...(o.variations || []).filter(va => va.moves.slice(0, k).join(' ') === o.moves.slice(0, k).join(' ')).map(va => va.moves[k])].filter(Boolean));
+      const ok = g.move(o.moves[k], { sloppy: true }); if (!ok) return; g.undo();
+      const cand = g.moves({ verbose: true }).filter(m => !theo.has(m.san) && (PL[m.piece] > 0 || m.piece === 'p' && 'cdef'.includes(m.from[0]) || m.san.startsWith('O-O')) && !m.san.includes('x') === !ok.san.includes('x'));
+      const alt = g.moves({ verbose: true }).filter(m => !theo.has(m.san) && m.piece !== 'k');
+      const bad = shuf(cand).concat(shuf(alt)).map(m => m.san);
+      const q = mk(`En la <b>${esc(o.name)}</b>, tras ${line(o.moves, k)}, ¿qué jugada sigue en la línea principal?`, `<span class="mv">${ok.san}</span>`, bad.map(s => `<span class="mv">${s}</span>`), (o.comments && o.comments[k] ? esc(o.comments[k]) : 'Es la jugada de la línea principal.'));
+      if (q) { q.fen = g.fen(); out.push(q); }
+    });
+    // 4. Nombre de una variante
+    const vs = o.variations || [];
+    if (vs.length) {
+      const va = pick(vs); const others = vs.filter(x => x !== va).map(x => x.name).concat(shuf(OP.flatMap(x => (x.variations || []).map(y => y.name))));
+      const q = mk(`¿Cómo se llama esta línea de la ${esc(o.name)}? ${line(va.moves, va.moves.length)}`, esc(va.name), others.map(esc), esc(va.note || 'Es el nombre de la variante.')); if (q) out.push(q);
+    }
+    // 5. Objetivo (frente al de otras aperturas del mismo bando)
+    if (o.goal) { const q = mk(`¿Cuál es el objetivo de la ${esc(o.name)}?`, esc(o.goal), shuf(OP.filter(x => x.side === o.side && x.goal && x.group !== o.group)).map(x => esc(x.goal)), 'Es la idea general que guía todas las jugadas de la apertura.'); if (q) out.push(q); }
+    // 6-7. Ventaja e inconveniente (los distractores son del tipo contrario de la misma apertura)
+    if ((o.pros || []).length && (o.cons || []).length >= 2) { const q = mk(`¿Cuál de estas es una <b>ventaja</b> de la ${esc(o.name)}?`, esc(pick(o.pros)), shuf(o.cons).map(esc), 'Las otras dos opciones son inconvenientes de esta apertura.'); if (q) out.push(q); }
+    if ((o.cons || []).length && (o.pros || []).length >= 2) { const q = mk(`¿Cuál de estas es un <b>inconveniente</b> de la ${esc(o.name)}?`, esc(pick(o.cons)), shuf(o.pros).map(esc), 'Las otras dos opciones son ventajas de esta apertura.'); if (q) out.push(q); }
+    // 8. Plan de un bando (distractores: planes del otro bando)
+    const me = o.side === 'negras' ? ['plansBlack', 'plansWhite', 'negras'] : ['plansWhite', 'plansBlack', 'blancas'];
+    if ((o[me[0]] || []).length && (o[me[1]] || []).length >= 2) { const q = mk(`En la ${esc(o.name)}, ¿cuál es un plan típico de las <b>${me[2]}</b>?`, fixMv(esc(pick(o[me[0]]))), shuf(o[me[1]]).map(x => fixMv(esc(x))), 'Las otras opciones son planes del rival.'); if (q) out.push(q); }
+    // 9. Trampa
+    if ((o.traps || []).length) { const tr = pick(o.traps); const q = mk(`En la trampa «${esc(tr.name)}» (${line(tr.moves, tr.moves.length)}), ¿qué ocurre?`, fixMv(esc(tr.explanation)), shuf(OP.flatMap(x => x.traps || [])).map(t => fixMv(esc(t.explanation))), 'Es la explicación de esta trampa.'); if (q) out.push(q); }
+    return out.map(q => Object.assign(q, { q: q.q }));
+  }
+  App.openingQuiz = openingQuiz;
+
+  VIEWS.apexamen = (v, id) => {
+    const o = (window.OPENINGS || []).find(x => x.id === id); if (!o) { location.hash = '#aperturas'; return; }
+    let seed = Date.now() % 2147483647; const rnd = () => (seed = seed * 16807 % 2147483647) / 2147483647;
+    const lv = LEVEL(), [, passPct] = EXIG[lv].exam;
+    const nMc = { normal: 5, alta: 7, gm: 9 }[lv], nLines = { normal: 1, alta: 2, gm: 4 }[lv];
+    const mc = openingQuiz(o, rnd).slice(0, nMc).map(q => ({ kind: 'mc', q, fen: q.fen || null, o: o.side === 'negras' ? 'black' : 'white' }));
+    const side = o.side === 'negras' ? 'b' : 'w';
+    const lines = [{ name: 'Línea principal', moves: o.moves, cm: o.comments }].concat((o.variations || []).map(x => ({ name: x.name, moves: x.moves })));
+    const prac = lines.slice(0, nLines).map(L => {
+      const ask = L.moves.map((_, k) => k).filter(k => (k % 2 === 0) === (side === 'w'));
+      return { kind: 'quiz', strict: true, item: { fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', line: L.moves, ask, o: side, title: `${o.name}: ${L.name}. Juega las jugadas de las ${o.side} de memoria.`, cm: L.cm || null } };
+    });
+    return session(v, {
+      title: `Examen · ${o.name}`, back: '#ap-' + o.id, backT: o.name, steps: mc.concat(prac),
+      intro: `<p>${fixMv(esc(o.summary || ''))}</p><ul><li><b>Teoría:</b> ${mc.length} preguntas sobre la línea, las variantes, los planes y las trampas.</li><li><b>Práctica:</b> ${prac.length} línea${prac.length > 1 ? 's' : ''} para jugar de memoria con las ${esc(o.side)} (solo vale la jugada de la teoría).</li><li>Se aprueba con el ${passPct} %.</li></ul><p class="dim">¿Aún no la conoces? Mira primero la <a href="#claseap-${o.id}">clase paso a paso</a>.</p>`,
+      introT: `Examen de la ${o.name}`,
+      onFinish(pct) {
+        const key = 'ap~' + o.id, E = S().exams = S().exams || {}, prev = E[key] || { best: 0, stars: 0 };
+        const pass = pct >= passPct, stars = pass ? starsOf(pct) : 0;
+        const xp = pass ? (prev.stars ? Math.max(0, stars - prev.stars) * 20 : 60) : 10;
+        E[key] = { best: Math.max(prev.best, Math.round(pct)), stars: Math.max(prev.stars, stars), t: Date.now() }; App.addXP(xp); save(); bump();
+        return { stars, xp, title: pass ? '¡Examen aprobado!' : `Aún no: necesitas el ${passPct} %`, msg: pass ? 'Mantén la línea fresca con <b>Entrenar</b> (repetición espaciada).' : 'Repasa la clase paso a paso y vuelve a intentarlo.', nextHref: '#claseap-' + o.id, nextT: 'Repasar la clase' };
+      }
+    });
+  };
+
   window.Exercises = { themesFor, pickPuzzles, QuizRunner };
 })();

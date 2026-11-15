@@ -22,6 +22,9 @@ Academia de ajedrez completa que funciona en el navegador, se instala como app e
 | **Estrategia** | Test de estilo, repertorio por perfil, familias de aperturas, 17 elementos del juego y comparador de aperturas |
 | **Lecciones** | Lecciones por secciones, como en las grandes plataformas: **Aprender a jugar** (desde cero), principios de apertura, táctica, medio juego y estrategia, **ataque**, finales y **partidas magistrales** comentadas jugada a jugada, con un entrenador (que se puede ocultar) y práctica contra el motor |
 | **Ejercicios en cada lección** | Cada lección tiene primero una **parte teórica** (preguntas de triple elección con explicación: 532 básicas y 532 de nivel profesional, 1.064 en total) y después la **práctica**: las posiciones de la propia lección (cada jugada comprobada con Stockfish), puzles del tema ajustados a tu nivel y, si la tiene, práctica contra el motor. Puntuación con estrellas |
+| **Clase paso a paso** | Cada lección y cada apertura como una clase guiada: el tablero avanza jugada a jugada y en cada paso se explica la teoría (qué pieza se mueve, a qué casilla, para qué sirve y el comentario de la lección). Se puede reproducir sola. Documentado en [`docs/CLASES.md`](docs/CLASES.md) |
+| **Examen de cada apertura** | Preguntas de teoría (la siguiente jugada, las variantes, el objetivo, ventajas, planes y trampas) y práctica jugando las líneas de memoria |
+| **Coordenadas a ciegas** | Partidas contra Stockfish sin ver las piezas: escribes (e2e4, Cf3, O-O) o dictas tus jugadas y la app te dice y lee en voz alta la del rival. Con vistazos al tablero, lista de piezas y revisión al final. Documentado en [`docs/COORDENADAS.md`](docs/COORDENADAS.md) |
 | **Todas las lecciones** | Cada lección y cada apertura por separado, agrupadas por parte (aprender a jugar, principios, aperturas, táctica, estrategia y medio juego, ataque, finales y partidas), con buscador y filtros por nivel y estado. Se puede abrir cualquier tema sin haber hecho los anteriores |
 | **Nivel de exigencia** | Normal, alta o **gran maestro** (por defecto): puzles de 2200 a 2750, preguntas básicas y de nivel profesional, pistas que cuentan como fallo y estrellas casi perfectas. Al terminar cada lección, **ejercicios ilimitados** de su tema |
 | **Rutas y XP** | Una ruta por sección (aprender a jugar, principios, aperturas, táctica, estrategia, ataque, finales y partidas magistrales) con las lecciones por nivel, estrellas y un examen al final de cada nivel. Nivel y XP siempre visibles. Documentado en [`docs/EJERCICIOS.md`](docs/EJERCICIOS.md) |
@@ -71,6 +74,8 @@ data/                 aperturas, lecciones (lessons*.js), actualidad, metodolog�
 docs/EJERCICIOS.md    teoría y ejercicios de las lecciones, exámenes, rutas y XP
 tools/build-exercises.js   genera data/exercises.js con Stockfish (volver a ejecutar al cambiar lecciones)
 docs/ANALISIS.md      cómo funcionan la revisión de partida, las tendencias y el plan de mejora
+docs/CLASES.md        clases paso a paso de lecciones y aperturas, y examen de cada apertura
+docs/COORDENADAS.md   partidas a ciegas escribiendo o dictando coordenadas
 tools/                validador de lecciones (node tools/validate-lessons.js data/lessons*.js)
 icons/, manifest.webmanifest, sw.js   instalación como app y uso sin conexión
 ```

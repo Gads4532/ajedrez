@@ -81,6 +81,7 @@
     puzles: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h3a2 2 0 1 1 4 0h3v3a2 2 0 1 1 0 4v4H5z"/></svg>',
     contrarreloj: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13.5" r="7"/><path d="M12 13.5V10M10 3h4M12 3v3.5"/></svg>',
     woodpecker: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg>',
+    coordenadas: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M4 12h16M12 4v16"/><path d="M1.5 8h1M1.5 16h1M8 21.5v1M16 21.5v1"/></svg>',
     vision: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>',
     desafios: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8.5 20h7"/></svg>',
     batalla: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l11 11M19 5L8 16M14 19l5-5M10 19l-5-5"/></svg>',
@@ -108,6 +109,7 @@
     { lbl: 'Jugar', items: [
       { id: 'jugar', t: 'Jugar', ic: LINE_IC.jugar },
       { id: 'analisis', t: 'Análisis', ic: LINE_IC.analisis },
+      { id: 'coordenadas', t: 'Coordenadas a ciegas', ic: LINE_IC.coordenadas },
       { id: 'mianalisis', t: 'Mi análisis', ic: LINE_IC.mianalisis },
       { id: 'inicio', t: 'Inicio', ic: LINE_IC.inicio },
       { id: 'actualidad', t: 'Actualidad', ic: LINE_IC.actualidad }] },
@@ -140,7 +142,7 @@
       { id: 'progreso', t: 'Progreso', ic: LINE_IC.progreso },
       { id: 'ajustes', t: 'Ajustes', ic: LINE_IC.ajustes }] }
   ];
-  const ROUTE_PARENT = { ap: 'aperturas', met: 'metodos', ejercicios: 'rutas', examen: 'rutas' };
+  const ROUTE_PARENT = { clase: 'lecciones', claseap: 'aperturas', apexamen: 'aperturas', ap: 'aperturas', met: 'metodos', ejercicios: 'rutas', examen: 'rutas' };
 
   function renderNav(cur) {
     const nav = $('#nav'); nav.innerHTML = '';
