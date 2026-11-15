@@ -1,5 +1,5 @@
 /* Preguntas teóricas (triple elección) de las lecciones de finales. Redacción propia. */
-window.LESSON_QUIZ = Object.assign(window.LESSON_QUIZ || {}, {
+(function (Q) { window.LESSON_QUIZ = window.LESSON_QUIZ || {}; for (const k in Q) window.LESSON_QUIZ[k] = Q[k].concat(window.LESSON_QUIZ[k] || []); })({
   'f-cuadrado': [
     { q: '¿Qué afirma la regla del cuadrado?', opts: ['Si el rey defensor está dentro del cuadrado del peón (o entra con su jugada), lo alcanza', 'Si el rey defensor está a menos de cuatro casillas del peón, siempre lo alcanza', 'Si el rey atacante está dentro del cuadrado, el peón corona siempre'], ok: 0, why: 'El cuadrado tiene por lado la distancia del peón a su casilla de coronación; el rey que está dentro, o entra con su jugada, llega a tiempo.' },
     { q: '¿Cómo se traza el cuadrado si el peón está todavía en su casilla inicial?', opts: ['Igual que desde cualquier otra casilla', 'Como si ya hubiera avanzado dos casillas', 'No se traza: la regla no vale para peones sin mover'], ok: 1, why: 'En su primera jugada el peón puede avanzar dos casillas, así que el cuadrado se cuenta desde la casilla a la que podría saltar.' },

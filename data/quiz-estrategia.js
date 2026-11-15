@@ -1,5 +1,5 @@
 /* Preguntas teóricas (triple elección) de las lecciones de estrategia. Redacción propia. */
-window.LESSON_QUIZ = Object.assign(window.LESSON_QUIZ || {}, {
+(function (Q) { window.LESSON_QUIZ = window.LESSON_QUIZ || {}; for (const k in Q) window.LESSON_QUIZ[k] = Q[k].concat(window.LESSON_QUIZ[k] || []); })({
   'm-imbalances': [
     { q: '¿Qué conviene hacer antes de buscar jugadas concretas en una posición tranquila?', opts: ['Calcular todas las capturas posibles hasta el final', 'Hacer inventario de las diferencias entre los dos bandos', 'Repetir el plan que funcionó en la partida anterior'], ok: 1, why: 'El plan sale de los desequilibrios: primero se identifican las diferencias (material, estructura, piezas, espacio, rey…) y luego se buscan jugadas que las aprovechen.' },
     { q: 'Según el método de los desequilibrios, ¿en qué consiste tu plan?', opts: ['En hacer crecer los desequilibrios que te favorecen y neutralizar los del rival', 'En igualar todas las diferencias para llegar a una posición simétrica', 'En atacar al rey rival siempre que haya piezas suficientes'], ok: 0, why: 'La idea central es potenciar lo que tienes a favor y anular lo que favorece al rival, no atacar «porque sí» ni buscar la simetría.' },

@@ -1,5 +1,5 @@
 /* Preguntas teóricas (triple elección) de las lecciones de táctica. Redacción propia. */
-window.LESSON_QUIZ = Object.assign(window.LESSON_QUIZ || {}, {
+(function (Q) { window.LESSON_QUIZ = window.LESSON_QUIZ || {}; for (const k in Q) window.LESSON_QUIZ[k] = Q[k].concat(window.LESSON_QUIZ[k] || []); })({
 
   /* ───────────── Táctica I ───────────── */
   't-horquilla': [
@@ -154,7 +154,7 @@ window.LESSON_QUIZ = Object.assign(window.LESSON_QUIZ || {}, {
     { q: '¿Cuál es la idea del sacrificio de bloqueo?', opts: ['Que la pieza que captura ocupe una casilla de escape de su propio rey', 'Bloquear un peón pasado del rival', 'Cerrar la posición para evitar un ataque'], ok: 0, why: 'El defensor se convierte en el muro de su prisión; después un jaque de una pieza pequeña es mate.' },
     { q: '¿Qué condición es imprescindible para que funcione?', opts: ['Que el sacrificio sea con la dama', 'Que el rival tenga menos material', 'Que la captura sea forzada, idealmente con jaque y una sola respuesta'], ok: 2, why: 'Si el rival puede capturar con otra pieza o ignorar el sacrificio, la casilla no queda bloqueada.' },
     { q: '¿Cuál es el ejemplo más famoso del mecanismo de autobloqueo según la lección?', opts: ['El mate de Boden', 'El mate de la coz (Philidor)', 'El mate de Légal'], ok: 1, why: 'En el mate asfixiado o de la coz, el sacrificio obliga a una pieza a tapar la última salida del rey.' },
-    { q: 'En el ejemplo <span class="mv">Qf4+</span> <span class="mv">gxf4</span> <span class="mv">g4#</span>, ¿qué consigue el sacrificio?', opts: ['Abrir la columna g para la torre', 'Desviar el alfil blanco de la diagonal', 'Que el peón blanco ocupe f4 y bloquee a su propio rey'], ok: 2, why: 'La captura era la única respuesta legal; con f4 tapada, el peón da mate en g4.' }
+    { q: 'En el ejemplo <span class="mv">Qg8+</span> <span class="mv">Rxg8</span> <span class="mv">Nf7#</span>, ¿qué consigue el sacrificio?', opts: ['Abrir la columna g para la torre', 'Desviar la dama negra de la defensa de f7', 'Que la torre negra ocupe g8 y bloquee a su propio rey'], ok: 2, why: 'El caballo de h6 protege g8, así que el rey no puede capturar: solo la torre. Con g8 tapada, el caballo da mate ahogado en f7.' }
   ],
 
   't2-red-mate': [

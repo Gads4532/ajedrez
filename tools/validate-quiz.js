@@ -5,7 +5,8 @@ const ROOT = path.join(__dirname, '..');
 global.window = {};
 const data = (f) => path.join(ROOT, 'data', f);
 fs.readdirSync(path.join(ROOT, 'data')).filter(f => /^lessons.*\.js$/.test(f)).sort((a, b) => (b === 'lessons.js') - (a === 'lessons.js')).forEach(f => require(data(f)));
-fs.readdirSync(path.join(ROOT, 'data')).filter(f => /^quiz.*\.js$/.test(f)).forEach(f => require(data(f)));
+// Primero las preguntas básicas y después las de nivel profesional (quiz-pro-*), que se añaden a las anteriores.
+fs.readdirSync(path.join(ROOT, 'data')).filter(f => /^quiz.*\.js$/.test(f)).sort((x, y) => x.includes('-pro-') - y.includes('-pro-') || x.localeCompare(y)).forEach(f => require(data(f)));
 const Q = window.LESSON_QUIZ || {}, ids = new Set(window.LESSONS.map(l => l.id));
 const TAGS = /<\/?([a-z0-9]+)[^>]*>/gi, OK_TAGS = new Set(['b', 'i', 'span']);
 let errs = 0, total = 0; const err = (id, m) => { errs++; console.log(`✗ [${id}] ${m}`); };
