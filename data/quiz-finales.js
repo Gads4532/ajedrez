@@ -1,5 +1,5 @@
 /* Preguntas teóricas (triple elección) de las lecciones de finales. Redacción propia. */
-window.LESSON_QUIZ = Object.assign(window.LESSON_QUIZ || {}, {
+(function (Q) { window.LESSON_QUIZ = window.LESSON_QUIZ || {}; for (const k in Q) window.LESSON_QUIZ[k] = Q[k].concat(window.LESSON_QUIZ[k] || []); })({
   'f-cuadrado': [
     { q: '¿Qué afirma la regla del cuadrado?', opts: ['Si el rey defensor está dentro del cuadrado del peón (o entra con su jugada), lo alcanza', 'Si el rey defensor está a menos de cuatro casillas del peón, siempre lo alcanza', 'Si el rey atacante está dentro del cuadrado, el peón corona siempre'], ok: 0, why: 'El cuadrado tiene por lado la distancia del peón a su casilla de coronación; el rey que está dentro, o entra con su jugada, llega a tiempo.' },
     { q: '¿Cómo se traza el cuadrado si el peón está todavía en su casilla inicial?', opts: ['Igual que desde cualquier otra casilla', 'Como si ya hubiera avanzado dos casillas', 'No se traza: la regla no vale para peones sin mover'], ok: 1, why: 'En su primera jugada el peón puede avanzar dos casillas, así que el cuadrado se cuenta desde la casilla a la que podría saltar.' },
@@ -75,7 +75,7 @@ window.LESSON_QUIZ = Object.assign(window.LESSON_QUIZ || {}, {
   'f-vancura': [
     { q: '¿En qué tipo de posición se aplica la defensa de Vancura?', opts: ['Peón de torre en sexta con la torre atacante delante de él', 'Peón central en séptima con el rey atacante delante', 'Peón de caballo con ambas torres detrás de él'], ok: 0, why: 'Es la defensa típica contra un peón de torre en sexta con la torre atacante en la casilla de coronación (por ejemplo a8 con peón en a6).' },
     { q: 'Con torre blanca en a8 y peón en a6, ¿dónde coloca el negro su torre?', opts: ['Detrás del peón, en a1', 'En la sexta fila, atacando el peón de lado (por ejemplo f6)', 'En la octava fila, junto a su rey'], ok: 1, why: 'La torre lateral impide que la torre atacante deje la columna a sin perder el peón.' },
-    { q: 'En la posición de Vancura, ¿qué hace la torre defensora si el rey atacante se acerca al peón?', opts: ['Captura el peón de inmediato', 'Se retira a la octava fila', 'Da jaques desde atrás'], ok: 2, why: 'El rey atacante no encuentra refugio y la torre lo hostiga con jaques.' },
+    { q: 'En la posición de Vancura, ¿qué hace la torre defensora si el rey atacante se acerca al peón?', opts: ['Captura el peón de inmediato', 'Se retira a la octava fila', 'Le da jaques laterales'], ok: 2, why: 'El rey atacante no encuentra refugio: la torre, desde el costado, lo hostiga con jaques laterales.' },
     { q: 'Si el peón avanza a a7, ¿cómo se organiza la defensa?', opts: ['El rey defensor corre hacia b7', 'El rey vigila g7/h7 y la torre se coloca en la columna a desde atrás', 'La torre vuelve a la octava fila'], ok: 1, why: 'Con el peón en séptima, la torre va detrás del peón y el rey se queda en g7/h7.' }
   ],
   'f-tarrasch': [

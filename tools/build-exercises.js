@@ -80,12 +80,13 @@ async function buildLesson(L) {
     }
     if (L.area === 'partidas') {
       // jugadas clave de la partida: preguntas sueltas (cada una desde su posición), como mucho 6
-      ask.slice(0, 6).forEach(k => items.push({ fen: fens[k], line: [P.line[k]], ask: [0], o: new Chess(fens[k]).turn(), title: `Jugada ${fens[k].split(' ')[5]}: ¿qué jugó ${new Chess(fens[k]).turn() === 'w' ? 'el blanco' : 'el negro'}?` }));
+      ask.slice(0, 6).forEach(k => items.push({ fen: fens[k], line: [P.line[k]], ask: [0], cm: [(P.comments || [])[k] || ''], o: new Chess(fens[k]).turn(), title: `Jugada ${fens[k].split(' ')[5]}: ¿qué jugó ${new Chess(fens[k]).turn() === 'w' ? 'el blanco' : 'el negro'}?` }));
       continue;
     }
     if (!ask.length) continue;
     const last = ask[ask.length - 1];
-    items.push({ fen: P.fen, line: P.line.slice(0, last + 1), ask, o: me, title: P.caption || `Posición ${pi + 1}` });
+    const cm = (P.comments || []).slice(0, last + 1); // comentarios de la lección para explicar cada jugada
+    items.push({ fen: P.fen, line: P.line.slice(0, last + 1), ask, o: me, title: P.caption || `Posición ${pi + 1}`, ...(cm.some(Boolean) ? { cm } : {}) });
   }
   return items;
 }

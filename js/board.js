@@ -41,10 +41,11 @@
 
   /* ---------- Marcadores tipo "clasificación" ---------- */
   const BADGES = {
-    brilliant: { t: '!!', c: '#1baca6' }, great: { t: '!', c: '#5c8bb0' }, best: { t: '★', c: '#81b64c' },
+    brilliant: { t: '!!', c: '#26c2a3' }, great: { t: '!', c: '#749bbf' }, best: { t: '★', c: '#81b64c' },
     excellent: { t: '👍', c: '#96bc4b' }, good: { t: '✓', c: '#96af8b' }, book: { t: '📖', c: '#a88865' },
-    inaccuracy: { t: '?!', c: '#f0c15c' }, mistake: { t: '?', c: '#e58f2a' }, blunder: { t: '??', c: '#ca3431' },
-    miss: { t: '✕', c: '#ee6b55' }, correct: { t: '✓', c: '#81b64c' }, wrong: { t: '✕', c: '#ca3431' },
+    forced: { t: '→', c: '#96af8b' },
+    inaccuracy: { t: '?!', c: '#f7c631' }, mistake: { t: '?', c: '#ffa459' }, blunder: { t: '??', c: '#fa412d' },
+    miss: { t: '✕', c: '#ff7769' }, correct: { t: '✓', c: '#81b64c' }, wrong: { t: '✕', c: '#ca3431' },
     hint: { t: '?', c: '#5c8bb0' }
   };
   window.BADGES = BADGES;

@@ -101,6 +101,7 @@
     plan: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>',
     teoria: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg>',
     progreso: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>',
+    lecciones: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg>',
     ajustes: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>'
   };
   const NAV = [
@@ -121,6 +122,7 @@
       { id: 'duelo', t: 'Duelo local', ic: LINE_IC.duelo }] },
     { lbl: 'Aprender', items: [
       { id: 'rutas', t: 'Rutas y XP', ic: LINE_IC.rutas },
+      { id: 'lecciones', t: 'Todas las lecciones', ic: LINE_IC.lecciones },
       { id: 'basico', t: 'Aprender a jugar', ic: LINE_IC.basico },
       { id: 'aperturas', t: 'Aperturas', ic: LINE_IC.aperturas },
       { id: 'estrategia', t: 'Estrategia', ic: LINE_IC.estrategia },
@@ -416,6 +418,7 @@
         <div><div class="sec-t">Sonido</div><label class="ck"><input type="checkbox" id="snd" ${S.settings.sound !== false ? 'checked' : ''}> Sonidos de movimiento y aciertos</label></div>
         <div><div class="sec-t">Cuenta y sincronización</div><div id="setAcct" style="margin-top:6px"></div></div>
         <div><div class="sec-t">App</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;align-items:center"><span class="muted">Versión ${App.VERSION || ''}</span><button class="btn sm" id="updChk">Buscar actualización</button><button class="btn sm" id="instChk">⬇ Instalar app</button></div></div>
+        <div><div class="sec-t">Exigencia de los entrenamientos</div><div class="chips" id="exig" style="margin-top:8px">${Object.entries(App.EXIG || {}).map(([k, e]) => `<button class="chip" data-v="${k}">${e.t}</button>`).join('')}</div><p class="muted" id="exigD" style="font-size:13.5px;margin:8px 0 0"></p></div>
         <div><div class="sec-t">Tablero</div><div class="chips" id="brd" style="margin-top:6px"><button class="chip" data-v="verde">Verde</button><button class="chip" data-v="marron">Marrón</button></div></div>
         <div><div class="sec-t">Piezas</div><div class="chips" id="pcs" style="margin-top:6px"><button class="chip" data-v="clasico">Clásicas</button><button class="chip" data-v="moderno">Modernas</button><button class="chip" data-v="plano">Planas</button><button class="chip" data-v="custom">Personalizadas</button></div><p class="muted" style="font-size:13px;margin:8px 0 6px">Personalizadas: elige las 12 imágenes de tus piezas (PNG o SVG) llamadas <b>wp, wn, wb, wr, wq, wk, bp, bn, bb, br, bq, bk</b> (también vale «white-pawn», «negro-caballo»…). Se guardan solo en este dispositivo.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><label class="btn sm">Subir imágenes<input type="file" id="pcUp" accept="image/*" multiple hidden></label><button class="btn sm ghost" id="pcClr">Quitar personalizadas</button></div></div>
         <div><div class="sec-t">Entrenador</div><label class="ck"><input type="checkbox" id="coachT" ${S.settings.coach !== false ? 'checked' : ''}> Mostrar el búho entrenador en lecciones, aperturas y la ruta</label></div>
@@ -429,6 +432,8 @@
       if (a1) a1.onclick = () => { A.syncNow(); toast('Sincronizando…'); }; if (a2) a2.onclick = () => { A.signOut(); route(); }; if (a3) a3.onclick = () => A.form('in'); }
     $('#updChk', v).onclick = () => App.checkUpdate && App.checkUpdate();
     $('#instChk', v).onclick = () => App.installNow && App.installNow();
+    const pe = () => { const cur = App.exigencia ? App.exigencia() : 'gm'; $$('#exig .chip', v).forEach(c => c.classList.toggle('on', c.dataset.v === cur)); const d = $('#exigD', v); if (d && App.EXIG) d.textContent = App.EXIG[cur].d; };
+    $$('#exig .chip', v).forEach(c => c.onclick = () => { S.settings.exigencia = c.dataset.v; save(); pe(); toast('Exigencia: ' + App.EXIG[c.dataset.v].t); }); pe();
     const pb = () => $$('#brd .chip', v).forEach(c => c.classList.toggle('on', c.dataset.v === (S.settings.board || 'verde')));
     pb(); $$('#brd .chip', v).forEach(c => c.onclick = () => { S.settings.board = c.dataset.v; save(); document.documentElement.dataset.board = c.dataset.v; pb(); toast('Tablero cambiado'); });
     const CP = window.CustomPieces;

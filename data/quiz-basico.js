@@ -1,5 +1,5 @@
 /* Preguntas teóricas (triple elección) de las lecciones de básico («Aprender a jugar») y de principios de apertura. Redacción propia. */
-window.LESSON_QUIZ = Object.assign(window.LESSON_QUIZ || {}, {
+(function (Q) { window.LESSON_QUIZ = window.LESSON_QUIZ || {}; for (const k in Q) window.LESSON_QUIZ[k] = Q[k].concat(window.LESSON_QUIZ[k] || []); })({
   'b-tablero': [
     { q: '¿Cómo se coloca correctamente el tablero antes de empezar?', opts: ['Con una casilla oscura en la esquina derecha de cada jugador', 'Con una casilla clara en la esquina izquierda de cada jugador', 'Con una casilla clara en la esquina derecha de cada jugador'], ok: 2, why: 'La regla es «clara a la derecha». Si ves una casilla oscura en tu esquina derecha, el tablero está girado.' },
     { q: '¿Qué casilla es e4?', opts: ['La que cruza la columna e con la fila 4, contando las filas desde las blancas', 'La que cruza la fila e con la columna 4, contando las columnas desde las blancas', 'La que cruza la columna e con la fila 4, contando las filas desde las negras'], ok: 0, why: 'Primero va la letra de la columna (a-h) y después el número de la fila (1-8); la fila 1 es la más cercana a las blancas.' },

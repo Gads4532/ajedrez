@@ -58,10 +58,10 @@
       },
       {
         fen: 'rnbqkb1r/p1ppnppp/1p6/4p3/2B1P3/2N5/PPPP1PPP/R1BQK1NR w KQkq - 0 1', orientation: 'white',
-        caption: 'Tercer paso: amenazas. Una sola jugada de dama crea dos a la vez.',
+        caption: 'Tercer paso: amenazas. Una jugada de dama crea una amenaza de mate.',
         line: ['Qf3', 'd5', 'exd5'],
-        comments: ['Amenaza Qxf7# (el alfil de c4 apoya) y también Qxa8 por la gran diagonal, que la jugada b6 dejó abierta.', 'La única defensa que tapa las dos líneas a la vez: el peón se interpone en d5.', 'Las blancas ganan un peón y mantienen la iniciativa.'],
-        arrows: [['f3', 'f7', 'r'], ['f3', 'a8', 'r']]
+        comments: ['Amenaza Qxf7# (el alfil de c4 apoya). Ojo: la dama no ataca a8, porque su propio peón de e4 tapa la gran diagonal.', 'Una defensa válida: el peón corta la diagonal del alfil hacia f7. También servían f6, f5, Nd5 o Nf5.', 'Las blancas ganan un peón y mantienen la iniciativa.'],
+        arrows: [['f3', 'f7', 'r'], ['c4', 'f7', 'r']]
       }
     ]
   },
@@ -186,11 +186,11 @@
         highlights: ['g2']
       },
       {
-        fen: '4r1k1/ppq2p2/Q7/6p1/7p/5KPb/PP3P2/R7 b - - 0 1', orientation: 'black',
-        caption: 'El rey blanco en f3 tiene pocas casillas. ¿Cómo tapar la última?',
-        line: ['Qf4+', 'gxf4', 'g4#'],
-        comments: ['¡La dama se entrega! f4 está protegida por el peón de g5, así que el rey no puede capturar, y la torre de e8 y el alfil de h3 cubren el resto de casillas.', 'Única respuesta legal: el peón blanco queda en f4 y bloquea a su propio rey.', 'Mate de peón: g4 está protegido por el alfil, g3 la cubre el peón de h4, la columna e la domina la torre y g2 el alfil.'],
-        highlights: ['f4']
+        fen: 'r6k/pp4pp/7N/4q3/2Q5/8/5PPP/6K1 w - - 0 1', orientation: 'white',
+        caption: 'El rey de h8 solo tiene la casilla g8. Obliga a una pieza negra a taparla.',
+        line: ['Qg8+', 'Rxg8', 'Nf7#'],
+        comments: ['¡La dama se entrega en g8! El rey no puede capturar porque el caballo de h6 protege g8: solo la torre puede tomar.', 'La torre ocupa g8, la última casilla libre de su propio rey.', 'Mate ahogado: g7 y h7 tienen peones negros, g8 la torre, y nadie puede capturar al caballo de f7.'],
+        highlights: ['g8']
       }
     ],
     practice: { fen: '6k1/5ppp/8/8/4q2n/4N1P1/5P1P/1r3BK1 b - - 0 1', goal: 'mate', side: 'b', text: 'Juegas con negras: obliga a una pieza blanca a bloquear a su rey y da mate.' }

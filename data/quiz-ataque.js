@@ -1,5 +1,5 @@
 /* Preguntas teóricas (triple elección) de las lecciones de ataque al rey y partidas magistrales. Redacción propia. */
-window.LESSON_QUIZ = Object.assign(window.LESSON_QUIZ || {}, {
+(function (Q) { window.LESSON_QUIZ = window.LESSON_QUIZ || {}; for (const k in Q) window.LESSON_QUIZ[k] = Q[k].concat(window.LESSON_QUIZ[k] || []); })({
 
   /* ───────────── ATAQUE ───────────── */
   'a-cuando-atacar': [

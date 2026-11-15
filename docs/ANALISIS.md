@@ -27,6 +27,7 @@ a chess.com o Lichess cuando tú presionas importar.
 | Símbolo | Tipo | Regla |
 |---|---|---|
 | 📖 | Teoría | La jugada sigue una línea de `data/openings.js`. |
+| → | Forzada | Era la única jugada legal. |
 | !! | Brillante | Es la mejor (o pierde < 0,6), sacrifica una pieza (queda atacada y vale al menos 2 puntos más que lo capturado) y tras ella sigues con ≥ 45 %; no cuenta si ya ganabas con ≥ 97 %. |
 | ! | Genial | Es la mejor y la segunda opción del motor es ≥ 18 puntos peor (era la única buena); no cuenta con ≥ 95 %. |
 | ★ | Mejor | Coincide con la primera línea del motor o pierde < 0,6. |
@@ -37,7 +38,24 @@ a chess.com o Lichess cuando tú presionas importar.
 | ✕ | Oportunidad perdida | Pierde ≥ 10 con ventaja clara (≥ 65 %) justo después de un error del rival (o con mate disponible) y sin quedar perdido (≥ 30 % después). |
 | ?? | Error grave | Pierde ≥ 20. |
 
-Los símbolos y colores son de diseño propio (`BADGES` en `js/board.js`).
+Son los mismos signos y categorías que usa chess.com (!!, !, ★, 👍, ✓, 📖, →, ?!, ?, ✕, ??) con colores equivalentes
+(`BADGES` en `js/board.js`): brillante #26c2a3, genial #749bbf, mejor #81b64c, excelente #96bc4b, buena y forzada
+#96af8b, teoría #a88865, imprecisión #f7c631, error #ffa459, oportunidad perdida #ff7769 y error grave #fa412d. Los
+iconos los dibuja la app (no se usan imágenes de chess.com).
+
+### 2.2b Pegar los movimientos
+En **Análisis**, si no hay jugadas cargadas aparece un cuadro para **pegar la partida**: sirve el PGN de chess.com o
+Lichess, una lista numerada (`1. e4 e5 2. Nf3 Nc6`) o notación en español (`2. Cf3 Cc6`, con C/A/T/D/R). Se quitan
+comentarios `{…}`, variantes `(…)` y resultados. **★ Analizar partida** carga y revisa; **Solo cargar** la deja en el
+tablero (`parseMoves` en `js/v-play.js`).
+
+### 2.2c El búho comenta cada jugada
+En la revisión, cada jugada (tuya o del rival) lleva un comentario del búho con su calidad, la explicación de por qué
+(`explain()`) y, si es una imprecisión, error, oportunidad perdida o error grave, **ejercicios para corregirlo**: una
+lección y un tema de puzles según el motivo (pieza sin defender → piezas sin defender / pieza colgada; permite mate →
+cómo defenderse / defensa; mate escapado → patrones de mate / mate en 2; material escapado → jaques, capturas y
+amenazas / ganar material; peón regalado → contar atacantes y defensores). Si el motivo no es concreto, se recomienda
+según la fase: apertura, medio juego (cálculo) o final.
 
 ### 2.3 Explicación de cada error
 `explain()` busca, por este orden, el motivo concreto:
