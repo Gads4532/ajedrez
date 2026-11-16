@@ -2,7 +2,7 @@
    Usa el mismo proyecto de Supabase que «Organización Personal»: la misma cuenta sirve para las dos apps.
    El progreso del ajedrez se guarda aparte, en la tabla «ajedrez_estados» (ver supabase.sql). */
 (function () {
-  const APP_VERSION = '2.1.0';
+  const APP_VERSION = '2.1.1';
   App.VERSION = APP_VERSION;
   const { $, h, esc, toast } = App;
   const inArtifact = /claude\.ai|claudeusercontent/.test(location.host) || !/^https?:$/.test(location.protocol);
@@ -148,19 +148,26 @@
     };
     d.addEventListener('keydown', (e) => { if (e.key === 'Enter') $('#a-go', d).click(); });
   }
+  // «Entrar»: primero se elige entre iniciar sesión o crear una cuenta nueva.
+  function accountChoice() {
+    const d = dialog(`<h2 style="font-size:22px;font-weight:900;margin-bottom:6px">Entrar</h2>
+      <p class="muted" style="margin:0 0 16px;font-size:14px">Con una cuenta tu progreso se guarda en la nube y lo ves en cualquier teléfono o computadora.</p>
+      <div style="display:grid;gap:10px"><button class="btn pri big" id="ch-in">Iniciar sesión</button><button class="btn big" id="ch-up">Crear cuenta</button></div>`);
+    $('#ch-in', d).onclick = () => accountForm('in'); $('#ch-up', d).onclick = () => accountForm('up');
+  }
   async function signOut() {
     try { await supa('/auth/v1/logout', { method: 'POST' }); } catch (e) { }
     saveAuth(null); clearInterval(pollT); lastSeen = ''; try { localStorage.removeItem(SEEN_KEY); } catch (e) { }
     setSync('local'); toast('Sesión cerrada. Tu progreso sigue en este dispositivo.');
   }
-  App.account = { form: accountForm, signOut, get auth() { return auth; }, get state() { return syncState; }, syncNow: () => (pending ? push() : pull()) };
+  App.account = { form: accountForm, choice: accountChoice, signOut, get auth() { return auth; }, get state() { return syncState; }, syncNow: () => (pending ? push() : pull()) };
   const SYNC_TXT = { local: 'Sin cuenta: progreso solo en este dispositivo', wait: 'Sincronizando…', ok: '✓ Sincronizado', error: 'No se pudo sincronizar; se reintentará', offline: 'Sin conexión; se subirá al volver', notable: 'Falta preparar la base de datos (supabase.sql)' };
   function paintAccount() {
     const el = $('#acctBox'); if (!el) return;
     if (inArtifact) { el.innerHTML = ''; return; }
     el.innerHTML = auth ? `<div class="acct"><span class="acct-mail" title="${esc(auth.email || '')}">${esc(auth.email || '')}</span><span class="acct-st ${syncState}">${esc(SYNC_TXT[syncState] || '')}</span><button class="btn ghost sm" id="acctOut">Cerrar sesión</button></div>`
-      : `<button class="btn pri sm" id="acctIn" style="width:100%">Crear cuenta / Entrar</button>`;
-    const i = $('#acctIn'), o = $('#acctOut'); if (i) i.onclick = () => accountForm('in'); if (o) o.onclick = signOut;
+      : `<button class="btn pri sm" id="acctIn" style="width:100%">Entrar</button>`;
+    const i = $('#acctIn'), o = $('#acctOut'); if (i) i.onclick = accountChoice; if (o) o.onclick = signOut;
   }
   App.paintAccount = paintAccount;
 

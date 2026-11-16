@@ -77,18 +77,19 @@
     const counts = {}; PUZZLES.forEach(p => (p.themes || []).forEach(t => counts[t] = (counts[t] || 0) + 1));
     $('#themeSel', v).innerHTML = Object.keys(counts).sort((a, b) => themeName(a).localeCompare(themeName(b))).map(t => `<option value="${t}">${esc(themeName(t))} (${counts[t]})</option>`).join('');
     if (theme) $('#themeSel', v).value = theme;
-    let cur = null, runner = null, blindT = null, rated = false;
+    let cur = null, runner = null, blindT = null, rated = false, hinted = false;
     const fb = (cls, icon, title, sub) => { $('#fb', v).innerHTML = `<div class="fb ${cls}"><span class="dot">${icon}</span><div>${title}<small>${sub || ''}</small></div></div>`; };
     const paintModes = () => { $$('#modes .chip', v).forEach(c => c.classList.toggle('on', c.dataset.m === mode)); $('#themeBox', v).hidden = mode !== 'theme'; $('#rt', v).textContent = S().pz.rating; };
     const load = (p) => {
       if (!p) { fb('info', 'ℹ', 'No hay puzles para este filtro', 'Prueba otro tema o modo.'); return; }
-      cur = p; rated = false; clearTimeout(blindT); board.setBlind(false);
+      cur = p; rated = false; hinted = false; clearTimeout(blindT); board.setBlind(false);
       runner = PuzzleRunner(board, p, {
         onWrong() { if (!rated) { rated = true; const d = ratePuzzle(p, false); fb('bad', '✕', 'Incorrecto', `Rating ${S().pz.rating} (${d})  ·  Inténtalo de nuevo o mira la solución`); $('#rt', v).textContent = S().pz.rating; } else fb('bad', '✕', 'Esa no es', 'Sigue buscando.'); },
         onProgress() { fb('ok', '✓', '¡Bien! Sigue…', 'Encuentra la siguiente jugada.'); },
         onDone(ok) {
           board.setBlind(false);
-          if (!rated) { rated = true; const d = ratePuzzle(p, ok); fb(ok ? 'win' : 'ok', ok ? '★' : '✓', ok ? '¡Resuelto!' : 'Completado', `Rating ${S().pz.rating} (${d >= 0 ? '+' : ''}${d})`); }
+          if (!rated && hinted) { rated = true; ratePuzzle(p, 'hint'); fb('ok', '💡', 'Resuelto con pista', `Sin puntos: ni sube el rating ni da XP. Rating ${S().pz.rating} (±0)`); }
+          else if (!rated) { rated = true; const d = ratePuzzle(p, ok); fb(ok ? 'win' : 'ok', ok ? '★' : '✓', ok ? '¡Resuelto!' : 'Completado', `Rating ${S().pz.rating} (${d >= 0 ? '+' : ''}${d})`); }
           else fb('ok', '✓', 'Completado', 'Este puzle ya contó como error.');
           $('#rt', v).textContent = S().pz.rating; showThemes(p);
         }
@@ -110,9 +111,10 @@
     $$('#modes .chip', v).forEach(c => c.onclick = () => { mode = c.dataset.m; paintModes(); next(); });
     $('#themeSel', v).onchange = next;
     $('#blind', v).onchange = (e) => { blind = e.target.checked; if (!blind) { clearTimeout(blindT); board.setBlind(false); } else if (cur && !runner.done) blindT = setTimeout(() => board.setBlind(true), 6000); };
-    $('#hintB', v).onclick = () => { if (!runner || runner.done) return; if (!rated) { rated = true; ratePuzzle(cur, false); $('#rt', v).textContent = S().pz.rating; } runner.hint(); fb('info', '💡', 'Pista', 'Se ilumina la pieza que debes mover.'); };
+    // Pista: el puzle ya no puede subir el rating ni dar XP. Si después fallas una jugada, cuenta como error (baja).
+    $('#hintB', v).onclick = () => { if (!runner || runner.done) return; hinted = true; runner.hint(); fb('info', '💡', 'Pista', rated ? 'Se ilumina la pieza que debes mover.' : 'Se ilumina la pieza que debes mover. Con pista no sumas puntos, y si fallas una jugada te descuenta.'); };
     $('#solB', v).onclick = () => { if (!runner || runner.done) return; if (!rated) { rated = true; ratePuzzle(cur, false); $('#rt', v).textContent = S().pz.rating; } board.setBlind(false); runner.playAll(); };
-    $('#retryB', v).onclick = () => { if (cur) { const keep = rated; load(cur); rated = keep; } };
+    $('#retryB', v).onclick = () => { if (cur) { const keep = rated, kh = hinted; load(cur); rated = keep; hinted = kh; } };
     $('#nextB', v).onclick = next;
     paintModes();
     if (arg && PZ_BY_ID[arg]) load(PZ_BY_ID[arg]); else next();

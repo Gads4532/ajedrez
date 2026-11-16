@@ -34,9 +34,9 @@
   // Nivel de exigencia (Ajustes / Rutas): 'normal', 'alta' o 'gm' (gran maestro, por defecto).
   const LEVEL = () => (S().settings && S().settings.exigencia) || 'gm';
   const EXIG = {
-    normal: { t: 'Normal', d: 'Puzles cerca de tu rating, 4 preguntas básicas, pistas sin castigo.', pz: [5, 3], stars: [90, 70], exam: [8, 75] },
+    normal: { t: 'Normal', d: 'Puzles cerca de tu rating, 4 preguntas básicas.', pz: [5, 3], stars: [90, 70], exam: [8, 75] },
     alta: { t: 'Alta', d: 'Puzles 250 puntos por encima de tu rating, 8 preguntas (básicas y profesionales).', pz: [6, 4], stars: [92, 80], exam: [10, 80] },
-    gm: { t: 'Gran maestro', d: 'Puzles de 2200 a 2750 y largos, 8 preguntas (básicas y profesionales), la pista cuenta como fallo y las estrellas exigen casi la perfección.', pz: [8, 6], stars: [95, 85], exam: [12, 80] }
+    gm: { t: 'Gran maestro', d: 'Puzles de 2200 a 2750 y largos, 8 preguntas (básicas y profesionales) y las estrellas exigen casi la perfección.', pz: [8, 6], stars: [95, 85], exam: [12, 80] }
   };
   App.EXIG = EXIG; App.exigencia = LEVEL;
   // Puzles de unos temas, cerca del nivel del alumno; primero los no resueltos.
@@ -67,7 +67,7 @@
     const say = (m) => { const c = (item.cm || [])[idx]; if (cb.onComment) cb.onComment(m, c || ''); };
     const advance = async () => {
       while (idx < item.line.length && !asks.has(idx)) { await wait(650); const m = g.move(item.line[idx], { sloppy: true }); if (!m) break; playSound(m); board.sync(); say(m); idx++; }
-      if (idx >= item.line.length) { done = true; board.opts.interactive = false; cb.onDone(shown ? 0 : helped && LEVEL() === 'gm' ? 0 : (errors || helped) ? 0.5 : 1); return; }
+      if (idx >= item.line.length) { done = true; board.opts.interactive = false; cb.onDone(shown || helped ? 0 : errors ? 0.5 : 1); return; }
       board.opts.movable = g.turn(); board.opts.interactive = true; cb.onTurn && cb.onTurn(idx);
     };
     board.opts.onUserMove = async ({ from, to, promotion }) => {
@@ -128,7 +128,7 @@
       if (i >= steps.length && opt.endless) { steps.push(...opt.endless()); }
       if (i < steps.length) load(); else finish();
     };
-    const stepDone = (sc) => { scores.push(sc); dots(); fb(sc === 1 ? 'win' : sc > 0 ? 'ok' : 'info', sc === 1 ? '★' : '✓', sc === 1 ? '¡Perfecto!' : sc > 0 ? 'Resuelto' : 'Solución vista', sc === 1 ? 'Sin errores ni ayudas.' : sc > 0 ? 'Con algún error o pista.' : 'Repasa la idea y vuelve a intentarlo más tarde.'); foot(`<button class="btn pri" id="exNext" style="margin-left:auto">${i + 1 < steps.length ? 'Siguiente →' : 'Ver resultado'}</button>`); $('#exNext', v).onclick = next; };
+    const stepDone = (sc) => { scores.push(sc); dots(); fb(sc === 1 ? 'win' : sc > 0 ? 'ok' : 'info', sc === 1 ? '★' : '✓', sc === 1 ? '¡Perfecto!' : sc > 0 ? 'Resuelto' : 'Sin puntos', sc === 1 ? 'Sin errores ni ayudas.' : sc > 0 ? 'Con algún error: medio punto.' : 'Con pista o viendo la solución no suma puntos ni XP. Repasa la idea.'); foot(`<button class="btn pri" id="exNext" style="margin-left:auto">${i + 1 < steps.length ? 'Siguiente →' : 'Ver resultado'}</button>`); $('#exNext', v).onclick = next; };
     const load = () => {
       dots(); $('#exFb', v).innerHTML = ''; exp(''); const st = steps[i];
       if (st.kind === 'mc') {
@@ -165,7 +165,7 @@
           onWrong: () => { wrong++; fb('bad', '✕', 'No es esa', 'Busca jaques, capturas y amenazas.'); },
           onProgress: () => { $('#exFb', v).innerHTML = ''; },
           onDone: (clean) => {
-            const sc = helped === 'sol' ? 0 : clean ? 1 : (helped && LEVEL() === 'gm') ? 0 : 0.5; App.ratePuzzle(p, !!clean); save(); stepDone(sc);
+            const sc = helped ? 0 : clean ? 1 : 0.5; App.ratePuzzle(p, helped === true && !wrong ? 'hint' : !!clean); save(); stepDone(sc);
             // Explicación: la línea completa de la solución y los motivos del puzle
             const t = new Chess(p.fen), line = []; for (const u of p.moves) { const m = t.move({ from: u.slice(0, 2), to: u.slice(2, 4), promotion: u[4] || 'q' }); if (!m) break; line.push(m.san); }
             const th = (p.themes || []).filter(x => !['corto', 'largo', 'muyLargo'].includes(x)).map(themeName);
