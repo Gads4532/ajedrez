@@ -53,6 +53,7 @@ window.STATS = [{ title, html, table:{head:[...], rows:[[...]]} (opcional) }] //
 window.PSYCHOLOGY = [{ title, html }] // gestión del tiempo, preparación de torneos, físico, tilt...
 
 ## data/puzzles.js → `window.PUZZLES = [...]`
+Generado con `tools/build-puzzles.js` desde la base de datos de Lichess (CC0); ver `docs/PUZLES.md`.
 { id:'p0001', fen,                      // FEN con el bando que RESUELVE al turno
   moves:['e2e4','d7d5',...],            // UCI. índices pares = jugador, impares = respuesta forzada
   rating:1200, themes:['mate','mateIn2','horquilla','clavada',...], title:'opcional', source:'clásico'|'generado' }

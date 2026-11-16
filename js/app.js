@@ -261,10 +261,13 @@
   }
 
   /* ---------- Rating de puzles ---------- */
+  // ok: true (resuelto limpio), false (fallo o solución vista) o 'hint' (resuelto con pista sin fallar: no cambia el
+  // rating ni da XP, pero cuenta como no resuelto para «Repasar errores»).
   function ratePuzzle(p, ok) {
+    const hint = ok === 'hint'; if (hint) ok = false;
     const R = S.pz.rating, exp = 1 / (1 + Math.pow(10, (p.rating - R) / 400));
     const K = S.pz.n < 20 ? 40 : S.pz.n < 80 ? 24 : 16;
-    const delta = Math.round(K * ((ok ? 1 : 0) - exp));
+    const delta = hint ? 0 : Math.round(K * ((ok ? 1 : 0) - exp));
     S.pz.rating = Math.max(100, R + delta); S.pz.n++;
     if (App.track) App.track('puzzle', { ok, themes: p.themes, rating: p.rating });
     S.pz.hist.push([Date.now(), S.pz.rating]); if (S.pz.hist.length > 1500) S.pz.hist.shift();
@@ -429,9 +432,9 @@
     const paint = () => $$('#not .chip', v).forEach(c => c.classList.toggle('on', c.dataset.v === S.settings.notation));
     paint(); $$('#not .chip', v).forEach(c => c.onclick = () => { S.settings.notation = c.dataset.v; save(); paint(); toast('Notación actualizada'); });
     const sa = $('#setAcct', v), A = App.account;
-    if (A) { sa.innerHTML = A.auth ? `<div class="muted">Conectado como <b style="color:var(--fg)">${esc(A.auth.email || '')}</b></div><div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><button class="btn sm" id="sNow">Sincronizar ahora</button><button class="btn sm ghost" id="sOut">Cerrar sesión</button></div>` : `<p class="muted" style="margin:0 0 8px">Crea una cuenta para guardar tu progreso en la nube y usarlo en el teléfono y la computadora.</p><button class="btn pri sm" id="sIn">Crear cuenta / Entrar</button>`;
+    if (A) { sa.innerHTML = A.auth ? `<div class="muted">Conectado como <b style="color:var(--fg)">${esc(A.auth.email || '')}</b></div><div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><button class="btn sm" id="sNow">Sincronizar ahora</button><button class="btn sm ghost" id="sOut">Cerrar sesión</button></div>` : `<p class="muted" style="margin:0 0 8px">Crea una cuenta para guardar tu progreso en la nube y usarlo en el teléfono y la computadora.</p><button class="btn pri sm" id="sIn">Entrar</button>`;
       const a1 = $('#sNow', v), a2 = $('#sOut', v), a3 = $('#sIn', v);
-      if (a1) a1.onclick = () => { A.syncNow(); toast('Sincronizando…'); }; if (a2) a2.onclick = () => { A.signOut(); route(); }; if (a3) a3.onclick = () => A.form('in'); }
+      if (a1) a1.onclick = () => { A.syncNow(); toast('Sincronizando…'); }; if (a2) a2.onclick = () => { A.signOut(); route(); }; if (a3) a3.onclick = () => (A.choice ? A.choice() : A.form('in')); }
     $('#updChk', v).onclick = () => App.checkUpdate && App.checkUpdate();
     $('#instChk', v).onclick = () => App.installNow && App.installNow();
     const pe = () => { const cur = App.exigencia ? App.exigencia() : 'gm'; $$('#exig .chip', v).forEach(c => c.classList.toggle('on', c.dataset.v === cur)); const d = $('#exigD', v); if (d && App.EXIG) d.textContent = App.EXIG[cur].d; };

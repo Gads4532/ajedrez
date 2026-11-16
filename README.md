@@ -11,7 +11,7 @@ Academia de ajedrez completa que funciona en el navegador, se instala como app e
 | **Jugar** | Partidas contra Stockfish 19 NNUE en 10 niveles (≈400 a fuerza máxima), con reloj, pistas y deshacer, o en modo **sin ayudas**. Durante la partida puedes retroceder para ver las jugadas anteriores sin deshacerlas, y junto a cada jugador se ven las piezas capturadas y la ventaja de material |
 | **Análisis** | Barra de evaluación, 3 mejores líneas y revisión de la partida jugada a jugada con los mismos símbolos que chess.com (!!, !, ★, 👍, ✓, 📖, →, ?!, ?, ✕, ??) y la precisión de cada bando. Puedes **pegar los movimientos** (PGN, lista numerada o notación en español) y el **búho** comenta cada jugada: su calidad, por qué y ejercicios para corregirla |
 | **Importar y exportar** | Pega o abre archivos PGN de chess.com, Lichess o ChessBase (con varias partidas); copia el PGN o el FEN para llevarlos a otra web |
-| **Puzles** | Más de 3.400 puzles verificados con Stockfish, de 400 a 2800 de Elo y de más de 50 temas, con rating propio, pistas, modo a ciegas y repaso de errores |
+| **Puzles** | 10.346 puzles de la base de datos pública de Lichess, con su **rating real** (de 400 a 2900) y más de 50 temas, con rating propio, pistas (que no suman puntos), modo a ciegas y repaso de errores. Documentado en [`docs/PUZLES.md`](docs/PUZLES.md) |
 | **Juegos con puzles** | Contrarreloj (también por tema), batalla contra 7 bots, ruta de temas con estrellas, duelo para dos jugadores y método Woodpecker |
 | **Desafíos** | Misiones diarias, 25 logros, experiencia y niveles |
 | **Visión y cálculo** | Coordenadas, nombrar casillas, color de casilla, rutas de caballo, **captura** (capturar todos los peones con una pieza en el mínimo de jugadas), memoria de posiciones y cálculo a ciegas |
@@ -74,6 +74,7 @@ data/                 aperturas, lecciones (lessons*.js), actualidad, metodolog�
 docs/EJERCICIOS.md    teoría y ejercicios de las lecciones, exámenes, rutas y XP
 tools/build-exercises.js   genera data/exercises.js con Stockfish (volver a ejecutar al cambiar lecciones)
 docs/ANALISIS.md      cómo funcionan la revisión de partida, las tendencias y el plan de mejora
+docs/PUZLES.md        origen de los puzles (Lichess), rating y puntuación; tools/build-puzzles.js los genera
 docs/CLASES.md        clases paso a paso de lecciones y aperturas, y examen de cada apertura
 docs/COORDENADAS.md   partidas a ciegas escribiendo o dictando coordenadas
 tools/                validador de lecciones (node tools/validate-lessons.js data/lessons*.js)
@@ -85,7 +86,8 @@ icons/, manifest.webmanifest, sw.js   instalación como app y uso sin conexión
 - **Motor:** [Stockfish](https://stockfishchess.org) 19 (versión lite NNUE) y Stockfish 10 de respaldo, compilados a WebAssembly/JavaScript por [nmrugg/stockfish.js](https://github.com/nmrugg/stockfish.js). Licencia GPLv3.
 - **Reglas:** [chess.js](https://github.com/jhlywa/chess.js) 0.10.3, licencia BSD-2-Clause.
 - **Piezas:** «Planas», diseño propio. «Modernas» y «Clásicas»: Cburnett, [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces/Standard), licencia CC BY-SA 3.0, vía [cm-chessboard](https://github.com/shaack/cm-chessboard).
-- **Contenido:** todo el texto (lecciones, aperturas y metodologías) es de redacción propia. Las estadísticas de aperturas son aproximaciones de bases de partidas magistrales. Los puzles se generaron y verificaron con Stockfish.
+- **Contenido:** todo el texto (lecciones, aperturas y metodologías) es de redacción propia. Las estadísticas de aperturas son aproximaciones de bases de partidas magistrales. 
+- **Puzles:** [base de datos de puzles de Lichess](https://database.lichess.org/#puzzles), dominio público (CC0), con su rating real; los patrones clásicos que Lichess no etiqueta se generaron y verificaron con Stockfish.
 - Este proyecto se distribuye bajo la **GNU GPL v3** (ver `LICENSE`), por incluir Stockfish.
 
 Proyecto independiente, sin relación con chess.com ni Lichess.

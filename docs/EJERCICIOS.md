@@ -14,9 +14,9 @@ Se elige en **Ajustes** o en **Rutas y XP** y cambia todas las sesiones, los rep
 
 | Nivel | Preguntas de teoría | Puzles por sesión (con/sin posiciones) | Rating de los puzles | Pistas | Estrellas ★★★ / ★★ | Examen |
 |---|---|---|---|---|---|---|
-| Normal | 4 básicas | 3 / 5 | tu rating ± ajuste por nivel | sin castigo (0,5) | 90 % / 70 % | 8 puzles, 75 % |
-| Alta | 8 (básicas y profesionales) | 4 / 6 | tu rating + 250 | 0,5 | 92 % / 80 % | 10 puzles, 80 % |
-| Gran maestro | 8 (básicas y profesionales) | 6 / 8 | entre 2200 y 2750 (tu rating + 400 si es mayor), se prefieren puzles de 4+ jugadas | **cuenta como fallo (0)** | 95 % / 85 % | 12 puzles, 80 % |
+| Normal | 4 básicas | 3 / 5 | tu rating ± ajuste por nivel | 0 puntos | 90 % / 70 % | 8 puzles, 75 % |
+| Alta | 8 (básicas y profesionales) | 4 / 6 | tu rating + 250 | 0 puntos | 92 % / 80 % | 10 puzles, 80 % |
+| Gran maestro | 8 (básicas y profesionales) | 6 / 8 | entre 2200 y 2750 (tu rating + 400 si es mayor), se prefieren puzles de 4+ jugadas | 0 puntos | 95 % / 85 % | 12 puzles, 80 % |
 
 En *Aprender a jugar* el rating de los puzles tiene tope (850 normal, 1100 alta, 1400 gran maestro) porque el tema
 es la regla, no el cálculo.
@@ -88,6 +88,18 @@ generador las trata igual que las posiciones de la lección y el validador las c
 - En *Aprender a jugar* y *Partidas magistrales* solo vale la jugada exacta: el ejercicio trata de la regla o de lo que
   se jugó, no de la evaluación.
 - **Pista**: ilumina la pieza que hay que mover. **Solución**: dibuja la flecha.
+
+### 1.2b Pistas y puntos (todas las exigencias)
+| Cómo lo resuelves | Puntos del ejercicio (y XP) | Rating de puzles |
+|---|---|---|
+| Sin errores ni ayudas | 1 | sube |
+| Con algún error, sin pista | 0,5 | baja (contó como fallo) |
+| Con pista y sin fallar | 0: no da XP | no cambia |
+| Con pista y fallando alguna jugada | 0 | baja |
+| Viendo la solución | 0 | baja |
+
+En **Puzles** pasa lo mismo: con pista el puzle ya no sube el rating ni da XP; si además fallas una jugada, cuenta
+como error y baja. Un puzle resuelto con pista queda en «Repasar errores».
 
 ### 1.3 Puzles del tema
 
