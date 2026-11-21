@@ -94,3 +94,5 @@ No se edita a mano: `node tools/build-exercises.js` (ver `docs/EJERCICIOS.md`). 
 - `S.clases[id | 'ap:'+idApertura] = { max, n, done }`: progreso de la clase paso a paso (`docs/CLASES.md`).
 - `S.exams['ap~'+idApertura] = { best, stars, t }`: examen de cada apertura.
 - `S.coordStats = { games, wins, clean }` y `S.settings.coord`: Coordenadas a ciegas (`docs/COORDENADAS.md`). Las partidas a ciegas se guardan en `S.games` con `blind`.
+- `data/lessons-teoria-*.js`: teoría ampliada, posiciones y ejercicios nuevos por grupo de lecciones (`X[id] = { html, keyPoints, positions, drills }`, se añaden a la lección al cargar). Ver `docs/EJERCICIOS.md`, apartado 1.1a.
+- `data/exercises.js`: los ítems de ejercicios nuevos llevan `d: 1`; la práctica usa esos (posiciones que no salen en la lección).

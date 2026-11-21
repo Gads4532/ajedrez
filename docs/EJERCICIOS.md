@@ -41,7 +41,7 @@ pantalla muestra cuántas preguntas acertaste y permite releer la lección antes
 | Parte | Contenido | Cuántos |
 |---|---|---|
 | **Teoría** | Preguntas de triple elección sobre las ideas de la lección (`data/quiz-*.js`), con explicación tras responder. Las opciones se mezclan cada vez. Hay 8 por lección (4 básicas y 4 profesionales; 1.064 en total). | 4 (normal) u 8 (alta y gran maestro) |
-| **Posiciones de la lección** | Las posiciones de la propia lección: juegas un bando y el rival responde siguiendo la línea. | Las que haya en `data/exercises.js` |
+| **Ejercicios nuevos** | Posiciones que **no salen en la lección** (`drills`, marcadas `d:1` en `data/exercises.js`), escritas para practicar la idea y verificadas con Stockfish: juegas un bando y el rival responde con su mejor defensa. Las posiciones de la lección solo se usan en *Partidas magistrales* («¿qué jugó el maestro?») o si una lección no tiene ejercicios propios. | Los de `data/exercises.js` |
 | **Puzles del tema** | Puzles de `data/puzzles.js` con los temas de la lección. | 3 si hay 3+ posiciones; si no, 5 |
 | **Práctica contra el motor** | La posición de práctica de la lección (si la tiene), como remate opcional. | 0 o 1 |
 
@@ -70,10 +70,20 @@ node tools/build-exercises.js [profundidad=11] [procesos=4]
   segunda opción del motor) y la posición no está perdida.
 - Hay que volver a ejecutarlo cada vez que se añaden o cambian lecciones (tarda unos segundos).
 
-Resultado actual: **las 133 lecciones tienen ejercicios de posición**: 359 ejercicios con 875 jugadas a encontrar.
+Resultado actual: **las 133 lecciones tienen ejercicios**: 1.278 ítems con 2.997 jugadas a encontrar, de los cuales **613 son ejercicios nuevos** (posiciones que no salen en la lección) con 1.289 jugadas.
 Las lecciones cuyas posiciones son solo ilustrativas (estructuras, mates básicos) tienen además ejercicios propios
 (`drills`) en `data/lessons-drills-estrategia.js` y `data/lessons-drills-finales.js`, escritos para practicar la idea de
 la lección y verificados con Stockfish a profundidad 16 (cada jugada del alumno es la mejor o pierde ≤ 4 puntos).
+
+### 1.1a Teoría ampliada (`data/lessons-teoria-*.js`)
+Desde la versión 2.3 cada lección tiene teoría ampliada (mediana ≈ 700 palabras, antes ≈ 230): conceptos y excepciones,
+planes típicos, errores comunes y una lista de comprobación para la partida, más 2 posiciones nuevas comentadas y hasta
+4 ejercicios nuevos. Están en nueve archivos por grupo (`ataque`, `basico`, `estrategia1`, `estrategia2`, `finales1`,
+`finales2`, `principios-partidas`, `tactica1`, `tactica2`) con la forma `X[idLección] = { html, keyPoints, positions,
+drills }`: al cargarse añaden su contenido a la lección (el `html` se agrega al final de la teoría). Cada jugada pedida
+en los ejercicios se comprobó con Stockfish 19 a profundidad 18-20 (la mejor y la única buena); el contenido pasó
+además una revisión independiente (revisor + verificador escéptico) antes de publicarse. Muchas posiciones se
+adaptaron de la base de puzles de Lichess (CC0), sin repetir ninguna de `data/puzzles.js` ni de otra lección.
 
 ### 1.1b Ejercicios propios (`drills`)
 Una lección puede tener `drills: [{ fen, caption, line, comments }]`: posiciones pensadas solo como ejercicio. El
