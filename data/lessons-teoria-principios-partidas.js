@@ -80,7 +80,7 @@
       ],
       "comments": [
        "Jaque por la diagonal h5-e8, que quedó abierta al mover el peón f. El rey no tiene buenas casillas.",
-       "Tapar con el peón es lo menos malo: 4...Ke7 5.Qxe5+ Kf7 6.Bc4+ deja al rey a merced del ataque.",
+       "Tapar con el peón es lo más natural; 4...Ke7 5.Qxe5+ Kf7 6.Bc4+ tampoco salva a las negras, porque el rey queda a merced del ataque.",
        "Doble ataque: jaque al rey y ataque a la torre de h8, que quedó sin defensa tras ...g6.",
        "La dama tapa el jaque; con 5...Ne7 la torre cae igual.",
        "Ganas la torre. Es el precio de dos jugadas de peón (...f6 y ...g6) que no desarrollaban nada."
@@ -96,7 +96,7 @@
       ],
       "comments": [
        "El caballo salta al centro atacando a la dama y amenazando ...Nxc2+, con horquilla al rey y a la torre.",
-       "La dama se retira y defiende c2 (6.Qa4 es parecido). Sigue siendo un blanco para las piezas negras.",
+       "La dama se retira y defiende c2 (6.Qa4 o 6.Bxf7+ Ke7 no cambian mucho). Sigue siendo un blanco para las piezas negras.",
        "¡Golpe central! Abre la diagonal del alfil de c8 y ataca a la vez el alfil de c4 y el peón de e4. Las negras ganan material: cada una de sus jugadas desarrolló una pieza o ganó un tiempo."
       ]
      },
@@ -1329,7 +1329,7 @@
     ]
    },
    "p-avro": {
-    "html": "<h4>La Nimzoindia: centro a cambio de estructura</h4><p>Con <span class=\"mv\">5.a3 Bxc3+ 6.bxc3</span> Botvinnik aceptó peones doblados en c3 y c4 a cambio de la pareja de alfiles y de un centro sólido con <span class=\"mv\">e3</span> y <span class=\"mv\">d4</span>. Es el intercambio típico de esta apertura: las negras tienen la mejor estructura, las blancas los alfiles y la posibilidad de avanzar en el centro con <span class=\"mv\">f3</span> y <span class=\"mv\">e4</span>. Capablanca cambió además el alfil bueno de las blancas con <span class=\"mv\">10...Ba6</span>, una idea clásica para dejar al rival con el alfil de casillas negras encerrado detrás de sus peones.</p><h4>El error estratégico: 14...c4</h4><p>La jugada <span class=\"mv\">14...c4</span> parece lógica: fija el peón blanco de c3 y gana la casilla b3 para el caballo. Pero tiene un defecto profundo: <b>quita toda la tensión en el centro</b>. Mientras el peón negro estaba en c5, el centro blanco (d4) estaba bajo presión y <span class=\"mv\">e4</span> era difícil. Tras <span class=\"mv\">...c4</span>, las blancas pueden olvidarse del flanco de dama y lanzar todos sus peones centrales: <span class=\"mv\">18.f3</span>, <span class=\"mv\">19.e4</span>, <span class=\"mv\">20.e5</span>, <span class=\"mv\">22.f4</span> y <span class=\"mv\">24.f5</span>. Mientras tanto, el caballo negro llega a b3 y la dama come el peón de a4: dos piezas negras lejos del rey para ganar un peón que no influye en la lucha.</p><h4>Del plan a la combinación</h4><p>La partida es un ejemplo perfecto de la frase «la combinación es el resultado de una buena posición». Al llegar a la jugada 30, las blancas tienen:</p><ul><li>un <b>peón pasado en e6</b>, protegido y a dos casillas de coronar;</li><li>la <b>dama en e5</b>, en el centro, apoyando al peón y atacando f6;</li><li>un caballo listo para saltar a h5 o f5 contra el rey.</li></ul><p>Con <span class=\"mv\">30.Ba3!</span> Botvinnik desvía a la dama negra, el único defensor de e7. Tras <span class=\"mv\">30...Qxa3 31.Nh5+!</span> la estructura del rey se rompe y el peón corona. El análisis con motor muestra que las negras ya no tenían defensa: si en lugar de <span class=\"mv\">31...gxh5</span> el rey va a g8 o a h6, el caballo captura en f6 con efectos igual de demoledores.</p><h4>Cómo aplicar estas ideas</h4><ol><li>Antes de cerrar el centro o un flanco con un avance de peón, pregúntate <b>qué ruptura le estás dejando libre al rival</b>.</li><li>Ganar un peón en el flanco contrario está bien solo si el rival no puede hacer nada fuerte mientras tanto en el centro o contra tu rey.</li><li>Un peón pasado central apoyado por la dama vale tanto como una pieza: el rival tendrá que bloquearlo con algo y esa pieza dejará de defender.</li></ol><p>Fíjense también en la defensa: al final de la partida, la dama negra da muchos jaques, pero el rey blanco encuentra refugio entre sus propios peones (<span class=\"mv\">40.g4</span>). Cuando calcules una combinación que entrega material, comprueba siempre que tu rey podrá escapar de los jaques.</p>",
+    "html": "<h4>La Nimzoindia: centro a cambio de estructura</h4><p>Con <span class=\"mv\">5.a3 Bxc3+ 6.bxc3</span> Botvinnik aceptó peones doblados en c3 y c4 a cambio de la pareja de alfiles y de un centro sólido con <span class=\"mv\">e3</span> y <span class=\"mv\">d4</span>. Es el intercambio típico de esta apertura: las negras tienen la mejor estructura, las blancas los alfiles y la posibilidad de avanzar en el centro con <span class=\"mv\">f3</span> y <span class=\"mv\">e4</span>. Capablanca cambió además el alfil bueno de las blancas con <span class=\"mv\">10...Ba6</span>, una idea clásica para dejar al rival con el alfil de casillas negras encerrado detrás de sus peones.</p><h4>La decisión estratégica: 14...c4</h4><p>La jugada <span class=\"mv\">14...c4</span>, muy criticada por los comentaristas clásicos, parece lógica: fija el peón blanco de c3 y gana la casilla b3 para el caballo. Su defecto es que <b>quita toda la tensión en el centro</b> (el motor la considera jugable, pero el plan que siguió Capablanca después fue demasiado lento). Mientras el peón negro estaba en c5, el centro blanco (d4) estaba bajo presión y <span class=\"mv\">e4</span> era difícil. Tras <span class=\"mv\">...c4</span>, las blancas pueden olvidarse del flanco de dama y lanzar todos sus peones centrales: <span class=\"mv\">18.f3</span>, <span class=\"mv\">19.e4</span>, <span class=\"mv\">20.e5</span>, <span class=\"mv\">22.f4</span> y <span class=\"mv\">24.f5</span>. Mientras tanto, el caballo negro llega a b3 y la dama come el peón de a4: dos piezas negras lejos del rey para ganar un peón que no influye en la lucha.</p><h4>Del plan a la combinación</h4><p>La partida es un ejemplo perfecto de la frase «la combinación es el resultado de una buena posición». Al llegar a la jugada 30, las blancas tienen:</p><ul><li>un <b>peón pasado en e6</b>, protegido y a dos casillas de coronar;</li><li>la <b>dama en e5</b>, en el centro, apoyando al peón y atacando f6;</li><li>un caballo listo para saltar a h5 o f5 contra el rey.</li></ul><p>Con <span class=\"mv\">30.Ba3!</span> Botvinnik desvía a la dama negra, el único defensor de e7. Tras <span class=\"mv\">30...Qxa3 31.Nh5+!</span> la estructura del rey se rompe y el peón corona. El análisis con motor muestra que las negras ya no tenían defensa: si en lugar de <span class=\"mv\">31...gxh5</span> el rey va a g8 o a h6, el caballo captura en f6 con efectos igual de demoledores.</p><h4>Cómo aplicar estas ideas</h4><ol><li>Antes de cerrar el centro o un flanco con un avance de peón, pregúntate <b>qué ruptura le estás dejando libre al rival</b>.</li><li>Ganar un peón en el flanco contrario está bien solo si el rival no puede hacer nada fuerte mientras tanto en el centro o contra tu rey.</li><li>Un peón pasado central apoyado por la dama vale tanto como una pieza: el rival tendrá que bloquearlo con algo y esa pieza dejará de defender.</li></ol><p>Fíjense también en la defensa: al final de la partida, la dama negra da muchos jaques, pero el rey blanco encuentra refugio entre sus propios peones (<span class=\"mv\">40.g4</span>). Cuando calcules una combinación que entrega material, comprueba siempre que tu rey podrá escapar de los jaques.</p>",
     "keyPoints": [
      "14...c4 eliminó la presión sobre d4 y liberó el centro blanco.",
      "Un peón pasado central apoyado por la dama vale tanto como una pieza."
@@ -1429,14 +1429,10 @@
       "fen": "6k1/p6p/1p2Pnp1/3pQ2N/2pP4/qnP5/6PP/6K1 w - - 2 32",
       "caption": "Juegan blancas (variante): tras 30...Qxa3 31.Nh5+, ¿qué pasa si el rey negro va a g8 en vez de capturar el caballo?",
       "line": [
-       "Nxf6+",
-       "Kf8",
-       "Nxd5"
+       "Nxf6+"
       ],
       "comments": [
-       "El caballo come en f6 con jaque y elimina al defensor de la casilla de coronación.",
-       "Si 32...Kg7, las blancas dan mate.",
-       "El caballo come d5 y controla e7 y c7: el peón de e6 avanzará y las blancas tienen ventaja decisiva."
+       "El caballo come en f6 con jaque y elimina al defensor de la casilla de coronación. Si 32...Kg7, las blancas dan mate; tras 32...Kf8 siguen, por ejemplo, 33.Nxd5, controlando e7 y c7, y el peón de e6 avanzará. Las blancas tienen ventaja decisiva."
       ]
      },
      {
@@ -1635,18 +1631,14 @@
        "Kb6",
        "Qxd4+",
        "Kxa5",
-       "b4+",
-       "Ka4",
-       "Qc3"
+       "b4+"
       ],
       "comments": [
        "La torre entra en la séptima fila con jaque.",
        "La mejor defensa; 25...Kb8 permite un ataque aún más fuerte.",
        "La dama come con jaque y se suma al ataque.",
        "El rey captura el caballo y avanza; 26...Qc5 era peor.",
-       "El peón da jaque y empuja al rey hacia adelante.",
-       "El rey avanza a a4; tomar el peón con 27...Qxb4+ permitía mate.",
-       "¡La jugada tranquila! Cierra la casilla b3 y prepara Ra7 con amenazas de mate. El motor la considera la mejor, aunque la posición sigue siendo muy compleja."
+       "El peón da jaque y empuja al rey hacia adelante: tomarlo con 27...Qxb4+ permite mate, así que el rey debe ir a a4. Allí llegará la jugada tranquila 28.Qc3, que cierra la casilla b3 y prepara Ra7. La posición sigue siendo muy compleja."
       ]
      },
      {
@@ -1764,14 +1756,10 @@
       "fen": "r1bqkb1r/pp1n2p1/2p1pn1p/8/3P4/3B1N2/PPP2PPP/R1BQK2R w KQkq - 0 9",
       "caption": "Juegan blancas (variante): ¿y si Kasparov hubiera capturado el caballo de inmediato con 8...fxe6?",
       "line": [
-       "Bg6+",
-       "Ke7",
-       "Bf4"
+       "Bg6+"
       ],
       "comments": [
-       "Jaque: el rey negro pierde el enroque y tiene que salir a e7.",
-       "Única casilla.",
-       "El alfil ocupa la diagonal h2-b8 y apunta a c7 y d6: las blancas tienen un ataque duradero por la pieza."
+       "Jaque: el rey negro pierde el enroque y tiene que salir a e7, su única casilla. Después las blancas siguen con desarrollo y ataque (por ejemplo O-O, Re1 o Bf4) y tienen compensación más que suficiente por la pieza; otras jugadas que no dan jaque dejan a las negras mejor."
       ]
      },
      {
