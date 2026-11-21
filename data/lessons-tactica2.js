@@ -60,7 +60,7 @@
         fen: 'rnbqkb1r/p1ppnppp/1p6/4p3/2B1P3/2N5/PPPP1PPP/R1BQK1NR w KQkq - 0 1', orientation: 'white',
         caption: 'Tercer paso: amenazas. Una jugada de dama crea una amenaza de mate.',
         line: ['Qf3', 'd5', 'exd5'],
-        comments: ['Amenaza Qxf7# (el alfil de c4 apoya). Ojo: la dama no ataca a8, porque su propio peón de e4 tapa la gran diagonal.', 'Una defensa válida: el peón corta la diagonal del alfil hacia f7. También servían f6, f5, Nd5 o Nf5.', 'Las blancas ganan un peón y mantienen la iniciativa.'],
+        comments: ['Amenaza Qxf7# (el alfil de c4 apoya). Ojo: la dama no ataca a8, porque su propio peón de e4 tapa la gran diagonal.', 'Tapa la diagonal del alfil hacia f7, pero cuesta un peón. Era mejor <span class="mv">...f6</span>, que defiende f7 sin perder material.', 'Las blancas ganan un peón y mantienen la iniciativa.'],
         arrows: [['f3', 'f7', 'r'], ['c4', 'f7', 'r']]
       }
     ]
@@ -82,10 +82,10 @@
     ],
     positions: [
       {
-        fen: '3r2k1/pp3ppp/5n2/3p4/8/2N2B2/PP3PPP/3R2K1 w - - 0 1', orientation: 'white',
-        caption: 'El peón de d5: tres atacantes (caballo, alfil, torre) contra dos defensores (caballo y torre).',
-        line: ['Nxd5', 'Nxd5', 'Bxd5'],
-        comments: ['Primero la pieza de menor valor.', 'Las negras recapturan con su caballo.', 'Las negras ya no deben seguir: Rxd5 Rxd5 les costaría la calidad. Las blancas ganan un peón limpio.'],
+        fen: '3r2k1/pp2bppp/5n2/3p4/8/2N2B2/PP3PPP/3R2K1 w - - 0 1', orientation: 'white',
+        caption: 'El peón de d5: tres atacantes (caballo, alfil, torre) contra dos defensores (caballo y torre). Contar dice que se gana, pero mira también los contraataques.',
+        line: ['Nxd5', 'Nxd5', 'Rxd5', 'Rxd5', 'Bxd5', 'Bf6', 'Bxb7', 'Bxb2'],
+        comments: ['Primero la pieza de menor valor.', 'Las negras recapturan con su caballo.', 'La torre retoma: ahora quedan dos atacantes (torre y alfil) contra un defensor.', 'Las negras cambian torres…', '…y las blancas se quedan con el peón de d5: la cuenta era correcta.', 'Pero el alfil negro de e7 contraataca el peón de b2, que nadie defiende.', 'Las blancas cobran otro peón mientras pueden.', 'Y las negras recuperan el material: material igualado. Contar atacantes y defensores es el primer paso; el segundo es revisar qué contraataques quedan después de los cambios.'],
         arrows: [['c3', 'd5', 'g'], ['f3', 'd5', 'g'], ['d1', 'd5', 'g'], ['f6', 'd5', 'r'], ['d8', 'd5', 'r']]
       },
       {

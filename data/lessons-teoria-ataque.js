@@ -2,710 +2,1685 @@
    Varias posiciones proceden (con los colores invertidos) de la base pública de puzles de Lichess (CC0). */
 (function () {
   const X = {
-    'a-cuando-atacar': {
-      html: '<h4>La ventaja de desarrollo se mide en tiempos</h4><p>Decir «estoy más desarrollado» no basta: hay que <b>contar</b>. Suma las piezas menores fuera de su casilla inicial, el enroque hecho y las torres conectadas; resta las jugadas que tu rival necesita para igualarte. Si te sacan dos o tres tiempos de ventaja y el centro empieza a abrirse, estás en la situación ideal para actuar <b>ya</b>. Si la diferencia es de un solo tiempo, casi siempre conviene seguir desarrollando: un tiempo se pierde con cualquier jugada imprecisa.</p><p>Los gambitos abiertos (el Danés, el Evans, el Gambito Escocés) son la escuela clásica de esta idea: se entregan uno o dos peones a cambio de tiempos. Fíjate en lo que hace el defensor que conoce el tema: devuelve parte del material con <span class="mv">d5</span> para desarrollarse con ganancia de tiempo, y la ventaja de desarrollo se evapora. La lección para el atacante: los tiempos ganados hay que convertirlos en algo concreto (un rey sin enrocar, una columna abierta, material) antes de que el rival termine de sacar sus piezas.</p><h4>El centro decide si el ataque de flanco es correcto</h4><p>Un ataque con peones o piezas sobre el enroque necesita un centro <b>cerrado o controlado</b>. Si el centro está abierto o puede abrirse con una ruptura, el defensor responde en el medio y tus piezas, lanzadas al flanco, quedan lejos de la acción. El caso típico del aficionado: con el rey todavía en e1 empuja <span class="mv">h3</span> y <span class="mv">g4</span> «para atacar». La respuesta <span class="mv">d5</span> abre el centro, el rey blanco queda sin refugio (ya no puede enrocar corto con tranquilidad) y el ataque ni siquiera empezó.</p><p>Antes de empujar un peón del enroque o del flanco, hazte esta pregunta: <i>¿qué pasa si mi rival rompe ahora en el centro?</i> Si la respuesta es «me abre el rey», todavía no es el momento.</p><h4>Tres ataques prematuros y cómo castigarlos</h4><ul><li><b>La dama sola</b>: <span class="mv">Qh5</span>, <span class="mv">Qf3</span> o <span class="mv">Qb3</span> en las primeras jugadas. Castigo: desarrollar <b>atacando a la dama</b> (<span class="mv">Nf6</span>, <span class="mv">Nd4</span>, <span class="mv">Nc6</span>-<span class="mv">d4</span>, <span class="mv">d5</span>). Cada jugada tuya cumple dos funciones; cada jugada de la dama, ninguna.</li><li><b>Un caballo contra f7 sin apoyo</b>: <span class="mv">Ng5</span> o <span class="mv">Nxf7</span> sin más piezas detrás. Castigo: contraataque inmediato contra el punto débil del atacante (g2, f2, el rey en e1), porque el caballo lejano no defiende nada.</li><li><b>Peones del flanco con el rey en el centro</b>. Castigo: ruptura central (<span class="mv">d5</span>, <span class="mv">e5</span>), aunque cueste un peón.</li></ul><h4>Lista de comprobación antes de atacar</h4><ol><li>¿Cuántas piezas mías llegan al rey en dos jugadas y cuántas defensoras hay?</li><li>¿El centro está cerrado, bloqueado o bajo mi control?</li><li>¿Qué debilidad concreta voy a atacar (peón avanzado, casilla sin defensa, columna abierta)?</li><li>¿Mi propio rey está seguro si el ataque fracasa?</li><li>¿Puede el rival cambiar mi mejor pieza atacante?</li></ol><p>Si respondes «no» a las tres primeras, el plan correcto es mejorar la posición: completar el desarrollo, poner las torres en columnas centrales y esperar a que el rival cree una debilidad. Atacar sin motivo no es valentía: es regalar tiempos.</p>',
-      keyPoints: ['Cuenta los tiempos de ventaja: con uno solo, sigue desarrollando; con dos o tres y el centro abriéndose, actúa.', 'Antes de atacar en un flanco, pregúntate qué pasa si el rival rompe en el centro.', 'A un ataque prematuro se responde desarrollando con ganancia de tiempo.'],
-      positions: [
-        { fen: 'r1b1kb1r/ppp2ppp/2n5/3q4/3pn3/5N2/PPP2PPP/RNBQR1K1 w kq - 0 8', orientation: 'white', caption: 'Gambito Escocés / Dos Caballos: las blancas entregaron material a cambio de tiempos. Mira cómo la ventaja de desarrollo recupera todo.',
-          line: ['Nc3', 'Qa5', 'Nxe4', 'Be6', 'Neg5', 'O-O-O', 'Nxe6', 'fxe6', 'Rxe6'],
-          comments: ['Desarrollo con ataque a la dama. Además, el caballo de e4 está clavado por la torre de e1: las blancas amenazan recuperarlo.',
-            'La dama se aparta sin dejar de vigilar el flanco de rey.',
-            'El caballo clavado cae: las blancas recuperan la pieza.',
-            'Las negras se desarrollan rápido para tapar la columna e.',
-            'El caballo ataca al alfil de e6 y al punto f7: cada jugada blanca sigue llevando una amenaza.',
-            'Las negras ponen el rey a salvo enrocando largo: es la defensa correcta, completar el desarrollo.',
-            'Las blancas cambian el alfil defensor...',
-            '...y el peón recaptura.',
-            'La torre recupera el último peón. El material está igualado y el motor marca 0,00: la ventaja de desarrollo se convirtió en material, no en mate. Por eso hay que usarla a tiempo.'] },
-        { fen: 'r1bqkb1r/p4ppp/2p2n2/nB2p1N1/8/8/PPPP1PPP/RNBQK2R w KQkq - 0 8', orientation: 'white', caption: 'Dos Caballos con 4.Ng5: las negras tienen un peón menos pero mucho mejor desarrollo. ¿Es buena idea sacar la dama blanca a f3?',
-          line: ['Qf3', 'Rb8', 'Be2', 'Be7', 'd3', 'O-O'],
-          comments: ['La dama ataca el peón de c6 (y, detrás, la torre de a8), pero no ayuda al desarrollo y el alfil de b5 sigue atacado por ese mismo peón.',
-            'La torre ataca al alfil de b5 por la columna b (también era buena cxb5, entregando la calidad a cambio de desarrollo).',
-            'El alfil tiene que retroceder. Las blancas siguen con el flanco de dama sin mover.',
-            'Otra pieza negra entra en juego, apuntando a g5.',
-            'Las blancas abren paso a su alfil de c1: van muy atrasadas.',
-            'Las negras enrocan. El motor da una ligera ventaja negra pese al peón de menos: la dama blanca salió pronto y solo ayudó al rival a desarrollarse con ganancia de tiempo.'] }
-      ],
-      drills: [
-        { fen: 'r1bqkb1r/pppp1p1p/2n2np1/4p3/2B1P3/1Q6/PPPP1PPP/RNB1K1NR b KQkq - 3 5', caption: 'Juegan negras: la dama blanca ya se movió tres veces (h5, f3, b3) y ninguna otra pieza blanca salvo el alfil ha salido. Castiga el ataque prematuro.',
-          line: ['Nd4', 'Bxf7+', 'Ke7', 'd3', 'Nxb3'],
-          comments: ['Desarrollo con ganancia de tiempo: el caballo ataca a la dama de b3 y vigila c2. Cada jugada negra desarrolla; cada jugada de la dama blanca, ninguna.',
-            'Las blancas buscan algo de material con un jaque en f7, porque la dama no tiene una retirada cómoda.',
-            'Única jugada: el rey no puede capturar en f7 porque quedaría en la diagonal de la dama de b3.',
-            'Ninguna jugada salva a las blancas: si la dama se retira, el rey captura el alfil de f7 y las negras quedan con pieza de más y mucho mejor desarrollo. Con d3 al menos sale el alfil de c1.',
-            'El caballo captura la dama. Las negras tienen dama por caballo y peón: el precio de sacar la dama a pasear en la apertura.'] },
-        { fen: 'r1bq1rk1/ppppbppp/2n2n2/4p3/2B1P1P1/3P1N1P/PPP2P2/RNBQK2R b KQ g3 0 6', caption: 'Juegan negras: las blancas, con el rey todavía en e1, empujaron h3 y g4 «para atacar». ¿Cuál es la respuesta clásica?',
-          line: ['d5', 'exd5', 'Nxd5'],
-          comments: ['Ruptura central inmediata. Con el centro abierto, el rey blanco en e1 queda expuesto y ya no puede enrocar corto con tranquilidad porque h3 y g4 debilitaron ese flanco.',
-            'Capturar es lo más natural; cualquier otra jugada deja que las negras tomen en e4 con un centro aún más abierto.',
-            'El caballo recupera el peón y se instala en el centro, con la casilla f4 a la vista. El motor da casi dos peones de ventaja a las negras: las blancas debilitaron su flanco de rey sin ninguna compensación.'] },
-        { fen: 'r1b1kbnr/pppp1Npp/8/6q1/2BnP3/8/PPPP1PPP/RNBQK2R b KQkq - 0 5', caption: 'Juegan negras: el caballo blanco saltó a f7 y ataca a tu torre de h8. ¿Hace falta defenderse?',
-          line: ['Qxg2', 'Nc3', 'Qxh1+'],
-          comments: ['¡No hace falta defender nada! El caballo de f7 está lejos de su rey. La dama captura en g2 y amenaza la torre de h1 y, además, Qxe4+ seguido de Nf3# con el caballo de d4.',
-            'La defensa más tenaz: las blancas entregan la torre a cambio de desarrollar. Rf1 pierde por Qxe4+ y, si Be2, Nf3#.',
-            'La dama gana la torre con jaque. Aunque el caballo blanco se lleve la torre de h8, las negras quedan con ventaja decisiva (más de siete peones según el motor): un caballo solo no es un ataque.'] },
-        { fen: 'r1bqk1nr/pppp1ppp/2n5/b7/2B1P3/2p2N2/P4PPP/RNBQ1RK1 w kq - 0 8', caption: 'Juegan blancas: Gambito Evans. Tienes dos peones menos, pero ya enrocaste y tus piezas están listas; las negras no han desarrollado el flanco de rey. Elige la jugada que mejor usa la ventaja de desarrollo.',
-          line: ['Qb3'],
-          comments: ['La dama se une al alfil de c4 contra f7 y prepara Nxc3. Las negras tienen que gastar otra jugada en defender f7 (Qf6 o Qe7) y las blancas recuperan el peón de c3 desarrollando el caballo. Es la única jugada que mantiene la iniciativa: las demás dejan que las negras terminen de desarrollarse.'] }
-      ]
-    },
-    'a-rey-centro': {
-      html: '<h4>Cuándo el rey en el centro está realmente en peligro</h4><p>No todo rey en e8 es un blanco. Está seguro si el centro está <b>cerrado</b> por cadenas de peones (como en muchas Francesas), si ya se cambiaron las damas o si el atacante no tiene piezas para abrir líneas. Está en peligro cuando se cumplen dos condiciones a la vez: <b>una columna central abierta o a punto de abrirse</b> y <b>más piezas atacantes que defensoras</b> en esa zona. Sin columnas abiertas, el rey del centro solo es incómodo; con ellas, es mortal.</p><h4>El orden de las operaciones</h4><ol><li><b>Impedir el enroque</b>: un jaque que obligue al rey a moverse, un alfil que controle f8 (desde a3 o desde h6) o una torre en la columna e que clave al alfil de e7.</li><li><b>Abrir la columna</b>: rupturas de peón (<span class="mv">d5</span>, <span class="mv">e5</span>, <span class="mv">f5</span>) o sacrificios en e6, d5 o f7 que eliminen al peón que tapa la columna.</li><li><b>Traer las torres</b>: el enroque largo pone una torre en d1 de golpe; <span class="mv">Re1</span> y <span class="mv">Rhe1</span> completan la batería. Una torre que llega con jaque vale por dos jugadas.</li><li><b>El golpe final</b>: casi siempre es un sacrificio que <b>atrae</b> al rey a una casilla peor o <b>desvía</b> a la última pieza que tapaba la línea (<span class="mv">Qd8+</span>, <span class="mv">Rxe7+</span>, <span class="mv">Qe6+</span>).</li></ol><h4>Sacrificios de dama contra el rey central</h4><p>Con el rey en e8 o e7 rodeado de sus propias piezas, la dama es a menudo la pieza que se entrega. Los motivos se repiten: <span class="mv">Qe6+</span> cuando el peón f7 está clavado o sobrecargado y su captura abre la diagonal h5-e8; <span class="mv">Qxd7+</span> para eliminar al defensor de f6 y dar jaque doble con el caballo; <span class="mv">Qd8+</span> para atraer al rey a una casilla donde lo alcanza un alfil y luego una torre. La señal de alarma es siempre la misma: el rey tiene pocas casillas libres y las piezas atacantes controlan las que le quedan.</p><h4>Errores comunes del atacante</h4><ul><li><b>Dar jaques que ayudan al rey a escapar</b>. Un jaque que empuja al rey de e8 a f8-g8 lo lleva justamente al refugio que buscaba. Antes de dar jaque, comprueba adónde irá el rey.</li><li><b>Cambiar las piezas atacantes</b>. Cada cambio reduce tu fuerza en el centro; cambia solo defensores.</li><li><b>Ir por material</b>. Ganar un peón en el flanco de dama mientras el rey rival enroca es la forma más común de desperdiciar una posición ganadora.</li></ul><h4>Cómo pensarlo en la partida</h4><p>Cuando el rival se retrasa en enrocar, pregúntate en cada jugada: <i>¿qué columna o diagonal puedo abrir?</i>, <i>¿puedo quitarle el derecho a enrocar?</i> y <i>¿cuántas de mis piezas están ya apuntando a e8, e7, d7 o f7?</i> Si tienes tres o más piezas listas, busca sacrificios: en esa situación el material importa mucho menos que el tiempo.</p>',
-      keyPoints: ['El rey central es mortal solo si hay columnas abiertas y más atacantes que defensores.', 'Orden: impedir el enroque, abrir la columna, traer las torres, golpe final.', 'Antes de dar jaque, comprueba si ayudas al rey a escapar.'],
-      positions: [
-        { fen: '2kr2n1/pp1b1p1p/4pn2/3q2Q1/8/5N2/PP2PPPP/R1B1KB1R b KQ - 0 1', orientation: 'black', caption: 'El mecanismo de Réti–Tartakower con colores invertidos: el rey blanco sigue en e1 y la columna d está abierta. Juegan negras y dan mate en tres.',
-          line: ['Qd1+', 'Kxd1', 'Ba4+', 'Ke1', 'Rd1#'],
-          comments: ['¡Sacrificio de dama! Atrae al rey a d1, justo en la columna donde espera la torre de d8.',
-            'Única jugada: la dama está protegida por la torre y el rey no tiene otra casilla.',
-            'Jaque doble: el alfil da jaque desde a4 y, al apartarse de d7, destapa la torre de d8 sobre el rey.',
-            'Ante un jaque doble solo se puede mover el rey, y la única casilla libre es e1.',
-            'Mate: la torre entra en d1 protegida por el alfil de a4. El rey quedó en el centro con sus propias piezas (alfil de f1 y peones) tapándole la salida.'] },
-        { fen: 'r1bQnk2/pp3ppp/8/8/8/2P1q3/PP2B1PP/R3KR2 b Q - 0 1', orientation: 'black', caption: 'El rey blanco está en e1 y su dama se ha metido en d8. Juegan negras: un sacrificio de dama con jaque deja la torre de a8 libre.',
-          line: ['Qxe2+', 'Kxe2', 'Bg4+', 'Ke3', 'Rxd8'],
-          comments: ['¡Sacrificio de dama en e2! Elimina al alfil y obliga al rey a quedarse en la columna e.',
-            'Única jugada.',
-            'Jaque de alfil desde g4: además de atacar al rey, el alfil abandonó c8 y dejó libre la octava fila.',
-            'El rey tiene que moverse (Ke1 o Ke3 dan lo mismo).',
-            'La torre de a8 captura la dama de d8. Las negras quedan con una pieza de ventaja (más de cuatro peones según el motor): el rey en el centro no pudo evitar el jaque que despejó la fila.'] }
-      ],
-      drills: [
-        { fen: 'r3kb1r/ppqn1pp1/7p/8/3pn2B/1Q1P4/PP2BPPP/R3K2R w KQkq - 0 1', caption: 'Juegan blancas: el rey negro sigue en e8 y tu alfil de h4 puede llegar a h5. Mate en tres.',
-          line: ['Qe6+', 'fxe6', 'Bh5+', 'g6', 'Bxg6#'],
-          comments: ['¡Sacrificio de dama en e6! Desvía al peón f7, que tapaba la diagonal h5-e8.',
-            'Si Be7, Qxe7 es mate; tomar con el peón es lo único.',
-            'El alfil da jaque por la diagonal que acaba de abrirse.',
-            'Única defensa: interponer el peón.',
-            'Mate: el alfil captura en g6 y el rey, rodeado por sus propias piezas, no tiene casillas.'] },
-        { fen: '2kr3r/p1pq4/1p2Np2/nPb1n1pp/Q3P3/P1B3PP/3N1P2/2R1KB1R b K - 0 1', caption: 'Juegan negras: el rey blanco sigue en e1 y la columna d está abierta. Encuentra el mate.',
-          line: ['Qxd2+', 'Bxd2', 'Nf3+', 'Ke2', 'Rxd2+', 'Kxf3', 'Rxf2#'],
-          comments: ['¡Sacrificio de dama en d2! Elimina al caballo que defendía f3 y e4.',
-            'Única jugada.',
-            'Jaque de caballo desde f3: el rey tiene que moverse.',
-            'Ke2 es lo más resistente; Kd1 permite un mate inmediato con la torre.',
-            'La torre entra con jaque en d2.',
-            'Única jugada: el rey captura el caballo.',
-            'Mate: la torre captura en f2 y el rey, en medio del tablero, no tiene casillas libres.'] },
-        { fen: '4rr1k/pq4p1/1p1Q3B/2p5/8/1P6/P3BPbP/3RK1R1 b - - 0 1', caption: 'Juegan negras: el rey blanco está en e1, con la columna e semiabierta y la dama blanca lejos. Calcula hasta el mate.',
-          line: ['Rxe2+', 'Kxe2', 'Qe4+', 'Be3', 'Rxf2+', 'Kxf2', 'Qf3+', 'Ke1', 'Qxe3#'],
-          comments: ['¡Sacrificio de calidad en e2! Elimina al alfil y obliga al rey a salir.',
-            'Única jugada.',
-            'Jaque de dama: el rey tiene que taparse o huir.',
-            'Tapar con el alfil es lo más resistente.',
-            'Segundo sacrificio: la torre se entrega en f2 para abrir más el rey.',
-            'Lo más resistente; si Ke1, la dama da mate enseguida.',
-            'La dama sigue con jaque.',
-            'Única casilla.',
-            'Mate: la dama captura el alfil de e3 y el rey, en el centro, queda sin casillas.'] },
-        { fen: '2kr3r/Qppq1ppp/1B2b3/8/1b6/2N3P1/PP2PPBP/R3K2R b KQ - 0 1', caption: 'Juegan negras: la columna d está abierta y el rey blanco sigue en e1. Encuentra la combinación.',
-          line: ['Bxc3+', 'bxc3', 'Qd2+', 'Kf1', 'Qd1+', 'Rxd1', 'Rxd1#'],
-          comments: ['El alfil se cambia por el caballo de c3 con jaque: elimina una pieza que podía defender d1.',
-            'Capturar es lo más natural; Kf1 tampoco salva al rey.',
-            'La dama entra con jaque en d2.',
-            'Única casilla.',
-            '¡Sacrificio de dama en d1! Atrae a la torre.',
-            'Única jugada.',
-            'Mate: la torre de d8 captura en d1. El rey en f1 está tapado por sus propias piezas.'] }
-      ]
-    },
-    'a-tormenta-peones': {
-      html: '<h4>Contar la carrera</h4><p>Con enroques opuestos gana quien abre primero una columna contra el rey enemigo. Para saber si llegas a tiempo, <b>cuenta jugadas</b>: cuántas te faltan para crear el contacto (peón contra peón) y cuántas le faltan al rival. Una jugada de diferencia suele decidir la partida. Por eso los ataques de peones se juegan con jugadas que hacen dos cosas a la vez: <span class="mv">g4</span> amenaza <span class="mv">g5</span> y además controla f5 y h5; <span class="mv">h4</span> prepara <span class="mv">h5</span> y deja la torre de h1 detrás.</p><h4>Las piezas detrás de los peones</h4><p>Los peones abren la puerta; las piezas entran. Antes de cambiar peones, comprueba que tienes una <b>torre lista</b> en la columna que se va a abrir y que la dama puede llegar a h6, h7 o g7. Muchas tormentas terminan con un sacrificio de pieza, no de peón: un caballo que salta a f5 o d5, una torre que se entrega en h8 para que la dama entre con jaque, o un peón que corona en g7 tras abrirse la columna. El peón que llega a h6 o g6 tiene un valor especial: crea amenazas de mate en g7 o h7 aunque no se abra ninguna columna.</p><h4>Qué peón empujar</h4><ul><li>Si el defensor jugó <span class="mv">h6</span>, empuja el peón g (el gancho es h6).</li><li>Si jugó <span class="mv">g6</span>, empuja el peón h (el gancho es g6).</li><li>Si no movió ningún peón, el peón g gana tiempo contra el caballo de f6 y el peón h lo apoya; el sacrificio <span class="mv">g5</span>-<span class="mv">g6</span> o <span class="mv">h5</span>-<span class="mv">h6</span> fuerza el contacto.</li></ul><h4>Errores típicos</h4><ul><li><b>Permitir el bloqueo</b>: si a <span class="mv">g5</span> el rival responde <span class="mv">h5</span> y la posición se cierra, tu tormenta ha muerto. A veces hay que sacrificar un peón para que eso no ocurra.</li><li><b>Jugar en los dos flancos</b>: cada jugada defensiva en tu enroque es una jugada que no ataca. Defiende solo si sin defensa pierdes antes de llegar.</li><li><b>Abrir columnas a las que no llegas</b>: abrir la columna g cuando tus torres están en d1 y e1 solo ayuda al defensor, que la ocupa con sus torres.</li><li><b>Olvidar el centro</b>: si el rival puede romper con <span class="mv">d5</span>, el ataque de peones pierde fuerza. La tormenta funciona mejor con el centro estable.</li></ul><h4>Recursos del defensor</h4><p>Conocerlos ayuda a atacar mejor. El defensor intenta: bloquear (<span class="mv">h5</span>, <span class="mv">g5</span>), cambiar las piezas que van a entrar por la columna, contraatacar en el centro, o devolver material para quitar la torre de la columna abierta. Cuando calcules tu tormenta, pregunta en cada paso: <i>¿puede cerrar?, ¿puede cambiar mi torre?, ¿puede romper en el centro?</i></p><h4>Un ejemplo de razonamiento</h4><p>Supón que tus peones ya están en g4 y h4, el rival tiene el rey en g8 con el peón en h6, y su contraataque en el flanco de dama necesita tres jugadas para llegar a tu rey. Si <span class="mv">g5</span> abre una columna en dos jugadas y tienes la torre en g1, vas por delante: juega sin miedo y no gastes tiempo defendiendo. Si en cambio tu ataque necesita cuatro jugadas, la defensa previa (por ejemplo <span class="mv">Kb1</span>) puede ser necesaria.</p>',
-      keyPoints: ['Cuenta las jugadas de la carrera: un tiempo de diferencia decide.', 'Abre solo columnas donde ya tienes una torre lista.', 'No permitas que el defensor cierre la posición con ...h5 o ...g5.'],
-      positions: [
-        { fen: '2kr3r/pp3pp1/2n1b3/2p5/5Qpq/2P1P3/PP1NB1P1/R1B1NRK1 b - - 0 1', orientation: 'black', caption: 'Enroques opuestos: el peón negro de g4 está a un paso de la dama blanca. La tormenta de peones gana tiempo atacando piezas.',
-          line: ['g5', 'Nef3', 'Qh1+', 'Kf2', 'gxf4', 'Rxh1', 'Rxh1'],
-          comments: ['El peón avanza a g5 atacando a la dama de f4. Cada avance con amenaza es un tiempo ganado en la carrera.',
-            'Las blancas contraatacan a la dama negra de h4 en lugar de retirar la suya.',
-            'La dama negra se entrega con jaque en h1 para forzar los cambios.',
-            'Única casilla.',
-            'El peón captura la dama blanca.',
-            'La torre de f1 recupera la dama en h1...',
-            '...y la torre de h8 la captura. Saldo: las negras quedan con una torre de ventaja (el motor da más de tres peones). La columna h y el peón g hicieron el trabajo.'] },
-        { fen: 'r4r1k/pp4pp/1np1Q2P/4pqP1/8/3P4/PP6/1K1R2R1 w - - 0 1', orientation: 'white', caption: 'Los peones blancos de g5 y h6 ya están junto al rey negro. Mira cómo se combinan los peones y las piezas.',
-          line: ['hxg7+', 'Kxg7', 'Qh6+', 'Kg8', 'g6', 'hxg6', 'Rg5', 'Qxg5', 'Qxg5'],
-          comments: ['El peón captura en g7 con jaque: el enroque negro pierde su último peón protector.',
-            'Única jugada.',
-            'La dama entra con jaque en h6.',
-            'Kg8 es lo más natural; en h8 o f7 el rey recibe igualmente más jaques.',
-            '¡Otro avance de peón! g6 amenaza Qxh7#. Los peones del flanco no solo abren columnas: también rematan.',
-            'Las negras capturan para evitar el mate.',
-            'La torre ataca a la dama de f5, que es la pieza que defiende g6 y las casillas blancas alrededor del rey.',
-            'Capturar es lo menos malo: con Kf7, Rxf5+ gana aún más material.',
-            'Las blancas recuperan la torre y mantienen un ataque decisivo: el motor les da más de tres peones de ventaja.'] }
-      ],
-      drills: [
-        { fen: 'rn3r2/1b2q1pk/p2pp3/1p4p1/7P/8/PPP1QPP1/2KR3R w - - 0 1', caption: 'Juegan blancas: enroques opuestos, tu peón de h4 choca con g5 y tienes la torre en h1. Abre la columna.',
-          line: ['hxg5+', 'Kg8', 'Rh8+', 'Kxh8', 'Qh5+', 'Kg8', 'g6', 'Qg5+', 'Qxg5'],
-          comments: ['El peón captura en g5 con jaque descubierto de la torre de h1: la columna h ya está abierta.',
-            'Si Kg6, la dama entra igual; el rey en g8 parece más seguro.',
-            '¡La torre se entrega en h8! Atrae al rey a la esquina para que la dama entre con jaque.',
-            'Si Kf7, la torre de h8 y la dama siguen la caza; capturar es lo más natural.',
-            'La dama entra con jaque por la columna abierta.',
-            'Única casilla.',
-            'El peón g llega a g6 y amenaza Qh7#. Los peones del flanco no solo abren columnas: también rematan.',
-            'Las negras tienen que entregar la dama para evitar el mate.',
-            'Las blancas se quedan con material de ventaja.'] },
-        { fen: '3r1b1r/1k2p1p1/p7/1pP1nN1p/1P6/NB2P2P/PB2nPPK/R6R b - - 0 1', caption: 'Juegan negras: el rey blanco está en h2 con el peón en h3, y tu torre de h8 espera detrás del peón h5. Rompe la columna h.',
-          line: ['Ng4+', 'hxg4', 'hxg4+', 'Nh6', 'Rxh6#'],
-          comments: ['¡El caballo se entrega en g4 con jaque! Si el peón captura, la columna h se abre.',
-            'Única jugada.',
-            'El peón recaptura con jaque descubierto de la torre de h8: la columna h ya está abierta.',
-            'Las blancas solo pueden tapar con un caballo.',
-            'Mate: la torre captura en h6 (o en h4) y el rey no tiene escapatoria. El peón h hizo de ariete y la torre, desde atrás, remató.'] },
-        { fen: '2kr1b1r/pp1q4/5p2/2P1n1p1/1NPp2bp/PQ1P2P1/5P1P/1RB1R1KB b - - 0 1', caption: 'Juegan negras: enroques opuestos, tu peón de h4 ya toca g3 y la torre de h8 está detrás. Abre la columna h.',
-          line: ['hxg3', 'fxg3', 'Rxh2'],
-          comments: ['El peón de h4 captura en g3 y abre la columna h para la torre de h8.',
-            'Las blancas recapturan con el peón f; con hxg3 la columna h quedaría abierta de inmediato.',
-            '¡La torre captura en h2! Si el rey la toma, Nf3+ y Qh7+ llegan con un ataque demoledor; si no, la torre se cambia por el alfil de h1 y el rey blanco queda desnudo (más de seis peones de ventaja según el motor).'] },
-        { fen: '1k1r2r1/pb2q3/1p1p1n2/2P1np1p/Q5p1/P2NP3/1BP2PPP/1R1R1BK1 b - - 0 1', caption: 'Juegan negras: tus peones están en g4 y h5 y la torre en g8. El peón de g4 puede abrir la columna g.',
-          line: ['Nf3+', 'gxf3', 'gxf3+', 'Kh1', 'Ne4'],
-          comments: ['¡El caballo se entrega en f3 con jaque! Si el peón g captura, la columna g se abre para tu torre.',
-            'Aceptar es lo natural; Kh1 tampoco resuelve los problemas.',
-            'El peón recaptura con jaque descubierto de la torre de g8.',
-            'Única casilla razonable.',
-            'Jugada tranquila: el otro caballo salta a e4 y prepara Qh4 y Nxf2+. El peón negro de f3, clavado junto al rey blanco, es una espina que no se puede sacar (casi cuatro peones de ventaja según el motor).'] }
-      ]
-    },
-    'a-sac-f7': {
-      html: '<h4>f7 después del enroque</h4><p>Enrocar no elimina la debilidad de f7: la reduce. Mientras la torre siga en f8, f7 tiene dos defensores (rey y torre). Pero en cuanto la torre se va a e8 o d8, o el caballo de f6 se marcha, el viejo punto débil reaparece. Las piezas que lo atacan son siempre las mismas: el alfil en la diagonal a2-g8 (en c4 o b3), el caballo que salta a g5 o e5 y la dama que llega a b3, f3 o h5.</p><h4>Tres patrones con el alfil y el caballo</h4><ul><li><b>Bxf7+ y Ng5+</b>: tras <span class="mv">Bxf7+</span> <span class="mv">Kxf7</span>, el caballo da jaque en g5 y destapa la diagonal de la dama de d1 hacia g4 o h5. Si hay una pieza negra suelta en g4, se pierde: es un ataque descubierto.</li><li><b>Ng5 con doble amenaza</b>: el caballo amenaza a la vez <span class="mv">Nxf7</span> (horquilla de dama y torre) y <span class="mv">Bxf7+</span>. Si la dama negra está en d8 y la columna d está abierta, el cambio de damas suele preceder a la captura en f7.</li><li><b>Bxf7+ como desviación</b>: el rey que captura en f7 deja de vigilar la dama de d8 o el caballo de e5. Mira siempre qué piezas defendía el rey antes del sacrificio.</li></ul><h4>El sacrificio que no funciona</h4><p>Hay sacrificios en f7 que se juegan por esperanza. El ejemplo clásico es entregar el alfil en f7 y el caballo en e5 en las primeras jugadas para dar un par de jaques con la dama: tras <span class="mv">Kf8</span> el rey negro está incómodo, pero las negras tienen dos piezas por dos peones y las blancas no tienen más piezas desarrolladas para continuar. Un sacrificio en f7 necesita <b>al menos dos piezas que sigan al rey</b> o una ganancia material concreta que ya puedas calcular. Si después de los jaques no sabes qué hacer, no sacrifiques.</p><h4>El mismo golpe en f2, con las negras</h4><p>Todo lo anterior vale para las negras en f2. Una idea frecuente: el alfil blanco en g5, sin defensa y con el caballo de g1 aún en casa o en e2. Entonces <span class="mv">Bxf2+</span> <span class="mv">Kxf2</span> <span class="mv">Ng4+</span> destapa la dama de d8 contra el alfil de g5, que cae. Otra, en el Gambito Stafford (que nace de la Petrov: <span class="mv">e4</span> <span class="mv">e5</span>, <span class="mv">Nf3</span> <span class="mv">Nf6</span>, <span class="mv">Nxe5</span> <span class="mv">Nc6</span>): si las blancas clavan con <span class="mv">Bg5</span> sin cuidado, <span class="mv">Nxe4</span> responde con la amenaza <span class="mv">Bxf2+</span>, y si se toma la dama llega el mate.</p><h4>Errores comunes</h4><ul><li>Capturar en f7 con jaque cuando el rey puede escapar a e7 o f8 y quedarse con la pieza de más sin peligro.</li><li>No revisar la respuesta <span class="mv">Kxf7</span> contra la alternativa <span class="mv">Ke7</span>: a veces el rey no toma y el atacante ya no recupera nada.</li><li>Olvidar los jaques intermedios del defensor (<span class="mv">Bb4+</span>, <span class="mv">Qh4+</span>) que cambian el cálculo.</li></ul>',
-      keyPoints: ['f7 vuelve a ser débil cuando la torre deja f8 o se va el caballo de f6.', 'Bxf7+ y Ng5+ destapan la dama hacia g4 y h5.', 'Un sacrificio en f7 sin dos piezas que lo continúen suele ser solo una pieza menos.'],
-      positions: [
-        { fen: 'r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4', orientation: 'white', caption: 'El Gambito Jerome: un sacrificio en f7 sin piezas que lo continúen. Mira por qué falla.',
-          line: ['Bxf7+', 'Kxf7', 'Nxe5+', 'Nxe5', 'Qh5+', 'Kf8', 'Qxe5', 'd6'],
-          comments: ['Las blancas entregan el alfil en f7 con jaque. El motor ya lo considera un error: lo correcto era desarrollar con c3 o d3.',
-            'Aceptar es lo correcto.',
-            'Segundo sacrificio: el caballo toma en e5 con jaque para seguir dando jaques.',
-            'Las negras capturan: tienen dos piezas por dos peones.',
-            'Jaque doble: la dama ataca al rey y al caballo de e5.',
-            'El rey se aparta y entrega el caballo.',
-            'Las blancas recuperan una pieza y atacan el alfil de c5.',
-            'Las negras defienden el alfil y abren su alfil de c8. Balance: pieza por dos peones y casi tres peones de ventaja negra según el motor. El rey en f8 está incómodo, pero las blancas no tienen más piezas desarrolladas para atacarlo.'] },
-        { fen: 'r1bqk2r/pppp1ppp/2n5/2b1p3/2B1P1n1/2PP1N2/PP3PPP/RNBQK2R w KQkq - 1 6', orientation: 'white', caption: 'Tras ...Ng4, el punto f7 queda con un solo defensor y el caballo de g4 está suelto. Un patrón típico con Bxf7+ y Ng5+.',
-          line: ['Bxf7+', 'Kxf7', 'Ng5+', 'Kg8', 'Qxg4', 'h6', 'Nf3'],
-          comments: ['El alfil captura en f7 con jaque. Funciona y gana un peón, aunque el motor prefiere d4, que abre el centro con más fuerza.',
-            'Si el rey no toma, las blancas se quedan con el peón y el rey negro sin enroque.',
-            'Jaque de caballo que destapa la dama de d1 sobre el caballo de g4: ataque descubierto.',
-            'El rey se aparta.',
-            'La dama recupera la pieza. Las blancas tienen un peón más y el rey negro perdió el enroque.',
-            'Las negras echan al caballo.',
-            'Ventaja blanca moderada (algo más de medio peón según el motor). Moraleja: el patrón Bxf7+ y Ng5+ gana material, pero conviene comparar siempre con la alternativa tranquila.'] }
-      ],
-      drills: [
-        { fen: 'rn1qkbnr/ppp2p1p/3p2p1/4p3/2B1P1b1/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 0 5', caption: 'Juegan blancas: el alfil negro de g4 «clava» a tu caballo de f3 contra la dama. ¿Es una clavada de verdad?',
-          line: ['Nxe5', 'dxe5', 'Qxg4'],
-          comments: ['¡El caballo captura en e5 ignorando la clavada! Si Bxd1, Bxf7+ Ke7 y Nd5# es el mate de Légal: el caballo de e5 cubre d7 y el de d5 da el jaque final.',
-            'Lo mejor para las negras: recuperan el caballo en lugar de tomar la dama.',
-            'La dama recupera la pieza. Las blancas ganan un peón limpio y las negras tienen las casillas blancas debilitadas por g6.'] },
-        { fen: 'r1bqkb1r/ppp2ppp/3p1n2/4n3/2B1P3/5N2/PPP2PPP/RNBQK2R w KQkq - 0 6', caption: 'Juegan blancas: Defensa Philidor. El caballo negro acaba de recapturar en e5. Hay una forma de ganar material atacando f7.',
-          line: ['Nxe5', 'dxe5', 'Bxf7+', 'Ke7', 'Qxd8+', 'Kxd8'],
-          comments: ['Primero se cambia el caballo de e5, que defendía f7 y d7.',
-            'Única jugada razonable: Qe7 pierde todavía más.',
-            '¡Desviación! El alfil se entrega en f7: si Kxf7, Qxd8 gana la dama por la columna d abierta.',
-            'Lo mejor: el rey no captura. Pero ya perdió el enroque.',
-            'Cambio de damas con jaque: el rey negro se queda en el centro.',
-            'Las blancas tienen un peón de más, el alfil activo en f7 y el rey negro sin enroque: más de dos peones de ventaja según el motor.'] },
-        { fen: 'r1bqk2r/ppp2ppp/2np1n2/2b1p1B1/2B1P3/2NP4/PPP1NPPP/R2QK2R b KQkq - 1 6', caption: 'Juegan negras: el alfil blanco de g5 clava a tu caballo de f6, pero el caballo blanco está en e2, no en f3. Encuentra el golpe en f2.',
-          line: ['Bxf2+', 'Kxf2', 'Ng4+', 'Ke1', 'Qxg5'],
-          comments: ['El alfil se entrega en f2 con jaque. El objetivo no es el rey, sino el alfil de g5, que no tiene ningún defensor.',
-            'Capturar es lo natural. Kd2 evita la descubierta, pero deja el rey en el centro con un peón menos.',
-            'Jaque de caballo que destapa la dama de d8 contra el alfil de g5: ataque descubierto.',
-            'El rey se aparta; en f3 o g3 queda aún más expuesto.',
-            'La dama se lleva el alfil. Las negras recuperan la pieza con un peón de más y el rey blanco ya no puede enrocar.'] },
-        { fen: 'r1bqk2r/ppp2ppp/2p2n2/2b3B1/4P3/3P4/PPP2PPP/RN1QKB1R b KQkq - 2 6', caption: 'Juegan negras: Gambito Stafford. Las blancas acaban de clavar tu caballo con Bg5. ¿Qué haces?',
-          line: ['Nxe4', 'Qe2', 'Bxf2+', 'Kd1', 'Qxg5'],
-          comments: ['¡El caballo toma en e4 ignorando la clavada! Si Bxd8, Bxf2+ Ke2 y Bg4# es mate: el golpe en f2 con colores invertidos.',
-            'La mejor defensa: la dama ataca al caballo de e4 y se aparta de la clavada.',
-            'El golpe en f2: el alfil da jaque y el rey no puede capturar porque el caballo de e4 protege f2.',
-            'Kd1 es lo único razonable: Qxf2 entregaría la dama.',
-            'La dama se lleva el alfil de g5. Las negras tienen dos peones de más, mejor desarrollo y el rey blanco atrapado en d1.'] }
-      ]
-    },
-    'a-sac-g7': {
-      html: '<h4>Los defensores de g7 y cómo neutralizarlos</h4><p>Antes de sacrificar en g7 identifica <b>quién lo defiende</b>: el rey siempre, a menudo un alfil (en f8, f6 o e5), a veces un caballo (en e6 o h5) o la dama desde la séptima fila. El sacrificio funciona cuando esos defensores están ausentes, clavados o sobrecargados. Si el alfil de f6 cubre g7 y además vigila otra casilla clave, ataca esa otra casilla primero: la sobrecarga deja g7 sin protección.</p><h4>Las tres piezas que se entregan</h4><ul><li><b>La torre</b>: <span class="mv">Rxg7+</span> desde g3 o g4, normalmente con la dama preparada en h5, h6 o g5 para entrar después con jaque.</li><li><b>El alfil</b>: <span class="mv">Bxg7</span> desde b2, f6 o h6. Tras <span class="mv">Kxg7</span> la dama da jaque en g5, g4 o h6, y el rey ya no tiene peón que lo tape.</li><li><b>La dama</b>: el sacrificio más espectacular. <span class="mv">Qxg7+</span> <span class="mv">Kxg7</span> solo funciona si después hay jaques forzados de piezas menores y torres: un caballo que salta a f5 y h6, o un alfil que da jaque descubierto en e5 abriendo la columna h para una torre.</li></ul><h4>Después del sacrificio: los jaques de remate</h4><p>Una vez eliminado el peón g7, el rey negro tiene típicamente tres casillas: h8, f8 y h7 (más g6 si está libre). Tu cálculo debe incluir <b>todas</b>. Los remates más frecuentes: la dama en g5 seguida de <span class="mv">Qf6#</span> si un caballo o un alfil controla g8; la dama en h6 con amenaza en h7 o g7; el caballo en f5 que, tras <span class="mv">Kg8</span>, da mate en h6 si el peón f7 tapa la huida; y la dama en f3 o g4 que llega con jaque mientras un alfil en la gran diagonal cierra el paso al rey.</p><h4>Errores comunes</h4><ul><li>Calcular solo <span class="mv">Kxg7</span> y olvidar <span class="mv">Kh8</span> o <span class="mv">Kf8</span>, que a veces son mejores defensas.</li><li>No ver que el defensor puede interponer con <span class="mv">f6</span>, <span class="mv">Rg8</span> o una pieza en g6.</li><li>Dejar tu propio rey expuesto a jaques: si el rival tiene dama y torre activas, un solo jaque intermedio puede deshacer el ataque.</li></ul><h4>Cómo pensarlo</h4><p>Cuenta atacantes y defensores de g7; mira qué pieza enemiga quedará clavada tras el sacrificio; y escribe mentalmente el árbol completo de respuestas del rey. Si en todas las ramas tienes al menos un jaque más o una amenaza de mate imparable, el sacrificio es correcto. Si en alguna rama te quedas sin jaques y con una pieza menos, busca otra cosa.</p><h4>El sacrificio en g7 como cambio de ritmo</h4><p>A veces el sacrificio en g7 no busca el mate sino ganar tiempo: tras <span class="mv">Kxg7</span> el atacante da un jaque doble o descubierto que recupera la pieza con intereses (una torre que queda suelta, una dama que se gana por la diagonal). Por eso, cuando calcules, no te limites a buscar mates: pregúntate también qué piezas negras quedan sin defensa cuando el rey se ve obligado a capturar y moverse.</p>',
-      keyPoints: ['Identifica los defensores de g7 y neutralízalos antes de sacrificar.', 'Tras el sacrificio calcula todas las casillas del rey: h8, f8, h7 y g6.', 'El sacrificio de dama en g7 exige jaques forzados de las piezas menores.'],
-      positions: [
-        { fen: '2kN1br1/1b5p/p1q1p2p/2p5/2Pp4/8/PP1QBPPP/R2RN1K1 b - - 0 1', orientation: 'black', caption: 'Sacrificio de torre en g2 (el equivalente a g7) para abrir la gran diagonal: la dama de c6 y el alfil de b7 apuntan a h1. Juegan negras.',
-          line: ['Rxg2+', 'Kh1', 'Rg1+', 'Kxg1', 'Qh1#'],
-          comments: ['La torre se entrega en g2. Elimina el peón que tapaba la gran diagonal, donde la batería dama-alfil apunta a h1.',
-            'Kf1 lleva al mismo mate (Rg1+ y Qh1#), y si el caballo captura en g2, la dama toma en g2 con mate.',
-            'Segundo sacrificio: la torre atrae al rey a g1, dentro de la diagonal de la batería.',
-            'Forzado.',
-            'Mate: la dama, apoyada por el alfil de b7, da jaque en la esquina; el rey no puede ir a f1 (sigue en la línea de la dama) ni a g2 (controlada por la dama), y f2 y h2 están ocupadas por sus peones.'] },
-        { fen: '7k/4b1p1/p2pq1rp/1p2p2r/4Np2/P2Q1P1P/1PP2BPK/3R2R1 b - - 0 1', orientation: 'black', caption: 'Las torres doblan sobre el enroque blanco y la dama espera en e6. Juegan negras y rompen en g2.',
-          line: ['Rxg2+', 'Rxg2', 'Qxh3+', 'Kg1', 'Qh1#'],
-          comments: ['La torre se entrega en g2 para eliminar el peón que defendía h3. La otra torre ya apunta a h3 desde h5.',
-            'Lo más resistente: si el rey captura o se va a h1, Qxh3 es mate inmediato.',
-            'La dama entra en h3 con jaque, apoyada por la torre de h5.',
-            'Única casilla.',
-            'Mate: la dama da jaque desde h1 protegida por la torre de h5. La torre blanca de g2 y el alfil de f2 tapan las casillas de escape de su propio rey.'] }
-      ],
-      drills: [
-        { fen: 'r5k1/pb1q1ppp/1p6/2p1P3/8/QP2P3/P1N1nPPP/2R2R1K b - - 0 1', caption: 'Juegan negras: el caballo de e2 está muy metido en el campo blanco. Encuentra el mate.',
-          line: ['Bxg2+', 'Kxg2', 'Qg4+', 'Kh1', 'Qf3#'],
-          comments: ['¡El alfil de b7 se entrega en g2! La idea: el caballo de e2 ya controla g1, así que el rey blanco no tiene adónde huir si la dama negra entra con jaque.',
-            'Única jugada: Kg1 no es posible porque el caballo de e2 controla g1.',
-            'La dama entra con jaque por la diagonal d7-h3. El rey no puede ir a f3 ni a h3 (los cubre la dama) y en f1 está su propia torre.',
-            'Única casilla disponible.',
-            'Mate: la dama da jaque en la gran diagonal, el caballo de e2 sigue cubriendo g1 y g2 está controlada por la dama. El sacrificio en g2 sirvió para abrir esa diagonal.'] },
-        { fen: '6k1/1pP3p1/6rp/p2P3r/2Q1p2q/PP2B2P/5PP1/R4RK1 b - - 0 1', caption: 'Juegan negras: tienes dos torres en las columnas g y h y la dama en h4. ¿Cómo rompes el enroque blanco?',
-          line: ['Rxg2+', 'Kxg2', 'Qxh3+', 'Kg1', 'Qg4#'],
-          comments: ['¡Sacrificio de torre en g2! Elimina el peón que protege h3 y obliga al rey a salir. La torre de h5 y la dama quedan listas para entrar por la columna h.',
-            'Si el rey se esconde en h1, la dama toma en h3 con jaque y el mate llega igual: aceptar es lo más resistente.',
-            'La dama captura en h3 con jaque, apoyada por la torre de h5. El rey ya no tiene peón g que lo tape.',
-            'Única jugada: f3 y g3 están controladas por la dama, y h2 y h1 por la dama y la torre de h5.',
-            'Mate: la dama da jaque en g4 apoyada por la torre de h5... y cualquier jaque por la columna h (Qh1# o Qh2#) también mata. Lo importante era el sacrificio inicial.'] },
-        { fen: '2r1r1k1/pb3p1p/1p2p1p1/3nP3/8/1P4Pq/PB1Q1PBP/R4RK1 b - - 0 1', caption: 'Juegan negras: la dama ya está en h3 y el caballo de d5 espera su momento. Calcula hasta el final.',
-          line: ['Qxg2+', 'Kxg2', 'Nf4+', 'Kg1', 'Nh3#'],
-          comments: ['¡Sacrificio de dama en g2! El rey tiene que capturar y queda en la misma diagonal que el alfil de b7, tapada solo por tu caballo de d5.',
-            'Única jugada legal: el rey tiene que capturar.',
-            '¡Jaque doble! El caballo salta a f4 con jaque y al mismo tiempo destapa el alfil de b7, que ahora ataca al rey por la gran diagonal.',
-            'Única jugada: f3 y h1 están en la diagonal del alfil, h3 la controla el caballo y f1 y g3 están ocupadas por piezas blancas.',
-            'Mate de caballo en h3: el rey en g1 está encerrado por sus propios peones f2 y h2 y su torre de f1. Un sacrificio de dama por un mate de caballo.'] },
-        { fen: '5k2/1p3prp/p4pbQ/3P4/5RqP/1B2R3/P4PPK/2r5 b - - 0 1', caption: 'Juegan negras: la dama blanca en h6 amenaza tu rey, pero es tu turno. Encuentra la combinación decisiva.',
-          line: ['Qxg2+', 'Kxg2', 'Be4+', 'Kh2', 'Rh1#'],
-          comments: ['¡La dama se entrega en g2! Abre la columna g para la torre de g7 y deja al rey blanco sin peón protector.',
-            'Forzado: si el rey va a h1 o h3, la torre de g7 da mate o gana la dama blanca.',
-            'Jaque doble: el alfil da jaque desde e4 y, al apartarse de g6, la torre de g7 también ataca al rey por la columna g. Ante un jaque doble solo vale mover el rey.',
-            'El rey vuelve a h2; si va a h3, el mate es el mismo: la torre de c1 llega a h1.',
-            'Mate: la torre de c1 llega a h1. La dama blanca de h6, tan amenazante, no participó en la defensa.'] }
-      ]
-    },
-    'a-doble-alfiles': {
-      html: '<h4>El orden de las jugadas y sus variantes</h4><p>El esquema básico es <span class="mv">Bxh7+</span>, <span class="mv">Qh5+</span>, <span class="mv">Bxg7</span>, pero hay variantes que conviene conocer. A veces el primer sacrificio es en g7 y el segundo en h7; otras, el alfil de g7 no se toma con el rey y el segundo sacrificio sirve para abrir la columna g a una torre. La regla es que el primer alfil <b>saca al rey</b> y el segundo <b>derriba la última protección</b>; la dama entra en medio con jaque para no dar tiempo al defensor.</p><h4>Qué debe defender el atacante</h4><p>Tras <span class="mv">Bxg7</span> las blancas amenazan <span class="mv">Qh8#</span> o <span class="mv">Bf6</span> con mate en h8. Las negras tienen tres recursos y hay que haberlos calculado antes de empezar:</p><ul><li><b>Tomar el alfil</b>: <span class="mv">Kxg7</span> y entonces <span class="mv">Qg4+</span> (o <span class="mv">Qg5+</span>) con la torre llegando por la tercera fila a h3 o g3.</li><li><b>Bloquear con el peón f</b>: <span class="mv">f6</span> o <span class="mv">f5</span> abren al rey una salida por f7; mira si tienes jaques en la diagonal h5-e8 o en la columna g.</li><li><b>Devolver material</b>: el defensor puede entregar la dama o una torre para cortar el ataque. El atacante tiene que tener claro que el balance final le favorece.</li></ul><h4>La versión con medio sacrificio</h4><p>No siempre hacen falta los dos alfiles. Si la dama ya está en h5 o h6 y el rey sigue en g8, a menudo basta con un solo alfil que se entrega en g7 (o en h7) para que la dama y una torre den mate por la columna h. Del mismo modo, si el peón h7 ya no está, el sacrificio en g7 basta. Reconocer estas «mitades» del patrón es tan útil como conocer el patrón completo.</p><h4>Partidas de referencia</h4><p>Además de Lasker–Bauer (Ámsterdam, 1889), el ejemplo más citado es Nimzowitsch–Tarrasch (San Petersburgo, 1914), donde fue el bando negro quien entregó los dos alfiles contra el enroque blanco. Ambas partidas muestran los mismos ingredientes: alfiles en diagonales paralelas apuntando a h7 y g7, dama cerca y una torre lista para pasar por la tercera fila.</p><h4>Lista de comprobación</h4><ol><li>¿Mis dos alfiles apuntan a h7 y g7 sin obstáculos?</li><li>¿Hay caballo defensor en f6? Si lo hay, ¿puedo eliminarlo antes?</li><li>¿La dama llega a h5 o g4 con jaque en una jugada?</li><li>¿Qué torre llega a la columna g o h y en cuántas jugadas?</li><li>¿He calculado <span class="mv">f6</span>/<span class="mv">f5</span> y la devolución de material?</li></ol><h4>Cuando el defensor no acepta</h4><p>Si después de <span class="mv">Bxh7+</span> el rey no captura y se va a h8, el alfil sigue en h7 controlando g8: el atacante puede continuar con <span class="mv">Qh5</span> y jaques descubiertos. Rechazar el primer sacrificio rara vez salva al defensor, pero cambia el cálculo: ya no hay <span class="mv">Qh5+</span> con jaque, y conviene comprobar que la amenaza sigue siendo más fuerte que cualquier contraataque.</p>',
-      keyPoints: ['El primer alfil saca al rey; el segundo derriba la última protección.', 'Calcula las defensas ...f6/...f5 y la devolución de material.', 'A veces basta medio patrón: un alfil en g7 con la dama ya en la columna h.'],
-      positions: [
-        { fen: 'r2q1rk1/5ppp/p6B/3p4/1Pp5/P5R1/2PQ2PP/b5K1 w - - 0 1', orientation: 'white', caption: 'Medio patrón de los dos alfiles: un solo alfil en g7 basta cuando la torre ya está en la columna g y la dama puede llegar a h6.',
-          line: ['Bxg7', 'Bxg7', 'Qh6', 'Qb6+', 'Qxb6'],
-          comments: ['El alfil se entrega en g7 y elimina el peón.',
-            'El alfil negro de a1 recaptura por la gran diagonal, pero queda clavado por la torre de g3.',
-            'La dama llega a h6 y amenaza Qxg7#, porque la torre de g3 protege la captura.',
-            'Un jaque desesperado: las negras ofrecen el cambio de damas para escapar del mate.',
-            'Las blancas capturan la dama y quedan con dama y torre contra dos torres y alfil: ventaja clara (algo más de tres peones según el motor).'] },
-        { fen: '6k1/1b1n3p/1p1ppr2/p7/2PP3q/PQBBP1pN/6P1/R5K1 b - - 0 1', orientation: 'black', caption: 'Medio patrón de los dos alfiles con colores invertidos: un alfil en g2 y una torre por la segunda fila. Juegan negras.',
-          line: ['Bxg2', 'Kxg2', 'Rf2+', 'Nxf2', 'Qh2+', 'Kf3', 'Qxf2+', 'Kg4', 'Nf6+', 'Kg5', 'h6+'],
-          comments: ['El alfil de b7 se entrega en g2 y elimina el peón del enroque.',
-            'Aceptar es lo natural.',
-            'La torre se entrega con jaque en f2 para atraer al caballo.',
-            'Las blancas capturan.',
-            'La dama entra con jaque en h2.',
-            'El rey sale hacia el centro del tablero.',
-            'La dama recupera material con jaque.',
-            'El rey sigue huyendo.',
-            'El caballo se suma con jaque.',
-            'El rey avanza todavía más.',
-            'El peón h da jaque: el rey blanco, solo en el centro del tablero, está perdido (más de cinco peones de ventaja negra según el motor).'] }
-      ],
-      drills: [
-        { fen: '3qr1k1/2p2ppp/1r1b4/1B1p4/3Nb3/P3P3/1P1B1PPP/R2Q1RK1 b - - 0 1', caption: 'Juegan negras: tus alfiles de d6 y e4 apuntan a h2 y g2, y la torre de b6 puede pasar por la sexta fila. Destroza el enroque blanco.',
-          line: ['Bxh2+', 'Kxh2', 'Qh4+', 'Kg1', 'Bxg2'],
-          comments: ['Primer alfil: captura en h2 con jaque y saca al rey de su refugio. Es el doble sacrificio de alfiles con colores invertidos.',
-            'Aceptar es lo más resistente. Si Kh1, la dama entra igual en h4 y el alfil de h2 sigue dominando g1.',
-            'La dama entra con jaque. El rey no tiene peón h que lo proteja y la torre de b6 está lista para llegar a g6 o h6.',
-            'Única jugada.',
-            'Segundo alfil: elimina el peón g2. Amenaza Qh1# (la dama protegida por el alfil) y también Bxf1. Las blancas solo pueden alargar la partida con f4, y entonces Rg6 lleva la torre a la columna g: el motor da más de ocho peones de ventaja a las negras.'] },
-        { fen: '1r1q1rk1/pbpn2pp/1p1bp3/5p2/3P4/2PBP3/PPQN1PPP/R1B2RK1 b - - 0 1', caption: 'Juegan negras: tus dos alfiles apuntan al enroque blanco desde d6 y b7. Juega como Tarrasch.',
-          line: ['Bxh2+', 'Kxh2', 'Qh4+', 'Kg1', 'Bxg2'],
-          comments: ['Primer sacrificio: el alfil de d6 captura en h2 con jaque y saca al rey de su refugio.',
-            'Si el rey no toma (Kh1), el alfil se queda en h2 y la dama entra igual en h4: aceptar no empeora nada para las blancas.',
-            'La dama entra con jaque en h4. Fíjate que la torre de f8 y el peón f5 están listos para la tercera fila.',
-            'Única casilla: g1.',
-            '¡Segundo sacrificio! El alfil de b7 se lleva el peón g2. Ahora amenaza Qh1# y Qh2#; las blancas tienen que devolver mucho material (f3, que entrega la calidad) para no recibir mate.'] },
-        { fen: '5rk1/ppp3p1/2bb3B/5p1Q/2Pp4/7R/PPP3PP/4qBK1 w - - 0 1', caption: 'Juegan blancas: la dama negra en e1 clava tu alfil de f1, pero tus piezas ya rodean al rey negro. ¿Cómo abres la última puerta?',
-          line: ['Bxg7', 'Kxg7', 'Qh7+', 'Kf6', 'Rh6+'],
-          comments: ['¡El alfil se entrega en g7! Elimina el último peón que protege al rey. Si las negras no capturan, la dama y el alfil de g7 dominan h7 y h8 y el rey queda aún peor.',
-            'Capturar es lo más resistente según el motor.',
-            'La dama entra con jaque en h7. El rey no puede ir a g8 ni a g6 (los cubre la dama) y en f8 está su torre: tiene que salir a f6.',
-            'Única casilla.',
-            'La torre entra con jaque en h6 y el rey queda en el centro del tablero frente a dama y torre. Tras Kg5 o Ke5 llega Qg7+ y la caza termina con ganancia decisiva de material (unos seis peones según el motor).'] },
-        { fen: '1r1r1k2/pb2npb1/1q3NpB/1p2Pp2/2p3PQ/2P1n2P/PP4B1/RN3R1K w - - 0 1', caption: 'Juegan blancas: el caballo de f6 se ha instalado junto al rey negro. Encuentra el mate.',
-          line: ['Bxg7+', 'Kxg7', 'Qh7+', 'Kf8', 'Qh6#'],
-          comments: ['¡El alfil de h6 se entrega en g7! Elimina al alfil defensor del fianchetto y atrae al rey a g7, donde la dama lo alcanza por la columna h.',
-            'Única jugada legal: el rey tiene que capturar el alfil.',
-            'La dama entra con jaque en h7, protegida por el caballo de f6. El rey no puede ir a f6 (ocupada) ni a g8 (la cubre la dama).',
-            'Única casilla: f8.',
-            'Mate: la dama baja a h6 y cubre g7, f8 y f6 queda tapada por el caballo, e7 por su propio caballo. La pieza clave fue el caballo de f6.'] }
-      ]
-    },
-    'a-sac-e6': {
-      html: '<h4>Las señales que preceden al sacrificio</h4><p>El sacrificio en e6 rara vez sale de la nada. Antes suelen aparecer varias de estas señales: el rey negro sigue en e8 o acaba de ir a f8; la torre blanca ya está en e1 o la dama en e2; un caballo blanco en d4 toca e6 y el alfil en b3 o c4 lo apunta por la diagonal; la dama negra está en c7 o b6, casillas que el caballo atacará desde e6 o c7; y el peón f de las blancas ha avanzado a f4 o f5 para presionar e6 por tercera vez. Cuantas más señales veas, más probable es que el sacrificio funcione.</p><h4>Preparar con f4-f5</h4><p>Un plan muy típico es añadir presión sobre e6 antes de sacrificar. Con <span class="mv">f4</span>-<span class="mv">f5</span> las blancas amenazan <span class="mv">fxe6</span>, y las negras se ven obligadas a elegir entre cambiar en f5 (lo que abre la diagonal del alfil de b3 y la columna f) o mantener la tensión. Si el peón e6 recibe tres golpes (caballo, alfil y peón) y solo tiene dos defensores, el sacrificio deja de ser especulativo: es simple aritmética.</p><h4>¿Alfil o caballo? Qué pieza entregar</h4><ul><li><span class="mv">Bxe6</span> abre la diagonal a2-g8 de forma permanente si el peón f captura, y el caballo de d4 entra después en e6 con tempo. Conviene cuando el alfil blanco no tiene otro futuro y el caballo en e6 atacará algo concreto (dama en c7 o d8, torre en f8 o g7).</li><li><span class="mv">Nxe6</span> conserva el alfil, que puede seguir apuntando a f7 o g8, y suele llegar con amenaza directa: jaque doble, ataque a la dama o a una torre. Conviene cuando, tras <span class="mv">fxe6</span>, otra pieza blanca captura en e6 con jaque.</li></ul><h4>Valorar la posición tras el sacrificio</h4><p>Pocas veces el sacrificio en e6 da mate. Lo normal es que las blancas reciban <b>dos peones y la iniciativa</b> por la pieza. Para saber si compensa, revisa: ¿puede el rey negro esconderse en f7-g8 o se queda en el centro?; ¿quedan casillas blancas débiles (d5, f5, f7) que tus piezas puedan ocupar?; ¿las piezas negras pueden coordinarse en tres o cuatro jugadas? Si la respuesta a la última pregunta es sí, necesitas un golpe inmediato, no una ventaja a largo plazo.</p><h4>Errores comunes</h4><ul><li>Sacrificar cuando el negro ya enrocó: sin rey en e8 la columna e abierta pierde gran parte de su fuerza.</li><li>No calcular la defensa <span class="mv">Kf7</span>, que a veces protege e6 y g7 a la vez.</li><li>Olvidar que el peón negro de e6, una vez desaparecido, deja libre d5 para las piezas negras también: un caballo negro en d5 bloquea mucho.</li></ul><h4>Pensarlo en la partida</h4><p>Cuando veas las señales, calcula en este orden: primero la captura con el peón f (la respuesta natural); después las alternativas que no aceptan (una retirada de la dama, <span class="mv">Kf7</span>, un contraataque); y por último cuenta el material y el tiempo que tardan las piezas negras en coordinarse. Si en todas las ramas el rey negro queda en el centro y tus torres llegan antes, juega el sacrificio.</p>',
-      keyPoints: ['Señales: rey en e8, torre en e1, caballo en d4 y alfil en b3 apuntando a e6.', 'Presiona e6 con f4-f5 antes de sacrificar.', 'Elige Nxe6 cuando la recaptura llega con jaque o con amenaza directa.'],
-      positions: [
-        { fen: '1k3r2/ppp1n2p/3b4/1P1nN3/6Bq/P2PP3/1BQ2PRP/7K b - - 0 1', orientation: 'black', caption: 'El sacrificio en e3 (e6 con colores invertidos) contra un rey ya enrocado: aquí el objetivo es la columna f.',
-          line: ['Nxe3', 'fxe3', 'Rf1+', 'Rg1', 'Rf2', 'Qxf2', 'Qxf2'],
-          comments: ['El caballo de d5 se entrega en e3. Si el peón f captura, la columna f se abre hacia el rey blanco.',
-            'Las blancas aceptan.',
-            'La torre entra con jaque por la columna f recién abierta.',
-            'Única jugada: tapar con la torre.',
-            'La torre se instala en f2, en la segunda fila: ataca a la dama de c2 y se suma al ataque contra el rey.',
-            'Las blancas devuelven la dama para no recibir mate.',
-            'Las negras quedan con dama contra torre y piezas activas: más de tres peones de ventaja según el motor.'] },
-        { fen: 'r1b3k1/1q1p3p/4p1p1/pp4r1/P2Q4/1B6/1PP2PPP/R4RK1 w - - 0 1', orientation: 'white', caption: 'Sacrificio en e6 como desviación: el peón d7 es el único que tapa la columna d. Juegan blancas.',
-          line: ['Bxe6+', 'dxe6', 'Qd8+', 'Kf7', 'Qxg5'],
-          comments: ['El alfil se entrega en e6 con jaque. Si el peón d captura, la columna d queda abierta para la dama.',
-            'Capturar es lo natural; Kf8 tampoco salva la torre de g5.',
-            'La dama entra con jaque en d8, aprovechando la columna abierta.',
-            'El rey se aparta.',
-            'La dama captura la torre de g5. Las blancas ganan una calidad y la posición negra se desmorona (casi seis peones según el motor).'] }
-      ],
-      drills: [
-        { fen: 'r3r1k1/pp1q1pp1/2p4p/3n4/1P6/P2PP1Pn/2Q2PBP/B1RR1K2 b - - 0 1', caption: 'Juegan negras: el rey blanco está en f1, la dama en c2 y la torre en d1. Tu caballo de d5 puede saltar a e3 (el equivalente al sacrificio en e6, con colores invertidos).',
-          line: ['Nxe3+', 'fxe3', 'Qf5+', 'Ke1', 'Rxe3+', 'Kd2', 'Re2+'],
-          comments: ['¡El caballo se entrega en e3 con jaque! Ataca a la vez al rey, a la dama de c2 y a la torre de d1. Si el peón f captura, se abre la columna f hacia el rey.',
-            'Capturar es lo mejor: si el rey se mueve, el caballo se lleva la dama.',
-            'La dama da jaque por la columna f que acaba de abrirse.',
-            'El rey intenta huir hacia el flanco de dama.',
-            'La torre toma el peón de e3 con jaque: la columna e también se abre y el rey sigue en el centro.',
-            'Única casilla razonable.',
-            'Jaque con enfilada: la torre ataca al rey y, detrás de él, a la dama de c2 por la segunda fila. Las negras ganan la dama.'] },
-        { fen: '2krr3/pp3p1p/8/1bpn4/8/2PqP3/PP1NQPPP/R1B1K1NR b KQ - 0 1', caption: 'Juegan negras: las damas están enfrentadas en d3 y e2 y el rey blanco sigue en e1. Hay un golpe que gana material.',
-          line: ['Nxe3', 'Qxd3', 'Nc2+', 'Kd1', 'Bxd3'],
-          comments: ['¡El caballo salta a e3! Destapa la torre de d8, que ahora defiende tu dama, y amenaza Nc2+ con horquilla de rey y torre. El rey blanco en el centro hace que todo funcione.',
-            'Cambiar damas parece lo más lógico, pero llega un jaque intermedio.',
-            'Jaque intermedio antes de recapturar: el caballo da jaque al rey y ataca a la torre de a1.',
-            'Kf1 no cambia nada: el rey tiene que moverse.',
-            'Ahora sí recuperas la dama con el alfil, y la torre de a1 sigue atacada por el caballo. Las negras quedan con una pieza de ventaja (más de cinco peones según el motor).'] },
-        { fen: 'r3k2r/pp3ppp/1qn5/2bpp3/6b1/2NBP1B1/PPP2KPP/RNQ4R b kq - 0 1', caption: 'Juegan negras: el rey blanco está en f2, en la misma diagonal que tu dama de b6. Aprovéchalo.',
-          line: ['Bxe3+', 'Qxe3', 'd4', 'Qe1', 'dxc3+', 'Kf1', 'cxb2'],
-          comments: ['¡El alfil se entrega en e3 con jaque! Atrae a la dama blanca a una casilla donde será atacada.',
-            'Lo más natural es capturar con la dama. Si el rey se mueve, el alfil se queda en e3 dominando el tablero.',
-            '¡El peón ataca a la dama y al caballo de c3 a la vez! Además, cuando el peón de d4 se mueva, la dama de b6 dará jaque por la diagonal.',
-            'La dama tiene que apartarse; en cualquier casilla (Qe1, Qg5) el problema es el mismo.',
-            'Jaque descubierto: el peón captura en c3 y la dama de b6 da jaque al rey de f2.',
-            'El rey se aparta del jaque (tapar con la dama en e3 lleva a un cambio de damas igual de perdido).',
-            'Tras el jaque, el peón de c3 captura en b2 y coronará en a1 o b1: las negras ganan material decisivo.'] },
-        { fen: 'r1b1r1k1/pp3pp1/2pb3p/3p1B1P/8/2P1BP2/PPQNKPq1/R3R3 b - - 0 1', caption: 'Juegan negras: el rey blanco está en e2, en medio de la columna e. Rómpele la defensa de e3.',
-          line: ['Rxe3+', 'Kxe3', 'Qg5+', 'Ke2', 'Bxf5'],
-          comments: ['¡Sacrificio de calidad en e3 con jaque! Elimina al alfil que protegía el rey y abre la columna e.',
-            'Si Kd1, Rxe1+ y la dama entra por g1 con jaques: tampoco hay salvación. Capturar es la respuesta natural.',
-            'Jaque de dama: el rey en e3 no tiene peones que lo cubran.',
-            'El rey vuelve a e2. Si Kd4 o Kd3, el rey queda aún más expuesto a los jaques de dama y alfil.',
-            'Ahora el alfil de c8 se lleva el alfil de f5, que estaba colgando. Las negras tienen pieza y ataque: la torre de a8 entrará por la columna e.'] }
-      ]
-    },
-    'a-sac-f5-d5': {
-      html: '<h4>Por qué el caballo molesta aunque no lo tomen</h4><p>Un caballo blanco en f5 ataca d6, e7, g7 y h6; en d5 ataca c7, e7, f6 y b6. Contra una estructura con peones en d6 y e6 esas casillas son exactamente las que sostienen la posición negra. Por eso el sacrificio tiene una doble función: si lo aceptan, se abre la columna e; si lo rechazan, el caballo se queda clavado en el corazón de la posición y las negras tienen que retroceder piezas para cubrir sus casillas. Antes de jugarlo pregúntate qué hará el caballo si nadie lo toca.</p><h4>Las tres respuestas que hay que calcular</h4><ol><li><b>Aceptar</b> (<span class="mv">exf5</span> o <span class="mv">exd5</span>): calcula tu recaptura y qué columna o diagonal se abre. Muchas veces la recaptura con el peón amenaza descubrir un jaque o avanzar (<span class="mv">exd6</span> al paso, <span class="mv">e6</span>).</li><li><b>Rechazar</b>: ¿el caballo puede quedarse? ¿Gana algo por sí mismo (una captura en g7 o e7 con jaque)?</li><li><b>Contraatacar</b>: el defensor puede ignorar el caballo y atacar otra cosa, por ejemplo tu dama o tu rey. Si eso funciona, el sacrificio fracasa.</li></ol><h4>Los golpes de apoyo</h4><p>El sacrificio casi siempre va acompañado de un golpe táctico concreto. Los más frecuentes: un jaque de alfil en la diagonal a2-g8 (<span class="mv">Bc4+</span>) cuando el peón e6 ha desaparecido; la torre que entra en e7 con jaque (<span class="mv">Rxe7+</span>) aprovechando que la columna e está abierta; una clavada del caballo de f6 que impide su defensa; y la captura en g7 que destapa la dama hacia h7. Si no encuentras ningún golpe de apoyo, el sacrificio es solo una apuesta.</p><h4>El peón que recaptura</h4><p>Tras <span class="mv">Nd5</span> <span class="mv">exd5</span> <span class="mv">exd5</span>, el peón de d5 corta en dos la posición negra: el alfil de c8 y la dama quedan separados del flanco de rey, y la casilla e6 deja de estar protegida. Tras <span class="mv">Nf5</span> <span class="mv">exf5</span> <span class="mv">exf5</span>, el peón de f5 se convierte en ariete: amenaza <span class="mv">f6</span> y abre la columna e. En ambos casos la columna e abierta frente al rey negro es la compensación principal.</p><h4>Errores comunes</h4><ul><li>Sacrificar cuando las negras pueden enrocar en la jugada siguiente: el rey se va y la columna e queda vacía.</li><li>Recapturar con una pieza en lugar del peón y perder el efecto de apertura.</li><li>No ver que el defensor puede devolver la pieza para cambiar damas.</li></ul><h4>Pensarlo en la partida</h4><p>Una forma práctica de decidir: imagina la posición tras la captura y la recaptura con el peón, y cuenta cuántas piezas tuyas atacan el rey negro y cuántas negras lo defienden. Si tienes al menos una pieza más en la zona y el rey no puede enrocar en una jugada, el sacrificio suele ser correcto aunque no veas un mate. Si el balance es igual, necesitas un golpe táctico concreto que lo justifique.</p>',
-      keyPoints: ['Calcula tres respuestas: aceptar, rechazar y contraatacar.', 'Busca siempre el golpe de apoyo: Bc4+, Rxe7+, clavadas, captura en g7.', 'Tras la recaptura con peón, la columna e abierta es la compensación principal.'],
-      positions: [
-        { fen: 'r4rk1/ppp3pp/2npp1q1/4p3/7P/3P1N2/PPPBQ1P1/R4K1R b - - 0 1', orientation: 'black', caption: 'Un caballo en d4 (el d5 de la lección, con colores invertidos) contra un rey blanco que no ha enrocado. Juegan negras.',
-          line: ['Nd4', 'h5', 'Qg4', 'Qe4', 'Nxf3', 'Qxg4', 'Nh2+', 'Kg1', 'Nxg4'],
-          comments: ['El caballo salta a d4 atacando a la dama de e2 y al caballo de f3.',
-            'Las blancas atacan a la dama con el peón h.',
-            'La dama se ofrece en g4: si Nxg4, el caballo de d4 toma la dama blanca.',
-            'Las blancas ofrecen el cambio de damas en e4.',
-            'El caballo captura en f3. Si ahora las blancas toman la dama, el caballo tiene preparado un jaque.',
-            'Las blancas capturan la dama negra.',
-            'Jaque intermedio: el caballo da jaque desde h2 antes de recuperar la dama.',
-            'Única casilla razonable.',
-            'El caballo recupera la dama. Las negras quedan con una pieza de ventaja (casi tres peones según el motor).'] },
-        { fen: '4rrk1/pp4pp/6q1/8/1BPpN2b/P2n1P2/1P4PP/1R1Q1RK1 b - - 0 1', orientation: 'black', caption: 'Un caballo en f4 (el f5 de la lección, con colores invertidos) prepara una cadena de golpes tácticos. Juegan negras.',
-          line: ['Nf4', 'Qd2', 'Rxe4', 'fxe4', 'Bf2+', 'Rxf2', 'Nh3+', 'Kf1', 'Rxf2+', 'Qxf2', 'Nxf2'],
-          comments: ['El caballo salta a f4, junto al rey blanco, y prepara saltos con jaque a h3 y e2.',
-            'Las blancas atacan al caballo y preparan la defensa.',
-            '¡La torre captura en e4! Elimina al caballo blanco que defendía f2 y g3.',
-            'Las blancas recuperan la torre.',
-            'El alfil se entrega en f2 con jaque: es el golpe de apoyo que justificaba todo.',
-            'Capturar con la torre parece lo natural.',
-            'Jaque de caballo desde h3 que ataca al rey y destapa la columna f.',
-            'El rey se aparta.',
-            'La torre captura en f2 con jaque.',
-            'La dama recaptura...',
-            '...y el caballo se la lleva. Las negras quedan con material decisivo (unos cinco peones según el motor).'] }
-      ],
-      drills: [
-        { fen: '5rk1/p1pn2pp/3bp3/3n4/4p2q/P1N1P3/1P1PQ1PP/R1B2BKR b - - 0 1', caption: 'Juegan negras: el rey blanco está en g1 y la dama en e2. Ofrece una pieza para abrir líneas (es el clásico Nf5 de las blancas, con colores invertidos).',
-          line: ['Nf4', 'exf4', 'Bc5+', 'd4', 'exd3+'],
-          comments: ['¡El caballo se ofrece en f4, donde lo puede tomar el peón e3! Ataca a la dama de e2 y, si el peón captura, la diagonal a7-g1 queda abierta para el alfil de d6.',
-            'Capturar es la respuesta natural y, según el motor, ninguna alternativa salva a las blancas.',
-            'El alfil da jaque por la diagonal que acaba de abrirse.',
-            'Tapar con el peón parece resolverlo todo.',
-            '¡Captura al paso con jaque descubierto! El peón de e4 toma en d3, el alfil de c5 vuelve a dar jaque y el peón ataca a la dama de e2. Las negras ganan la dama: los sacrificios en f5/f4 casi siempre esconden un golpe así.'] },
-        { fen: '4r2r/pp6/2n3k1/2Np1bp1/3P3p/1Q2P1qP/PP1KB1P1/2R2R2 b - - 0 1', caption: 'Juegan negras: el rey blanco está en d2, en medio del tablero, y tu torre de e8 apunta a la columna e. Ábrela.',
-          line: ['Nxd4', 'exd4', 'Rxe2+', 'Kxe2', 'Qxg2+', 'Rf2', 'Re8+', 'Qe3', 'Rxe3+'],
-          comments: ['¡El caballo se entrega en d4! Si el peón e captura, la columna e queda abierta frente al rey blanco (el sacrificio en d5 con colores invertidos).',
-            'Capturar es lo más natural; si no, el caballo de d4 sigue amenazando e2, f3 y b3.',
-            'La torre captura el alfil con jaque: el rey tiene que tomar y queda en la columna e.',
-            'Única jugada razonable.',
-            'La dama entra con jaque y gana un peón más.',
-            'Interponer la torre es lo más resistente.',
-            'La segunda torre entra en la columna e con jaque.',
-            'La dama blanca tiene que tapar.',
-            'La torre captura la dama: las negras ganan material decisivo.'] },
-        { fen: '2rr2k1/6p1/4np2/1Q6/1P3PPp/P2P1P1q/5R1P/R1B3K1 b - - 0 1', caption: 'Juegan negras: tu dama está en h3 y el peón de f3 lo defiende solo la torre de f2. Sobrecarga a las piezas blancas.',
-          line: ['Nd4', 'Qb7', 'Rc2', 'Rxc2', 'Nxf3+', 'Qxf3', 'Qxf3'],
-          comments: ['El caballo salta a d4 atacando a la dama de b5 y al peón de f3.',
-            'La dama tiene que salir y busca contrajuego desde b7.',
-            '¡La torre se entrega en c2! Si la torre de f2 la captura, deja de defender f3.',
-            'Las blancas aceptan: es lo mejor, porque la torre de c2 amenazaba la segunda fila.',
-            'El caballo captura en f3 con jaque: la torre de f2 ya no está para defender.',
-            'La dama recupera el caballo...',
-            '...pero tu dama la captura en f3. Las negras quedan con dama contra torre y ataque contra el rey.'] },
-        { fen: '2kr3r/pp3p2/3p2n1/2p1p3/4P3/3PR1Bq/PPPQ1P1N/R5K1 b - - 0 1', caption: 'Juegan negras: tu dama está en h3 y amenaza g2. Encuentra la forma de abrir la columna g.',
-          line: ['Nf4', 'Bxf4', 'Rdg8+', 'Bg3', 'Qxh2+', 'Kf1', 'Qh1+', 'Ke2', 'Qxa1'],
-          comments: ['¡El caballo salta a f4! Amenaza Qg2# y ofrece la pieza. Es el caballo en f5 de la lección con colores invertidos: aunque lo tomen, algo se abre.',
-            'Si el alfil captura, deja libre la columna g.',
-            'La torre ocupa la columna g con jaque.',
-            'Tapar con el alfil es lo natural; Rg3 tampoco salva a las blancas.',
-            'La dama captura el caballo de h2 con jaque.',
-            'Única casilla.',
-            'Jaque en h1: el rey tiene que avanzar.',
-            'Única casilla.',
-            'La dama captura la torre de a1. Las negras quedan con material de ventaja decisivo.'] }
-      ]
-    },
-    'a-fianchetto': {
-      html: '<h4>Por qué el alfil de g7 vale más que un alfil</h4><p>En el enroque con fianchetto el alfil de g7 sustituye al peón que avanzó: cubre f6, h6 y h8, las casillas que el peón g6 dejó de controlar. Por eso, cuando ese alfil desaparece, las casillas oscuras alrededor del rey quedan <b>permanentemente débiles</b>: ningún peón negro podrá volver a cubrirlas. Una dama blanca en f6 o h6, un peón en f6 o un caballo en h6 se vuelven piezas casi imposibles de expulsar.</p><h4>Otras formas de eliminar al alfil</h4><ul><li>Si el alfil no acepta el cambio con <span class="mv">Bh6</span> y se retira a h8, las blancas igualmente se quedan con el control de h6 y g7.</li><li>Cambiar primero el caballo de f6 (con <span class="mv">Bxf6</span> o un caballo en d5) deja al alfil de g7 aislado y a la dama blanca con acceso a f6 y h6.</li><li>El peón en <span class="mv">e5</span> y luego <span class="mv">f6</span> encierra al alfil y crea el patrón de Lolli: amenaza <span class="mv">Qh6</span> y mate en g7.</li></ul><h4>Técnica para abrir la columna h</h4><p>El plan clásico es <span class="mv">h4</span>-<span class="mv">h5</span>-<span class="mv">hxg6</span>. Hay dos detalles importantes. Primero, después de <span class="mv">hxg6</span> hay que ver cómo recaptura el negro: con <span class="mv">fxg6</span> se debilita la diagonal a2-g8 y la casilla e6; con <span class="mv">hxg6</span> la columna h queda abierta para la torre. Segundo, la torre de h1 puede <b>entregarse</b> en h7 o h8 para atraer al rey y que la dama entre con jaque: <span class="mv">Rh8+</span> <span class="mv">Kxh8</span> <span class="mv">Qh6+</span> es un mecanismo que conviene tener grabado. La dama en h6 o h7 junto a un caballo o alfil que controle g8 o f8 es la imagen final más frecuente.</p><h4>Defensas del negro</h4><p>El defensor intenta: frenar con <span class="mv">h5</span> (entonces el atacante busca <span class="mv">g4</span> para abrir de nuevo), evitar el cambio de alfiles retirando a h8, llevar una torre a f8 o e8 para que el rey tenga f8, o contraatacar en el otro flanco con sacrificios de calidad en c3. Estos recursos no son teoría abstracta: son la razón por la que el atacante no puede perder ni un tiempo.</p><h4>Errores comunes</h4><ul><li>Cambiar el alfil de g7 y no tener piezas para aprovechar las casillas oscuras: la debilidad solo importa si alguien la usa.</li><li>Abrir la columna h sin haber llevado la dama a la zona.</li><li>Olvidar que el rey negro puede huir por f8-e7 si las casillas f8 y e7 no están controladas.</li></ul><h4>Pensarlo en la partida</h4><p>Ante un enroque con fianchetto, hazte tres preguntas: ¿puedo cambiar o encerrar el alfil de g7?, ¿tengo un peón que pueda llegar a h5 o a f6?, ¿mi dama tiene acceso a h6 o f6? Con dos respuestas afirmativas el ataque suele estar justificado. Y recuerda que el rey negro rara vez está solo: cuenta también la dama y las torres que pueden volver a defender en una jugada.</p>',
-      keyPoints: ['Sin el alfil de g7 las casillas oscuras f6 y h6 quedan débiles para siempre.', 'Rh8+ Kxh8 Qh6+ es un mecanismo clave para abrir paso a la dama.', 'Contra ...h5, el atacante suele responder con g4 para reabrir.'],
-      positions: [
-        { fen: 'r2br1k1/pp1q1p1p/2p1nBpQ/3pR3/1P6/P1PB4/5PPP/5RK1 w - - 0 1', orientation: 'white', caption: 'Sin alfil en g7, el alfil blanco de f6 se ha instalado en el agujero. Juegan blancas y dan mate en tres.',
-          line: ['Qxh7+', 'Kxh7', 'Rh5+', 'Kg8', 'Rh8#'],
-          comments: ['¡Sacrificio de dama en h7! El rey tiene que capturar y queda en la columna h.',
-            'Kf8 permite Qh8 con mate; capturar es lo más resistente.',
-            'La torre de e5 llega a la columna h con jaque.',
-            'Única casilla: el alfil de f6 controla g7.',
-            'Mate: la torre en h8 y el alfil de f6, que domina g7, encierran al rey. Las casillas oscuras sin el alfil del fianchetto fueron la clave.'] },
-        { fen: 'r5k1/pp2nppp/2p4q/3p1P2/3P2Q1/P1NBP1Pr/1P2R3/R1B3K1 b - - 0 1', orientation: 'black', caption: 'Las negras atacan un enroque sin fianchetto (peón en g3) por la columna h. Juegan negras y dan mate.',
-          line: ['Rh1+', 'Kf2', 'Qh2+', 'Kf3', 'Rf1+', 'Rf2', 'Qxf2#'],
-          comments: ['La torre entra con jaque en h1.',
-            'El rey intenta escapar por f2 (en g2 el mate es igual de rápido).',
-            'La dama sigue con jaque desde h2.',
-            'Única casilla.',
-            'La torre da jaque desde f1.',
-            'Única defensa: interponer la torre.',
-            'Mate: la dama captura en f2 (también valía Rxf2). La columna h abierta y el rey sin peones delante fueron suficientes.'] }
-      ],
-      drills: [
-        { fen: '6k1/rp2ppBp/1N6/2P4q/pPP4p/Q3PbP1/P4P2/5RK1 b - - 0 1', caption: 'Juegan negras: el alfil blanco del fianchetto se ha ido hasta g7 y tu alfil ocupa f3, junto al rey blanco. Abre la columna h.',
-          line: ['hxg3', 'fxg3', 'Qh1+', 'Kf2', 'Qg2+', 'Ke1', 'Qe2#'],
-          comments: ['La palanca h4xg3 abre la columna h contra el enroque con fianchetto (con colores invertidos). Ahora amenaza Qh1#, con la dama protegida por el alfil de f3.',
-            'La defensa más resistente: el peón f captura y deja libre f2 como escape para el rey.',
-            'La dama entra con jaque por la columna abierta, protegida por el alfil de f3.',
-            'Única casilla.',
-            'La dama persigue al rey: g2 también está protegida por el alfil.',
-            'Única casilla.',
-            'Mate: la dama en e2, protegida por el alfil de f3. El alfil blanco del fianchetto, lejos en g7, dejó sin defensa todas las casillas claras alrededor de su rey.'] },
-        { fen: '2q5/Q2b1pk1/8/2p5/2PbP1pr/3P2P1/R3B2P/5R1K b - - 0 1', caption: 'Juegan negras: el rey blanco está en h1 y tu torre ya está en la columna h. Encuentra el mate.',
-          line: ['Rxh2+', 'Kxh2', 'Qh8+', 'Kg2', 'Qh3#'],
-          comments: ['¡Sacrificio de torre en h2! Elimina el último peón del enroque y atrae al rey a la columna h.',
-            'Única jugada.',
-            'La dama entra con jaque por la columna h, ya abierta.',
-            'Única casilla: g1 y g3 están controladas (g1 por el alfil de d4, g3 por su propio peón).',
-            'Mate: la dama en h3, protegida por el peón de g4. El alfil de d4 cubre f2 y g1: dama, peón y alfil en casillas de colores distintos se reparten el trabajo.'] },
-        { fen: 'r1bq1rk1/pp3p1p/2np1Qp1/2p1N3/2P5/1P2P3/1B1P1PPP/2n1KB1R w K - 0 1', caption: 'Juegan blancas: tu dama ya está en f6, en el agujero que dejó el alfil del fianchetto. Encuentra el mate.',
-          line: ['Qh8+', 'Kxh8', 'Nxf7+', 'Kg8', 'Nh6#'],
-          comments: ['¡Sacrificio de dama! Atrae al rey a h8, en la gran diagonal del alfil de b2.',
-            'Única jugada.',
-            'Jaque doble: el caballo captura en f7 con jaque y destapa el alfil de b2, que también da jaque por la gran diagonal.',
-            'Ante el jaque doble el rey solo puede moverse, y g8 es la única casilla.',
-            'Mate: el caballo da jaque desde h6, el alfil de b2 cubre g7 y la torre de f8 tapa la salida. Sin el alfil de g7, las casillas oscuras del enroque eran indefendibles.'] },
-        { fen: '2k4r/1p4p1/p2b1pp1/3p4/2B5/2P1BPPq/PP2Q3/R4RK1 b - - 0 1', caption: 'Juegan negras: tu dama está en h3, la torre en la columna h y el rey blanco solo tiene los peones f3 y g3. Calcula el mate.',
-          line: ['Qh1+', 'Kf2', 'Bxg3+', 'Kxg3', 'Qh4+', 'Kg2', 'Qh2#'],
-          comments: ['La dama entra con jaque en h1. El rey tiene que salir hacia f2.',
-            'Única casilla.',
-            '¡Sacrificio de alfil en g3! Elimina el último peón que cubría al rey y lo atrae a g3.',
-            'Única jugada: el rey tiene que capturar.',
-            'La dama vuelve con jaque desde h4, apoyada por la torre de h8.',
-            'Única casilla.',
-            'Mate: la dama en h2, protegida por la torre de h8. El rey no puede ir a f1 (su torre) ni a f2 (sigue en la línea de la dama).'] }
-      ]
-    },
-    'a-enroque-h6': {
-      html: '<h4>Cómo cambia la geometría tras ...h6</h4><p>Con el peón en h6 el rey gana una casilla de escape (h7), pero el peón g7 pasa a ser el único que sostiene la estructura y la casilla g6 queda más débil. Además, el peón de h6 se puede atacar con piezas: la dama desde d2 o c1, el alfil desde e3 o c1, el caballo desde f5 o g4, la torre por la tercera fila. Lo que era una jugada útil se convierte en un blanco.</p><h4>Las cuatro formas de romper en h6</h4><ul><li><b>Con alfil</b>: <span class="mv">Bxh6</span> <span class="mv">gxh6</span> <span class="mv">Qxh6</span>. La dama queda junto al rey; hace falta una segunda pieza (caballo en g5, torre en la tercera fila, alfil en d3) para dar el golpe.</li><li><b>Con caballo</b>: <span class="mv">Nxh6+</span> casi siempre con jaque desde f5. Si <span class="mv">gxh6</span>, las diagonales y la columna g se abren; si el rey se aparta, el caballo puede seguir con capturas en f7.</li><li><b>Con torre</b>: la torre llega a h3 o se eleva por la tercera fila y se entrega en h6. Tras <span class="mv">gxh6</span>, la dama entra con jaque en g6 o en h6.</li><li><b>Con dama</b>: <span class="mv">Qxh6</span> aprovechando que el peón g7 está clavado o que capturar abre la columna g a una torre.</li></ul><h4>Después de gxh6: qué hace falta</h4><p>Una vez que el peón g se ha ido a h6, el rey negro está desnudo por la columna g y por la diagonal h7-b1. Las piezas que rematan son: la dama en g6 o h6 dando jaques, una torre que se traslada a la columna g, un caballo que llega a f6 o f5 con jaque doble y el alfil de d3 que controla h7. Si tras el sacrificio el defensor puede jugar <span class="mv">Kh7</span> y <span class="mv">Kg8</span> y cubrir g7 con dama o torre, necesitas más piezas antes de empezar.</p><h4>La palanca g4-g5 en detalle</h4><p>Con enroques opuestos el peón de h6 es un gancho perfecto. El orden habitual es <span class="mv">g4</span>, <span class="mv">h4</span> y <span class="mv">g5</span>; a veces <span class="mv">Rg1</span> para que, tras <span class="mv">hxg5</span> <span class="mv">hxg5</span>, ambas columnas (g y h) queden en manos blancas. El defensor intenta responder a <span class="mv">g4</span> con <span class="mv">h5</span>!? o con una ruptura central inmediata.</p><h4>Errores comunes</h4><ul><li>Sacrificar en h6 con la dama sola: sin una segunda pieza el rey escapa por h7 y g8.</li><li>No ver la defensa <span class="mv">f5</span> o <span class="mv">f6</span>, que tapa diagonales y deja salir al rey por f7.</li><li>Jugar <span class="mv">g4</span> con el rey propio en el mismo flanco y el centro abierto.</li></ul><h4>Pensarlo en la partida</h4><p>Si tu rival acaba de jugar <span class="mv">h6</span>, revisa de inmediato qué piezas tuyas pueden llegar a h6 en una o dos jugadas y cuáles pueden seguir después de <span class="mv">gxh6</span>. Cuenta además los defensores: el caballo de f6, el alfil de e7 y la dama. Si tus atacantes superan a los defensores en uno, busca el sacrificio; si son iguales, prepara primero con una torre en la tercera fila.</p>',
-      keyPoints: ['h6 puede romperse con alfil, caballo, torre o dama: cada sacrificio necesita una segunda pieza.', 'Tras gxh6, la columna g y la diagonal h7-b1 son las vías de remate.', 'Con enroques opuestos, g4-h4-g5 usa h6 como gancho; Rg1 prepara la apertura.'],
-      positions: [
-        { fen: '3r1rk1/ppp2pp1/n6p/4P2R/8/3B2PQ/PP3q2/1K1R4 w - - 0 1', orientation: 'white', caption: 'Sacrificio de torre en h6 seguido de la dama: cuando dos piezas llegan detrás, el rey no se salva.',
-          line: ['Rxh6', 'gxh6', 'Qxh6', 'Qf5', 'Bxf5'],
-          comments: ['La torre se entrega en h6. Si el peón g captura, la dama entra en h6.',
-            'Aceptar es lo natural.',
-            'La dama captura en h6 y amenaza Qh7# (el alfil de d3 apoya). Además la torre de d1 vigila la columna d.',
-            'Las negras tapan la diagonal del alfil con la dama, pero la pierden.',
-            'El alfil captura la dama. Las blancas tienen una ventaja aplastante (el motor da más de trece peones).'] },
-        { fen: '3r2k1/p2R1pp1/Qb6/P4P1p/7q/2B1P2P/1P3nB1/5RK1 b - - 0 1', orientation: 'black', caption: 'El peón blanco de h3 (el h6 de la lección) es el objetivo. Juegan negras: sacrificio de caballo.',
-          line: ['Nxh3+', 'Bxh3', 'Qg3+', 'Kh1', 'Qxh3+'],
-          comments: ['El caballo captura en h3 con jaque: rompe el enroque blanco.',
-            'El alfil recaptura, la defensa más natural.',
-            'La dama entra con jaque en g3: el peón g ya no protege al rey.',
-            'Única casilla.',
-            'La dama recupera la pieza en h3 con jaque. El rey blanco queda desnudo y las negras ganan material decisivo (más de siete peones según el motor).'] }
-      ],
-      drills: [
-        { fen: 'r4rk1/pp2b1p1/1qn4p/2p5/6b1/2P2N2/PPQNBB2/2K4R w - - 0 1', caption: 'Juegan blancas: el rey negro tiene el peón en h6 y tu torre está en la columna h. ¿Cómo aprovechas el gancho?',
-          line: ['Rxh6', 'gxh6', 'Qg6+', 'Kh8', 'Qxh6+'],
-          comments: ['¡La torre se entrega en h6! Si el peón g captura, el rey queda desnudo en la columna g y en la diagonal b1-h7.',
-            'Aceptar es lo natural; rechazar con Rf4 aguanta algo más, pero la torre blanca queda instalada junto al rey y el ataque sigue.',
-            'La dama entra con jaque en g6. El rey solo puede ir a h8.',
-            'Única casilla.',
-            'La dama captura en h6 con jaque; seguirán Bc4+ y el salto del caballo a g5, con un ataque decisivo (más de seis peones según el motor). El sacrificio funcionó porque detrás de la torre llegaron la dama, el alfil y el caballo.'] },
-        { fen: '2r4k/Qp4pp/8/4n3/4p2q/1P3r1P/PB3PP1/R2R2K1 b - - 0 1', caption: 'Juegan negras: el rey blanco tiene el peón en h3 (el equivalente a h6) y tu torre ya está en f3. Rompe el enroque.',
-          line: ['Rxh3', 'gxh3', 'Nf3+', 'Kf1', 'Qxh3+', 'Ke2', 'Rc2+'],
-          comments: ['¡La torre se entrega en h3! Destruye la estructura del enroque y abre la columna g.',
-            'Aceptar es lo más natural; si las blancas no capturan, la torre de h3 sigue junto al rey con amenazas.',
-            'Jaque de caballo desde f3: el rey tiene que moverse y la dama negra entrará en h3.',
-            'Kf1 es la casilla que más resiste; en g2 o h1 los jaques llegan aún más rápido.',
-            'La dama toma en h3 con jaque. El rey está cada vez más lejos de su refugio.',
-            'Única casilla.',
-            'La torre entra con jaque en c2: el rey blanco, en medio del tablero, recibe jaques de dama, torre y caballo. Ventaja decisiva (casi siete peones según el motor).'] },
-        { fen: 'rnbqr1k1/pp3pp1/2pp3p/2b2N2/2B1n3/2N4P/PPP2PP1/R1BQ1RK1 w - - 0 1', caption: 'Juegan blancas: el negro jugó ...h6 y tu caballo está en f5. Hay una doble captura que destapa al rey.',
-          line: ['Nxh6+', 'gxh6', 'Bxf7+', 'Kxf7', 'Qh5+'],
-          comments: ['El caballo captura en h6 con jaque. Si gxh6, el rey pierde el peón g y la diagonal hacia f7 queda abierta.',
-            'Capturar es lo más natural; si el rey se aparta, el caballo de h6 sigue causando estragos junto a f7.',
-            'Segundo golpe: el alfil captura en f7 con jaque. El rey tiene que tomar.',
-            'Si el rey no captura, el alfil de f7 y la dama ganan aún más.',
-            'Jaque doble de dama: ataca al rey y, por la quinta fila, al alfil de c5. Las blancas recuperan el material invertido y el rey negro queda al descubierto.'] },
-        { fen: 'r6r/ppp3k1/3b1pp1/3P1q2/1P1Qn3/P4N1P/1B3PP1/R4RK1 b - - 0 1', caption: 'Juegan negras: el peón blanco de h3 está defendido solo por el peón g. Usa tus torres.',
-          line: ['Rxh3', 'gxh3', 'Rh8', 'Qxe4', 'Qxe4'],
-          comments: ['¡La torre se entrega en h3! Abre la columna h para la otra torre.',
-            'Aceptar es lo natural.',
-            'Jugada tranquila y decisiva: la segunda torre llega a la columna h y amenaza Qxh3 y Rh1 con mate. Las blancas no tienen tiempo para defenderse.',
-            'Las blancas devuelven la dama para no recibir mate.',
-            'Las negras se quedan con dama contra torre: una tranquila jugada de torre tras el sacrificio valió más que cualquier jaque.'] }
-      ]
-    },
-    'a-mates-greco': {
-      html: '<h4>La geometría de cada patrón</h4><ul><li><b>Greco</b>: rey en h8, peón propio en g7, alfil atacante en la diagonal a2-g8 que le quita g8, y dama o torre que da jaque por la columna h. Si el peón g7 no está, el rey escapa por g7: el patrón ya no sirve.</li><li><b>Lolli</b>: peón atacante en f6 que controla g7 y e7, dama que llega a h6 o g5 para entrar en g7. El peón de f6 hace de soporte permanente.</li><li><b>Damiano</b>: peón atacante en g6 que protege h7 y controla f7; la dama mata en h7. La casilla f8 debe estar tapada (por una torre propia del rey, por ejemplo).</li></ul><h4>Los sacrificios que abren el camino</h4><p>En los tres patrones la dama necesita llegar a la columna h, y casi siempre hay algo en medio. Los sacrificios típicos son: el caballo que da jaque en g6 para obligar a <span class="mv">hxg6</span> y abrir la columna h (Greco); la torre que se entrega en h7 o h8 para atraer al rey a una casilla donde la dama lo alcanza con jaque (Damiano y Lolli); y el alfil que captura en f7 con jaque para echar al rey a h8 y despejar después la diagonal a2-g8 (Greco). Si tienes una torre en la columna h y la dama detrás, piensa siempre en <span class="mv">Rh8+</span>: tras <span class="mv">Kxh8</span> la dama entra con jaque.</p><h4>Lolli en la práctica: cómo llevar el peón a f6</h4><p>El peón llega a f6 por dos caminos: <span class="mv">e5</span> seguido de un cambio o un sacrificio en f6, o el avance <span class="mv">f4</span>-<span class="mv">f5</span>-<span class="mv">f6</span>. A menudo el peón llega con tempo, atacando una pieza, y la dama ya espera en g5 o h6. Fíjate en un detalle: el peón en f6 también ataca e7, así que un alfil negro en e7 suele estar perdido o clavado. Si además tienes un alfil que puede ofrecerse en g7 con jaque, el defensor no puede cubrir todas las casillas.</p><h4>Defensas y cómo anularlas</h4><p>El defensor intenta crear una salida (<span class="mv">h6</span>, <span class="mv">Kh7</span>), traer la dama a f8 o g8, o devolver material con jaques. Contra la salida en h7, el alfil de d3 o el peón en g6 la controlan; contra la dama defensora, una desviación o un jaque intermedio. Como defensor, recuerda: el peón atacante en f6 o g6 debe eliminarse cuanto antes, aunque cueste una calidad.</p><h4>Pensarlo en la partida</h4><p>Cuando el rey rival esté en h8 o g8 con pocas casillas, recorre mentalmente los tres patrones: ¿tengo un alfil en la diagonal de g8?, ¿un peón en f6 o g6?, ¿una línea para que la dama llegue a la columna h? Si la respuesta a dos preguntas es sí, busca el sacrificio que quita el último obstáculo. Muchas partidas se ganan así: no por calcular más, sino por reconocer la imagen final.</p>',
-      keyPoints: ['Greco necesita el peón negro en g7 y un alfil que controle g8.', 'Rh8+ o Rxh7+ atraen al rey para que la dama entre con jaque.', 'El peón en f6 ataca g7 y e7: con la dama en h6 o g5, el mate en g7 es casi imparable.'],
-      positions: [
-        { fen: '2rr2k1/pb1q1p1p/1p3Pp1/6Q1/8/2PB4/PP4PP/5RK1 w - - 0 1', orientation: 'white', caption: 'El mate de Lolli en estado puro: el peón blanco de f6 controla g7 y la dama está en g5. Juegan blancas.',
-          line: ['Qh6', 'Qd4+', 'cxd4', 'Rxd4', 'Qg7#'],
-          comments: ['La dama va a h6 y amenaza Qg7#. Con el peón de f6 controlando g7, las negras no tienen forma de cubrir esa casilla: no tienen alfil de casillas negras ni caballo cerca.',
-            'Un jaque desesperado: las negras solo pueden retrasar el mate entregando la dama.',
-            'Se captura la dama, con la amenaza intacta.',
-            'Nada impide el mate: g7 sigue sin defensa.',
-            'Mate de Lolli: la dama en g7, protegida por el peón de f6. La única pieza que podía defender las casillas oscuras era un alfil que las negras ya no tienen.'] },
-        { fen: '4r2k/1p3Qpp/1q6/p7/1P3p2/P7/1B2nbPP/R4R1K b - - 0 1', orientation: 'black', caption: 'Mate de Greco con colores invertidos: el alfil negro de f2 controla g1 y el rey blanco está en h1.',
-          line: ['Ng3+', 'hxg3', 'Qh6+', 'Qh5', 'Qxh5#'],
-          comments: ['¡El caballo se entrega en g3 con jaque! Obliga al peón h a capturar y abre la columna h.',
-            'Única jugada: el alfil de f2 cubre g1.',
-            'La dama entra con jaque por la columna h.',
-            'Las blancas solo pueden interponer su dama.',
-            'Mate de Greco: el rey en h1, el peón propio en g2, el alfil controlando g1 y la dama en la columna h.'] }
-      ],
-      drills: [
-        { fen: 'r4r1k/pp1q2pp/2p5/5P2/2B5/3Q3R/PPP3P1/6K1 w - - 0 1', caption: 'Juegan blancas: el rey negro está en h8, el alfil de c4 controla g8 y el peón de f5 cubre g6. Mate en dos.',
-          line: ['Rxh7+', 'Kxh7', 'Qh3#'],
-          comments: ['¡Sacrificio de torre en h7! Elimina el peón y abre la columna h.',
-            'Única jugada.',
-            'Mate de Greco: la dama da jaque por la columna h, el alfil de c4 cubre g8, el peón de f5 cubre g6 y el peón g7 tapa la última salida.'] },
-        { fen: '4rrk1/p4ppp/8/4N3/3q4/1B3Q2/PPP3PP/2K4n w - - 0 1', caption: 'Juegan blancas: el alfil de b3 apunta a f7 y g8, y el caballo está en e5. Encuentra el mate de Greco.',
-          line: ['Bxf7+', 'Kh8', 'Ng6+', 'hxg6', 'Qh3+', 'Qh4', 'Qxh4#'],
-          comments: ['El alfil captura en f7 con jaque. Si Rxf7, Qxf7+ gana; lo más resistente es esconder el rey en h8.',
-            'El rey va a la esquina, pero el alfil de f7 sigue controlando g8.',
-            '¡El caballo se entrega en g6 con jaque! Obliga al peón h a capturar y abre la columna h.',
-            'Única jugada: el alfil de f7 cubre g8 y el rey no tiene otra casilla.',
-            'La dama entra con jaque por la columna h.',
-            'Las negras solo pueden interponer la dama.',
-            'Mate de Greco: el rey en h8, el peón propio en g7, el alfil controlando g8 y la dama en la columna h.'] },
-        { fen: '1k1r4/pp1q4/2Bp4/4p3/1P3p1P/P2P3b/2Q2P1P/2R2RK1 b - - 0 1', caption: 'Juegan negras: tu dama puede llegar a g4 y tu peón ya está en f4. Construye el mate de Lolli con colores invertidos.',
-          line: ['Qg4+', 'Kh1', 'f3', 'Rg1', 'Bg2+', 'Rxg2', 'Qxg2#'],
-          comments: ['La dama da jaque en g4. El rey se esconde en h1.',
-            'Si Bg2, Qxg2 es mate inmediato: el rey en h1 es la única opción.',
-            '¡El peón avanza a f3! Es el peón de Lolli: controla g2 y apoya la llegada de la dama. Amenaza Qg2#.',
-            'La única defensa de g2: la torre se coloca en g1.',
-            'El alfil se entrega en g2 con jaque para desviar a la torre.',
-            'Única jugada.',
-            'Mate: la dama en g2, protegida por el peón de f3.'] },
-        { fen: '5rk1/pp1b2p1/2pqp1P1/8/7R/8/PPP5/1K1Q4 w - - 0 1', caption: 'Juegan blancas: tu peón de g6 está junto al rey negro y la torre de f8 le tapa una salida. Mate en tres (patrón de Damiano).',
-          line: ['Rh8+', 'Kxh8', 'Qh5+', 'Kg8', 'Qh7#'],
-          comments: ['¡La torre se entrega en h8! Atrae al rey a la esquina: el peón de g6 controla f7 y el rey no puede ir a g7 (su propio peón).',
-            'Única jugada.',
-            'La dama entra con jaque por la columna h.',
-            'Única casilla.',
-            'Mate de Damiano: la dama en h7, protegida por el peón de g6; f8 está ocupada por la torre negra y f7 la controla el peón.'] }
-      ]
-    },
-    'a-mates-morphy': {
-      html: '<h4>La batería torre-alfil</h4><p>Los mates de Morphy y Pillsbury son dos caras de la misma idea: un alfil en la gran diagonal (a1-h8) y una torre en la columna g, contra un rey sin peón en g7. En el de Morphy la torre encierra y el alfil da el jaque; en el de Pillsbury el alfil encierra y la torre da el jaque. El paso previo casi siempre es eliminar el peón g7 o la pieza que tapa la diagonal (un caballo en f6, un alfil en g7). Por eso los sacrificios de dama en f6 o g7 aparecen tanto en estos patrones.</p><h4>Cómo se prepara: tres mecanismos</h4><ul><li><b>La jugada tranquila de dama</b>: <span class="mv">Qf6</span>!! sin capturar nada. Si el peón g7 la toma, se abre la columna g para la torre; si no, la dama amenaza <span class="mv">Qxg7#</span>.</li><li><b>El sacrificio de dama en g7</b>: <span class="mv">Qxg7+</span> obliga a capturar con una pieza (un alfil, por ejemplo) y entonces la torre o el alfil recapturan con jaque.</li><li><b>El jaque descubierto</b>: con el alfil en la gran diagonal y la torre detrás en la columna g, cada movimiento del alfil es un jaque de torre. El alfil puede ir a e5, f6 o h6 eligiendo la casilla que más le convenga.</li></ul><h4>Cola de golondrina y charretera: cómo se provocan</h4><p>Estos dos mates aparecen cuando el defensor deja las torres pegadas al rey en la última fila. Se provocan con jaques que empujan al rey hacia e7 o e8, justo entre sus torres, y con la eliminación de la pieza que vigila e6 (un alfil en c8, un peón en f7 o d7). Para el atacante la pregunta es: <i>¿puedo poner la dama en e6 protegida?</i> Si la respuesta es sí y el rey está entre sus torres, el mate está cerca.</p><h4>Errores comunes del defensor</h4><ul><li>Dejar el rey sin salida en la última fila, con las torres a los lados.</li><li>Capturar una dama sacrificada sin comprobar qué línea se abre.</li><li>Mantener el caballo de f6 como único defensor de la gran diagonal: si se cambia o se clava, el alfil enemigo llega a h8.</li></ul><h4>Cómo pensarlo</h4><p>Cuando tengas un alfil en la gran diagonal y una torre que pueda llegar a la columna g, pregúntate qué te impide el jaque: ¿un peón en g7?, ¿un caballo en f6?, ¿un alfil en g7? Esa pieza es el objetivo de tu sacrificio.</p><h4>Un detalle de cálculo</h4><p>Tras un sacrificio de dama que abre la columna g, el rey negro suele tener dos casillas, h8 y f8. Antes de jugar, comprueba que el alfil controla h8 (o da jaque allí) y que algo tapa f8: una torre propia del defensor, un peón, o tu otra torre en la octava fila. Si f8 queda libre, el rey escapa hacia e7 y todo el sacrificio se pierde.</p>',
-      keyPoints: ['Morphy: la torre encierra y el alfil da jaque; Pillsbury: al revés.', 'El sacrificio de dama en f6 o g7 elimina el obstáculo de la columna g.', 'Con alfil en la gran diagonal y torre detrás, cada jugada del alfil es jaque descubierto.'],
-      positions: [
-        { fen: '2r4k/1bN1np1p/p7/1pB5/1P4r1/P3P3/B4PPP/2R2RK1 b - - 0 1', orientation: 'black', caption: 'Mate de Pillsbury con colores invertidos: el alfil negro de b7 domina la gran diagonal hasta h1.',
-          line: ['Rxg2+', 'Kh1', 'Rg1+', 'Kxg1', 'Rg8#'],
-          comments: ['La torre captura en g2 con jaque: el rey no puede tomar porque el alfil de b7 protege g2.',
-            'Única casilla.',
-            'Segundo sacrificio: la torre atrae al rey a g1.',
-            'Única jugada.',
-            'Mate de Pillsbury: la otra torre da jaque por la columna g y el alfil de b7 cubre h1.'] },
-        { fen: '2r2rk1/5p2/p5pP/1p2P1B1/8/1P1q4/P4PK1/6RR w - - 0 1', orientation: 'white', caption: 'Mate de Morphy: torre en la columna g, alfil listo para dar jaque en la gran diagonal. Juegan blancas.',
-          line: ['h7+', 'Kh8', 'Bf6#'],
-          comments: ['El peón da jaque en h7 y empuja al rey a la esquina.',
-            'Si Kg7, Bf6 es mate igual: el alfil da jaque y la torre de g1 cubre la columna.',
-            'Mate de Morphy: el alfil da jaque desde f6, la torre de g1 controla g8 y g7, y el peón de h7 tapa la última casilla.'] }
-      ],
-      drills: [
-        { fen: '6k1/2p2pp1/p1pr1q1p/2RpP3/4b3/P3P3/1P1Q1PPP/5RK1 b - - 0 1', caption: 'Juegan negras: tu alfil está en e4, en la gran diagonal, y tu torre puede llegar a g6. Encuentra el mate de Morphy (con colores invertidos).',
-          line: ['Qf3', 'gxf3', 'Rg6+', 'Kh1', 'Bxf3#'],
-          comments: ['¡Jugada tranquila de dama! Qf3 amenaza Qxg2#. Si el peón la captura, se abre la columna g.',
-            'La defensa más natural, aunque nada salva a las blancas.',
-            'La torre da jaque por la columna g abierta.',
-            'Única casilla: g2 la cubre la torre y el rey no puede ir a f1 (su torre).',
-            'Mate de Morphy: el alfil da jaque en la gran diagonal desde f3 y la torre de g6 controla g1 y g2.'] },
-        { fen: 'k2r2r1/1p5p/1B3pqb/3p4/3Qb3/5B2/PP3PPP/R4RK1 b - - 0 1', caption: 'Juegan negras: tienes dos torres en la octava fila y un alfil en e4. Abre la columna g contra el rey blanco.',
-          line: ['Qxg2+', 'Bxg2', 'Rxg2+', 'Kh1', 'Rg1+', 'Kxg1', 'Rg8#'],
-          comments: ['¡Sacrificio de dama en g2! Si el alfil captura, la columna g queda para tus torres.',
-            'Única jugada.',
-            'La torre recupera material con jaque.',
-            'Única casilla: el rey va a la esquina.',
-            'Segundo sacrificio: la torre atrae al rey a g1.',
-            'Única jugada.',
-            'Mate de Pillsbury: la otra torre da jaque por la columna g, el alfil de e4 cubre h1 y la torre blanca de f1 tapa la última salida.'] },
-        { fen: '2r3k1/6p1/1pp3rp/3b2q1/3PB3/P3P3/1PQ2P1P/2R2R1K b - - 0 1', caption: 'Juegan negras: alfil en d5 y torre en g6 forman una batería contra el rey blanco. Abre la diagonal.',
-          line: ['Qg2+', 'Bxg2', 'Bxg2+', 'Kg1', 'Be4#'],
-          comments: ['¡Sacrificio de dama! El alfil de e4 tiene que capturar y deja libre la gran diagonal.',
-            'Única jugada.',
-            'El alfil recupera material con jaque.',
-            'Única casilla.',
-            'Jaque descubierto y mate: el alfil se aparta a e4, la torre de g6 da jaque por la columna g y el alfil cubre h1. Es el mate de Pillsbury.'] },
-        { fen: '1k4r1/ppp3q1/2b4p/8/5Q2/2P2B2/PP3pPP/5R1K b - - 0 1', caption: 'Juegan negras: tu alfil de c6 y tu torre de g8 apuntan a g2. Mate en dos.',
-          line: ['Qxg2+', 'Bxg2', 'Bxg2#'],
-          comments: ['¡Sacrificio de dama en g2! Elimina el peón y obliga al alfil a capturar.',
-            'Única jugada.',
-            'Mate: el alfil captura en g2 con jaque, protegido por la torre de g8; el peón de f2 controla g1. Alfil en la gran diagonal y torre en la columna g: la pareja de Morphy.'] }
-      ]
-    },
-    'a-defensa': {
-      html: '<h4>Primer paso: identificar la amenaza real</h4><p>Muchos ataques parecen más peligrosos de lo que son. Antes de elegir una defensa, haz la pregunta concreta: <i>si ahora fuera el turno de mi rival, ¿qué jugaría?</i> Escribe mentalmente la amenaza (un mate, una captura, un jaque doble) y calcúlala hasta el final. A veces descubrirás que la amenaza no funciona y que puedes seguir con tu plan; otras, que es mucho peor de lo que parecía. Lo que nunca debes hacer es defender por instinto con una jugada de peón delante del rey.</p><h4>La defensa activa</h4><p>La mejor defensa a menudo es una <b>contraamenaza</b>: un jaque, un ataque a la dama, una captura que obliga a responder. Si el atacante tiene que gastar una jugada en tu amenaza, su ataque pierde un tiempo, y en los ataques un tiempo lo es todo. Busca especialmente los jaques intermedios y las capturas con ganancia de tiempo antes de retroceder piezas.</p><h4>La profilaxis del rey</h4><p>Una jugada de rey tranquila, como <span class="mv">Kh1</span> o <span class="mv">Ka1</span>, puede neutralizar varias amenazas a la vez: saca al rey de una diagonal o de una columna donde iban a llegar jaques, deshace una clavada o evita una horquilla. Es una de las jugadas defensivas más difíciles de ver porque no «hace» nada visible, pero los grandes defensores la usan constantemente.</p><h4>Devolver material a tiempo</h4><p>Si ganaste material y el rival tiene ventaja de desarrollo, considera devolverlo para desarrollarte con ganancia de tiempo o para cambiar la dama atacante. En el Gambito Danés, por ejemplo, las negras devuelven peones con <span class="mv">d5</span> y, cuando las blancas capturan la dama, el jaque <span class="mv">Bb4+</span> recupera todo. La pregunta no es «¿cuánto material tengo?», sino «¿cuánto vale mi material si mi rey está bajo fuego?».</p><h4>Defender con piezas, no con peones</h4><p>Los peones delante del rey no vuelven atrás: cada avance crea un gancho o una casilla débil. Defiende trayendo piezas (un caballo a f8, una torre a la segunda fila, el alfil a g7), cambiando la pieza atacante más peligrosa o, si hace falta, entregando una calidad para eliminarla. Una torre por un alfil que apuntaba al rey suele ser un buen negocio.</p><h4>Lista de comprobación del defensor</h4><ol><li>¿Cuál es la amenaza concreta y funciona de verdad?</li><li>¿Tengo un jaque, una captura o una contraamenaza que gane tiempo?</li><li>¿Puedo cambiar la pieza atacante más peligrosa?</li><li>¿Una jugada de rey resuelve varias amenazas a la vez?</li><li>¿Me conviene devolver material?</li></ol><h4>Errores comunes del defensor</h4><ul><li>Aferrarse a un peón de ventaja mientras el rival acumula piezas contra el rey.</li><li>Mover peones del enroque «para hacer sitio»: cada avance da un gancho al atacante.</li><li>Dejar el rey en la misma diagonal o columna que la dama o una torre rival, aunque haya piezas en medio: tarde o temprano llega una clavada o un descubierto.</li></ul>',
-      keyPoints: ['Antes de defender, calcula si la amenaza funciona de verdad.', 'Una contraamenaza que gane un tiempo vale más que una retirada.', 'Kh1 o Ka1 a tiempo neutralizan clavadas, jaques y horquillas.'],
-      positions: [
-        { fen: '4rrk1/pp4pp/1qp5/2b1pb2/8/2P1BPP1/PP2Q1BP/R3K2R w KQ - 0 1', orientation: 'white', caption: 'Defensa activa: el rey blanco sigue en e1, el alfil de e3 está atacado dos veces y b2 cuelga. Juegan blancas.',
-          line: ['Qc4+', 'Be6', 'Qxc5', 'Qxb2', 'O-O'],
-          comments: ['Jaque intermedio: la dama da jaque por la diagonal c4-g8 y, al mismo tiempo, ataca al alfil de c5.',
-            'Las negras tapan con el alfil, atacando a la dama.',
-            'La dama captura el alfil de c5, que era el que atacaba e3.',
-            'Las negras se cobran el peón de b2 (retirar la dama a a6 era algo mejor, pero no cambia el resultado).',
-            'Las blancas enrocan y su rey queda a salvo: pieza de ventaja (más de cinco peones según el motor). Un jaque intermedio y el enroque resolvieron todos los problemas defensivos.'] },
-        { fen: 'r1b1k2r/pp1pbppp/8/3P4/1PBP4/P3Q3/5PPP/q1B1K2R w Kkq - 0 1', orientation: 'white', caption: 'Defensa activa: la dama negra está en a1 atacando el alfil de c1 y el rey blanco sigue en e1. Juegan blancas.',
-          line: ['d6', 'O-O', 'dxe7', 'Re8', 'O-O'],
-          comments: ['En lugar de defender el alfil de c1, el peón contraataca al alfil de e7. Una contraamenaza vale más que una retirada.',
-            'Las negras enrocan para no dejar su rey en el centro.',
-            'El peón captura el alfil y amenaza coronar en f8 o d8.',
-            'La torre vigila el peón de e7.',
-            'Las blancas enrocan y su rey queda a salvo. El peón de e7 está protegido por la dama y las blancas tienen una pieza de ventaja (unos tres peones según el motor).'] }
-      ],
-      drills: [
-        { fen: '1k4r1/pp5p/2q3r1/2P3n1/5Q2/2B3P1/PPP2P1P/3R1RK1 b - - 0 1', caption: 'Juegan negras: estás en jaque por la diagonal f4-b8. Elige bien la defensa, porque tu ataque también está en juego.',
-          line: ['Ka8', 'Qf5', 'Nf3+', 'Qxf3', 'Qxf3'],
-          comments: ['El rey se aparta a la esquina, lejos de la diagonal y de la octava fila. Las otras defensas (interponer en c7, Kc8) dejan al rey expuesto a nuevos jaques de dama, alfil y torre.',
-            'La dama blanca ataca al caballo de g5 y a la torre de g6.',
-            '¡Jaque de caballo! Desvía a la dama de la quinta fila: si Qxf3, la dama de c6 la captura por la gran diagonal.',
-            'La dama captura el caballo, pero...',
-            '...tu dama la toma en f3. La defensa precisa del rey fue lo que permitió el contraataque.'] },
-        { fen: '4r1k1/1pp2r2/1p1pq3/5bQ1/8/P1PP3P/1P1RB1P1/4R1K1 b - - 0 1', caption: 'Juegan negras: la dama blanca en g5 presiona sobre g7 y d8. Defiéndete ganando un tiempo.',
-          line: ['Rg7', 'Qf4', 'Bxh3'],
-          comments: ['La torre va a g7: tapa la columna g, defiende al rey y ataca a la dama blanca. Es una defensa con contraamenaza.',
-            'La dama tiene que retirarse.',
-            'Con el tiempo ganado, el alfil captura en h3: el rey blanco se queda sin protección y las negras pasan al ataque.'] },
-        { fen: '5rk1/1pp3pp/1p1P2n1/7r/3Q1B2/5p1q/PPP2P1P/4R1RK b - - 0 1', caption: 'Juegan negras: tienes una dama en h3, pero tu octava fila es débil. Elimina al defensor sin descuidar tu rey.',
-          line: ['Rxf4', 'Re8+', 'Rf8', 'Qc4+', 'Kh8'],
-          comments: ['La torre captura el alfil de f4, el único defensor de h2. Ahora amenazas Qxh2#.',
-            'Las blancas buscan contrajuego con jaque en la octava fila.',
-            'Se tapa con la torre. Por eso tenías que calcular el jaque antes de capturar: la torre de f4 vuelve a tiempo a f8.',
-            'Otro jaque, desde c4.',
-            'El rey se esconde en h8 y los jaques se acaban. La amenaza de mate en h2 sigue en pie y las blancas no pueden pararla.'] },
-        { fen: '4rr2/5pk1/2R1b1q1/1p1p4/1P1P1B2/P4pPP/3Q1P1K/2R5 b - - 0 1', caption: 'Juegan negras: el rey blanco está en h2 con el peón en h3 debilitado por tu peón de f3. ¿Defensa o ataque?',
-          line: ['Rh8', 'Be5+', 'f6'],
-          comments: ['La torre va a h8 y amenaza Rxh3+ con mate. La mejor defensa es este contraataque: obliga al rival a dar jaques en lugar de seguir con su plan.',
-            'Las blancas usan un jaque intermedio.',
-            'El peón tapa el jaque atacando al alfil: tu rey queda seguro y la amenaza sobre h3 sigue en pie.'] }
-      ]
-    }
-  };
+ "a-cuando-atacar": {
+  "html": "<h4>La ventaja de desarrollo se mide en tiempos</h4><p>Decir «estoy más desarrollado» no basta: hay que <b>contar</b>. Suma las piezas menores fuera de su casilla inicial, el enroque hecho y las torres conectadas; resta las jugadas que tu rival necesita para igualarte. Si te sacan dos o tres tiempos de ventaja y el centro empieza a abrirse, estás en la situación ideal para actuar <b>ya</b>. Si la diferencia es de un solo tiempo, casi siempre conviene seguir desarrollando: un tiempo se pierde con cualquier jugada imprecisa.</p><p>Los gambitos abiertos (el Danés, el Evans, el Gambito Escocés) son la escuela clásica de esta idea: se entregan uno o dos peones a cambio de tiempos. Fíjate en lo que hace el defensor que conoce el tema: devuelve parte del material con <span class=\"mv\">d5</span> para desarrollarse con ganancia de tiempo, y la ventaja de desarrollo se evapora. La lección para el atacante: los tiempos ganados hay que convertirlos en algo concreto (un rey sin enrocar, una columna abierta, material) antes de que el rival termine de sacar sus piezas.</p><h4>El centro decide si el ataque de flanco es correcto</h4><p>Un ataque con peones o piezas sobre el enroque necesita un centro <b>cerrado o controlado</b>. Si el centro está abierto o puede abrirse con una ruptura, el defensor responde en el medio y tus piezas, lanzadas al flanco, quedan lejos de la acción. El caso típico del aficionado: con el rey todavía en e1 empuja <span class=\"mv\">h3</span> y <span class=\"mv\">g4</span> «para atacar». La respuesta <span class=\"mv\">d5</span> abre el centro, el rey blanco queda sin refugio (ya no puede enrocar corto con tranquilidad) y el ataque ni siquiera empezó.</p><p>Antes de empujar un peón del enroque o del flanco, hazte esta pregunta: <i>¿qué pasa si mi rival rompe ahora en el centro?</i> Si la respuesta es «me abre el rey», todavía no es el momento.</p><h4>Tres ataques prematuros y cómo castigarlos</h4><ul><li><b>La dama sola</b>: <span class=\"mv\">Qh5</span>, <span class=\"mv\">Qf3</span> o <span class=\"mv\">Qb3</span> en las primeras jugadas. Castigo: desarrollar <b>atacando a la dama</b> (<span class=\"mv\">Nf6</span>, <span class=\"mv\">Nd4</span>, <span class=\"mv\">Nc6</span>-<span class=\"mv\">d4</span>, <span class=\"mv\">d5</span>). Cada jugada tuya cumple dos funciones; cada jugada de la dama, ninguna.</li><li><b>Un caballo contra f7 sin apoyo</b>: <span class=\"mv\">Ng5</span> o <span class=\"mv\">Nxf7</span> sin más piezas detrás. Castigo: contraataque inmediato contra el punto débil del atacante (g2, f2, el rey en e1), porque el caballo lejano no defiende nada.</li><li><b>Peones del flanco con el rey en el centro</b>. Castigo: ruptura central (<span class=\"mv\">d5</span>, <span class=\"mv\">e5</span>), aunque cueste un peón.</li></ul><h4>Lista de comprobación antes de atacar</h4><ol><li>¿Cuántas piezas mías llegan al rey en dos jugadas y cuántas defensoras hay?</li><li>¿El centro está cerrado, bloqueado o bajo mi control?</li><li>¿Qué debilidad concreta voy a atacar (peón avanzado, casilla sin defensa, columna abierta)?</li><li>¿Mi propio rey está seguro si el ataque fracasa?</li><li>¿Puede el rival cambiar mi mejor pieza atacante?</li></ol><p>Si respondes «no» a las tres primeras, el plan correcto es mejorar la posición: completar el desarrollo, poner las torres en columnas centrales y esperar a que el rival cree una debilidad. Atacar sin motivo no es valentía: es regalar tiempos.</p>",
+  "keyPoints": [
+   "Cuenta los tiempos de ventaja: con uno solo, sigue desarrollando; con dos o tres y el centro abriéndose, actúa.",
+   "Antes de atacar en un flanco, pregúntate qué pasa si el rival rompe en el centro.",
+   "A un ataque prematuro se responde desarrollando con ganancia de tiempo."
+  ],
+  "positions": [
+   {
+    "fen": "r1b1kb1r/ppp2ppp/2n5/3q4/3pn3/5N2/PPP2PPP/RNBQR1K1 w kq - 0 8",
+    "orientation": "white",
+    "caption": "Gambito Escocés / Dos Caballos: las blancas entregaron material a cambio de tiempos. Mira cómo la ventaja de desarrollo recupera todo.",
+    "line": [
+     "Nc3",
+     "Qa5",
+     "Nxe4",
+     "Be6",
+     "Neg5",
+     "O-O-O",
+     "Nxe6",
+     "fxe6",
+     "Rxe6"
+    ],
+    "comments": [
+     "Desarrollo con ataque a la dama. Además, el caballo de e4 está clavado por la torre de e1: las blancas amenazan recuperarlo.",
+     "La dama se aparta sin dejar de vigilar el flanco de rey.",
+     "El caballo clavado cae: las blancas recuperan la pieza.",
+     "Las negras se desarrollan rápido para tapar la columna e.",
+     "El caballo ataca al alfil de e6 y al punto f7: cada jugada blanca sigue llevando una amenaza.",
+     "Las negras ponen el rey a salvo enrocando largo: es la defensa correcta, completar el desarrollo.",
+     "Las blancas cambian el alfil defensor...",
+     "...y el peón recaptura.",
+     "La torre recupera el último peón. El material está igualado y el motor marca 0,00: la ventaja de desarrollo se convirtió en material, no en mate. Por eso hay que usarla a tiempo."
+    ]
+   },
+   {
+    "fen": "r1bqkb1r/p4ppp/2p2n2/nB2p1N1/8/8/PPPP1PPP/RNBQK2R w KQkq - 0 8",
+    "orientation": "white",
+    "caption": "Dos Caballos con 4.Ng5: las negras tienen un peón menos pero mucho mejor desarrollo. ¿Es buena idea sacar la dama blanca a f3?",
+    "line": [
+     "Qf3",
+     "Rb8",
+     "Be2",
+     "Be7",
+     "d3",
+     "O-O"
+    ],
+    "comments": [
+     "La dama ataca el peón de c6 (y, detrás, la torre de a8), pero no ayuda al desarrollo y el alfil de b5 sigue atacado por ese mismo peón.",
+     "La torre ataca al alfil de b5 por la columna b (también era buena cxb5, entregando la calidad a cambio de desarrollo).",
+     "El alfil tiene que retroceder. Las blancas siguen con el flanco de dama sin mover.",
+     "Otra pieza negra entra en juego, apuntando a g5.",
+     "Las blancas abren paso a su alfil de c1: van muy atrasadas.",
+     "Las negras enrocan. El motor da una ligera ventaja negra pese al peón de menos: la dama blanca salió pronto y solo ayudó al rival a desarrollarse con ganancia de tiempo."
+    ]
+   }
+  ],
+  "drills": [
+   {
+    "fen": "r1bqkb1r/pppp1p1p/2n2np1/4p3/2B1P3/1Q6/PPPP1PPP/RNB1K1NR b KQkq - 3 5",
+    "caption": "Juegan negras: la dama blanca ya se movió tres veces (h5, f3, b3) y ninguna otra pieza blanca salvo el alfil ha salido. Castiga el ataque prematuro.",
+    "line": [
+     "Nd4",
+     "Bxf7+",
+     "Ke7",
+     "d3",
+     "Nxb3"
+    ],
+    "comments": [
+     "Desarrollo con ganancia de tiempo: el caballo ataca a la dama de b3 y vigila c2. Cada jugada negra desarrolla; cada jugada de la dama blanca, ninguna.",
+     "Las blancas buscan algo de material con un jaque en f7, porque la dama no tiene una retirada cómoda.",
+     "Única jugada: el rey no puede capturar en f7 porque quedaría en la diagonal de la dama de b3.",
+     "Ninguna jugada salva a las blancas: si la dama se retira, el rey captura el alfil de f7 y las negras quedan con pieza de más y mucho mejor desarrollo. Con d3 al menos sale el alfil de c1.",
+     "El caballo captura la dama. Las negras tienen dama por caballo y peón: el precio de sacar la dama a pasear en la apertura."
+    ]
+   },
+   {
+    "fen": "r1bq1rk1/ppppbppp/2n2n2/4p3/2B1P1P1/3P1N1P/PPP2P2/RNBQK2R b KQ g3 0 6",
+    "caption": "Juegan negras: las blancas, con el rey todavía en e1, empujaron h3 y g4 «para atacar». ¿Cuál es la respuesta clásica?",
+    "line": [
+     "d5",
+     "exd5",
+     "Nxd5"
+    ],
+    "comments": [
+     "Ruptura central inmediata. Con el centro abierto, el rey blanco en e1 queda expuesto y ya no puede enrocar corto con tranquilidad porque h3 y g4 debilitaron ese flanco.",
+     "Capturar es lo más natural; cualquier otra jugada deja que las negras tomen en e4 con un centro aún más abierto.",
+     "El caballo recupera el peón y se instala en el centro, con la casilla f4 a la vista. El motor da casi dos peones de ventaja a las negras: las blancas debilitaron su flanco de rey sin ninguna compensación."
+    ]
+   },
+   {
+    "fen": "r1b1kbnr/pppp1Npp/8/6q1/2BnP3/8/PPPP1PPP/RNBQK2R b KQkq - 0 5",
+    "caption": "Juegan negras: el caballo blanco saltó a f7 y ataca a tu torre de h8. ¿Hace falta defenderse?",
+    "line": [
+     "Qxg2",
+     "Nc3",
+     "Qxh1+"
+    ],
+    "comments": [
+     "¡No hace falta defender nada! El caballo de f7 está lejos de su rey. La dama captura en g2 y amenaza la torre de h1 y, además, Qxe4+ seguido de Nf3# con el caballo de d4.",
+     "La defensa más tenaz: las blancas entregan la torre a cambio de desarrollar. Rf1 pierde por Qxe4+ y, si Be2, Nf3#.",
+     "La dama gana la torre con jaque. Aunque el caballo blanco se lleve la torre de h8, las negras quedan con ventaja decisiva (más de siete peones según el motor): un caballo solo no es un ataque."
+    ]
+   },
+   {
+    "fen": "r1bqk1nr/pppp1ppp/2n5/b7/2B1P3/2p2N2/P4PPP/RNBQ1RK1 w kq - 0 8",
+    "caption": "Juegan blancas: Gambito Evans. Tienes dos peones menos, pero ya enrocaste y tus piezas están listas; las negras no han desarrollado el flanco de rey. Elige la jugada que mejor usa la ventaja de desarrollo.",
+    "line": [
+     "Qb3"
+    ],
+    "comments": [
+     "La dama se une al alfil de c4 contra f7 y prepara Nxc3. Las negras tienen que gastar otra jugada en defender f7 (Qf6 o Qe7) y las blancas recuperan el peón de c3 desarrollando el caballo. Es la única jugada que mantiene la iniciativa: las demás dejan que las negras terminen de desarrollarse."
+    ]
+   }
+  ]
+ },
+ "a-rey-centro": {
+  "html": "<h4>Cuándo el rey en el centro está realmente en peligro</h4><p>No todo rey en e8 es un blanco. Está seguro si el centro está <b>cerrado</b> por cadenas de peones (como en muchas Francesas), si ya se cambiaron las damas o si el atacante no tiene piezas para abrir líneas. Está en peligro cuando se cumplen dos condiciones a la vez: <b>una columna central abierta o a punto de abrirse</b> y <b>más piezas atacantes que defensoras</b> en esa zona. Sin columnas abiertas, el rey del centro solo es incómodo; con ellas, es mortal.</p><h4>El orden de las operaciones</h4><ol><li><b>Impedir el enroque</b>: un jaque que obligue al rey a moverse, un alfil que controle f8 (desde a3 o desde h6) o una torre en la columna e que clave al alfil de e7.</li><li><b>Abrir la columna</b>: rupturas de peón (<span class=\"mv\">d5</span>, <span class=\"mv\">e5</span>, <span class=\"mv\">f5</span>) o sacrificios en e6, d5 o f7 que eliminen al peón que tapa la columna.</li><li><b>Traer las torres</b>: el enroque largo pone una torre en d1 de golpe; <span class=\"mv\">Re1</span> y <span class=\"mv\">Rhe1</span> completan la batería. Una torre que llega con jaque vale por dos jugadas.</li><li><b>El golpe final</b>: casi siempre es un sacrificio que <b>atrae</b> al rey a una casilla peor o <b>desvía</b> a la última pieza que tapaba la línea (<span class=\"mv\">Qd8+</span>, <span class=\"mv\">Rxe7+</span>, <span class=\"mv\">Qe6+</span>).</li></ol><h4>Sacrificios de dama contra el rey central</h4><p>Con el rey en e8 o e7 rodeado de sus propias piezas, la dama es a menudo la pieza que se entrega. Los motivos se repiten: <span class=\"mv\">Qe6+</span> cuando el peón f7 está clavado o sobrecargado y su captura abre la diagonal h5-e8; <span class=\"mv\">Qxd7+</span> para eliminar al defensor de f6 y dar jaque doble con el caballo; <span class=\"mv\">Qd8+</span> para atraer al rey a una casilla donde lo alcanza un alfil y luego una torre. La señal de alarma es siempre la misma: el rey tiene pocas casillas libres y las piezas atacantes controlan las que le quedan.</p><h4>Errores comunes del atacante</h4><ul><li><b>Dar jaques que ayudan al rey a escapar</b>. Un jaque que empuja al rey de e8 a f8-g8 lo lleva justamente al refugio que buscaba. Antes de dar jaque, comprueba adónde irá el rey.</li><li><b>Cambiar las piezas atacantes</b>. Cada cambio reduce tu fuerza en el centro; cambia solo defensores.</li><li><b>Ir por material</b>. Ganar un peón en el flanco de dama mientras el rey rival enroca es la forma más común de desperdiciar una posición ganadora.</li></ul><h4>Cómo pensarlo en la partida</h4><p>Cuando el rival se retrasa en enrocar, pregúntate en cada jugada: <i>¿qué columna o diagonal puedo abrir?</i>, <i>¿puedo quitarle el derecho a enrocar?</i> y <i>¿cuántas de mis piezas están ya apuntando a e8, e7, d7 o f7?</i> Si tienes tres o más piezas listas, busca sacrificios: en esa situación el material importa mucho menos que el tiempo.</p>",
+  "keyPoints": [
+   "El rey central es mortal solo si hay columnas abiertas y más atacantes que defensores.",
+   "Orden: impedir el enroque, abrir la columna, traer las torres, golpe final.",
+   "Antes de dar jaque, comprueba si ayudas al rey a escapar."
+  ],
+  "positions": [
+   {
+    "fen": "2kr2n1/pp1b1p1p/4pn2/3q2Q1/8/5N2/PP2PPPP/R1B1KB1R b KQ - 0 1",
+    "orientation": "black",
+    "caption": "El mecanismo de Réti–Tartakower con colores invertidos: el rey blanco sigue en e1 y la columna d está abierta. Juegan negras y dan mate en tres.",
+    "line": [
+     "Qd1+",
+     "Kxd1",
+     "Ba4+",
+     "Ke1",
+     "Rd1#"
+    ],
+    "comments": [
+     "¡Sacrificio de dama! Atrae al rey a d1, justo en la columna donde espera la torre de d8.",
+     "Única jugada: la dama está protegida por la torre y el rey no tiene otra casilla.",
+     "Jaque doble: el alfil da jaque desde a4 y, al apartarse de d7, destapa la torre de d8 sobre el rey.",
+     "Ante un jaque doble solo se puede mover el rey, y la única casilla libre es e1.",
+     "Mate: la torre entra en d1 protegida por el alfil de a4. El rey quedó en el centro con sus propias piezas (alfil de f1 y peones) tapándole la salida."
+    ]
+   },
+   {
+    "fen": "r1bQnk2/pp3ppp/8/8/8/2P1q3/PP2B1PP/R3KR2 b Q - 0 1",
+    "orientation": "black",
+    "caption": "El rey blanco está en e1 y su dama se ha metido en d8. Juegan negras: un sacrificio de dama con jaque deja la torre de a8 libre.",
+    "line": [
+     "Qxe2+",
+     "Kxe2",
+     "Bg4+",
+     "Ke3",
+     "Rxd8"
+    ],
+    "comments": [
+     "¡Sacrificio de dama en e2! Elimina al alfil y obliga al rey a quedarse en la columna e.",
+     "Única jugada.",
+     "Jaque de alfil desde g4: además de atacar al rey, el alfil abandonó c8 y dejó libre la octava fila.",
+     "El rey tiene que moverse (Ke1 o Ke3 dan lo mismo).",
+     "La torre de a8 captura la dama de d8. Las negras quedan con una pieza de ventaja (más de cuatro peones según el motor): el rey en el centro no pudo evitar el jaque que despejó la fila."
+    ]
+   }
+  ],
+  "drills": [
+   {
+    "fen": "r3kb1r/ppqn1pp1/7p/8/3pn2B/1Q1P4/PP2BPPP/R3K2R w KQkq - 0 1",
+    "caption": "Juegan blancas: el rey negro sigue en e8 y tu alfil de h4 puede llegar a h5. Mate en tres.",
+    "line": [
+     "Qe6+",
+     "fxe6",
+     "Bh5+",
+     "g6",
+     "Bxg6#"
+    ],
+    "comments": [
+     "¡Sacrificio de dama en e6! Desvía al peón f7, que tapaba la diagonal h5-e8.",
+     "Si Be7, Qxe7 es mate; tomar con el peón es lo único.",
+     "El alfil da jaque por la diagonal que acaba de abrirse.",
+     "Única defensa: interponer el peón.",
+     "Mate: el alfil captura en g6 y el rey, rodeado por sus propias piezas, no tiene casillas."
+    ]
+   },
+   {
+    "fen": "2kr3r/p1pq4/1p2Np2/nPb1n1pp/Q3P3/P1B3PP/3N1P2/2R1KB1R b K - 0 1",
+    "caption": "Juegan negras: el rey blanco sigue en e1 y la columna d está abierta. Encuentra el mate.",
+    "line": [
+     "Qxd2+",
+     "Bxd2",
+     "Nf3+",
+     "Ke2",
+     "Rxd2+",
+     "Kxf3",
+     "Rxf2#"
+    ],
+    "comments": [
+     "¡Sacrificio de dama en d2! Elimina al caballo que defendía f3 y e4.",
+     "Única jugada.",
+     "Jaque de caballo desde f3: el rey tiene que moverse.",
+     "Ke2 es lo más resistente; Kd1 permite un mate inmediato con la torre.",
+     "La torre entra con jaque en d2.",
+     "Única jugada: el rey captura el caballo.",
+     "Mate: la torre captura en f2 y el rey, en medio del tablero, no tiene casillas libres."
+    ]
+   },
+   {
+    "fen": "4rr1k/pq4p1/1p1Q3B/2p5/8/1P6/P3BPbP/3RK1R1 b - - 0 1",
+    "caption": "Juegan negras: el rey blanco está en e1, con la columna e semiabierta y la dama blanca lejos. Calcula hasta el mate.",
+    "line": [
+     "Rxe2+",
+     "Kxe2",
+     "Qe4+",
+     "Be3",
+     "Rxf2+",
+     "Kxf2",
+     "Qf3+",
+     "Ke1",
+     "Qxe3#"
+    ],
+    "comments": [
+     "¡Sacrificio de calidad en e2! Elimina al alfil y obliga al rey a salir.",
+     "Única jugada.",
+     "Jaque de dama: el rey tiene que taparse o huir.",
+     "Tapar con el alfil es lo más resistente.",
+     "Segundo sacrificio: la torre se entrega en f2 para abrir más el rey.",
+     "Lo más resistente; si Ke1, la dama da mate enseguida.",
+     "La dama sigue con jaque.",
+     "Única casilla.",
+     "Mate: la dama captura el alfil de e3 y el rey, en el centro, queda sin casillas."
+    ]
+   },
+   {
+    "fen": "2kr3r/Qppq1ppp/1B2b3/8/1b6/2N3P1/PP2PPBP/R3K2R b KQ - 0 1",
+    "caption": "Juegan negras: la columna d está abierta y el rey blanco sigue en e1. Encuentra la combinación.",
+    "line": [
+     "Bxc3+",
+     "bxc3",
+     "Qd2+",
+     "Kf1",
+     "Qd1+",
+     "Rxd1",
+     "Rxd1#"
+    ],
+    "comments": [
+     "El alfil se cambia por el caballo de c3 con jaque: elimina una pieza que podía defender d1.",
+     "Capturar es lo más natural; Kf1 tampoco salva al rey.",
+     "La dama entra con jaque en d2.",
+     "Única casilla.",
+     "¡Sacrificio de dama en d1! Atrae a la torre.",
+     "Única jugada.",
+     "Mate: la torre de d8 captura en d1. El rey en f1 está tapado por sus propias piezas."
+    ]
+   }
+  ]
+ },
+ "a-tormenta-peones": {
+  "html": "<h4>Contar la carrera</h4><p>Con enroques opuestos gana quien abre primero una columna contra el rey enemigo. Para saber si llegas a tiempo, <b>cuenta jugadas</b>: cuántas te faltan para crear el contacto (peón contra peón) y cuántas le faltan al rival. Una jugada de diferencia suele decidir la partida. Por eso los ataques de peones se juegan con jugadas que hacen dos cosas a la vez: <span class=\"mv\">g4</span> amenaza <span class=\"mv\">g5</span> y además controla f5 y h5; <span class=\"mv\">h4</span> prepara <span class=\"mv\">h5</span> y deja la torre de h1 detrás.</p><h4>Las piezas detrás de los peones</h4><p>Los peones abren la puerta; las piezas entran. Antes de cambiar peones, comprueba que tienes una <b>torre lista</b> en la columna que se va a abrir y que la dama puede llegar a h6, h7 o g7. Muchas tormentas terminan con un sacrificio de pieza, no de peón: un caballo que salta a f5 o d5, una torre que se entrega en h8 para que la dama entre con jaque, o un peón que corona en g7 tras abrirse la columna. El peón que llega a h6 o g6 tiene un valor especial: crea amenazas de mate en g7 o h7 aunque no se abra ninguna columna.</p><h4>Qué peón empujar</h4><ul><li>Si el defensor jugó <span class=\"mv\">h6</span>, empuja el peón g (el gancho es h6).</li><li>Si jugó <span class=\"mv\">g6</span>, empuja el peón h (el gancho es g6).</li><li>Si no movió ningún peón, el peón g gana tiempo contra el caballo de f6 y el peón h lo apoya; el sacrificio <span class=\"mv\">g5</span>-<span class=\"mv\">g6</span> o <span class=\"mv\">h5</span>-<span class=\"mv\">h6</span> fuerza el contacto.</li></ul><h4>Errores típicos</h4><ul><li><b>Permitir el bloqueo</b>: si a <span class=\"mv\">g5</span> el rival responde <span class=\"mv\">h5</span> y la posición se cierra, tu tormenta ha muerto. A veces hay que sacrificar un peón para que eso no ocurra.</li><li><b>Jugar en los dos flancos</b>: cada jugada defensiva en tu enroque es una jugada que no ataca. Defiende solo si sin defensa pierdes antes de llegar.</li><li><b>Abrir columnas a las que no llegas</b>: abrir la columna g cuando tus torres están en d1 y e1 solo ayuda al defensor, que la ocupa con sus torres.</li><li><b>Olvidar el centro</b>: si el rival puede romper con <span class=\"mv\">d5</span>, el ataque de peones pierde fuerza. La tormenta funciona mejor con el centro estable.</li></ul><h4>Recursos del defensor</h4><p>Conocerlos ayuda a atacar mejor. El defensor intenta: bloquear (<span class=\"mv\">h5</span>, <span class=\"mv\">g5</span>), cambiar las piezas que van a entrar por la columna, contraatacar en el centro, o devolver material para quitar la torre de la columna abierta. Cuando calcules tu tormenta, pregunta en cada paso: <i>¿puede cerrar?, ¿puede cambiar mi torre?, ¿puede romper en el centro?</i></p><h4>Un ejemplo de razonamiento</h4><p>Supón que tus peones ya están en g4 y h4, el rival tiene el rey en g8 con el peón en h6, y su contraataque en el flanco de dama necesita tres jugadas para llegar a tu rey. Si <span class=\"mv\">g5</span> abre una columna en dos jugadas y tienes la torre en g1, vas por delante: juega sin miedo y no gastes tiempo defendiendo. Si en cambio tu ataque necesita cuatro jugadas, la defensa previa (por ejemplo <span class=\"mv\">Kb1</span>) puede ser necesaria.</p>",
+  "keyPoints": [
+   "Cuenta las jugadas de la carrera: un tiempo de diferencia decide.",
+   "Abre solo columnas donde ya tienes una torre lista.",
+   "No permitas que el defensor cierre la posición con ...h5 o ...g5."
+  ],
+  "positions": [
+   {
+    "fen": "2kr3r/pp3pp1/2n1b3/2p5/5Qpq/2P1P3/PP1NB1P1/R1B1NRK1 b - - 0 1",
+    "orientation": "black",
+    "caption": "Enroques opuestos: el peón negro de g4 está a un paso de la dama blanca. La tormenta de peones gana tiempo atacando piezas.",
+    "line": [
+     "g5",
+     "Nef3",
+     "Qh1+",
+     "Kf2",
+     "gxf4",
+     "Rxh1",
+     "Rxh1"
+    ],
+    "comments": [
+     "El peón avanza a g5 atacando a la dama de f4. Cada avance con amenaza es un tiempo ganado en la carrera.",
+     "Las blancas contraatacan a la dama negra de h4 en lugar de retirar la suya.",
+     "La dama negra se entrega con jaque en h1 para forzar los cambios.",
+     "Única casilla.",
+     "El peón captura la dama blanca.",
+     "La torre de f1 recupera la dama en h1...",
+     "...y la torre de h8 la captura. Saldo: las negras quedan con una torre de ventaja (el motor da más de tres peones). La columna h y el peón g hicieron el trabajo."
+    ]
+   },
+   {
+    "fen": "r4r1k/pp4pp/1np1Q2P/4pqP1/8/3P4/PP6/1K1R2R1 w - - 0 1",
+    "orientation": "white",
+    "caption": "Los peones blancos de g5 y h6 ya están junto al rey negro. Mira cómo se combinan los peones y las piezas.",
+    "line": [
+     "hxg7+",
+     "Kxg7",
+     "Qh6+",
+     "Kg8",
+     "g6",
+     "hxg6",
+     "Rg5",
+     "Qxg5",
+     "Qxg5"
+    ],
+    "comments": [
+     "El peón captura en g7 con jaque: el enroque negro pierde su último peón protector.",
+     "Única jugada.",
+     "La dama entra con jaque en h6.",
+     "Kg8 es lo más natural; en h8 o f7 el rey recibe igualmente más jaques.",
+     "¡Otro avance de peón! g6 amenaza Qxh7#. Los peones del flanco no solo abren columnas: también rematan.",
+     "Las negras capturan para evitar el mate.",
+     "La torre ataca a la dama de f5, que es la pieza que defiende g6 y las casillas blancas alrededor del rey.",
+     "Capturar es lo menos malo: con Kf7, Rxf5+ gana aún más material.",
+     "Las blancas recuperan la torre y mantienen un ataque decisivo: el motor les da más de tres peones de ventaja."
+    ]
+   }
+  ],
+  "drills": [
+   {
+    "fen": "rn3r2/1b2q1pk/p2pp3/1p4p1/7P/8/PPP1QPP1/2KR3R w - - 0 1",
+    "caption": "Juegan blancas: enroques opuestos, tu peón de h4 choca con g5 y tienes la torre en h1. Abre la columna.",
+    "line": [
+     "hxg5+",
+     "Kg8",
+     "Rh8+",
+     "Kxh8",
+     "Qh5+",
+     "Kg8",
+     "g6",
+     "Qg5+",
+     "Qxg5"
+    ],
+    "comments": [
+     "El peón captura en g5 con jaque descubierto de la torre de h1: la columna h ya está abierta.",
+     "Si Kg6, la dama entra igual; el rey en g8 parece más seguro.",
+     "¡La torre se entrega en h8! Atrae al rey a la esquina para que la dama entre con jaque.",
+     "Si Kf7, la torre de h8 y la dama siguen la caza; capturar es lo más natural.",
+     "La dama entra con jaque por la columna abierta.",
+     "Única casilla.",
+     "El peón g llega a g6 y amenaza Qh7#. Los peones del flanco no solo abren columnas: también rematan.",
+     "Las negras tienen que entregar la dama para evitar el mate.",
+     "Las blancas se quedan con material de ventaja."
+    ]
+   },
+   {
+    "fen": "3r1b1r/1k2p1p1/p7/1pP1nN1p/1P6/NB2P2P/PB2nPPK/R6R b - - 0 1",
+    "caption": "Juegan negras: el rey blanco está en h2 con el peón en h3, y tu torre de h8 espera detrás del peón h5. Rompe la columna h.",
+    "line": [
+     "Ng4+",
+     "hxg4",
+     "hxg4+",
+     "Nh6",
+     "Rxh6#"
+    ],
+    "comments": [
+     "¡El caballo se entrega en g4 con jaque! Si el peón captura, la columna h se abre.",
+     "Única jugada.",
+     "El peón recaptura con jaque descubierto de la torre de h8: la columna h ya está abierta.",
+     "Las blancas solo pueden tapar con un caballo.",
+     "Mate: la torre captura en h6 (o en h4) y el rey no tiene escapatoria. El peón h hizo de ariete y la torre, desde atrás, remató."
+    ]
+   },
+   {
+    "fen": "2kr1b1r/pp1q4/5p2/2P1n1p1/1NPp2bp/PQ1P2P1/5P1P/1RB1R1KB b - - 0 1",
+    "caption": "Juegan negras: enroques opuestos, tu peón de h4 ya toca g3 y la torre de h8 está detrás. Abre la columna h.",
+    "line": [
+     "hxg3",
+     "fxg3",
+     "Rxh2"
+    ],
+    "comments": [
+     "El peón de h4 captura en g3 y abre la columna h para la torre de h8.",
+     "Las blancas recapturan con el peón f; con hxg3 la columna h quedaría abierta de inmediato.",
+     "¡La torre captura en h2! Si el rey la toma, Nf3+ y Qh7+ llegan con un ataque demoledor; si no, la torre se cambia por el alfil de h1 y el rey blanco queda desnudo (más de seis peones de ventaja según el motor)."
+    ]
+   },
+   {
+    "fen": "1k1r2r1/pb2q3/1p1p1n2/2P1np1p/Q5p1/P2NP3/1BP2PPP/1R1R1BK1 b - - 0 1",
+    "caption": "Juegan negras: tus peones están en g4 y h5 y la torre en g8. El peón de g4 puede abrir la columna g.",
+    "line": [
+     "Nf3+",
+     "gxf3",
+     "gxf3+",
+     "Kh1",
+     "Ne4"
+    ],
+    "comments": [
+     "¡El caballo se entrega en f3 con jaque! Si el peón g captura, la columna g se abre para tu torre.",
+     "Aceptar es lo natural; Kh1 tampoco resuelve los problemas.",
+     "El peón recaptura con jaque descubierto de la torre de g8.",
+     "Única casilla razonable.",
+     "Jugada tranquila: el otro caballo salta a e4 y prepara Qh4 y Nxf2+. El peón negro de f3, clavado junto al rey blanco, es una espina que no se puede sacar (casi cuatro peones de ventaja según el motor)."
+    ]
+   }
+  ]
+ },
+ "a-sac-f7": {
+  "html": "<h4>f7 después del enroque</h4><p>Enrocar no elimina la debilidad de f7: la reduce. Mientras la torre siga en f8, f7 tiene dos defensores (rey y torre). Pero en cuanto la torre se va a e8 o d8, o el caballo de f6 se marcha, el viejo punto débil reaparece. Las piezas que lo atacan son siempre las mismas: el alfil en la diagonal a2-g8 (en c4 o b3), el caballo que salta a g5 o e5 y la dama que llega a b3, f3 o h5.</p><h4>Tres patrones con el alfil y el caballo</h4><ul><li><b>Bxf7+ y Ng5+</b>: tras <span class=\"mv\">Bxf7+</span> <span class=\"mv\">Kxf7</span>, el caballo da jaque en g5 y destapa la diagonal de la dama de d1 hacia g4 o h5. Si hay una pieza negra suelta en g4, se pierde: es un ataque descubierto.</li><li><b>Ng5 con doble amenaza</b>: el caballo amenaza a la vez <span class=\"mv\">Nxf7</span> (horquilla de dama y torre) y <span class=\"mv\">Bxf7+</span>. Si la dama negra está en d8 y la columna d está abierta, el cambio de damas suele preceder a la captura en f7.</li><li><b>Bxf7+ como desviación</b>: el rey que captura en f7 deja de vigilar la dama de d8 o el caballo de e5. Mira siempre qué piezas defendía el rey antes del sacrificio.</li></ul><h4>El sacrificio que no funciona</h4><p>Hay sacrificios en f7 que se juegan por esperanza. El ejemplo clásico es entregar el alfil en f7 y el caballo en e5 en las primeras jugadas para dar un par de jaques con la dama: tras <span class=\"mv\">Kf8</span> el rey negro está incómodo, pero las negras tienen dos piezas por dos peones y las blancas no tienen más piezas desarrolladas para continuar. Un sacrificio en f7 necesita <b>al menos dos piezas que sigan al rey</b> o una ganancia material concreta que ya puedas calcular. Si después de los jaques no sabes qué hacer, no sacrifiques.</p><h4>El mismo golpe en f2, con las negras</h4><p>Todo lo anterior vale para las negras en f2. Una idea frecuente: el alfil blanco en g5, sin defensa y con el caballo de g1 aún en casa o en e2. Entonces <span class=\"mv\">Bxf2+</span> <span class=\"mv\">Kxf2</span> <span class=\"mv\">Ng4+</span> destapa la dama de d8 contra el alfil de g5, que cae. Otra, en el Gambito Stafford (que nace de la Petrov: <span class=\"mv\">e4</span> <span class=\"mv\">e5</span>, <span class=\"mv\">Nf3</span> <span class=\"mv\">Nf6</span>, <span class=\"mv\">Nxe5</span> <span class=\"mv\">Nc6</span>): si las blancas clavan con <span class=\"mv\">Bg5</span> sin cuidado, <span class=\"mv\">Nxe4</span> responde con la amenaza <span class=\"mv\">Bxf2+</span>, y si se toma la dama llega el mate.</p><h4>Errores comunes</h4><ul><li>Capturar en f7 con jaque cuando el rey puede escapar a e7 o f8 y quedarse con la pieza de más sin peligro.</li><li>No revisar la respuesta <span class=\"mv\">Kxf7</span> contra la alternativa <span class=\"mv\">Ke7</span>: a veces el rey no toma y el atacante ya no recupera nada.</li><li>Olvidar los jaques intermedios del defensor (<span class=\"mv\">Bb4+</span>, <span class=\"mv\">Qh4+</span>) que cambian el cálculo.</li></ul>",
+  "keyPoints": [
+   "f7 vuelve a ser débil cuando la torre deja f8 o se va el caballo de f6.",
+   "Bxf7+ y Ng5+ destapan la dama hacia g4 y h5.",
+   "Un sacrificio en f7 sin dos piezas que lo continúen suele ser solo una pieza menos."
+  ],
+  "positions": [
+   {
+    "fen": "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4",
+    "orientation": "white",
+    "caption": "El Gambito Jerome: un sacrificio en f7 sin piezas que lo continúen. Mira por qué falla.",
+    "line": [
+     "Bxf7+",
+     "Kxf7",
+     "Nxe5+",
+     "Nxe5",
+     "Qh5+",
+     "Kf8",
+     "Qxe5",
+     "d6"
+    ],
+    "comments": [
+     "Las blancas entregan el alfil en f7 con jaque. El motor ya lo considera un error: lo correcto era desarrollar con c3 o d3.",
+     "Aceptar es lo correcto.",
+     "Segundo sacrificio: el caballo toma en e5 con jaque para seguir dando jaques.",
+     "Las negras capturan: tienen dos piezas por dos peones.",
+     "Jaque doble: la dama ataca al rey y al caballo de e5.",
+     "El rey se aparta y entrega el caballo.",
+     "Las blancas recuperan una pieza y atacan el alfil de c5.",
+     "Las negras defienden el alfil y abren su alfil de c8. Balance: pieza por dos peones y casi tres peones de ventaja negra según el motor. El rey en f8 está incómodo, pero las blancas no tienen más piezas desarrolladas para atacarlo."
+    ]
+   },
+   {
+    "fen": "r1bqk2r/pppp1ppp/2n5/2b1p3/2B1P1n1/2PP1N2/PP3PPP/RNBQK2R w KQkq - 1 6",
+    "orientation": "white",
+    "caption": "Tras ...Ng4, el punto f7 queda con un solo defensor y el caballo de g4 está suelto. Un patrón típico con Bxf7+ y Ng5+.",
+    "line": [
+     "Bxf7+",
+     "Kxf7",
+     "Ng5+",
+     "Kg8",
+     "Qxg4",
+     "h6",
+     "Nf3"
+    ],
+    "comments": [
+     "El alfil captura en f7 con jaque. Funciona y gana un peón, aunque el motor prefiere d4, que abre el centro con más fuerza.",
+     "Si el rey no toma, las blancas se quedan con el peón y el rey negro sin enroque.",
+     "Jaque de caballo que destapa la dama de d1 sobre el caballo de g4: ataque descubierto.",
+     "El rey se aparta.",
+     "La dama recupera la pieza. Las blancas tienen un peón más y el rey negro perdió el enroque.",
+     "Las negras echan al caballo.",
+     "Ventaja blanca moderada (algo más de medio peón según el motor). Moraleja: el patrón Bxf7+ y Ng5+ gana material, pero conviene comparar siempre con la alternativa tranquila."
+    ]
+   }
+  ],
+  "drills": [
+   {
+    "fen": "r1bqkb1r/ppp2ppp/3p1n2/4n3/2B1P3/5N2/PPP2PPP/RNBQK2R w KQkq - 0 6",
+    "caption": "Juegan blancas: Defensa Philidor. El caballo negro acaba de recapturar en e5. Hay una forma de ganar material atacando f7.",
+    "line": [
+     "Nxe5",
+     "dxe5",
+     "Bxf7+",
+     "Ke7",
+     "Qxd8+",
+     "Kxd8"
+    ],
+    "comments": [
+     "Primero se cambia el caballo de e5, que defendía f7 y d7.",
+     "Única jugada razonable: Qe7 pierde todavía más.",
+     "¡Desviación! El alfil se entrega en f7: si Kxf7, Qxd8 gana la dama por la columna d abierta.",
+     "Lo mejor: el rey no captura. Pero ya perdió el enroque.",
+     "Cambio de damas con jaque: el rey negro se queda en el centro.",
+     "Las blancas tienen un peón de más, el alfil activo en f7 y el rey negro sin enroque: más de dos peones de ventaja según el motor."
+    ]
+   },
+   {
+    "fen": "r1bqk2r/ppp2ppp/2np1n2/2b1p1B1/2B1P3/2NP4/PPP1NPPP/R2QK2R b KQkq - 1 6",
+    "caption": "Juegan negras: el alfil blanco de g5 clava a tu caballo de f6, pero el caballo blanco está en e2, no en f3. Encuentra el golpe en f2.",
+    "line": [
+     "Bxf2+",
+     "Kxf2",
+     "Ng4+",
+     "Ke1",
+     "Qxg5"
+    ],
+    "comments": [
+     "El alfil se entrega en f2 con jaque. El objetivo no es el rey, sino el alfil de g5, que no tiene ningún defensor.",
+     "Capturar es lo natural. Kd2 evita la descubierta, pero deja el rey en el centro con un peón menos.",
+     "Jaque de caballo que destapa la dama de d8 contra el alfil de g5: ataque descubierto.",
+     "El rey se aparta; en f3 o g3 queda aún más expuesto.",
+     "La dama se lleva el alfil. Las negras recuperan la pieza con un peón de más y el rey blanco ya no puede enrocar."
+    ]
+   },
+   {
+    "fen": "r1bqk2r/ppp2ppp/2p2n2/2b3B1/4P3/3P4/PPP2PPP/RN1QKB1R b KQkq - 2 6",
+    "caption": "Juegan negras: Gambito Stafford. Las blancas acaban de clavar tu caballo con Bg5. ¿Qué haces?",
+    "line": [
+     "Nxe4",
+     "Qe2",
+     "Bxf2+",
+     "Kd1",
+     "Qxg5"
+    ],
+    "comments": [
+     "¡El caballo toma en e4 ignorando la clavada! Si Bxd8, Bxf2+ Ke2 y Bg4# es mate: el golpe en f2 con colores invertidos.",
+     "La mejor defensa: la dama ataca al caballo de e4 y se aparta de la clavada.",
+     "El golpe en f2: el alfil da jaque y el rey no puede capturar porque el caballo de e4 protege f2.",
+     "Kd1 es lo único razonable: Qxf2 entregaría la dama.",
+     "La dama se lleva el alfil de g5. Las negras tienen dos peones de más, mejor desarrollo y el rey blanco atrapado en d1."
+    ]
+   }
+  ]
+ },
+ "a-sac-g7": {
+  "html": "<h4>Los defensores de g7 y cómo neutralizarlos</h4><p>Antes de sacrificar en g7 identifica <b>quién lo defiende</b>: el rey siempre, a menudo un alfil (en f8, f6 o e5), a veces un caballo (en e6 o h5) o la dama desde la séptima fila. El sacrificio funciona cuando esos defensores están ausentes, clavados o sobrecargados. Si el alfil de f6 cubre g7 y además vigila otra casilla clave, ataca esa otra casilla primero: la sobrecarga deja g7 sin protección.</p><h4>Las tres piezas que se entregan</h4><ul><li><b>La torre</b>: <span class=\"mv\">Rxg7+</span> desde g3 o g4, normalmente con la dama preparada en h5, h6 o g5 para entrar después con jaque.</li><li><b>El alfil</b>: <span class=\"mv\">Bxg7</span> desde b2, f6 o h6. Tras <span class=\"mv\">Kxg7</span> la dama da jaque en g5, g4 o h6, y el rey ya no tiene peón que lo tape.</li><li><b>La dama</b>: el sacrificio más espectacular. <span class=\"mv\">Qxg7+</span> <span class=\"mv\">Kxg7</span> solo funciona si después hay jaques forzados de piezas menores y torres: un caballo que salta a f5 y h6, o un alfil que da jaque descubierto en e5 abriendo la columna h para una torre.</li></ul><h4>Después del sacrificio: los jaques de remate</h4><p>Una vez eliminado el peón g7, el rey negro tiene típicamente tres casillas: h8, f8 y h7 (más g6 si está libre). Tu cálculo debe incluir <b>todas</b>. Los remates más frecuentes: la dama en g5 seguida de <span class=\"mv\">Qf6#</span> si un caballo o un alfil controla g8; la dama en h6 con amenaza en h7 o g7; el caballo en f5 que, tras <span class=\"mv\">Kg8</span>, da mate en h6 si el peón f7 tapa la huida; y la dama en f3 o g4 que llega con jaque mientras un alfil en la gran diagonal cierra el paso al rey.</p><h4>Errores comunes</h4><ul><li>Calcular solo <span class=\"mv\">Kxg7</span> y olvidar <span class=\"mv\">Kh8</span> o <span class=\"mv\">Kf8</span>, que a veces son mejores defensas.</li><li>No ver que el defensor puede interponer con <span class=\"mv\">f6</span>, <span class=\"mv\">Rg8</span> o una pieza en g6.</li><li>Dejar tu propio rey expuesto a jaques: si el rival tiene dama y torre activas, un solo jaque intermedio puede deshacer el ataque.</li></ul><h4>Cómo pensarlo</h4><p>Cuenta atacantes y defensores de g7; mira qué pieza enemiga quedará clavada tras el sacrificio; y escribe mentalmente el árbol completo de respuestas del rey. Si en todas las ramas tienes al menos un jaque más o una amenaza de mate imparable, el sacrificio es correcto. Si en alguna rama te quedas sin jaques y con una pieza menos, busca otra cosa.</p><h4>El sacrificio en g7 como cambio de ritmo</h4><p>A veces el sacrificio en g7 no busca el mate sino ganar tiempo: tras <span class=\"mv\">Kxg7</span> el atacante da un jaque doble o descubierto que recupera la pieza con intereses (una torre que queda suelta, una dama que se gana por la diagonal). Por eso, cuando calcules, no te limites a buscar mates: pregúntate también qué piezas negras quedan sin defensa cuando el rey se ve obligado a capturar y moverse.</p>",
+  "keyPoints": [
+   "Identifica los defensores de g7 y neutralízalos antes de sacrificar.",
+   "Tras el sacrificio calcula todas las casillas del rey: h8, f8, h7 y g6.",
+   "El sacrificio de dama en g7 exige jaques forzados de las piezas menores."
+  ],
+  "positions": [
+   {
+    "fen": "2kN1br1/1b5p/p1q1p2p/2p5/2Pp4/8/PP1QBPPP/R2RN1K1 b - - 0 1",
+    "orientation": "black",
+    "caption": "Sacrificio de torre en g2 (el equivalente a g7) para abrir la gran diagonal: la dama de c6 y el alfil de b7 apuntan a h1. Juegan negras.",
+    "line": [
+     "Rxg2+",
+     "Kh1",
+     "Rg1+",
+     "Kxg1",
+     "Qh1#"
+    ],
+    "comments": [
+     "La torre se entrega en g2. Elimina el peón que tapaba la gran diagonal, donde la batería dama-alfil apunta a h1.",
+     "Kf1 lleva al mismo mate (Rg1+ y Qh1#), y si el caballo captura en g2, la dama toma en g2 con mate.",
+     "Segundo sacrificio: la torre atrae al rey a g1, dentro de la diagonal de la batería.",
+     "Forzado.",
+     "Mate: la dama, apoyada por el alfil de b7, da jaque en la esquina; el rey no puede ir a f1 (sigue en la línea de la dama) ni a g2 (controlada por la dama), y f2 y h2 están ocupadas por sus peones."
+    ]
+   },
+   {
+    "fen": "7k/4b1p1/p2pq1rp/1p2p2r/4Np2/P2Q1P1P/1PP2BPK/3R2R1 b - - 0 1",
+    "orientation": "black",
+    "caption": "Las torres doblan sobre el enroque blanco y la dama espera en e6. Juegan negras y rompen en g2.",
+    "line": [
+     "Rxg2+",
+     "Rxg2",
+     "Qxh3+",
+     "Kg1",
+     "Qh1#"
+    ],
+    "comments": [
+     "La torre se entrega en g2 para eliminar el peón que defendía h3. La otra torre ya apunta a h3 desde h5.",
+     "Lo más resistente: si el rey captura o se va a h1, Qxh3 es mate inmediato.",
+     "La dama entra en h3 con jaque, apoyada por la torre de h5.",
+     "Única casilla.",
+     "Mate: la dama da jaque desde h1 protegida por la torre de h5. La torre blanca de g2 y el alfil de f2 tapan las casillas de escape de su propio rey."
+    ]
+   }
+  ],
+  "drills": [
+   {
+    "fen": "r5k1/pb1q1ppp/1p6/2p1P3/8/QP2P3/P1N1nPPP/2R2R1K b - - 0 1",
+    "caption": "Juegan negras: el caballo de e2 está muy metido en el campo blanco. Encuentra el mate.",
+    "line": [
+     "Bxg2+",
+     "Kxg2",
+     "Qg4+",
+     "Kh1",
+     "Qf3#"
+    ],
+    "comments": [
+     "¡El alfil de b7 se entrega en g2! La idea: el caballo de e2 ya controla g1, así que el rey blanco no tiene adónde huir si la dama negra entra con jaque.",
+     "Única jugada: Kg1 no es posible porque el caballo de e2 controla g1.",
+     "La dama entra con jaque por la diagonal d7-h3. El rey no puede ir a f3 ni a h3 (los cubre la dama) y en f1 está su propia torre.",
+     "Única casilla disponible.",
+     "Mate: la dama da jaque en la gran diagonal, el caballo de e2 sigue cubriendo g1 y g2 está controlada por la dama. El sacrificio en g2 sirvió para abrir esa diagonal."
+    ]
+   },
+   {
+    "fen": "6k1/1pP3p1/6rp/p2P3r/2Q1p2q/PP2B2P/5PP1/R4RK1 b - - 0 1",
+    "caption": "Juegan negras: tienes dos torres en las columnas g y h y la dama en h4. ¿Cómo rompes el enroque blanco?",
+    "line": [
+     "Rxg2+",
+     "Kxg2",
+     "Qxh3+",
+     "Kg1",
+     "Qg4#"
+    ],
+    "comments": [
+     "¡Sacrificio de torre en g2! Elimina el peón que protege h3 y obliga al rey a salir. La torre de h5 y la dama quedan listas para entrar por la columna h.",
+     "Si el rey se esconde en h1, la dama toma en h3 con jaque y el mate llega igual: aceptar es lo más resistente.",
+     "La dama captura en h3 con jaque, apoyada por la torre de h5. El rey ya no tiene peón g que lo tape.",
+     "Única jugada: f3 y g3 están controladas por la dama, y h2 y h1 por la dama y la torre de h5.",
+     "Mate: la dama da jaque en g4 apoyada por la torre de h5... y cualquier jaque por la columna h (Qh1# o Qh2#) también mata. Lo importante era el sacrificio inicial."
+    ]
+   },
+   {
+    "fen": "2r1r1k1/pb3p1p/1p2p1p1/3nP3/8/1P4Pq/PB1Q1PBP/R4RK1 b - - 0 1",
+    "caption": "Juegan negras: la dama ya está en h3 y el caballo de d5 espera su momento. Calcula hasta el final.",
+    "line": [
+     "Qxg2+",
+     "Kxg2",
+     "Nf4+",
+     "Kg1",
+     "Nh3#"
+    ],
+    "comments": [
+     "¡Sacrificio de dama en g2! El rey tiene que capturar y queda en la misma diagonal que el alfil de b7, tapada solo por tu caballo de d5.",
+     "Única jugada legal: el rey tiene que capturar.",
+     "¡Jaque doble! El caballo salta a f4 con jaque y al mismo tiempo destapa el alfil de b7, que ahora ataca al rey por la gran diagonal.",
+     "Única jugada: f3 y h1 están en la diagonal del alfil, h3 la controla el caballo y f1 y g3 están ocupadas por piezas blancas.",
+     "Mate de caballo en h3: el rey en g1 está encerrado por sus propios peones f2 y h2 y su torre de f1. Un sacrificio de dama por un mate de caballo."
+    ]
+   },
+   {
+    "fen": "5k2/1p3prp/p4pbQ/3P4/5RqP/1B2R3/P4PPK/2r5 b - - 0 1",
+    "caption": "Juegan negras: la dama blanca en h6 amenaza tu rey, pero es tu turno. Encuentra la combinación decisiva.",
+    "line": [
+     "Qxg2+",
+     "Kxg2",
+     "Be4+",
+     "Kh2",
+     "Rh1#"
+    ],
+    "comments": [
+     "¡La dama se entrega en g2! Abre la columna g para la torre de g7 y deja al rey blanco sin peón protector.",
+     "Forzado: si el rey va a h1 o h3, la torre de g7 da mate o gana la dama blanca.",
+     "Jaque doble: el alfil da jaque desde e4 y, al apartarse de g6, la torre de g7 también ataca al rey por la columna g. Ante un jaque doble solo vale mover el rey.",
+     "El rey vuelve a h2; si va a h3, el mate es el mismo: la torre de c1 llega a h1.",
+     "Mate: la torre de c1 llega a h1. La dama blanca de h6, tan amenazante, no participó en la defensa."
+    ]
+   }
+  ]
+ },
+ "a-doble-alfiles": {
+  "html": "<h4>El orden de las jugadas y sus variantes</h4><p>El esquema básico es <span class=\"mv\">Bxh7+</span>, <span class=\"mv\">Qh5+</span>, <span class=\"mv\">Bxg7</span>, pero hay variantes que conviene conocer. A veces el primer sacrificio es en g7 y el segundo en h7; otras, el alfil de g7 no se toma con el rey y el segundo sacrificio sirve para abrir la columna g a una torre. La regla es que el primer alfil <b>saca al rey</b> y el segundo <b>derriba la última protección</b>; la dama entra en medio con jaque para no dar tiempo al defensor.</p><h4>Qué debe defender el atacante</h4><p>Tras <span class=\"mv\">Bxg7</span> las blancas amenazan <span class=\"mv\">Qh8#</span> o <span class=\"mv\">Bf6</span> con mate en h8. Las negras tienen tres recursos y hay que haberlos calculado antes de empezar:</p><ul><li><b>Tomar el alfil</b>: <span class=\"mv\">Kxg7</span> y entonces <span class=\"mv\">Qg4+</span> (o <span class=\"mv\">Qg5+</span>) con la torre llegando por la tercera fila a h3 o g3.</li><li><b>Bloquear con el peón f</b>: <span class=\"mv\">f6</span> o <span class=\"mv\">f5</span> abren al rey una salida por f7; mira si tienes jaques en la diagonal h5-e8 o en la columna g.</li><li><b>Devolver material</b>: el defensor puede entregar la dama o una torre para cortar el ataque. El atacante tiene que tener claro que el balance final le favorece.</li></ul><h4>La versión con medio sacrificio</h4><p>No siempre hacen falta los dos alfiles. Si la dama ya está en h5 o h6 y el rey sigue en g8, a menudo basta con un solo alfil que se entrega en g7 (o en h7) para que la dama y una torre den mate por la columna h. Del mismo modo, si el peón h7 ya no está, el sacrificio en g7 basta. Reconocer estas «mitades» del patrón es tan útil como conocer el patrón completo.</p><h4>Partidas de referencia</h4><p>Además de Lasker–Bauer (Ámsterdam, 1889), el ejemplo más citado es Nimzowitsch–Tarrasch (San Petersburgo, 1914), donde fue el bando negro quien entregó los dos alfiles contra el enroque blanco. Ambas partidas muestran los mismos ingredientes: alfiles en diagonales paralelas apuntando a h7 y g7, dama cerca y una torre lista para pasar por la tercera fila.</p><h4>Lista de comprobación</h4><ol><li>¿Mis dos alfiles apuntan a h7 y g7 sin obstáculos?</li><li>¿Hay caballo defensor en f6? Si lo hay, ¿puedo eliminarlo antes?</li><li>¿La dama llega a h5 o g4 con jaque en una jugada?</li><li>¿Qué torre llega a la columna g o h y en cuántas jugadas?</li><li>¿He calculado <span class=\"mv\">f6</span>/<span class=\"mv\">f5</span> y la devolución de material?</li></ol><h4>Cuando el defensor no acepta</h4><p>Si después de <span class=\"mv\">Bxh7+</span> el rey no captura y se va a h8, el alfil sigue en h7 controlando g8: el atacante puede continuar con <span class=\"mv\">Qh5</span> y jaques descubiertos. Rechazar el primer sacrificio rara vez salva al defensor, pero cambia el cálculo: ya no hay <span class=\"mv\">Qh5+</span> con jaque, y conviene comprobar que la amenaza sigue siendo más fuerte que cualquier contraataque.</p>",
+  "keyPoints": [
+   "El primer alfil saca al rey; el segundo derriba la última protección.",
+   "Calcula las defensas ...f6/...f5 y la devolución de material.",
+   "A veces basta medio patrón: un alfil en g7 con la dama ya en la columna h."
+  ],
+  "positions": [
+   {
+    "fen": "r2q1rk1/5ppp/p6B/3p4/1Pp5/P5R1/2PQ2PP/b5K1 w - - 0 1",
+    "orientation": "white",
+    "caption": "Medio patrón de los dos alfiles: un solo alfil en g7 basta cuando la torre ya está en la columna g y la dama puede llegar a h6.",
+    "line": [
+     "Bxg7",
+     "Bxg7",
+     "Qh6",
+     "Qb6+",
+     "Qxb6"
+    ],
+    "comments": [
+     "El alfil se entrega en g7 y elimina el peón.",
+     "El alfil negro de a1 recaptura por la gran diagonal, pero queda clavado por la torre de g3.",
+     "La dama llega a h6 y amenaza Qxg7#, porque la torre de g3 protege la captura.",
+     "Un jaque desesperado: las negras ofrecen el cambio de damas para escapar del mate.",
+     "Las blancas capturan la dama y quedan con dama y torre contra dos torres y alfil: ventaja clara (algo más de tres peones según el motor)."
+    ]
+   },
+   {
+    "fen": "6k1/1b1n3p/1p1ppr2/p7/2PP3q/PQBBP1pN/6P1/R5K1 b - - 0 1",
+    "orientation": "black",
+    "caption": "Medio patrón de los dos alfiles con colores invertidos: un alfil en g2 y una torre por la segunda fila. Juegan negras.",
+    "line": [
+     "Bxg2",
+     "Kxg2",
+     "Rf2+",
+     "Nxf2",
+     "Qh2+",
+     "Kf3",
+     "Qxf2+",
+     "Kg4",
+     "Nf6+",
+     "Kg5",
+     "h6+"
+    ],
+    "comments": [
+     "El alfil de b7 se entrega en g2 y elimina el peón del enroque.",
+     "Aceptar es lo natural.",
+     "La torre se entrega con jaque en f2 para atraer al caballo.",
+     "Las blancas capturan.",
+     "La dama entra con jaque en h2.",
+     "El rey sale hacia el centro del tablero.",
+     "La dama recupera material con jaque.",
+     "El rey sigue huyendo.",
+     "El caballo se suma con jaque.",
+     "El rey avanza todavía más.",
+     "El peón h da jaque: el rey blanco, solo en el centro del tablero, está perdido (más de cinco peones de ventaja negra según el motor)."
+    ]
+   }
+  ],
+  "drills": [
+   {
+    "fen": "3qr1k1/2p2ppp/1r1b4/1B1p4/3Nb3/P3P3/1P1B1PPP/R2Q1RK1 b - - 0 1",
+    "caption": "Juegan negras: tus alfiles de d6 y e4 apuntan a h2 y g2, y la torre de b6 puede pasar por la sexta fila. Destroza el enroque blanco.",
+    "line": [
+     "Bxh2+",
+     "Kxh2",
+     "Qh4+",
+     "Kg1",
+     "Bxg2"
+    ],
+    "comments": [
+     "Primer alfil: captura en h2 con jaque y saca al rey de su refugio. Es el doble sacrificio de alfiles con colores invertidos.",
+     "Aceptar es lo más resistente. Si Kh1, la dama entra igual en h4 y el alfil de h2 sigue dominando g1.",
+     "La dama entra con jaque. El rey no tiene peón h que lo proteja y la torre de b6 está lista para llegar a g6 o h6.",
+     "Única jugada.",
+     "Segundo alfil: elimina el peón g2. Amenaza Qh1# (la dama protegida por el alfil) y también Bxf1. Las blancas solo pueden alargar la partida con f4, y entonces Rg6 lleva la torre a la columna g: el motor da más de ocho peones de ventaja a las negras."
+    ]
+   },
+   {
+    "fen": "1r1q1rk1/pbpn2pp/1p1bp3/5p2/3P4/2PBP3/PPQN1PPP/R1B2RK1 b - - 0 1",
+    "caption": "Juegan negras: tus dos alfiles apuntan al enroque blanco desde d6 y b7. Juega como Tarrasch.",
+    "line": [
+     "Bxh2+",
+     "Kxh2",
+     "Qh4+",
+     "Kg1",
+     "Bxg2"
+    ],
+    "comments": [
+     "Primer sacrificio: el alfil de d6 captura en h2 con jaque y saca al rey de su refugio.",
+     "Si el rey no toma (Kh1), el alfil se queda en h2 y la dama entra igual en h4: aceptar no empeora nada para las blancas.",
+     "La dama entra con jaque en h4. Fíjate que la torre de f8 y el peón f5 están listos para la tercera fila.",
+     "Única casilla: g1.",
+     "¡Segundo sacrificio! El alfil de b7 se lleva el peón g2. Ahora amenaza Qh1# y Qh2#; las blancas tienen que devolver mucho material (f3, que entrega la calidad) para no recibir mate."
+    ]
+   },
+   {
+    "fen": "5rk1/ppp3p1/2bb3B/5p1Q/2Pp4/7R/PPP3PP/4qBK1 w - - 0 1",
+    "caption": "Juegan blancas: la dama negra en e1 clava tu alfil de f1, pero tus piezas ya rodean al rey negro. ¿Cómo abres la última puerta?",
+    "line": [
+     "Bxg7",
+     "Kxg7",
+     "Qh7+",
+     "Kf6",
+     "Rh6+"
+    ],
+    "comments": [
+     "¡El alfil se entrega en g7! Elimina el último peón que protege al rey. Si las negras no capturan, la dama y el alfil de g7 dominan h7 y h8 y el rey queda aún peor.",
+     "Capturar es lo más resistente según el motor.",
+     "La dama entra con jaque en h7. El rey no puede ir a g8 ni a g6 (los cubre la dama) y en f8 está su torre: tiene que salir a f6.",
+     "Única casilla.",
+     "La torre entra con jaque en h6 y el rey queda en el centro del tablero frente a dama y torre. Tras Kg5 o Ke5 llega Qg7+ y la caza termina con ganancia decisiva de material (unos seis peones según el motor)."
+    ]
+   },
+   {
+    "fen": "1r1r1k2/pb2npb1/1q3NpB/1p2Pp2/2p3PQ/2P1n2P/PP4B1/RN3R1K w - - 0 1",
+    "caption": "Juegan blancas: el caballo de f6 se ha instalado junto al rey negro. Encuentra el mate.",
+    "line": [
+     "Bxg7+",
+     "Kxg7",
+     "Qh7+",
+     "Kf8",
+     "Qh6#"
+    ],
+    "comments": [
+     "¡El alfil de h6 se entrega en g7! Elimina al alfil defensor del fianchetto y atrae al rey a g7, donde la dama lo alcanza por la columna h.",
+     "Única jugada legal: el rey tiene que capturar el alfil.",
+     "La dama entra con jaque en h7, protegida por el caballo de f6. El rey no puede ir a f6 (ocupada) ni a g8 (la cubre la dama).",
+     "Única casilla: f8.",
+     "Mate: la dama baja a h6 y cubre g7, f8 y f6 queda tapada por el caballo, e7 por su propio caballo. La pieza clave fue el caballo de f6."
+    ]
+   }
+  ]
+ },
+ "a-sac-e6": {
+  "html": "<h4>Las señales que preceden al sacrificio</h4><p>El sacrificio en e6 rara vez sale de la nada. Antes suelen aparecer varias de estas señales: el rey negro sigue en e8 o acaba de ir a f8; la torre blanca ya está en e1 o la dama en e2; un caballo blanco en d4 toca e6 y el alfil en b3 o c4 lo apunta por la diagonal; la dama negra está en c7 o b6, casillas que el caballo atacará desde e6 o c7; y el peón f de las blancas ha avanzado a f4 o f5 para presionar e6 por tercera vez. Cuantas más señales veas, más probable es que el sacrificio funcione.</p><h4>Preparar con f4-f5</h4><p>Un plan muy típico es añadir presión sobre e6 antes de sacrificar. Con <span class=\"mv\">f4</span>-<span class=\"mv\">f5</span> las blancas amenazan <span class=\"mv\">fxe6</span>, y las negras se ven obligadas a elegir entre cambiar en f5 (lo que abre la diagonal del alfil de b3 y la columna f) o mantener la tensión. Si el peón e6 recibe tres golpes (caballo, alfil y peón) y solo tiene dos defensores, el sacrificio deja de ser especulativo: es simple aritmética.</p><h4>¿Alfil o caballo? Qué pieza entregar</h4><ul><li><span class=\"mv\">Bxe6</span> abre la diagonal a2-g8 de forma permanente si el peón f captura, y el caballo de d4 entra después en e6 con tempo. Conviene cuando el alfil blanco no tiene otro futuro y el caballo en e6 atacará algo concreto (dama en c7 o d8, torre en f8 o g7).</li><li><span class=\"mv\">Nxe6</span> conserva el alfil, que puede seguir apuntando a f7 o g8, y suele llegar con amenaza directa: jaque doble, ataque a la dama o a una torre. Conviene cuando, tras <span class=\"mv\">fxe6</span>, otra pieza blanca captura en e6 con jaque.</li></ul><h4>Valorar la posición tras el sacrificio</h4><p>Pocas veces el sacrificio en e6 da mate. Lo normal es que las blancas reciban <b>dos peones y la iniciativa</b> por la pieza. Para saber si compensa, revisa: ¿puede el rey negro esconderse en f7-g8 o se queda en el centro?; ¿quedan casillas blancas débiles (d5, f5, f7) que tus piezas puedan ocupar?; ¿las piezas negras pueden coordinarse en tres o cuatro jugadas? Si la respuesta a la última pregunta es sí, necesitas un golpe inmediato, no una ventaja a largo plazo.</p><h4>Errores comunes</h4><ul><li>Sacrificar cuando el negro ya enrocó: sin rey en e8 la columna e abierta pierde gran parte de su fuerza.</li><li>No calcular la defensa <span class=\"mv\">Kf7</span>, que a veces protege e6 y g7 a la vez.</li><li>Olvidar que el peón negro de e6, una vez desaparecido, deja libre d5 para las piezas negras también: un caballo negro en d5 bloquea mucho.</li></ul><h4>Pensarlo en la partida</h4><p>Cuando veas las señales, calcula en este orden: primero la captura con el peón f (la respuesta natural); después las alternativas que no aceptan (una retirada de la dama, <span class=\"mv\">Kf7</span>, un contraataque); y por último cuenta el material y el tiempo que tardan las piezas negras en coordinarse. Si en todas las ramas el rey negro queda en el centro y tus torres llegan antes, juega el sacrificio.</p>",
+  "keyPoints": [
+   "Señales: rey en e8, torre en e1, caballo en d4 y alfil en b3 apuntando a e6.",
+   "Presiona e6 con f4-f5 antes de sacrificar.",
+   "Elige Nxe6 cuando la recaptura llega con jaque o con amenaza directa."
+  ],
+  "positions": [
+   {
+    "fen": "1k3r2/ppp1n2p/3b4/1P1nN3/6Bq/P2PP3/1BQ2PRP/7K b - - 0 1",
+    "orientation": "black",
+    "caption": "El sacrificio en e3 (e6 con colores invertidos) contra un rey ya enrocado: aquí el objetivo es la columna f.",
+    "line": [
+     "Nxe3",
+     "fxe3",
+     "Rf1+",
+     "Rg1",
+     "Rf2",
+     "Qxf2",
+     "Qxf2"
+    ],
+    "comments": [
+     "El caballo de d5 se entrega en e3. Si el peón f captura, la columna f se abre hacia el rey blanco.",
+     "Las blancas aceptan.",
+     "La torre entra con jaque por la columna f recién abierta.",
+     "Única jugada: tapar con la torre.",
+     "La torre se instala en f2, en la segunda fila: ataca a la dama de c2 y se suma al ataque contra el rey.",
+     "Las blancas devuelven la dama para no recibir mate.",
+     "Las negras quedan con dama contra torre y piezas activas: más de tres peones de ventaja según el motor."
+    ]
+   },
+   {
+    "fen": "r1b3k1/1q1p3p/4p1p1/pp4r1/P2Q4/1B6/1PP2PPP/R4RK1 w - - 0 1",
+    "orientation": "white",
+    "caption": "Sacrificio en e6 como desviación: el peón d7 es el único que tapa la columna d. Juegan blancas.",
+    "line": [
+     "Bxe6+",
+     "dxe6",
+     "Qd8+",
+     "Kf7",
+     "Qxg5"
+    ],
+    "comments": [
+     "El alfil se entrega en e6 con jaque. Si el peón d captura, la columna d queda abierta para la dama.",
+     "Capturar es lo natural; Kf8 tampoco salva la torre de g5.",
+     "La dama entra con jaque en d8, aprovechando la columna abierta.",
+     "El rey se aparta.",
+     "La dama captura la torre de g5. Las blancas ganan una calidad y la posición negra se desmorona (casi seis peones según el motor)."
+    ]
+   }
+  ],
+  "drills": [
+   {
+    "fen": "r3r1k1/pp1q1pp1/2p4p/3n4/1P6/P2PP1Pn/2Q2PBP/B1RR1K2 b - - 0 1",
+    "caption": "Juegan negras: el rey blanco está en f1, la dama en c2 y la torre en d1. Tu caballo de d5 puede saltar a e3 (el equivalente al sacrificio en e6, con colores invertidos).",
+    "line": [
+     "Nxe3+",
+     "fxe3",
+     "Qf5+",
+     "Ke1",
+     "Rxe3+",
+     "Kd2",
+     "Re2+"
+    ],
+    "comments": [
+     "¡El caballo se entrega en e3 con jaque! Ataca a la vez al rey, a la dama de c2 y a la torre de d1. Si el peón f captura, se abre la columna f hacia el rey.",
+     "Capturar es lo mejor: si el rey se mueve, el caballo se lleva la dama.",
+     "La dama da jaque por la columna f que acaba de abrirse.",
+     "El rey intenta huir hacia el flanco de dama.",
+     "La torre toma el peón de e3 con jaque: la columna e también se abre y el rey sigue en el centro.",
+     "Única casilla razonable.",
+     "Jaque con enfilada: la torre ataca al rey y, detrás de él, a la dama de c2 por la segunda fila. Las negras ganan la dama."
+    ]
+   },
+   {
+    "fen": "2krr3/pp3p1p/8/1bpn4/8/2PqP3/PP1NQPPP/R1B1K1NR b KQ - 0 1",
+    "caption": "Juegan negras: las damas están enfrentadas en d3 y e2 y el rey blanco sigue en e1. Hay un golpe que gana material.",
+    "line": [
+     "Nxe3",
+     "Qxd3",
+     "Nc2+",
+     "Kd1",
+     "Bxd3"
+    ],
+    "comments": [
+     "¡El caballo salta a e3! Destapa la torre de d8, que ahora defiende tu dama, y amenaza Nc2+ con horquilla de rey y torre. El rey blanco en el centro hace que todo funcione.",
+     "Cambiar damas parece lo más lógico, pero llega un jaque intermedio.",
+     "Jaque intermedio antes de recapturar: el caballo da jaque al rey y ataca a la torre de a1.",
+     "Kf1 no cambia nada: el rey tiene que moverse.",
+     "Ahora sí recuperas la dama con el alfil, y la torre de a1 sigue atacada por el caballo. Las negras quedan con una pieza de ventaja (más de cinco peones según el motor)."
+    ]
+   },
+   {
+    "fen": "r3k2r/pp3ppp/1qn5/2bpp3/6b1/2NBP1B1/PPP2KPP/RNQ4R b kq - 0 1",
+    "caption": "Juegan negras: el rey blanco está en f2, en la misma diagonal que tu dama de b6. Aprovéchalo.",
+    "line": [
+     "Bxe3+",
+     "Qxe3",
+     "d4",
+     "Qe1",
+     "dxc3+",
+     "Kf1",
+     "cxb2"
+    ],
+    "comments": [
+     "¡El alfil se entrega en e3 con jaque! Atrae a la dama blanca a una casilla donde será atacada.",
+     "Lo más natural es capturar con la dama. Si el rey se mueve, el alfil se queda en e3 dominando el tablero.",
+     "¡El peón ataca a la dama y al caballo de c3 a la vez! Además, cuando el peón de d4 se mueva, la dama de b6 dará jaque por la diagonal.",
+     "La dama tiene que apartarse; en cualquier casilla (Qe1, Qg5) el problema es el mismo.",
+     "Jaque descubierto: el peón captura en c3 y la dama de b6 da jaque al rey de f2.",
+     "El rey se aparta del jaque (tapar con la dama en e3 lleva a un cambio de damas igual de perdido).",
+     "Tras el jaque, el peón de c3 captura en b2 y coronará en a1 o b1: las negras ganan material decisivo."
+    ]
+   },
+   {
+    "fen": "r1b1r1k1/pp3pp1/2pb3p/3p1B1P/8/2P1BP2/PPQNKPq1/R3R3 b - - 0 1",
+    "caption": "Juegan negras: el rey blanco está en e2, en medio de la columna e. Rómpele la defensa de e3.",
+    "line": [
+     "Rxe3+",
+     "Kxe3",
+     "Qg5+",
+     "Ke2",
+     "Bxf5"
+    ],
+    "comments": [
+     "¡Sacrificio de calidad en e3 con jaque! Elimina al alfil que protegía el rey y abre la columna e.",
+     "Si Kd1, Rxe1+ y la dama entra por g1 con jaques: tampoco hay salvación. Capturar es la respuesta natural.",
+     "Jaque de dama: el rey en e3 no tiene peones que lo cubran.",
+     "El rey vuelve a e2. Si Kd4 o Kd3, el rey queda aún más expuesto a los jaques de dama y alfil.",
+     "Ahora el alfil de c8 se lleva el alfil de f5, que estaba colgando. Las negras tienen pieza y ataque: la torre de a8 entrará por la columna e."
+    ]
+   }
+  ]
+ },
+ "a-sac-f5-d5": {
+  "html": "<h4>Por qué el caballo molesta aunque no lo tomen</h4><p>Un caballo blanco en f5 ataca d6, e7, g7 y h6; en d5 ataca c7, e7, f6 y b6. Contra una estructura con peones en d6 y e6 esas casillas son exactamente las que sostienen la posición negra. Por eso el sacrificio tiene una doble función: si lo aceptan, se abre la columna e; si lo rechazan, el caballo se queda clavado en el corazón de la posición y las negras tienen que retroceder piezas para cubrir sus casillas. Antes de jugarlo pregúntate qué hará el caballo si nadie lo toca.</p><h4>Las tres respuestas que hay que calcular</h4><ol><li><b>Aceptar</b> (<span class=\"mv\">exf5</span> o <span class=\"mv\">exd5</span>): calcula tu recaptura y qué columna o diagonal se abre. Muchas veces la recaptura con el peón amenaza descubrir un jaque o avanzar (<span class=\"mv\">exd6</span> al paso, <span class=\"mv\">e6</span>).</li><li><b>Rechazar</b>: ¿el caballo puede quedarse? ¿Gana algo por sí mismo (una captura en g7 o e7 con jaque)?</li><li><b>Contraatacar</b>: el defensor puede ignorar el caballo y atacar otra cosa, por ejemplo tu dama o tu rey. Si eso funciona, el sacrificio fracasa.</li></ol><h4>Los golpes de apoyo</h4><p>El sacrificio casi siempre va acompañado de un golpe táctico concreto. Los más frecuentes: un jaque de alfil en la diagonal a2-g8 (<span class=\"mv\">Bc4+</span>) cuando el peón e6 ha desaparecido; la torre que entra en e7 con jaque (<span class=\"mv\">Rxe7+</span>) aprovechando que la columna e está abierta; una clavada del caballo de f6 que impide su defensa; y la captura en g7 que destapa la dama hacia h7. Si no encuentras ningún golpe de apoyo, el sacrificio es solo una apuesta.</p><h4>El peón que recaptura</h4><p>Tras <span class=\"mv\">Nd5</span> <span class=\"mv\">exd5</span> <span class=\"mv\">exd5</span>, el peón de d5 corta en dos la posición negra: el alfil de c8 y la dama quedan separados del flanco de rey, y la casilla e6 deja de estar protegida. Tras <span class=\"mv\">Nf5</span> <span class=\"mv\">exf5</span> <span class=\"mv\">exf5</span>, el peón de f5 se convierte en ariete: amenaza <span class=\"mv\">f6</span> y abre la columna e. En ambos casos la columna e abierta frente al rey negro es la compensación principal.</p><h4>Errores comunes</h4><ul><li>Sacrificar cuando las negras pueden enrocar en la jugada siguiente: el rey se va y la columna e queda vacía.</li><li>Recapturar con una pieza en lugar del peón y perder el efecto de apertura.</li><li>No ver que el defensor puede devolver la pieza para cambiar damas.</li></ul><h4>Pensarlo en la partida</h4><p>Una forma práctica de decidir: imagina la posición tras la captura y la recaptura con el peón, y cuenta cuántas piezas tuyas atacan el rey negro y cuántas negras lo defienden. Si tienes al menos una pieza más en la zona y el rey no puede enrocar en una jugada, el sacrificio suele ser correcto aunque no veas un mate. Si el balance es igual, necesitas un golpe táctico concreto que lo justifique.</p>",
+  "keyPoints": [
+   "Calcula tres respuestas: aceptar, rechazar y contraatacar.",
+   "Busca siempre el golpe de apoyo: Bc4+, Rxe7+, clavadas, captura en g7.",
+   "Tras la recaptura con peón, la columna e abierta es la compensación principal."
+  ],
+  "positions": [
+   {
+    "fen": "r4rk1/ppp3pp/2npp1q1/4p3/7P/3P1N2/PPPBQ1P1/R4K1R b - - 0 1",
+    "orientation": "black",
+    "caption": "Un caballo en d4 (el d5 de la lección, con colores invertidos) contra un rey blanco que no ha enrocado. Juegan negras.",
+    "line": [
+     "Nd4",
+     "h5",
+     "Qg4",
+     "Qe4",
+     "Nxf3",
+     "Qxg4",
+     "Nh2+",
+     "Kg1",
+     "Nxg4"
+    ],
+    "comments": [
+     "El caballo salta a d4 atacando a la dama de e2 y al caballo de f3.",
+     "Las blancas atacan a la dama con el peón h.",
+     "La dama se ofrece en g4: si Nxg4, el caballo de d4 toma la dama blanca.",
+     "Las blancas ofrecen el cambio de damas en e4.",
+     "El caballo captura en f3. Si ahora las blancas toman la dama, el caballo tiene preparado un jaque.",
+     "Las blancas capturan la dama negra.",
+     "Jaque intermedio: el caballo da jaque desde h2 antes de recuperar la dama.",
+     "Única casilla razonable.",
+     "El caballo recupera la dama. Las negras quedan con una pieza de ventaja (casi tres peones según el motor)."
+    ]
+   },
+   {
+    "fen": "4rrk1/pp4pp/6q1/8/1BPpN2b/P2n1P2/1P4PP/1R1Q1RK1 b - - 0 1",
+    "orientation": "black",
+    "caption": "Un caballo en f4 (el f5 de la lección, con colores invertidos) prepara una cadena de golpes tácticos. Juegan negras.",
+    "line": [
+     "Nf4",
+     "Qd2",
+     "Rxe4",
+     "fxe4",
+     "Bf2+",
+     "Rxf2",
+     "Nh3+",
+     "Kf1",
+     "Rxf2+",
+     "Qxf2",
+     "Nxf2"
+    ],
+    "comments": [
+     "El caballo salta a f4, junto al rey blanco, y prepara saltos con jaque a h3 y e2.",
+     "Las blancas atacan al caballo y preparan la defensa.",
+     "¡La torre captura en e4! Elimina al caballo blanco que defendía f2 y g3.",
+     "Las blancas recuperan la torre.",
+     "El alfil se entrega en f2 con jaque: es el golpe de apoyo que justificaba todo.",
+     "Capturar con la torre parece lo natural.",
+     "Jaque de caballo desde h3 que ataca al rey y destapa la columna f.",
+     "El rey se aparta.",
+     "La torre captura en f2 con jaque.",
+     "La dama recaptura...",
+     "...y el caballo se la lleva. Las negras quedan con material decisivo (unos cinco peones según el motor)."
+    ]
+   }
+  ],
+  "drills": [
+   {
+    "fen": "5rk1/p1pn2pp/3bp3/3n4/4p2q/P1N1P3/1P1PQ1PP/R1B2BKR b - - 0 1",
+    "caption": "Juegan negras: el rey blanco está en g1 y la dama en e2. Ofrece una pieza para abrir líneas (es el clásico Nf5 de las blancas, con colores invertidos).",
+    "line": [
+     "Nf4",
+     "exf4",
+     "Bc5+",
+     "d4",
+     "exd3+"
+    ],
+    "comments": [
+     "¡El caballo se ofrece en f4, donde lo puede tomar el peón e3! Ataca a la dama de e2 y, si el peón captura, la diagonal a7-g1 queda abierta para el alfil de d6.",
+     "Capturar es la respuesta natural y, según el motor, ninguna alternativa salva a las blancas.",
+     "El alfil da jaque por la diagonal que acaba de abrirse.",
+     "Tapar con el peón parece resolverlo todo.",
+     "¡Captura al paso con jaque descubierto! El peón de e4 toma en d3, el alfil de c5 vuelve a dar jaque y el peón ataca a la dama de e2. Las negras ganan la dama: los sacrificios en f5/f4 casi siempre esconden un golpe así."
+    ]
+   },
+   {
+    "fen": "4r2r/pp6/2n3k1/2Np1bp1/3P3p/1Q2P1qP/PP1KB1P1/2R2R2 b - - 0 1",
+    "caption": "Juegan negras: el rey blanco está en d2, en medio del tablero, y tu torre de e8 apunta a la columna e. Ábrela.",
+    "line": [
+     "Nxd4",
+     "exd4",
+     "Rxe2+",
+     "Kxe2",
+     "Qxg2+",
+     "Rf2",
+     "Re8+",
+     "Qe3",
+     "Rxe3+"
+    ],
+    "comments": [
+     "¡El caballo se entrega en d4! Si el peón e captura, la columna e queda abierta frente al rey blanco (el sacrificio en d5 con colores invertidos).",
+     "Capturar es lo más natural; si no, el caballo de d4 sigue amenazando e2, f3 y b3.",
+     "La torre captura el alfil con jaque: el rey tiene que tomar y queda en la columna e.",
+     "Única jugada razonable.",
+     "La dama entra con jaque y gana un peón más.",
+     "Interponer la torre es lo más resistente.",
+     "La segunda torre entra en la columna e con jaque.",
+     "La dama blanca tiene que tapar.",
+     "La torre captura la dama: las negras ganan material decisivo."
+    ]
+   },
+   {
+    "fen": "2rr2k1/6p1/4np2/1Q6/1P3PPp/P2P1P1q/5R1P/R1B3K1 b - - 0 1",
+    "caption": "Juegan negras: tu dama está en h3 y el peón de f3 lo defiende solo la torre de f2. Sobrecarga a las piezas blancas.",
+    "line": [
+     "Nd4",
+     "Qb7",
+     "Rc2",
+     "Rxc2",
+     "Nxf3+",
+     "Qxf3",
+     "Qxf3"
+    ],
+    "comments": [
+     "El caballo salta a d4 atacando a la dama de b5 y al peón de f3.",
+     "La dama tiene que salir y busca contrajuego desde b7.",
+     "¡La torre se entrega en c2! Si la torre de f2 la captura, deja de defender f3.",
+     "Las blancas aceptan: es lo mejor, porque la torre de c2 amenazaba la segunda fila.",
+     "El caballo captura en f3 con jaque: la torre de f2 ya no está para defender.",
+     "La dama recupera el caballo...",
+     "...pero tu dama la captura en f3. Las negras quedan con dama contra torre y ataque contra el rey."
+    ]
+   },
+   {
+    "fen": "2kr3r/pp3p2/3p2n1/2p1p3/4P3/3PR1Bq/PPPQ1P1N/R5K1 b - - 0 1",
+    "caption": "Juegan negras: tu dama está en h3 y amenaza g2. Encuentra la forma de abrir la columna g.",
+    "line": [
+     "Nf4",
+     "Bxf4",
+     "Rdg8+",
+     "Bg3",
+     "Qxh2+",
+     "Kf1",
+     "Qh1+",
+     "Ke2",
+     "Qxa1"
+    ],
+    "comments": [
+     "¡El caballo salta a f4! Amenaza Qg2# y ofrece la pieza. Es el caballo en f5 de la lección con colores invertidos: aunque lo tomen, algo se abre.",
+     "Si el alfil captura, deja libre la columna g.",
+     "La torre ocupa la columna g con jaque.",
+     "Tapar con el alfil es lo natural; Rg3 tampoco salva a las blancas.",
+     "La dama captura el caballo de h2 con jaque.",
+     "Única casilla.",
+     "Jaque en h1: el rey tiene que avanzar.",
+     "Única casilla.",
+     "La dama captura la torre de a1. Las negras quedan con material de ventaja decisivo."
+    ]
+   }
+  ]
+ },
+ "a-fianchetto": {
+  "html": "<h4>Por qué el alfil de g7 vale más que un alfil</h4><p>En el enroque con fianchetto el alfil de g7 sustituye al peón que avanzó: cubre f6, h6 y h8, las casillas que el peón g6 dejó de controlar. Por eso, cuando ese alfil desaparece, las casillas oscuras alrededor del rey quedan <b>permanentemente débiles</b>: ningún peón negro podrá volver a cubrirlas. Una dama blanca en f6 o h6, un peón en f6 o un caballo en h6 se vuelven piezas casi imposibles de expulsar.</p><h4>Otras formas de eliminar al alfil</h4><ul><li>Si el alfil no acepta el cambio con <span class=\"mv\">Bh6</span> y se retira a h8, las blancas igualmente se quedan con el control de h6 y g7.</li><li>Cambiar primero el caballo de f6 (con <span class=\"mv\">Bxf6</span> o un caballo en d5) deja al alfil de g7 aislado y a la dama blanca con acceso a f6 y h6.</li><li>El peón en <span class=\"mv\">e5</span> y luego <span class=\"mv\">f6</span> encierra al alfil y crea el patrón de Lolli: amenaza <span class=\"mv\">Qh6</span> y mate en g7.</li></ul><h4>Técnica para abrir la columna h</h4><p>El plan clásico es <span class=\"mv\">h4</span>-<span class=\"mv\">h5</span>-<span class=\"mv\">hxg6</span>. Hay dos detalles importantes. Primero, después de <span class=\"mv\">hxg6</span> hay que ver cómo recaptura el negro: con <span class=\"mv\">fxg6</span> se debilita la diagonal a2-g8 y la casilla e6; con <span class=\"mv\">hxg6</span> la columna h queda abierta para la torre. Segundo, la torre de h1 puede <b>entregarse</b> en h7 o h8 para atraer al rey y que la dama entre con jaque: <span class=\"mv\">Rh8+</span> <span class=\"mv\">Kxh8</span> <span class=\"mv\">Qh6+</span> es un mecanismo que conviene tener grabado. La dama en h6 o h7 junto a un caballo o alfil que controle g8 o f8 es la imagen final más frecuente.</p><h4>Defensas del negro</h4><p>El defensor intenta: frenar con <span class=\"mv\">h5</span> (entonces el atacante busca <span class=\"mv\">g4</span> para abrir de nuevo), evitar el cambio de alfiles retirando a h8, llevar una torre a f8 o e8 para que el rey tenga f8, o contraatacar en el otro flanco con sacrificios de calidad en c3. Estos recursos no son teoría abstracta: son la razón por la que el atacante no puede perder ni un tiempo.</p><h4>Errores comunes</h4><ul><li>Cambiar el alfil de g7 y no tener piezas para aprovechar las casillas oscuras: la debilidad solo importa si alguien la usa.</li><li>Abrir la columna h sin haber llevado la dama a la zona.</li><li>Olvidar que el rey negro puede huir por f8-e7 si las casillas f8 y e7 no están controladas.</li></ul><h4>Pensarlo en la partida</h4><p>Ante un enroque con fianchetto, hazte tres preguntas: ¿puedo cambiar o encerrar el alfil de g7?, ¿tengo un peón que pueda llegar a h5 o a f6?, ¿mi dama tiene acceso a h6 o f6? Con dos respuestas afirmativas el ataque suele estar justificado. Y recuerda que el rey negro rara vez está solo: cuenta también la dama y las torres que pueden volver a defender en una jugada.</p>",
+  "keyPoints": [
+   "Sin el alfil de g7 las casillas oscuras f6 y h6 quedan débiles para siempre.",
+   "Rh8+ Kxh8 Qh6+ es un mecanismo clave para abrir paso a la dama.",
+   "Contra ...h5, el atacante suele responder con g4 para reabrir."
+  ],
+  "positions": [
+   {
+    "fen": "r2br1k1/pp1q1p1p/2p1nBpQ/3pR3/1P6/P1PB4/5PPP/5RK1 w - - 0 1",
+    "orientation": "white",
+    "caption": "Sin alfil en g7, el alfil blanco de f6 se ha instalado en el agujero. Juegan blancas y dan mate en tres.",
+    "line": [
+     "Qxh7+",
+     "Kxh7",
+     "Rh5+",
+     "Kg8",
+     "Rh8#"
+    ],
+    "comments": [
+     "¡Sacrificio de dama en h7! El rey tiene que capturar y queda en la columna h.",
+     "Kf8 permite Qh8 con mate; capturar es lo más resistente.",
+     "La torre de e5 llega a la columna h con jaque.",
+     "Única casilla: el alfil de f6 controla g7.",
+     "Mate: la torre en h8 y el alfil de f6, que domina g7, encierran al rey. Las casillas oscuras sin el alfil del fianchetto fueron la clave."
+    ]
+   },
+   {
+    "fen": "r5k1/pp2nppp/2p4q/3p1P2/3P2Q1/P1NBP1Pr/1P2R3/R1B3K1 b - - 0 1",
+    "orientation": "black",
+    "caption": "Las negras atacan un enroque sin fianchetto (peón en g3) por la columna h. Juegan negras y dan mate.",
+    "line": [
+     "Rh1+",
+     "Kf2",
+     "Qh2+",
+     "Kf3",
+     "Rf1+",
+     "Rf2",
+     "Qxf2#"
+    ],
+    "comments": [
+     "La torre entra con jaque en h1.",
+     "El rey intenta escapar por f2 (en g2 el mate es igual de rápido).",
+     "La dama sigue con jaque desde h2.",
+     "Única casilla.",
+     "La torre da jaque desde f1.",
+     "Única defensa: interponer la torre.",
+     "Mate: la dama captura en f2 (también valía Rxf2). La columna h abierta y el rey sin peones delante fueron suficientes."
+    ]
+   }
+  ],
+  "drills": [
+   {
+    "fen": "6k1/rp2ppBp/1N6/2P4q/pPP4p/Q3PbP1/P4P2/5RK1 b - - 0 1",
+    "caption": "Juegan negras: el alfil blanco del fianchetto se ha ido hasta g7 y tu alfil ocupa f3, junto al rey blanco. Abre la columna h.",
+    "line": [
+     "hxg3",
+     "fxg3",
+     "Qh1+",
+     "Kf2",
+     "Qg2+",
+     "Ke1",
+     "Qe2#"
+    ],
+    "comments": [
+     "La palanca h4xg3 abre la columna h contra el enroque con fianchetto (con colores invertidos). Ahora amenaza Qh1#, con la dama protegida por el alfil de f3.",
+     "La defensa más resistente: el peón f captura y deja libre f2 como escape para el rey.",
+     "La dama entra con jaque por la columna abierta, protegida por el alfil de f3.",
+     "Única casilla.",
+     "La dama persigue al rey: g2 también está protegida por el alfil.",
+     "Única casilla.",
+     "Mate: la dama en e2, protegida por el alfil de f3. El alfil blanco del fianchetto, lejos en g7, dejó sin defensa todas las casillas claras alrededor de su rey."
+    ]
+   },
+   {
+    "fen": "2q5/Q2b1pk1/8/2p5/2PbP1pr/3P2P1/R3B2P/5R1K b - - 0 1",
+    "caption": "Juegan negras: el rey blanco está en h1 y tu torre ya está en la columna h. Encuentra el mate.",
+    "line": [
+     "Rxh2+",
+     "Kxh2",
+     "Qh8+",
+     "Kg2",
+     "Qh3#"
+    ],
+    "comments": [
+     "¡Sacrificio de torre en h2! Elimina el último peón del enroque y atrae al rey a la columna h.",
+     "Única jugada.",
+     "La dama entra con jaque por la columna h, ya abierta.",
+     "Única casilla: g1 y g3 están controladas (g1 por el alfil de d4, g3 por su propio peón).",
+     "Mate: la dama en h3, protegida por el peón de g4. El alfil de d4 cubre f2 y g1: dama, peón y alfil en casillas de colores distintos se reparten el trabajo."
+    ]
+   },
+   {
+    "fen": "r1bq1rk1/pp3p1p/2np1Qp1/2p1N3/2P5/1P2P3/1B1P1PPP/2n1KB1R w K - 0 1",
+    "caption": "Juegan blancas: tu dama ya está en f6, en el agujero que dejó el alfil del fianchetto. Encuentra el mate.",
+    "line": [
+     "Qh8+",
+     "Kxh8",
+     "Nxf7+",
+     "Kg8",
+     "Nh6#"
+    ],
+    "comments": [
+     "¡Sacrificio de dama! Atrae al rey a h8, en la gran diagonal del alfil de b2.",
+     "Única jugada.",
+     "Jaque doble: el caballo captura en f7 con jaque y destapa el alfil de b2, que también da jaque por la gran diagonal.",
+     "Ante el jaque doble el rey solo puede moverse, y g8 es la única casilla.",
+     "Mate: el caballo da jaque desde h6, el alfil de b2 cubre g7 y la torre de f8 tapa la salida. Sin el alfil de g7, las casillas oscuras del enroque eran indefendibles."
+    ]
+   },
+   {
+    "fen": "2k4r/1p4p1/p2b1pp1/3p4/2B5/2P1BPPq/PP2Q3/R4RK1 b - - 0 1",
+    "caption": "Juegan negras: tu dama está en h3, la torre en la columna h y el rey blanco solo tiene los peones f3 y g3. Calcula el mate.",
+    "line": [
+     "Qh1+",
+     "Kf2",
+     "Bxg3+",
+     "Kxg3",
+     "Qh4+",
+     "Kg2",
+     "Qh2#"
+    ],
+    "comments": [
+     "La dama entra con jaque en h1. El rey tiene que salir hacia f2.",
+     "Única casilla.",
+     "¡Sacrificio de alfil en g3! Elimina el último peón que cubría al rey y lo atrae a g3.",
+     "Única jugada: el rey tiene que capturar.",
+     "La dama vuelve con jaque desde h4, apoyada por la torre de h8.",
+     "Única casilla.",
+     "Mate: la dama en h2, protegida por la torre de h8. El rey no puede ir a f1 (su torre) ni a f2 (sigue en la línea de la dama)."
+    ]
+   }
+  ]
+ },
+ "a-enroque-h6": {
+  "html": "<h4>Cómo cambia la geometría tras ...h6</h4><p>Con el peón en h6 el rey gana una casilla de escape (h7), pero el peón g7 pasa a ser el único que sostiene la estructura y la casilla g6 queda más débil. Además, el peón de h6 se puede atacar con piezas: la dama desde d2 o c1, el alfil desde e3 o c1, el caballo desde f5 o g4, la torre por la tercera fila. Lo que era una jugada útil se convierte en un blanco.</p><h4>Las cuatro formas de romper en h6</h4><ul><li><b>Con alfil</b>: <span class=\"mv\">Bxh6</span> <span class=\"mv\">gxh6</span> <span class=\"mv\">Qxh6</span>. La dama queda junto al rey; hace falta una segunda pieza (caballo en g5, torre en la tercera fila, alfil en d3) para dar el golpe.</li><li><b>Con caballo</b>: <span class=\"mv\">Nxh6+</span> casi siempre con jaque desde f5. Si <span class=\"mv\">gxh6</span>, las diagonales y la columna g se abren; si el rey se aparta, el caballo puede seguir con capturas en f7.</li><li><b>Con torre</b>: la torre llega a h3 o se eleva por la tercera fila y se entrega en h6. Tras <span class=\"mv\">gxh6</span>, la dama entra con jaque en g6 o en h6.</li><li><b>Con dama</b>: <span class=\"mv\">Qxh6</span> aprovechando que el peón g7 está clavado o que capturar abre la columna g a una torre.</li></ul><h4>Después de gxh6: qué hace falta</h4><p>Una vez que el peón g se ha ido a h6, el rey negro está desnudo por la columna g y por la diagonal h7-b1. Las piezas que rematan son: la dama en g6 o h6 dando jaques, una torre que se traslada a la columna g, un caballo que llega a f6 o f5 con jaque doble y el alfil de d3 que controla h7. Si tras el sacrificio el defensor puede jugar <span class=\"mv\">Kh7</span> y <span class=\"mv\">Kg8</span> y cubrir g7 con dama o torre, necesitas más piezas antes de empezar.</p><h4>La palanca g4-g5 en detalle</h4><p>Con enroques opuestos el peón de h6 es un gancho perfecto. El orden habitual es <span class=\"mv\">g4</span>, <span class=\"mv\">h4</span> y <span class=\"mv\">g5</span>; a veces <span class=\"mv\">Rg1</span> para que, tras <span class=\"mv\">hxg5</span> <span class=\"mv\">hxg5</span>, ambas columnas (g y h) queden en manos blancas. El defensor intenta responder a <span class=\"mv\">g4</span> con <span class=\"mv\">h5</span>!? o con una ruptura central inmediata.</p><h4>Errores comunes</h4><ul><li>Sacrificar en h6 con la dama sola: sin una segunda pieza el rey escapa por h7 y g8.</li><li>No ver la defensa <span class=\"mv\">f5</span> o <span class=\"mv\">f6</span>, que tapa diagonales y deja salir al rey por f7.</li><li>Jugar <span class=\"mv\">g4</span> con el rey propio en el mismo flanco y el centro abierto.</li></ul><h4>Pensarlo en la partida</h4><p>Si tu rival acaba de jugar <span class=\"mv\">h6</span>, revisa de inmediato qué piezas tuyas pueden llegar a h6 en una o dos jugadas y cuáles pueden seguir después de <span class=\"mv\">gxh6</span>. Cuenta además los defensores: el caballo de f6, el alfil de e7 y la dama. Si tus atacantes superan a los defensores en uno, busca el sacrificio; si son iguales, prepara primero con una torre en la tercera fila.</p>",
+  "keyPoints": [
+   "h6 puede romperse con alfil, caballo, torre o dama: cada sacrificio necesita una segunda pieza.",
+   "Tras gxh6, la columna g y la diagonal h7-b1 son las vías de remate.",
+   "Con enroques opuestos, g4-h4-g5 usa h6 como gancho; Rg1 prepara la apertura."
+  ],
+  "positions": [
+   {
+    "fen": "3r1rk1/ppp2pp1/n6p/4P2R/8/3B2PQ/PP3q2/1K1R4 w - - 0 1",
+    "orientation": "white",
+    "caption": "Sacrificio de torre en h6 seguido de la dama: cuando dos piezas llegan detrás, el rey no se salva.",
+    "line": [
+     "Rxh6",
+     "gxh6",
+     "Qxh6",
+     "Qf5",
+     "Bxf5"
+    ],
+    "comments": [
+     "La torre se entrega en h6. Si el peón g captura, la dama entra en h6.",
+     "Aceptar es lo natural.",
+     "La dama captura en h6 y amenaza Qh7# (el alfil de d3 apoya). Además la torre de d1 vigila la columna d.",
+     "Las negras tapan la diagonal del alfil con la dama, pero la pierden.",
+     "El alfil captura la dama. Las blancas tienen una ventaja aplastante (el motor da más de trece peones)."
+    ]
+   },
+   {
+    "fen": "3r2k1/p2R1pp1/Qb6/P4P1p/7q/2B1P2P/1P3nB1/5RK1 b - - 0 1",
+    "orientation": "black",
+    "caption": "El peón blanco de h3 (el h6 de la lección) es el objetivo. Juegan negras: sacrificio de caballo.",
+    "line": [
+     "Nxh3+",
+     "Bxh3",
+     "Qg3+",
+     "Kh1",
+     "Qxh3+"
+    ],
+    "comments": [
+     "El caballo captura en h3 con jaque: rompe el enroque blanco.",
+     "El alfil recaptura, la defensa más natural.",
+     "La dama entra con jaque en g3: el peón g ya no protege al rey.",
+     "Única casilla.",
+     "La dama recupera la pieza en h3 con jaque. El rey blanco queda desnudo y las negras ganan material decisivo (más de siete peones según el motor)."
+    ]
+   }
+  ],
+  "drills": [
+   {
+    "fen": "r4rk1/pp2b1p1/1qn4p/2p5/6b1/2P2N2/PPQNBB2/2K4R w - - 0 1",
+    "caption": "Juegan blancas: el rey negro tiene el peón en h6 y tu torre está en la columna h. ¿Cómo aprovechas el gancho?",
+    "line": [
+     "Rxh6",
+     "gxh6",
+     "Qg6+",
+     "Kh8",
+     "Qxh6+"
+    ],
+    "comments": [
+     "¡La torre se entrega en h6! Si el peón g captura, el rey queda desnudo en la columna g y en la diagonal b1-h7.",
+     "Aceptar es lo natural; rechazar con Rf4 aguanta algo más, pero la torre blanca queda instalada junto al rey y el ataque sigue.",
+     "La dama entra con jaque en g6. El rey solo puede ir a h8.",
+     "Única casilla.",
+     "La dama captura en h6 con jaque; seguirán Bc4+ y el salto del caballo a g5, con un ataque decisivo (más de seis peones según el motor). El sacrificio funcionó porque detrás de la torre llegaron la dama, el alfil y el caballo."
+    ]
+   },
+   {
+    "fen": "2r4k/Qp4pp/8/4n3/4p2q/1P3r1P/PB3PP1/R2R2K1 b - - 0 1",
+    "caption": "Juegan negras: el rey blanco tiene el peón en h3 (el equivalente a h6) y tu torre ya está en f3. Rompe el enroque.",
+    "line": [
+     "Rxh3",
+     "gxh3",
+     "Nf3+",
+     "Kf1",
+     "Qxh3+",
+     "Ke2",
+     "Rc2+"
+    ],
+    "comments": [
+     "¡La torre se entrega en h3! Destruye la estructura del enroque y abre la columna g.",
+     "Aceptar es lo más natural; si las blancas no capturan, la torre de h3 sigue junto al rey con amenazas.",
+     "Jaque de caballo desde f3: el rey tiene que moverse y la dama negra entrará en h3.",
+     "Kf1 es la casilla que más resiste; en g2 o h1 los jaques llegan aún más rápido.",
+     "La dama toma en h3 con jaque. El rey está cada vez más lejos de su refugio.",
+     "Única casilla.",
+     "La torre entra con jaque en c2: el rey blanco, en medio del tablero, recibe jaques de dama, torre y caballo. Ventaja decisiva (casi siete peones según el motor)."
+    ]
+   },
+   {
+    "fen": "rnbqr1k1/pp3pp1/2pp3p/2b2N2/2B1n3/2N4P/PPP2PP1/R1BQ1RK1 w - - 0 1",
+    "caption": "Juegan blancas: el negro jugó ...h6 y tu caballo está en f5. Hay una doble captura que destapa al rey.",
+    "line": [
+     "Nxh6+",
+     "gxh6",
+     "Bxf7+",
+     "Kxf7",
+     "Qh5+"
+    ],
+    "comments": [
+     "El caballo captura en h6 con jaque. Si gxh6, el rey pierde el peón g y la diagonal hacia f7 queda abierta.",
+     "Capturar es lo más natural; si el rey se aparta, el caballo de h6 sigue causando estragos junto a f7.",
+     "Segundo golpe: el alfil captura en f7 con jaque. El rey tiene que tomar.",
+     "Si el rey no captura, el alfil de f7 y la dama ganan aún más.",
+     "Jaque doble de dama: ataca al rey y, por la quinta fila, al alfil de c5. Las blancas recuperan el material invertido y el rey negro queda al descubierto."
+    ]
+   },
+   {
+    "fen": "r6r/ppp3k1/3b1pp1/3P1q2/1P1Qn3/P4N1P/1B3PP1/R4RK1 b - - 0 1",
+    "caption": "Juegan negras: el peón blanco de h3 está defendido solo por el peón g. Usa tus torres.",
+    "line": [
+     "Rxh3",
+     "gxh3",
+     "Rh8",
+     "Qxe4",
+     "Qxe4"
+    ],
+    "comments": [
+     "¡La torre se entrega en h3! Abre la columna h para la otra torre.",
+     "Aceptar es lo natural.",
+     "Jugada tranquila y decisiva: la segunda torre llega a la columna h y amenaza Qxh3 y Rh1 con mate. Las blancas no tienen tiempo para defenderse.",
+     "Las blancas devuelven la dama para no recibir mate.",
+     "Las negras se quedan con dama contra torre: una tranquila jugada de torre tras el sacrificio valió más que cualquier jaque."
+    ]
+   }
+  ]
+ },
+ "a-mates-greco": {
+  "html": "<h4>La geometría de cada patrón</h4><ul><li><b>Greco</b>: rey en h8, peón propio en g7, alfil atacante en la diagonal a2-g8 que le quita g8, y dama o torre que da jaque por la columna h. Si el peón g7 no está, el rey escapa por g7: el patrón ya no sirve.</li><li><b>Lolli</b>: peón atacante en f6 que controla g7 y e7, dama que llega a h6 o g5 para entrar en g7. El peón de f6 hace de soporte permanente.</li><li><b>Damiano</b>: peón atacante en g6 que protege h7 y controla f7; la dama mata en h7. La casilla f8 debe estar tapada (por una torre propia del rey, por ejemplo).</li></ul><h4>Los sacrificios que abren el camino</h4><p>En los tres patrones la dama necesita llegar a la columna h, y casi siempre hay algo en medio. Los sacrificios típicos son: el caballo que da jaque en g6 para obligar a <span class=\"mv\">hxg6</span> y abrir la columna h (Greco); la torre que se entrega en h7 o h8 para atraer al rey a una casilla donde la dama lo alcanza con jaque (Damiano y Lolli); y el alfil que captura en f7 con jaque para echar al rey a h8 y despejar después la diagonal a2-g8 (Greco). Si tienes una torre en la columna h y la dama detrás, piensa siempre en <span class=\"mv\">Rh8+</span>: tras <span class=\"mv\">Kxh8</span> la dama entra con jaque.</p><h4>Lolli en la práctica: cómo llevar el peón a f6</h4><p>El peón llega a f6 por dos caminos: <span class=\"mv\">e5</span> seguido de un cambio o un sacrificio en f6, o el avance <span class=\"mv\">f4</span>-<span class=\"mv\">f5</span>-<span class=\"mv\">f6</span>. A menudo el peón llega con tempo, atacando una pieza, y la dama ya espera en g5 o h6. Fíjate en un detalle: el peón en f6 también ataca e7, así que un alfil negro en e7 suele estar perdido o clavado. Si además tienes un alfil que puede ofrecerse en g7 con jaque, el defensor no puede cubrir todas las casillas.</p><h4>Defensas y cómo anularlas</h4><p>El defensor intenta crear una salida (<span class=\"mv\">h6</span>, <span class=\"mv\">Kh7</span>), traer la dama a f8 o g8, o devolver material con jaques. Contra la salida en h7, el alfil de d3 o el peón en g6 la controlan; contra la dama defensora, una desviación o un jaque intermedio. Como defensor, recuerda: el peón atacante en f6 o g6 debe eliminarse cuanto antes, aunque cueste una calidad.</p><h4>Pensarlo en la partida</h4><p>Cuando el rey rival esté en h8 o g8 con pocas casillas, recorre mentalmente los tres patrones: ¿tengo un alfil en la diagonal de g8?, ¿un peón en f6 o g6?, ¿una línea para que la dama llegue a la columna h? Si la respuesta a dos preguntas es sí, busca el sacrificio que quita el último obstáculo. Muchas partidas se ganan así: no por calcular más, sino por reconocer la imagen final.</p>",
+  "keyPoints": [
+   "Greco necesita el peón negro en g7 y un alfil que controle g8.",
+   "Rh8+ o Rxh7+ atraen al rey para que la dama entre con jaque.",
+   "El peón en f6 ataca g7 y e7: con la dama en h6 o g5, el mate en g7 es casi imparable."
+  ],
+  "positions": [
+   {
+    "fen": "2rr2k1/pb1q1p1p/1p3Pp1/6Q1/8/2PB4/PP4PP/5RK1 w - - 0 1",
+    "orientation": "white",
+    "caption": "El mate de Lolli en estado puro: el peón blanco de f6 controla g7 y la dama está en g5. Juegan blancas.",
+    "line": [
+     "Qh6",
+     "Qd4+",
+     "cxd4",
+     "Rxd4",
+     "Qg7#"
+    ],
+    "comments": [
+     "La dama va a h6 y amenaza Qg7#. Con el peón de f6 controlando g7, las negras no tienen forma de cubrir esa casilla: no tienen alfil de casillas negras ni caballo cerca.",
+     "Un jaque desesperado: las negras solo pueden retrasar el mate entregando la dama.",
+     "Se captura la dama, con la amenaza intacta.",
+     "Nada impide el mate: g7 sigue sin defensa.",
+     "Mate de Lolli: la dama en g7, protegida por el peón de f6. La única pieza que podía defender las casillas oscuras era un alfil que las negras ya no tienen."
+    ]
+   },
+   {
+    "fen": "4r2k/1p3Qpp/1q6/p7/1P3p2/P7/1B2nbPP/R4R1K b - - 0 1",
+    "orientation": "black",
+    "caption": "Mate de Greco con colores invertidos: el alfil negro de f2 controla g1 y el rey blanco está en h1.",
+    "line": [
+     "Ng3+",
+     "hxg3",
+     "Qh6+",
+     "Qh5",
+     "Qxh5#"
+    ],
+    "comments": [
+     "¡El caballo se entrega en g3 con jaque! Obliga al peón h a capturar y abre la columna h.",
+     "Única jugada: el alfil de f2 cubre g1.",
+     "La dama entra con jaque por la columna h.",
+     "Las blancas solo pueden interponer su dama.",
+     "Mate de Greco: el rey en h1, el peón propio en g2, el alfil controlando g1 y la dama en la columna h."
+    ]
+   }
+  ],
+  "drills": [
+   {
+    "fen": "r4r1k/pp1q2pp/2p5/5P2/2B5/3Q3R/PPP3P1/6K1 w - - 0 1",
+    "caption": "Juegan blancas: el rey negro está en h8, el alfil de c4 controla g8 y el peón de f5 cubre g6. Mate en dos.",
+    "line": [
+     "Rxh7+",
+     "Kxh7",
+     "Qh3#"
+    ],
+    "comments": [
+     "¡Sacrificio de torre en h7! Elimina el peón y abre la columna h.",
+     "Única jugada.",
+     "Mate de Greco: la dama da jaque por la columna h, el alfil de c4 cubre g8, el peón de f5 cubre g6 y el peón g7 tapa la última salida."
+    ]
+   },
+   {
+    "fen": "4rrk1/p4ppp/8/4N3/3q4/1B3Q2/PPP3PP/2K4n w - - 0 1",
+    "caption": "Juegan blancas: el alfil de b3 apunta a f7 y g8, y el caballo está en e5. Encuentra el mate de Greco.",
+    "line": [
+     "Bxf7+",
+     "Kh8",
+     "Ng6+",
+     "hxg6",
+     "Qh3+",
+     "Qh4",
+     "Qxh4#"
+    ],
+    "comments": [
+     "El alfil captura en f7 con jaque. Si Rxf7, Qxf7+ gana; lo más resistente es esconder el rey en h8.",
+     "El rey va a la esquina, pero el alfil de f7 sigue controlando g8.",
+     "¡El caballo se entrega en g6 con jaque! Obliga al peón h a capturar y abre la columna h.",
+     "Única jugada: el alfil de f7 cubre g8 y el rey no tiene otra casilla.",
+     "La dama entra con jaque por la columna h.",
+     "Las negras solo pueden interponer la dama.",
+     "Mate de Greco: el rey en h8, el peón propio en g7, el alfil controlando g8 y la dama en la columna h."
+    ]
+   },
+   {
+    "fen": "1k1r4/pp1q4/2Bp4/4p3/1P3p1P/P2P3b/2Q2P1P/2R2RK1 b - - 0 1",
+    "caption": "Juegan negras: tu dama puede llegar a g4 y tu peón ya está en f4. Construye el mate de Lolli con colores invertidos.",
+    "line": [
+     "Qg4+",
+     "Kh1",
+     "f3",
+     "Rg1",
+     "Bg2+",
+     "Rxg2",
+     "Qxg2#"
+    ],
+    "comments": [
+     "La dama da jaque en g4. El rey se esconde en h1.",
+     "Si Bg2, Qxg2 es mate inmediato: el rey en h1 es la única opción.",
+     "¡El peón avanza a f3! Es el peón de Lolli: controla g2 y apoya la llegada de la dama. Amenaza Qg2#.",
+     "La única defensa de g2: la torre se coloca en g1.",
+     "El alfil se entrega en g2 con jaque para desviar a la torre.",
+     "Única jugada.",
+     "Mate: la dama en g2, protegida por el peón de f3."
+    ]
+   },
+   {
+    "fen": "5rk1/pp1b2p1/2pqp1P1/8/7R/8/PPP5/1K1Q4 w - - 0 1",
+    "caption": "Juegan blancas: tu peón de g6 está junto al rey negro y la torre de f8 le tapa una salida. Mate en tres (patrón de Damiano).",
+    "line": [
+     "Rh8+",
+     "Kxh8",
+     "Qh5+",
+     "Kg8",
+     "Qh7#"
+    ],
+    "comments": [
+     "¡La torre se entrega en h8! Atrae al rey a la esquina: el peón de g6 controla f7 y el rey no puede ir a g7 (su propio peón).",
+     "Única jugada.",
+     "La dama entra con jaque por la columna h.",
+     "Única casilla.",
+     "Mate de Damiano: la dama en h7, protegida por el peón de g6; f8 está ocupada por la torre negra y f7 la controla el peón."
+    ]
+   }
+  ]
+ },
+ "a-mates-morphy": {
+  "html": "<h4>La batería torre-alfil</h4><p>Los mates de Morphy y Pillsbury son dos caras de la misma idea: un alfil en la gran diagonal (a1-h8) y una torre en la columna g, contra un rey sin peón en g7. En el de Morphy la torre encierra y el alfil da el jaque; en el de Pillsbury el alfil encierra y la torre da el jaque. El paso previo casi siempre es eliminar el peón g7 o la pieza que tapa la diagonal (un caballo en f6, un alfil en g7). Por eso los sacrificios de dama en f6 o g7 aparecen tanto en estos patrones.</p><h4>Cómo se prepara: tres mecanismos</h4><ul><li><b>La jugada tranquila de dama</b>: <span class=\"mv\">Qf6</span>!! sin capturar nada. Si el peón g7 la toma, se abre la columna g para la torre; si no, la dama amenaza <span class=\"mv\">Qxg7#</span>.</li><li><b>El sacrificio de dama en g7</b>: <span class=\"mv\">Qxg7+</span> obliga a capturar con una pieza (un alfil, por ejemplo) y entonces la torre o el alfil recapturan con jaque.</li><li><b>El jaque descubierto</b>: con el alfil en la gran diagonal y la torre detrás en la columna g, cada movimiento del alfil es un jaque de torre. El alfil puede ir a e5, f6 o h6 eligiendo la casilla que más le convenga.</li></ul><h4>Cola de golondrina y charretera: cómo se provocan</h4><p>Estos dos mates aparecen cuando el defensor deja las torres pegadas al rey en la última fila. Se provocan con jaques que empujan al rey hacia e7 o e8, justo entre sus torres, y con la eliminación de la pieza que vigila e6 (un alfil en c8, un peón en f7 o d7). Para el atacante la pregunta es: <i>¿puedo poner la dama en e6 protegida?</i> Si la respuesta es sí y el rey está entre sus torres, el mate está cerca.</p><h4>Errores comunes del defensor</h4><ul><li>Dejar el rey sin salida en la última fila, con las torres a los lados.</li><li>Capturar una dama sacrificada sin comprobar qué línea se abre.</li><li>Mantener el caballo de f6 como único defensor de la gran diagonal: si se cambia o se clava, el alfil enemigo llega a h8.</li></ul><h4>Cómo pensarlo</h4><p>Cuando tengas un alfil en la gran diagonal y una torre que pueda llegar a la columna g, pregúntate qué te impide el jaque: ¿un peón en g7?, ¿un caballo en f6?, ¿un alfil en g7? Esa pieza es el objetivo de tu sacrificio.</p><h4>Un detalle de cálculo</h4><p>Tras un sacrificio de dama que abre la columna g, el rey negro suele tener dos casillas, h8 y f8. Antes de jugar, comprueba que el alfil controla h8 (o da jaque allí) y que algo tapa f8: una torre propia del defensor, un peón, o tu otra torre en la octava fila. Si f8 queda libre, el rey escapa hacia e7 y todo el sacrificio se pierde.</p>",
+  "keyPoints": [
+   "Morphy: la torre encierra y el alfil da jaque; Pillsbury: al revés.",
+   "El sacrificio de dama en f6 o g7 elimina el obstáculo de la columna g.",
+   "Con alfil en la gran diagonal y torre detrás, cada jugada del alfil es jaque descubierto."
+  ],
+  "positions": [
+   {
+    "fen": "2r4k/1bN1np1p/p7/1pB5/1P4r1/P3P3/B4PPP/2R2RK1 b - - 0 1",
+    "orientation": "black",
+    "caption": "Mate de Pillsbury con colores invertidos: el alfil negro de b7 domina la gran diagonal hasta h1.",
+    "line": [
+     "Rxg2+",
+     "Kh1",
+     "Rg1+",
+     "Kxg1",
+     "Rg8#"
+    ],
+    "comments": [
+     "La torre captura en g2 con jaque: el rey no puede tomar porque el alfil de b7 protege g2.",
+     "Única casilla.",
+     "Segundo sacrificio: la torre atrae al rey a g1.",
+     "Única jugada.",
+     "Mate de Pillsbury: la otra torre da jaque por la columna g y el alfil de b7 cubre h1."
+    ]
+   },
+   {
+    "fen": "2r2rk1/5p2/p5pP/1p2P1B1/8/1P1q4/P4PK1/6RR w - - 0 1",
+    "orientation": "white",
+    "caption": "Mate de Morphy: torre en la columna g, alfil listo para dar jaque en la gran diagonal. Juegan blancas.",
+    "line": [
+     "h7+",
+     "Kh8",
+     "Bf6#"
+    ],
+    "comments": [
+     "El peón da jaque en h7 y empuja al rey a la esquina.",
+     "Si Kg7, Bf6 es mate igual: el alfil da jaque y la torre de g1 cubre la columna.",
+     "Mate de Morphy: el alfil da jaque desde f6, la torre de g1 controla g8 y g7, y el peón de h7 tapa la última casilla."
+    ]
+   }
+  ],
+  "drills": [
+   {
+    "fen": "6k1/2p2pp1/p1pr1q1p/2RpP3/4b3/P3P3/1P1Q1PPP/5RK1 b - - 0 1",
+    "caption": "Juegan negras: tu alfil está en e4, en la gran diagonal, y tu torre puede llegar a g6. Encuentra el mate de Morphy (con colores invertidos).",
+    "line": [
+     "Qf3",
+     "gxf3",
+     "Rg6+",
+     "Kh1",
+     "Bxf3#"
+    ],
+    "comments": [
+     "¡Jugada tranquila de dama! Qf3 amenaza Qxg2#. Si el peón la captura, se abre la columna g.",
+     "La defensa más natural, aunque nada salva a las blancas.",
+     "La torre da jaque por la columna g abierta.",
+     "Única casilla: g2 la cubre la torre y el rey no puede ir a f1 (su torre).",
+     "Mate de Morphy: el alfil da jaque en la gran diagonal desde f3 y la torre de g6 controla g1 y g2."
+    ]
+   },
+   {
+    "fen": "k2r2r1/1p5p/1B3pqb/3p4/3Qb3/5B2/PP3PPP/R4RK1 b - - 0 1",
+    "caption": "Juegan negras: tienes dos torres en la octava fila y un alfil en e4. Abre la columna g contra el rey blanco.",
+    "line": [
+     "Qxg2+",
+     "Bxg2",
+     "Rxg2+",
+     "Kh1",
+     "Rg1+",
+     "Kxg1",
+     "Rg8#"
+    ],
+    "comments": [
+     "¡Sacrificio de dama en g2! Si el alfil captura, la columna g queda para tus torres.",
+     "Única jugada.",
+     "La torre recupera material con jaque.",
+     "Única casilla: el rey va a la esquina.",
+     "Segundo sacrificio: la torre atrae al rey a g1.",
+     "Única jugada.",
+     "Mate de Pillsbury: la otra torre da jaque por la columna g, el alfil de e4 cubre h1 y la torre blanca de f1 tapa la última salida."
+    ]
+   },
+   {
+    "fen": "2r3k1/6p1/1pp3rp/3b2q1/3PB3/P3P3/1PQ2P1P/2R2R1K b - - 0 1",
+    "caption": "Juegan negras: alfil en d5 y torre en g6 forman una batería contra el rey blanco. Abre la diagonal.",
+    "line": [
+     "Qg2+",
+     "Bxg2",
+     "Bxg2+",
+     "Kg1",
+     "Be4#"
+    ],
+    "comments": [
+     "¡Sacrificio de dama! El alfil de e4 tiene que capturar y deja libre la gran diagonal.",
+     "Única jugada.",
+     "El alfil recupera material con jaque.",
+     "Única casilla.",
+     "Jaque descubierto y mate: el alfil se aparta a e4, la torre de g6 da jaque por la columna g y el alfil cubre h1. Es el mate de Pillsbury."
+    ]
+   },
+   {
+    "fen": "1k4r1/ppp3q1/2b4p/8/5Q2/2P2B2/PP3pPP/5R1K b - - 0 1",
+    "caption": "Juegan negras: tu alfil de c6 y tu torre de g8 apuntan a g2. Mate en dos.",
+    "line": [
+     "Qxg2+",
+     "Bxg2",
+     "Bxg2#"
+    ],
+    "comments": [
+     "¡Sacrificio de dama en g2! Elimina el peón y obliga al alfil a capturar.",
+     "Única jugada.",
+     "Mate: el alfil captura en g2 con jaque, protegido por la torre de g8; el peón de f2 controla g1. Alfil en la gran diagonal y torre en la columna g: la pareja de Morphy."
+    ]
+   }
+  ]
+ },
+ "a-defensa": {
+  "html": "<h4>Primer paso: identificar la amenaza real</h4><p>Muchos ataques parecen más peligrosos de lo que son. Antes de elegir una defensa, haz la pregunta concreta: <i>si ahora fuera el turno de mi rival, ¿qué jugaría?</i> Escribe mentalmente la amenaza (un mate, una captura, un jaque doble) y calcúlala hasta el final. A veces descubrirás que la amenaza no funciona y que puedes seguir con tu plan; otras, que es mucho peor de lo que parecía. Lo que nunca debes hacer es defender por instinto con una jugada de peón delante del rey.</p><h4>La defensa activa</h4><p>La mejor defensa a menudo es una <b>contraamenaza</b>: un jaque, un ataque a la dama, una captura que obliga a responder. Si el atacante tiene que gastar una jugada en tu amenaza, su ataque pierde un tiempo, y en los ataques un tiempo lo es todo. Busca especialmente los jaques intermedios y las capturas con ganancia de tiempo antes de retroceder piezas.</p><h4>La profilaxis del rey</h4><p>Una jugada de rey tranquila, como <span class=\"mv\">Kh1</span> o <span class=\"mv\">Ka1</span>, puede neutralizar varias amenazas a la vez: saca al rey de una diagonal o de una columna donde iban a llegar jaques, deshace una clavada o evita una horquilla. Es una de las jugadas defensivas más difíciles de ver porque no «hace» nada visible, pero los grandes defensores la usan constantemente.</p><h4>Devolver material a tiempo</h4><p>Si ganaste material y el rival tiene ventaja de desarrollo, considera devolverlo para desarrollarte con ganancia de tiempo o para cambiar la dama atacante. En el Gambito Danés, por ejemplo, las negras devuelven peones con <span class=\"mv\">d5</span> y, cuando las blancas capturan la dama, el jaque <span class=\"mv\">Bb4+</span> recupera todo. La pregunta no es «¿cuánto material tengo?», sino «¿cuánto vale mi material si mi rey está bajo fuego?».</p><h4>Defender con piezas, no con peones</h4><p>Los peones delante del rey no vuelven atrás: cada avance crea un gancho o una casilla débil. Defiende trayendo piezas (un caballo a f8, una torre a la segunda fila, el alfil a g7), cambiando la pieza atacante más peligrosa o, si hace falta, entregando una calidad para eliminarla. Una torre por un alfil que apuntaba al rey suele ser un buen negocio.</p><h4>Lista de comprobación del defensor</h4><ol><li>¿Cuál es la amenaza concreta y funciona de verdad?</li><li>¿Tengo un jaque, una captura o una contraamenaza que gane tiempo?</li><li>¿Puedo cambiar la pieza atacante más peligrosa?</li><li>¿Una jugada de rey resuelve varias amenazas a la vez?</li><li>¿Me conviene devolver material?</li></ol><h4>Errores comunes del defensor</h4><ul><li>Aferrarse a un peón de ventaja mientras el rival acumula piezas contra el rey.</li><li>Mover peones del enroque «para hacer sitio»: cada avance da un gancho al atacante.</li><li>Dejar el rey en la misma diagonal o columna que la dama o una torre rival, aunque haya piezas en medio: tarde o temprano llega una clavada o un descubierto.</li></ul>",
+  "keyPoints": [
+   "Antes de defender, calcula si la amenaza funciona de verdad.",
+   "Una contraamenaza que gane un tiempo vale más que una retirada.",
+   "Kh1 o Ka1 a tiempo neutralizan clavadas, jaques y horquillas."
+  ],
+  "positions": [
+   {
+    "fen": "4rrk1/pp4pp/1qp5/2b1pb2/8/2P1BPP1/PP2Q1BP/R3K2R w KQ - 0 1",
+    "orientation": "white",
+    "caption": "Defensa activa: el rey blanco sigue en e1, el alfil de e3 está atacado dos veces y b2 cuelga. Juegan blancas.",
+    "line": [
+     "Qc4+",
+     "Be6",
+     "Qxc5",
+     "Qxb2",
+     "O-O"
+    ],
+    "comments": [
+     "Jaque intermedio: la dama da jaque por la diagonal c4-g8 y, al mismo tiempo, ataca al alfil de c5.",
+     "Las negras tapan con el alfil, atacando a la dama.",
+     "La dama captura el alfil de c5, que era el que atacaba e3.",
+     "Las negras se cobran el peón de b2 (retirar la dama a a6 era algo mejor, pero no cambia el resultado).",
+     "Las blancas enrocan y su rey queda a salvo: pieza de ventaja (más de cinco peones según el motor). Un jaque intermedio y el enroque resolvieron todos los problemas defensivos."
+    ]
+   },
+   {
+    "fen": "r1b1k2r/pp1pbppp/8/3P4/1PBP4/P3Q3/5PPP/q1B1K2R w Kkq - 0 1",
+    "orientation": "white",
+    "caption": "Defensa activa: la dama negra está en a1 atacando el alfil de c1 y el rey blanco sigue en e1. Juegan blancas.",
+    "line": [
+     "d6",
+     "O-O",
+     "dxe7",
+     "Re8",
+     "O-O"
+    ],
+    "comments": [
+     "En lugar de defender el alfil de c1, el peón contraataca al alfil de e7. Una contraamenaza vale más que una retirada.",
+     "Las negras enrocan para no dejar su rey en el centro.",
+     "El peón captura el alfil y amenaza coronar en f8 o d8.",
+     "La torre vigila el peón de e7.",
+     "Las blancas enrocan y su rey queda a salvo. El peón de e7 está protegido por la dama y las blancas tienen una pieza de ventaja (unos tres peones según el motor)."
+    ]
+   }
+  ],
+  "drills": [
+   {
+    "fen": "1k4r1/pp5p/2q3r1/2P3n1/5Q2/2B3P1/PPP2P1P/3R1RK1 b - - 0 1",
+    "caption": "Juegan negras: estás en jaque por la diagonal f4-b8. Elige bien la defensa, porque tu ataque también está en juego.",
+    "line": [
+     "Ka8",
+     "Qf5",
+     "Nf3+",
+     "Qxf3",
+     "Qxf3"
+    ],
+    "comments": [
+     "El rey se aparta a la esquina, lejos de la diagonal y de la octava fila. Las otras defensas (interponer en c7, Kc8) dejan al rey expuesto a nuevos jaques de dama, alfil y torre.",
+     "La dama blanca ataca al caballo de g5 y a la torre de g6.",
+     "¡Jaque de caballo! Desvía a la dama de la quinta fila: si Qxf3, la dama de c6 la captura por la gran diagonal.",
+     "La dama captura el caballo, pero...",
+     "...tu dama la toma en f3. La defensa precisa del rey fue lo que permitió el contraataque."
+    ]
+   },
+   {
+    "fen": "4r1k1/1pp2r2/1p1pq3/5bQ1/8/P1PP3P/1P1RB1P1/4R1K1 b - - 0 1",
+    "caption": "Juegan negras: la dama blanca en g5 presiona sobre g7 y d8. Defiéndete ganando un tiempo.",
+    "line": [
+     "Rg7",
+     "Qf4",
+     "Bxh3"
+    ],
+    "comments": [
+     "La torre va a g7: tapa la columna g, defiende al rey y ataca a la dama blanca. Es una defensa con contraamenaza.",
+     "La dama tiene que retirarse.",
+     "Con el tiempo ganado, el alfil captura en h3: el rey blanco se queda sin protección y las negras pasan al ataque."
+    ]
+   },
+   {
+    "fen": "5rk1/1pp3pp/1p1P2n1/7r/3Q1B2/5p1q/PPP2P1P/4R1RK b - - 0 1",
+    "caption": "Juegan negras: tienes una dama en h3, pero tu octava fila es débil. Elimina al defensor sin descuidar tu rey.",
+    "line": [
+     "Rxf4",
+     "Re8+",
+     "Rf8",
+     "Qc4+",
+     "Kh8"
+    ],
+    "comments": [
+     "La torre captura el alfil de f4, el único defensor de h2. Ahora amenazas Qxh2#.",
+     "Las blancas buscan contrajuego con jaque en la octava fila.",
+     "Se tapa con la torre. Por eso tenías que calcular el jaque antes de capturar: la torre de f4 vuelve a tiempo a f8.",
+     "Otro jaque, desde c4.",
+     "El rey se esconde en h8 y los jaques se acaban. La amenaza de mate en h2 sigue en pie y las blancas no pueden pararla."
+    ]
+   },
+   {
+    "fen": "4rr2/5pk1/2R1b1q1/1p1p4/1P1P1B2/P4pPP/3Q1P1K/2R5 b - - 0 1",
+    "caption": "Juegan negras: el rey blanco está en h2 con el peón en h3 debilitado por tu peón de f3. ¿Defensa o ataque?",
+    "line": [
+     "Rh8",
+     "Be5+",
+     "f6"
+    ],
+    "comments": [
+     "La torre va a h8 y amenaza Rxh3+ con mate. La mejor defensa es este contraataque: obliga al rival a dar jaques en lugar de seguir con su plan.",
+     "Las blancas usan un jaque intermedio.",
+     "El peón tapa el jaque atacando al alfil: tu rey queda seguro y la amenaza sobre h3 sigue en pie."
+    ]
+   }
+  ]
+ }
+};
   (window.LESSONS || []).forEach(l => { const x = X[l.id]; if (!x) return;
     if (x.html) l.html = (l.html || '') + x.html;
     if (x.keyPoints) l.keyPoints = (l.keyPoints || []).concat(x.keyPoints);
