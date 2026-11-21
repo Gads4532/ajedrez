@@ -152,9 +152,9 @@
         { fen: '6r1/8/8/3k4/8/8/6P1/3BK3 w - - 0 1', caption: 'Juegan blancas. El rey negro y la torre de g8 están en la misma diagonal.',
           line: ['Bb3+', 'Ke5', 'Bxg8'],
           comments: ['Enfilada por la diagonal b3-g8: el rey debe apartarse. Cualquier otra jugada deja tablas (alfil y peón contra torre).', 'El rey sale del jaque; la torre queda indefensa.', 'Las blancas ganan la torre. Alfil y peón contra rey: victoria.'] },
-        { fen: '8/8/3B1K1k/8/8/5p2/8/1B6 w - - 0 1', caption: 'Juegan blancas y dan mate en dos con la pareja de alfiles. Las negras tienen un peón, así que no hay peligro de ahogado... si eliges bien.',
-          line: ['Bg6', 'f2', 'Bf4#'],
-          comments: ['El alfil de casillas claras se coloca junto al rey negro y le quita h7 y h5; el rey blanco cubre g7 y g5. Al negro solo le queda mover el peón.', 'Única jugada.', 'Mate: el alfil de casillas oscuras da jaque por la diagonal f4-h6.'] },
+        { fen: '8/4B3/5K1k/8/8/5p2/8/1B6 w - - 0 1', caption: 'Juegan blancas y dan mate en dos con la pareja de alfiles. El peón negro evita el ahogado... si eliges bien la jugada tranquila.',
+          line: ['Bg6', 'f2', 'Bf8#'],
+          comments: ['El alfil de casillas claras se coloca junto al rey negro y le quita h7 y h5; el rey blanco cubre g7 y g5, y el alfil de e7 vigila g5 y f8. Al negro solo le queda mover el peón.', 'Única jugada.', 'Mate: el alfil de casillas oscuras da jaque por la diagonal f8-h6. Los jaques inmediatos (por ejemplo, Bf8+) dejan escapar al rey.'] },
         { fen: '1k6/8/2K4R/6B1/8/8/8/8 w - - 0 1', caption: 'Juegan blancas y dan mate en dos. El jaque inmediato deja escapar al rey.',
           line: ['Be3', 'Kc8', 'Rh8#'],
           comments: ['El alfil quita la casilla a7 al rey negro (diagonal e3-a7). Ahora el rey solo puede moverse en la octava fila. Rh8+ en seguida permitiría Ka7.', 'Si Ka8, también Rh8#.', 'Mate: la torre da jaque en la octava y el rey de c6 cubre b7, c7 y d7.'] }
@@ -219,9 +219,9 @@
         { fen: '8/1P6/8/8/7K/8/6pk/8 w - - 0 1', caption: 'Juegan blancas: carrera de peones. Las negras coronan en la próxima jugada.',
           line: ['b8=Q+'],
           comments: ['¡Coronar con jaque! La diagonal b8-h2 llega al rey negro: este pierde un tiempo y la dama controlará g1 antes de que el peón corone. Otras jugadas solo hacen tablas (por ejemplo, Kh5 g1=Q b8=Q+ y se cambian las damas).'] },
-        { fen: 'r2q1rk1/ppp2ppp/3b1n2/8/3PP3/2N5/PP3PPP/R2QKB1R w KQ - 0 1', caption: 'Juegan blancas. El alfil y el caballo negros están en casillas vecinas, delante de tus peones.',
-          line: ['e5', 'c5', 'exd6'],
-          comments: ['Horquilla de peón: e5 ataca d6 y f6 a la vez, protegido por el peón de d4.', 'Las negras buscan contrajuego atacando d4 (el caballo no tiene casilla en la que salvar al alfil y a sí mismo).', 'El peón se come el alfil. Las blancas ganan una pieza.'] }
+        { fen: 'r2q1rk1/pp3ppp/2pb1n2/8/3PP3/2N5/PP3PPP/R2QKB1R w KQ - 0 1', caption: 'Juegan blancas. El alfil y el caballo negros están en casillas vecinas, delante de tus peones.',
+          line: ['e5', 'Qb6', 'exd6'],
+          comments: ['Horquilla de peón: e5 ataca d6 y f6 a la vez, protegido por el peón de d4.', 'Las negras no pueden salvar las dos piezas y buscan contrajuego: la dama ataca d4 y b2.', 'El peón se come el alfil (mejor que exf6, porque el peón de d6 queda clavando y molestando). Las blancas ganan una pieza por un peón.'] }
       ]
     },
 
@@ -242,15 +242,15 @@
           comments: ['El rey cruza d1 y llega a c1, casillas no atacadas; que b1 esté atacada da igual. Ahora la torre clava al caballo contra el rey negro.', 'Las negras interponen un alfil en la columna d. Si Ke6, Rxd4.', 'El rey ataca al alfil de d3.', 'Las negras desclavan el caballo.', 'Las blancas quitan casillas a los caballos y alfiles negros; tienen dos torres contra dos piezas menores y el motor les da gran ventaja.'] }
       ],
       drills: [
-        { fen: '5r2/5ppp/b7/p2k4/8/8/1r3PPP/R3K2R w KQ - 0 1', caption: 'Juegan blancas. El enroque corto es ilegal: el alfil de a6 ataca f1. Busca la única jugada que salva la partida.',
+        { fen: '2b2r2/5ppp/8/p2k4/8/8/1r3PPP/R3K2R w KQ - 0 1', caption: 'Juegan blancas: las negras tienen una torre de más en b2. El enroque corto es legal, pero no salva nada. Busca la única jugada que iguala.',
           line: ['O-O-O+', 'Ke5', 'Kxb2'],
-          comments: ['¡Enroque largo con jaque! Es legal aunque la torre de b2 ataque b1: esa casilla solo debe estar vacía. La torre de d1 da jaque y el rey de c1 ataca la torre de b2.', 'El rey negro sale del jaque y no puede defender su torre.', 'El rey se come la torre. Sin el enroque, las negras habrían quedado con una torre de más.'] },
+          comments: ['¡Enroque largo con jaque! Es legal aunque la torre de b2 ataque b1: esa casilla solo debe estar vacía. La torre de d1 da jaque y el rey de c1 queda pegado a la torre de b2. Con O-O o Rxa5+, las negras conservan la torre de ventaja.', 'El rey negro sale del jaque y no puede defender su torre.', 'El rey se come la torre y el material queda igualado.'] },
         { fen: 'r3k2r/1R3ppp/8/8/P2K4/8/5PPP/2B2R2 b kq - 0 1', caption: 'Juegan negras. La casilla b8 está atacada por la torre de b7. ¿Puedes enrocar largo?',
-          line: ['O-O-O+', 'Ke4', 'Kxb7'],
-          comments: ['¡Sí! b8 está atacada, pero el rey no pasa por ella. El enroque largo da jaque por la columna d y el rey de c8 ataca la torre de b7.', 'El rey blanco sale del jaque.', 'El rey negro se come la torre. Las negras salvan la partida.'] },
-        { fen: 'rn3r2/pbppq1p1/1p2pN2/8/3P2NP/6P1/PPPBBP1R/R3K1k1 w Q - 5 18', caption: 'Juegan blancas y dan mate en una. Posición inspirada en la famosa caza del rey de Ed. Lasker contra Thomas (Londres, 1912); aquí hay un alfil blanco añadido en d2.',
-          line: ['O-O-O#'],
-          comments: ['¡Mate con un enroque! La torre llega a d1 y da jaque por la primera fila; el rey negro no puede ir a f1 (torre), f2 ni h2 (torre de h2), g2 ni h1. El rey blanco nunca se movió, así que el enroque es legal.'] },
+          line: ['O-O-O+'],
+          comments: ['¡Sí! b8 está atacada, pero el rey no pasa por ella: solo cruza d8 y llega a c8. El enroque largo da jaque por la columna d y el rey de c8 ataca la torre de b7, que caerá en la próxima jugada (por ejemplo, Ke4 Kxb7). O-O o Rxa4+ dejarían a las negras con una torre menos.'] },
+        { fen: 'rn3r2/pbppq1p1/1p2pN2/8/3P2NP/6P1/PP1BBPk1/R3K2R w KQ - 3 17', caption: 'Juegan blancas y dan mate en dos. Posición inspirada en la famosa caza del rey de Ed. Lasker contra Thomas (Londres, 1912), con dos cambios: un alfil blanco en d2 y sin peón en c2.',
+          line: ['Rh2+', 'Kg1', 'O-O-O#'],
+          comments: ['El jaque de torre empuja al rey a la primera fila. O-O-O en seguida no basta: Qc5+ y las negras se defienden.', 'Única jugada.', '¡Mate con un enroque! La torre llega a d1 y da jaque por la primera fila; el rey negro no tiene casillas. El rey blanco nunca se movió, así que el enroque es legal.'] },
         { fen: 'r7/pp6/8/8/8/2NP1k1P/7P/2B1K2R w K - 0 1', caption: 'Juegan blancas y dan mate en una. El rey negro se ha adentrado demasiado.',
           line: ['O-O#'],
           comments: ['¡El enroque corto da mate! La torre llega a f1 y ataca por la columna f; el rey en g1 cubre g2; los peones de h2 y h3 cubren g3 y g4; el caballo cubre e2 y e4; el alfil, e3. Ninguna otra jugada da mate.'] }
