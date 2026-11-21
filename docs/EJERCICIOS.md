@@ -75,6 +75,16 @@ Las lecciones cuyas posiciones son solo ilustrativas (estructuras, mates básico
 (`drills`) en `data/lessons-drills-estrategia.js` y `data/lessons-drills-finales.js`, escritos para practicar la idea de
 la lección y verificados con Stockfish a profundidad 16 (cada jugada del alumno es la mejor o pierde ≤ 4 puntos).
 
+### 1.1a Teoría ampliada (`data/lessons-teoria-*.js`)
+Desde la versión 2.3 cada lección tiene teoría ampliada (mediana ≈ 700 palabras, antes ≈ 230): conceptos y excepciones,
+planes típicos, errores comunes y una lista de comprobación para la partida, más 2 posiciones nuevas comentadas y hasta
+4 ejercicios nuevos. Están en nueve archivos por grupo (`ataque`, `basico`, `estrategia1`, `estrategia2`, `finales1`,
+`finales2`, `principios-partidas`, `tactica1`, `tactica2`) con la forma `X[idLección] = { html, keyPoints, positions,
+drills }`: al cargarse añaden su contenido a la lección (el `html` se agrega al final de la teoría). Cada jugada pedida
+en los ejercicios se comprobó con Stockfish 19 a profundidad 18-20 (la mejor y la única buena); el contenido pasó
+además una revisión independiente (revisor + verificador escéptico) antes de publicarse. Muchas posiciones se
+adaptaron de la base de puzles de Lichess (CC0), sin repetir ninguna de `data/puzzles.js` ni de otra lección.
+
 ### 1.1b Ejercicios propios (`drills`)
 Una lección puede tener `drills: [{ fen, caption, line, comments }]`: posiciones pensadas solo como ejercicio. El
 generador las trata igual que las posiciones de la lección y el validador las comprueba (deben tener `line`).
