@@ -143,13 +143,13 @@
      "Las blancas recuperan con la dama, que ahora mira a la gran diagonal.",
      "Las negras recuperan el peón, pero siguen con una calidad de menos.",
      "La torre entra en la columna d con tempo sobre la dama.",
-     "Las blancas tienen una ventaja clara (alrededor de un peón y medio según el motor): la ruptura d5 transformó el aislado en material y actividad."
+     "Las blancas tienen una calidad de más y piezas muy activas: el motor da una ventaja decisiva. La ruptura d5 transformó el aislado en material."
     ]
    },
    {
     "fen": "3r2k1/pp3ppp/4bn2/8/3P4/2N2N2/PP3PPP/3R2K1 b - - 0 1",
     "orientation": "black",
-    "caption": "El aislado en el final: con pocas piezas, el peón de d4 es solo una debilidad. Juegan negras.",
+    "caption": "El aislado en el final: si su dueño reacciona a tiempo, puede cambiarlo o convertirlo en peón pasado con d5 antes de que sea un blanco. Juegan negras.",
     "line": [
      "Bg4",
      "d5",
@@ -162,13 +162,13 @@
     ],
     "comments": [
      "El alfil va a cambiar al caballo de f3, uno de los defensores de d4.",
-     "Las blancas, sabiendo que el peón está en peligro, lo avanzan para cambiarlo o al menos alejarlo del ataque.",
-     "Las negras cambian igualmente: la estructura blanca del flanco de rey queda dañada.",
+     "¡A tiempo! Las blancas avanzan el peón antes de que pierda sus defensores: la debilidad se convierte en un peón pasado.",
+     "Las negras cambian igualmente y dañan la estructura blanca del flanco de rey.",
      "Forzado.",
      "El rey se acerca al centro: en el final, el rey es una pieza más de bloqueo.",
      "Las blancas hacen lo mismo.",
-     "La torre fija el peón de d5 y prepara la llegada del rey a e7 y d6.",
-     "Las negras tienen una ventaja pequeña pero duradera: el peón blanco de d5 está aislado y bloqueado, y los peones blancos del flanco de rey están doblados."
+     "La torre presiona el peón de d5.",
+     "Ventaja blanca de medio peón según el motor: el avance d5 a tiempo convirtió la debilidad en un peón pasado, aunque los peones del flanco de rey quedaron doblados."
     ]
    }
   ],
@@ -212,17 +212,11 @@
     "caption": "Juegan negras: final con peón aislado blanco en d4. Las blancas acaban de jugar b4 para ganar espacio. ¿Cómo responden las negras?",
     "line": [
      "Nd5",
-     "Ne2",
-     "Rxc1+",
-     "Nxc1",
-     "Nxb4"
+     "Ne2"
     ],
     "comments": [
      "El caballo ocupa la casilla de bloqueo delante del peón aislado y, de paso, ataca a c3 y b4. Es la idea de Nimzowitsch: primero bloquear. Las demás jugadas dejan a las negras peor.",
-     "El caballo de c3 no podía quedarse clavado contra la torre de c1; tras Nxd5 Bxd5 la estructura blanca quedaría igual de débil.",
-     "Primero cambian las torres: con menos piezas, el peón aislado y el de b4 son más débiles. Tomar enseguida en b4 era menos preciso.",
-     "Forzado.",
-     "Las negras ganan un peón y quedan con un final claramente mejor: el peón de d4 sigue aislado y bloqueado."
+     "El caballo de c3 no podía quedarse clavado contra la torre de c1. Ahora las negras cambian torres con …Rxc1+ y, tras Nxc1, toman en b4: ganan un peón y el de d4 sigue aislado y bloqueado."
     ]
    },
    {
@@ -525,7 +519,7 @@
      "La ruptura principal: c5 contra el peón de d6.",
      "La torre defiende la segunda fila y puede ir a g7.",
      "Las blancas fijan el flanco de dama.",
-     "Una carrera típica de flancos opuestos; el motor da una ligera ventaja a las blancas (menos de un peón). Cada tempo cuenta."
+     "Una carrera típica de flancos opuestos: el ataque blanco llegó antes y el motor le da una ventaja clara (unos dos peones). Cada tempo cuenta."
     ]
    }
   ],
@@ -537,15 +531,13 @@
      "f5",
      "Bd2",
      "fxe4",
-     "Bxe4",
-     "Nf6"
+     "Bxe4"
     ],
     "comments": [
      "f5 ataca la base de la cadena, e4, justo cuando perdió un defensor (el caballo que estaba en d2). Las alternativas (…bxa4, …Nb6) dejan a las negras pasivas y con desventaja.",
      "Las blancas desarrollan; si exf5, …Rxe1 y …Bxd5 recuperan el peón con juego activo.",
      "Se cambia la base: la cadena desaparece y el peón de d5 queda sin apoyo de peones.",
-     "Recaptura natural.",
-     "El caballo ataca al alfil de e4 y presiona d5. Las negras igualaron por completo: atacar la base liberó todo su juego."
+     "Recaptura natural. Ahora …Nf6 ataca al alfil de e4 y presiona d5: las negras igualaron por completo, porque atacar la base liberó todo su juego."
     ]
    },
    {
@@ -619,7 +611,7 @@
      "El alfil apoya d5: si el caballo se cambia, el alfil o un peón ocuparán la casilla.",
      "Las negras desafían d5 con el alfil.",
      "El rey se pone a salvo.",
-     "Posición equilibrada con una ligera ventaja blanca (menos de medio peón). La lucha gira alrededor de d5."
+     "Ligera ventaja blanca (alrededor de medio peón según el motor). La lucha gira alrededor de d5."
     ]
    },
    {
@@ -736,7 +728,7 @@
      "Se asegura el peón de b.",
      "El rey negro busca actividad.",
      "La torre ataca los peones de a5 y b5 desde la quinta fila.",
-     "Posición casi igualada (un cuarto de peón para las blancas según el motor): dominar la columna no gana por sí solo, pero obliga al rival a defenderse."
+     "Ligera ventaja blanca (menos de medio peón según el motor): dominar la columna no gana por sí solo, pero obliga al rival a defenderse."
     ]
    },
    {
@@ -809,13 +801,11 @@
     "caption": "Juegan blancas: la columna d está abierta y ninguna torre negra la vigila. ¿Cuál es la jugada?",
     "line": [
      "Rd7",
-     "h5",
-     "Rxb7"
+     "Rab8"
     ],
     "comments": [
      "La torre entra en la séptima antes de que las negras puedan oponerse: ataca b7 y encierra al rey en la octava fila. Ir solo a d6 o d4 permite a las negras disputar la columna con …Rfd8.",
-     "Las negras dan aire a su rey; defender b7 con …Rab8 deja a las blancas doblar con Rfd1.",
-     "Las blancas ganan un peón y siguen con la torre en la séptima: alrededor de un peón de ventaja según el motor."
+     "Las negras defienden b7. Las blancas doblan con Rfd1 y dominan la columna y la séptima fila: alrededor de un peón de ventaja según el motor."
     ]
    }
   ]
@@ -849,7 +839,7 @@
      "Las negras enrocan.",
      "La dama defiende c3 por la tercera fila y presiona b7.",
      "La dama negra apunta a c5 y e5.",
-     "Ligera ventaja blanca (un cuarto de peón según el motor): los alfiles compensan la estructura, pero las blancas deben abrir el juego antes de que los peones de c caigan."
+     "Posición equilibrada según el motor: los alfiles compensan la estructura, pero las blancas deben abrir el juego antes de que los peones de c caigan."
     ]
    },
    {
@@ -884,13 +874,11 @@
     "caption": "Juegan negras (Española cerrada): las blancas acaban de jugar Bc2. ¿Qué desequilibrio pueden conseguir las negras y cómo lo aprovechan después?",
     "line": [
      "Nxc2",
-     "Qxc2",
-     "f5"
+     "Qxc2"
     ],
     "comments": [
      "El caballo de b4 se cambia por el alfil de c2, el mejor alfil blanco: las negras se quedan con la pareja de alfiles. Las alternativas (…Nb6, …c4) llevan a una posición igualada.",
-     "Forzado.",
-     "Con la pareja, hay que abrir la posición: f5 golpea el centro y, tras exf5, el alfil de b7 recupera d5 con una diagonal abierta hacia g2. Las jugadas lentas (…Nb6, …Rb8) desperdician la ventaja."
+     "Forzado. Ahora el plan es abrir la posición para los alfiles con …f5, que golpea la base e4: con la pareja, abrir es la regla. Ventaja negra de más de un peón según el motor."
     ]
    },
    {
@@ -1001,7 +989,7 @@
     "caption": "Juegan blancas: final de alfiles del mismo color. Todos los peones negros están en casillas blancas, como su alfil. ¿Qué peón atacan?",
     "line": [
      "Be2",
-     "Kh7",
+     "Kg7",
      "Bxh5"
     ],
     "comments": [
@@ -1015,13 +1003,11 @@
     "caption": "Juegan blancas: el alfil negro es malo (los peones b5, d5, e6, g6 y h5 están en casillas blancas). ¿Qué pieza blanca debe ponerse en marcha?",
     "line": [
      "Kf3",
-     "f6",
-     "exf6"
+     "Kg7"
     ],
     "comments": [
      "El rey. Kf3 y luego Ke3-d4-c5: el rey entra por las casillas negras, que el alfil de d7 nunca podrá controlar. Las jugadas de alfil (Bf3) o de peón (g4) no consiguen nada.",
-     "Las negras intentan liberarse cambiando un peón.",
-     "Tras el cambio, el rey blanco seguirá con Ke3-d4 y entrará por c5 o e5. El motor da más de seis peones de ventaja."
+     "El rey negro se acerca, pero no puede vigilar las casillas negras del flanco de dama. Las blancas siguen con Ke3, Kd4 y Kc5: el rey entra por donde el alfil nunca llega. El motor da casi cinco peones de ventaja."
     ]
    },
    {
@@ -1029,7 +1015,7 @@
     "caption": "Juegan blancas: caballo contra alfil malo (los peones negros a5, b6, d6, e5 y g5 están en casillas negras, como el alfil). ¿Por dónde entra el rey blanco?",
     "line": [
      "Ke4",
-     "Kd8"
+     "Kf7"
     ],
     "comments": [
      "Ke4 y luego Kf5: el rey entra por las casillas blancas, que el alfil no puede vigilar, y atacará g5. Las otras jugadas (f4, Nc2) dan mucho menos.",
@@ -1116,11 +1102,11 @@
     "caption": "Juegan blancas: alfil contra caballo. El caballo negro está en el borde, en b1. ¿Cómo se aprovecha?",
     "line": [
      "Bb4",
-     "g5"
+     "f5"
     ],
     "comments": [
      "Bb4 le quita al caballo todas sus casillas de salida (a3, c3 y d2): es la dominación, el gran recurso del alfil contra el caballo. Después el rey blanco irá a buscarlo. Con otras jugadas el caballo escapa y la ventaja desaparece.",
-     "Las negras buscan contrajuego con los peones, pero el caballo no tiene salida: el rey blanco se acercará por f3, e2 y d1."
+     "Las negras buscan contrajuego con los peones, pero el caballo no tiene salida: el rey blanco se acercará por f3, e2 y d1 para capturarlo."
     ]
    },
    {
@@ -1128,7 +1114,7 @@
     "caption": "Juegan blancas: caballo contra alfil malo. ¿Qué peón negro es el más débil y cómo llega el caballo hasta él?",
     "line": [
      "Nd1",
-     "Kh7"
+     "Kg7"
     ],
     "comments": [
      "El peón de g4 está adelantado y lejos de su rey. Nd1 y luego Nf2 (o Ne3): desde allí el caballo lo ataca y el alfil, encerrado detrás de sus peones, no llega a defenderlo. Una retirada que en realidad es un avance. Las jugadas de rey dan una ventaja mínima.",
@@ -1140,11 +1126,11 @@
     "caption": "Juegan blancas: tienen un peón pasado en a5. ¿Cuál es la ruta del caballo?",
     "line": [
      "Na2",
-     "Kf8"
+     "Bc8"
     ],
     "comments": [
      "Na2 y luego Nb4: desde b4 el caballo ataca d5, controla a6 y c6 y apoya el avance del peón de a. El alfil negro no puede controlar las casillas negras por donde avanza el caballo. Otras jugadas (a6, Kf3) dan bastante menos.",
-     "El rey negro se acerca, pero tras Nb4 y a6 las negras quedan atadas a la defensa."
+     "El alfil vuelve a c8 para vigilar a6, pero tras Nb4 las negras quedan atadas a la defensa del flanco de dama mientras el rey blanco se acerca."
     ]
    }
   ]
@@ -1237,11 +1223,11 @@
     "caption": "Juegan blancas: final de torres con un peón de más en a3. La torre negra presiona desde la segunda fila. ¿Dónde se coloca la torre blanca?",
     "line": [
      "Rb3",
-     "f6"
+     "Kg6"
     ],
     "comments": [
      "En la tercera fila: desde b3 la torre defiende a3 y también g3 y f3, de modo que la torre negra no tiene objetivos y el rey blanco puede salir de su refugio. Es profilaxis pura: antes de avanzar, se le quitan al rival todas sus amenazas. Otras jugadas (Rb5, Rc1) dejan las tablas al alcance de las negras.",
-     "Las negras esperan. Las blancas seguirán con Kf3 y el rey irá hacia el peón de a."
+     "El rey negro se acerca. Las blancas seguirán con Kf3 y su rey irá hacia el peón de a, sin miedo a la torre negra."
     ]
    },
    {
@@ -1314,7 +1300,7 @@
      "Empieza el avance de peones.",
      "Las negras responden con el suyo.",
      "Las blancas siguen.",
-     "Las negras frenan con …h5. Ligera ventaja blanca (menos de un peón): una carrera en la que cada tempo decide."
+     "Las negras frenan con …h5. Ventaja blanca de alrededor de un peón: una carrera en la que cada tempo decide."
     ]
    }
   ],
@@ -1414,7 +1400,7 @@
      "El rey sale de la columna c, lejos de un posible …Rxc3 con jaque.",
      "Las negras lanzan sus peones.",
      "La torre ocupa la columna g contra el rey negro.",
-     "Las negras siguen con …b4. Ventaja blanca de casi un peón: el sacrificio en c3 sigue siendo el recurso principal de las negras."
+     "Las negras siguen con …b4. Ventaja blanca de más de un peón y medio según el motor: aun así, el sacrificio en c3 sigue siendo el recurso principal de las negras."
     ]
    },
    {
@@ -1527,7 +1513,7 @@
      "El caballo se centraliza.",
      "La dama ataca d5 y b7.",
      "Las negras defienden con desarrollo y preparan el enroque.",
-     "Las blancas recuperan el material, pero las negras terminaron su desarrollo: posición equilibrada según el motor. Devolver el peón a tiempo neutralizó la iniciativa."
+     "Las blancas recuperan el material, pero las negras terminaron su desarrollo y quedan incluso algo mejor (más de medio peón según el motor). Devolver el peón a tiempo neutralizó la iniciativa."
     ]
    },
    {
@@ -1677,7 +1663,7 @@
      "La torre se pone en la séptima.",
      "La torre negra defiende desde atrás.",
      "Las blancas buscan otro objetivo.",
-     "Tablas según el motor: el flanco de rey negro no tiene debilidades y el peón de a5 solo no basta."
+     "Igualdad según el motor: el flanco de rey negro no tiene debilidades y el peón de a5 solo no basta."
     ]
    }
   ],
@@ -1769,7 +1755,7 @@
      "El rey blanco avanza hacia el flanco de rey.",
      "El rey negro se va al flanco de dama.",
      "El rey blanco ataca los peones de f7 y h7.",
-     "Las blancas ganan los peones del flanco de rey: más de seis peones de ventaja según el motor."
+     "Las blancas ganan los peones del flanco de rey: más de siete peones de ventaja según el motor."
     ]
    },
    {
@@ -1839,16 +1825,14 @@
    },
    {
     "fen": "8/3rkp1p/6p1/8/P7/4K1P1/6PP/3R4 w - - 0 1",
-    "caption": "Juegan blancas: las torres están enfrentadas en la columna d y las blancas tienen un peón pasado en a4. ¿Cambian, y cómo siguen después?",
+    "caption": "Juegan blancas: las torres están enfrentadas en la columna d y las blancas tienen un peón pasado en a4. ¿Conviene cambiar?",
     "line": [
      "Rxd7+",
-     "Kxd7",
-     "g4"
+     "Kxd7"
     ],
     "comments": [
      "Sí: el final de reyes y peones con el peón de a alejado está ganado, mientras que con torres (Ra1, Rd3) la ventaja es mucho menor.",
-     "Forzado.",
-     "g4 gana espacio en el flanco de rey y prepara g5 o h4-h5 para crear otra debilidad, mientras el peón de a mantiene ocupado al rey negro. Más de siete peones de ventaja según el motor."
+     "Forzado. El final de peones está ganado: el peón de a ocupa al rey negro y el rey blanco entra en el flanco de rey (por ejemplo, con g4, Kd4 y Kd5). Más de seis peones de ventaja según el motor."
     ]
    }
   ]
@@ -1886,28 +1870,28 @@
     ]
    },
    {
-    "fen": "r1bqrnk1/pp2bppp/2p2n2/3p2B1/3P4/2NBPN2/PPQ2PPP/1R3RK1 b - - 10 11",
-    "orientation": "white",
-    "caption": "Estructura Carlsbad: las blancas ya llevaron la torre a b1. El plan es el ataque de minorías (b4-b5).",
+    "fen": "r1b2rk1/pp1nqppp/2p5/4p3/2BP4/2R1PN2/PP3PPP/3Q1RK1 w - - 0 13",
+    "orientation": "black",
+    "caption": "Gambito de Dama ortodoxo: las negras, con menos espacio, ejecutaron su plan liberador (cambios con …Nd5 y la ruptura …e5). Ahora le toca a cada bando elegir un plan nuevo.",
     "line": [
-     "Ng6",
-     "b4",
-     "a6",
-     "h3",
-     "Ne4",
-     "Bxe7",
-     "Qxe7",
-     "Na4"
+     "Bb3",
+     "a5",
+     "Qc2",
+     "exd4",
+     "exd4",
+     "Nf6",
+     "Re1",
+     "Qd8"
     ],
     "comments": [
-     "El caballo negro llega a g6 y mira al flanco de rey.",
-     "Empieza el ataque de minorías.",
-     "Las negras frenan b5 temporalmente.",
-     "Una jugada útil antes de seguir: quita g4 a las piezas negras.",
-     "El caballo negro se instala en e4.",
-     "Las blancas cambian el alfil de casillas negras.",
-     "Forzado.",
-     "El caballo va a c5, la casilla que el ataque de minorías ayuda a conseguir. Ligera ventaja blanca."
+     "El alfil se retira a una diagonal segura, desde donde apunta a f7.",
+     "Las negras ganan espacio en el flanco de dama y amenazan …a4 para expulsar al alfil.",
+     "La dama se coloca en la diagonal b1-h7 y conecta las torres.",
+     "Las negras cambian en d4: dejan a las blancas con un peón aislado, un objetivo claro para su plan a largo plazo.",
+     "Las blancas recapturan; su plan será jugar con piezas activas y la columna e.",
+     "El caballo, que estaba pasivo en d7, vuelve a f6 a controlar d5: la casilla de bloqueo.",
+     "La torre ocupa la columna e abierta.",
+     "La dama negra presiona el peón aislado. Ligera ventaja blanca (menos de medio peón según el motor): cada bando tiene un plan claro que sale de la estructura."
     ]
    }
   ],
@@ -1931,13 +1915,11 @@
     "caption": "Juegan blancas: final de reyes y peones. ¿Cuál es el plan más rápido?",
     "line": [
      "a4",
-     "Kf8",
-     "a5"
+     "Kf6"
     ],
     "comments": [
      "Crear un peón pasado alejado: el peón de a no tiene oposición y el rey negro está lejos. Las jugadas de rey (Ke4) o f5 también ganan ventaja, pero mucho menos clara.",
-     "El rey negro corre hacia el peón.",
-     "El peón sigue avanzando; cuando el rey negro llegue a b7 o a7, el rey blanco entrará en el flanco de rey. Más de nueve peones de ventaja según el motor."
+     "El rey negro se acerca, pero el peón ya está lejos: a5-a6 y el peón corona o desvía al rey negro mientras el rey blanco entra en el flanco de rey. Más de nueve peones de ventaja según el motor."
     ]
    },
    {
@@ -1955,13 +1937,15 @@
     ]
    },
    {
-    "fen": "8/5pkp/8/2p4p/2P2PPP/P2K4/8/8 w - - 0 1",
-    "caption": "Juegan blancas: final de reyes y peones con mayoría en el flanco de rey. ¿Qué jugada fija la estructura y prepara el plan del rey?",
+    "fen": "4k3/4b3/1p1p4/pP1Pp1p1/6P1/1P1K1P2/8/4N3 w - - 0 1",
+    "caption": "Juegan blancas: caballo contra alfil malo. Hagan el inventario: ¿cuál es la debilidad negra más fácil de atacar y qué pieza blanca debe ir a por ella?",
     "line": [
-     "g5"
+     "Ke4",
+     "Bf6"
     ],
     "comments": [
-     "g5 fija los peones negros de h5 y h7 en el flanco de rey; después el rey blanco podrá ir a buscar el peón de c5 sin temor a contrajuego. Capturar en h5 libera al peón negro de h7. El motor da más de cinco peones de ventaja con g5."
+     "El objetivo es el peón de g5 y la pieza es el rey: Ke4 y Kf5, por las casillas blancas que el alfil no controla. Las jugadas de caballo (Nc2, Ng2) no amenazan nada y dejan la posición igualada.",
+     "El alfil defiende g5, pero el rey blanco llega a f5 y el caballo se sumará por d3 y f2 o por e3: las negras quedan atadas a la defensa. Más de cinco peones de ventaja según el motor."
     ]
    }
   ]
