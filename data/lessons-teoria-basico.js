@@ -612,7 +612,7 @@
      "El rey negro espera.",
      "El caballo vigila h6 y prepara un jaque.",
      "Vuelve a la esquina.",
-     "Pero este «encierro» es ahogado: el rey negro no tiene jugadas y no está en jaque. Para dar mate, el otro caballo tendría que llegar a dar jaque justo a tiempo, y un defensor que no se equivoque nunca lo permite. Por eso esta posición no se declara tablas de forma automática, pero en la práctica es tablas."
+     "Pero este «encierro» es ahogado: el rey negro no tiene jugadas y no está en jaque, y la partida termina en tablas en el acto. Dos caballos contra rey no es una posición muerta (con ayuda del rival existe un mate), así que no se declara tablas automáticamente, pero un defensor que no se equivoque nunca recibe mate."
     ]
    }
   ],
@@ -641,7 +641,7 @@
    },
    {
     "fen": "rnbqkb1r/pppp1ppp/5n2/4N3/8/8/PPPPQPPP/RNB1KB1R w KQkq - 2 5",
-    "caption": "Juegan blancas (Defensa Petrov: 1.e4 e5 2.Nf3 Nf6 3.Nxe5 Nxe4? 4.Qe2 Nf6??). La dama y el rey negros están en la columna e y en la diagonal del caballo.",
+    "caption": "Juegan blancas (Defensa Petrov: 1.e4 e5 2.Nf3 Nf6 3.Nxe5 Nxe4? 4.Qe2 Nf6??). El rey negro está en la columna e, frente a tu dama, y la dama negra de d8 está al alcance de un salto de caballo.",
     "line": [
      "Nc6+",
      "Be7",
@@ -734,13 +734,13 @@
      "El rey sigue avanzando.",
      "El rey negro le corta el paso.",
      "Rey en d4, apoyando la futura ruptura.",
-     "Las negras esperan. Ahora el plan blanco es c4, b4 y c5 (o a4 y b5) para crear un peón pasado con la mayoría; el motor da ventaja blanca clara (unos +2,4)."
+     "Las negras esperan. Ahora el plan blanco es c4, b4 y c5 (o a4 y b5) para crear un peón pasado con la mayoría; el motor da ventaja decisiva para las blancas (unos +6)."
     ]
    }
   ],
   "drills": [
    {
-    "fen": "8/ppp4k/8/PPP5/8/8/8/7K w - - 0 1",
+    "fen": "8/ppp3k1/8/PPP5/8/8/8/7K w - - 0 1",
     "caption": "Juegan blancas y ganan: los reyes están lejos. Abre paso a un peón.",
     "line": [
      "b6",
@@ -782,13 +782,11 @@
     "caption": "Juegan blancas. El alfil y el caballo negros están en casillas vecinas, delante de tus peones.",
     "line": [
      "e5",
-     "Qb6",
-     "exd6"
+     "Qb6"
     ],
     "comments": [
      "Horquilla de peón: e5 ataca d6 y f6 a la vez, protegido por el peón de d4.",
-     "Las negras no pueden salvar las dos piezas y buscan contrajuego: la dama ataca d4 y b2.",
-     "El peón se come el alfil (mejor que exf6, porque el peón de d6 queda clavando y molestando). Las blancas ganan una pieza por un peón."
+     "Las negras no pueden salvar las dos piezas y buscan contrajuego: la dama ataca d4 y b2. Ahora exd6 o exf6 ganan una pieza por un peón (el motor las valora casi igual)."
     ]
    }
   ]
@@ -996,7 +994,7 @@
   ]
  },
  "b-coronacion": {
-  "html": "<h4>Lo que dice exactamente el reglamento</h4><p>La coronación forma parte de la misma jugada del peón: cuando llega a la última fila, se cambia <b>en esa misma jugada</b> por una dama, torre, alfil o caballo del mismo color, a elección del jugador e independientemente de las piezas que haya sobre el tablero. La jugada no se considera terminada hasta que la nueva pieza está en la casilla. En un torneo, si no tienes a mano la pieza que quieres (por ejemplo, una segunda dama), detén el reloj y pide ayuda al árbitro; no la sustituyas por un objeto cualquiera ni dejes el peón «como si fuera» una dama.</p><h4>Las razones de la subpromoción</h4><ul><li><b>Evitar el ahogado</b>: la dama controla tantas casillas que a veces deja al rey rival sin jugadas. Una torre hace el mismo trabajo en filas y columnas sin cubrir las diagonales. Es la idea del famoso estudio de Saavedra (1895), que verás en la práctica.</li><li><b>Dar jaque o mate de caballo</b>: el caballo ataca casillas que la dama no puede alcanzar; coronar en caballo con jaque puede ganar una dama rival o evitar un mate.</li><li><b>Alfil</b>: rarísimo, casi siempre por ahogado en estudios.</li></ul><h4>Ganar la carrera</h4><p>En las carreras de peones cuenta las jugadas con calma. Recuerda la regla del cuadrado, piensa si tu peón coronará <b>con jaque</b> (eso gana un tiempo) y si la nueva dama podrá controlar la casilla de coronación del rival. En rey y peón contra rey, el rey atacante debe ir <b>delante</b> de su peón: si llega a dos filas por delante del peón (casillas clave), gana; y si su peón ya está en la sexta fila con el rey a su lado, gana siempre, salvo con los peones de torre.</p><h4>El peón de torre, una excepción</h4><p>Con un peón de a o de h, al defensor le basta llegar a la esquina de coronación: el rey atacante no puede expulsarlo sin provocar el ahogado. Por eso, en rey y peón de torre contra rey, la regla de las casillas clave no sirve: la clave es si el rey defensor alcanza la esquina.</p><h4>Lista de comprobación antes de coronar</h4><ol><li>¿La nueva dama ahoga al rival? Si es así, prueba con torre.</li><li>¿Hay una coronación con jaque (en dama o en caballo) que gane material?</li><li>¿El rival puede capturar la nueva pieza o dar un jaque perpetuo justo después?</li><li>¿Coronar ahora es lo más fuerte, o conviene antes una jugada de rey que prepare el mate?</li></ol><p>Y una costumbre práctica: en un torneo, coloca la nueva pieza en la casilla de coronación con la misma mano que movió el peón y no pulses el reloj hasta que esté allí. Muchas discusiones con el árbitro nacen de coronaciones hechas a medias.</p>",
+  "html": "<h4>Lo que dice exactamente el reglamento</h4><p>La coronación forma parte de la misma jugada del peón: cuando llega a la última fila, se cambia <b>en esa misma jugada</b> por una dama, torre, alfil o caballo del mismo color, a elección del jugador e independientemente de las piezas que haya sobre el tablero. La jugada no se considera terminada hasta que la nueva pieza está en la casilla. En un torneo, si no tienes a mano la pieza que quieres (por ejemplo, una segunda dama), detén el reloj y pide ayuda al árbitro; no la sustituyas por un objeto cualquiera ni dejes el peón «como si fuera» una dama.</p><h4>Las razones de la subpromoción</h4><ul><li><b>Evitar el ahogado</b>: la dama controla tantas casillas que a veces deja al rey rival sin jugadas. Una torre hace el mismo trabajo en filas y columnas sin cubrir las diagonales. Es la idea del famoso estudio de Saavedra (1895), que verás en la práctica.</li><li><b>Dar jaque o mate de caballo</b>: el caballo ataca casillas que la dama no puede alcanzar; coronar en caballo con jaque puede ganar una dama rival o evitar un mate.</li><li><b>Alfil</b>: rarísimo, casi siempre por ahogado en estudios.</li></ul><h4>Ganar la carrera</h4><p>En las carreras de peones cuenta las jugadas con calma. Recuerda la regla del cuadrado, piensa si tu peón coronará <b>con jaque</b> (eso gana un tiempo) y si la nueva dama podrá controlar la casilla de coronación del rival. En rey y peón contra rey, el rey atacante debe ir <b>delante</b> de su peón: si llega a dos filas por delante del peón (casillas clave), gana; y si su rey llega a la sexta fila delante de su peón (por ejemplo, rey en e6 con el peón en e5 o más atrás), gana siempre, tenga quien tenga la jugada, salvo con los peones de torre.</p><h4>El peón de torre, una excepción</h4><p>Con un peón de a o de h, al defensor le basta llegar a la esquina de coronación: el rey atacante no puede expulsarlo sin provocar el ahogado. Por eso, en rey y peón de torre contra rey, la regla de las casillas clave no sirve: la clave es si el rey defensor alcanza la esquina.</p><h4>Lista de comprobación antes de coronar</h4><ol><li>¿La nueva dama ahoga al rival? Si es así, prueba con torre.</li><li>¿Hay una coronación con jaque (en dama o en caballo) que gane material?</li><li>¿El rival puede capturar la nueva pieza o dar un jaque perpetuo justo después?</li><li>¿Coronar ahora es lo más fuerte, o conviene antes una jugada de rey que prepare el mate?</li></ol><p>Y una costumbre práctica: en un torneo, coloca la nueva pieza en la casilla de coronación con la misma mano que movió el peón y no pulses el reloj hasta que esté allí. Muchas discusiones con el árbitro nacen de coronaciones hechas a medias.</p>",
   "keyPoints": [
    "La coronación es parte de la misma jugada; si falta la pieza, se detiene el reloj y se llama al árbitro.",
    "Subpromoción en torre para evitar el ahogado; en caballo para dar jaque.",
@@ -1093,14 +1091,10 @@
     "fen": "3k4/8/2K5/8/4P3/8/8/8 w - - 0 1",
     "caption": "Juegan blancas. El peón está lejos, pero el rey blanco ya está muy adelantado. ¿Cómo se gana?",
     "line": [
-     "Kd6",
-     "Ke8",
-     "e5"
+     "Kd6"
     ],
     "comments": [
-     "El rey se coloca delante de su peón, dos filas por delante (casilla clave) y en oposición con el rey negro. Kd5 o Kc5 solo hacen tablas.",
-     "El rey negro intenta acercarse a la columna e.",
-     "El peón avanza protegido por el rey: si Kd8, e6 y el rey blanco escolta al peón hasta e8. El motor confirma la victoria."
+     "El rey se coloca delante de su peón, dos filas por delante (casilla clave) y en oposición con el rey negro: gana tenga quien tenga la jugada. Kd5 o Kc5 solo hacen tablas. Por ejemplo, si Ke8, tanto e5 como Ke6 ganan."
     ]
    }
   ]
@@ -1129,18 +1123,18 @@
     ]
    },
    {
-    "fen": "6k1/5ppp/8/1q6/8/8/3NBPPP/4r1K1 w - - 0 1",
+    "fen": "6k1/5ppp/8/1q6/8/8/2QNBPPP/4r1K1 w - - 0 1",
     "orientation": "white",
-    "caption": "Tapar con la pieza correcta: dos piezas blancas pueden interponerse en f1, pero solo una evita el mate.",
+    "caption": "Tapar con la pieza correcta: dos piezas blancas pueden interponerse en f1, pero solo una conserva el material.",
     "line": [
      "Bf1",
-     "Qd3",
+     "g6",
      "g3"
     ],
     "comments": [
-     "Con el alfil. Si Nf1?, Qxe2 y la amenaza Rxf1+ termina en mate en pocas jugadas.",
-     "La dama negra ataca al caballo de d2.",
-     "El rey consigue una casilla de escape. Las negras ganarán material, pero no hay mate inmediato; tras Nf1 habría sido peor."
+     "Con el alfil: el caballo de d2 sigue protegido por la dama de c2 y no se pierde nada. Si Nf1?, Rxe2 y las negras ganan el alfil, que estaba atacado por la dama de b5.",
+     "Las negras dan aire a su rey.",
+     "Las blancas también abren una casilla de escape. Caballo y alfil contra torre: el motor da una ligera ventaja blanca (unos +0,9)."
     ]
    }
   ],
@@ -1248,7 +1242,7 @@
     "comments": [
      "¡Sacrificio de dama! El caballo debe capturar, y así abandona la defensa de d8.",
      "Forzado.",
-     "Mate de la Ópera: la torre da jaque protegida por el alfil de g5, y la dama negra y el alfil de f8 tapan las salidas del rey."
+     "Mate de la Ópera: la torre da jaque protegida por el alfil de g5, que además cubre e7; el alfil de f8 y el peón de f7 tapan las otras salidas."
     ]
    },
    {
@@ -1514,7 +1508,7 @@
      "Las negras atacan al alfil para ganar tiempo.",
      "El alfil mantiene la clavada. Si Bxc6+, bxc6 y las negras recuperan algo de material.",
      "Las negras insisten.",
-     "El peón se come el caballo con ventaja de una pieza."
+     "El peón se come el caballo. Tras bxa4 el material queda igualado (caballo por alfil, con un peón más para las blancas), pero el peón de c6, el enroque largo y Rd7 dejan a las blancas con ventaja decisiva (el motor da unos +5)."
     ]
    },
    {
@@ -1632,7 +1626,7 @@
   ]
  },
  "b-primeras": {
-  "html": "<h4>Contar tiempos: la moneda de la apertura</h4><p>En la apertura, cada jugada es un <b>tiempo</b>. Si el rival gasta tres jugadas en llevar la dama de un lado a otro mientras tú sacas tres piezas, has ganado dos tiempos de desarrollo. Una ventaja de desarrollo no se nota en el material, pero permite abrir el juego y atacar antes de que el rival esté listo. Por eso los principios clásicos insisten: mueve cada pieza una sola vez, no saques la dama pronto, no muevas demasiados peones y no te dediques a comer peones lejanos.</p><h4>Las trampas más comunes (y su idea)</h4><ul><li><b>Mate del pastor</b>: dama y alfil contra f7 (o f2). Se evita con g6, Nf6 o Qe7, mirando siempre qué amenaza el rival.</li><li><b>Mate del loco</b>: 1.f3 e5 2.g4 Qh4#. Lección: no debilites la diagonal e1-h4 moviendo los peones f y g.</li><li><b>La Defensa Damiano</b> (1.e4 e5 2.Nf3 f6?): defender e5 con el peón de f debilita al rey; Nxe5 es un sacrificio que funciona.</li><li><b>La trampa del elefante</b> en el Gambito de Dama: un caballo «clavado» que en realidad no lo está.</li><li><b>El truco de la horquilla</b> (Nxe4 seguido de d5): se entrega una pieza para recuperarla con un ataque doble de peón.</li><li><b>El caballo de Blackburne</b> (3...Nd4 en la Italiana): si las blancas se comen e5 con avaricia, la dama negra entra en g5 con amenazas dobles.</li></ul><h4>Por qué funcionan las trampas</h4><p>Casi todas castigan uno de estos errores: sacar la dama pronto, dejar el rey en el centro con líneas abiertas, comer material sin ver la respuesta del rival o debilitar los peones de delante del rey. Si cumples los principios básicos, caerás en muy pocas. Y no es buena idea jugar «a la trampa»: contra un rival atento, las jugadas tramposas suelen ser malas.</p><h4>La rutina antes de cada jugada</h4><ol><li>¿Qué ha cambiado con la última jugada del rival? ¿Qué amenaza (jaques, capturas, ataques dobles)?</li><li>¿Tengo alguna jugada forzada a favor: jaque, captura o amenaza?</li><li>Si no, ¿qué pieza está peor colocada? Desarrolla, enroca, ocupa el centro.</li><li>Antes de soltar la pieza: ¿mi jugada deja algo sin defender o abre una línea contra mi rey?</li></ol><h4>Errores típicos en las primeras jugadas</h4><p>Jugar h3 o a3 «por si acaso» en lugar de desarrollar, mover el mismo caballo varias veces, cambiar el alfil por el caballo sin motivo, olvidarse del enroque y, sobre todo, contestar automáticamente sin mirar lo que amenaza el rival. La mayoría de las partidas entre principiantes se deciden por una pieza dejada sin defensa en las diez primeras jugadas.</p><p>Un objetivo realista para tus primeras partidas: al llegar a la jugada diez, tener los caballos y los alfiles fuera, el rey enrocado y las torres conectadas, sin haber perdido material. Si lo consigues, ya habrás superado la fase en la que se cometen los errores más graves.</p>",
+  "html": "<h4>Contar tiempos: la moneda de la apertura</h4><p>En la apertura, cada jugada es un <b>tiempo</b>. Si el rival gasta tres jugadas en llevar la dama de un lado a otro mientras tú sacas tres piezas, has ganado dos tiempos de desarrollo. Una ventaja de desarrollo no se nota en el material, pero permite abrir el juego y atacar antes de que el rival esté listo. Por eso los principios clásicos insisten: mueve cada pieza una sola vez, no saques la dama pronto, no muevas demasiados peones y no te dediques a comer peones lejanos.</p><h4>Las trampas más comunes (y su idea)</h4><ul><li><b>Mate del pastor</b>: dama y alfil contra f7 (o f2). Se evita con g6 o Qe7 si la dama está en h5 (¡ojo: Nf6?? permite Qxf7#!), y con Nf6 o Qe7 si está en f3; mira siempre qué amenaza el rival.</li><li><b>Mate del loco</b>: 1.f3 e5 2.g4 Qh4#. Lección: no debilites la diagonal e1-h4 moviendo los peones f y g.</li><li><b>La Defensa Damiano</b> (1.e4 e5 2.Nf3 f6?): defender e5 con el peón de f debilita al rey; Nxe5 es un sacrificio que funciona.</li><li><b>La trampa del elefante</b> en el Gambito de Dama: un caballo «clavado» que en realidad no lo está.</li><li><b>El truco de la horquilla</b> (Nxe4 seguido de d5): se entrega una pieza para recuperarla con un ataque doble de peón.</li><li><b>El caballo de Blackburne</b> (3...Nd4 en la Italiana): si las blancas se comen e5 con avaricia, la dama negra entra en g5 con amenazas dobles.</li></ul><h4>Por qué funcionan las trampas</h4><p>Casi todas castigan uno de estos errores: sacar la dama pronto, dejar el rey en el centro con líneas abiertas, comer material sin ver la respuesta del rival o debilitar los peones de delante del rey. Si cumples los principios básicos, caerás en muy pocas. Y no es buena idea jugar «a la trampa»: contra un rival atento, las jugadas tramposas suelen ser malas.</p><h4>La rutina antes de cada jugada</h4><ol><li>¿Qué ha cambiado con la última jugada del rival? ¿Qué amenaza (jaques, capturas, ataques dobles)?</li><li>¿Tengo alguna jugada forzada a favor: jaque, captura o amenaza?</li><li>Si no, ¿qué pieza está peor colocada? Desarrolla, enroca, ocupa el centro.</li><li>Antes de soltar la pieza: ¿mi jugada deja algo sin defender o abre una línea contra mi rey?</li></ol><h4>Errores típicos en las primeras jugadas</h4><p>Jugar h3 o a3 «por si acaso» en lugar de desarrollar, mover el mismo caballo varias veces, cambiar el alfil por el caballo sin motivo, olvidarse del enroque y, sobre todo, contestar automáticamente sin mirar lo que amenaza el rival. La mayoría de las partidas entre principiantes se deciden por una pieza dejada sin defensa en las diez primeras jugadas.</p><p>Un objetivo realista para tus primeras partidas: al llegar a la jugada diez, tener los caballos y los alfiles fuera, el rey enrocado y las torres conectadas, sin haber perdido material. Si lo consigues, ya habrás superado la fase en la que se cometen los errores más graves.</p>",
   "keyPoints": [
    "Cada jugada es un tiempo: desarrolla piezas, no persigas peones con la dama.",
    "Las trampas castigan la dama prematura, el rey en el centro y la avaricia.",
@@ -1678,7 +1672,7 @@
      "La torre escapa.",
      "Jaque con la dama.",
      "Las blancas tapan con el alfil...",
-     "Mate: el caballo da jaque desde f3 y el rey blanco, encerrado por su propio alfil, su torre y su dama, no tiene salida (d1 y f2 están controladas por las piezas negras)."
+     "Mate: el caballo da jaque desde f3; el rey blanco no tiene salida porque d1, d2, e2, f1 y f2 están ocupadas por sus propias piezas, y el alfil de e2 no puede comer el caballo porque está clavado por la dama de e4."
     ]
    }
   ],

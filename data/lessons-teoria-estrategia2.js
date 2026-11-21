@@ -165,7 +165,7 @@
     ],
     "comments": [
      "Primero se abre la columna c y se obliga al caballo a recapturar.",
-     "Las negras recapturan con pieza para no quedarse con un peón aislado.",
+     "Las negras recapturan con el caballo: ...cxd5 abriría la columna c para la dama blanca y ...exd5 dejaría la casilla e5 todavía más débil, con el alfil de c8 igual de encerrado.",
      "Se cambia el alfil de casillas negras, la mejor pieza de la Stonewall.",
      "La dama recaptura, pero ya no hay alfil que defienda e5.",
      "La ruptura e4 abre el centro justo cuando las negras están retrasadas en desarrollo.",
@@ -328,7 +328,7 @@
      "Las negras bloquean con el rey.",
      "Ahora sí: la ruptura con jaque.",
      "Las negras toman.",
-     "Recaptura con jaque y el peón c queda pasado y protegido por el rey. Casi cuatro peones de ventaja según el motor."
+     "Recaptura con jaque: el peón b5 fija al b6, y la ruptura a4-a5 dejará un peón pasado en el flanco de dama. Casi cuatro peones de ventaja según el motor."
     ]
    }
   ],
@@ -408,7 +408,7 @@
   ]
  },
  "m2-doblados": {
-  "html": "<h4>Hacia dónde capturar: la decisión que crea los doblados</h4><p>Casi siempre los peones doblados nacen de una decisión de recaptura, y esa decisión es estratégica. La regla orientativa de «capturar hacia el centro» existe porque un peón que se acerca al centro controla casillas más importantes: tras <span class=\"mv\">...Bxf3</span>, recapturar <span class=\"mv\">gxf3</span> refuerza e4 y abre la columna g, mientras que <span class=\"mv\">Qxf3</span> mantiene la estructura intacta pero pierde tiempo. Ninguna de las dos es correcta siempre: hay que preguntarse qué columna se abre, qué casillas se controlan y qué pasa con la seguridad del rey. Recapturar hacia fuera (por ejemplo, <span class=\"mv\">hxg6</span> en vez de <span class=\"mv\">fxg6</span>) suele ser lo más sólido para el rey; recapturar hacia dentro (<span class=\"mv\">fxg6</span>) abre la columna f para las torres.</p><h4>Cómo atacar peones doblados</h4><p>Los peones doblados tienen tres defectos concretos: <b>no se defienden entre sí</b>, <b>dejan un agujero</b> en la columna vecina y <b>pierden movilidad</b>. El plan del atacante es:</p><ol><li><b>Fijar</b> el peón delantero para que no pueda avanzar ni cambiarse (en la Nimzoindia, el bloqueo en c5 contra el peón c4 blanco).</li><li><b>Atacar</b> el peón fijado con piezas que no puedan ser desalojadas: el caballo en a5, el alfil en a6, la torre en la columna c.</li><li><b>Simplificar</b>: cada cambio quita al rival piezas activas que compensaban la estructura, y en el final los doblados pesan el doble.</li></ol><p>El bando con los doblados, en cambio, quiere lo contrario: actividad inmediata, columnas abiertas y, si puede, cambiar uno de los peones doblados para curar la estructura (por ejemplo, con la ruptura c4-c5 o con d4-d5 en la Nimzoindia).</p><h4>Los doblados en el final de peones</h4><p>El efecto más claro de los peones doblados aparece en el final de peones. Una mayoría de tres contra dos con dos peones doblados no puede crear un pasado, mientras que una mayoría sana del rival sí. Por eso, el bando con estructura sana busca cambiar todas las piezas: el final de peones resultante puede ser ganador aunque el material esté igualado. Otro efecto importante: los peones doblados <b>dan tiempos de reserva</b> si están en su posición inicial (el peón trasero puede avanzar una o dos casillas), y en los finales de oposición esos tiempos pueden decidir la partida a favor de quien los tiene.</p><h4>Errores típicos</h4><ul><li>Evitar siempre los doblados aunque a cambio se ofrezca la pareja de alfiles o una columna decisiva.</li><li>Con los doblados, buscar los cambios: cada cambio acerca el final, donde la estructura pesa más.</li><li>Contra los doblados, atacarlos antes de fijarlos: el rival los avanza, los cambia y la debilidad desaparece.</li></ul><p><b>Lista de comprobación:</b> ¿los doblados están aislados o tienen un vecino que los proteja? ¿qué se obtuvo a cambio? ¿puede el rival fijarlos y atacarlos con piezas? ¿qué pasa si se cambian todas las piezas?</p>",
+  "html": "<h4>Hacia dónde capturar: la decisión que crea los doblados</h4><p>Casi siempre los peones doblados nacen de una decisión de recaptura, y esa decisión es estratégica. La regla orientativa de «capturar hacia el centro» existe porque un peón que se acerca al centro controla casillas más importantes: tras <span class=\"mv\">...Bxf3</span>, recapturar <span class=\"mv\">gxf3</span> refuerza e4 y abre la columna g, mientras que <span class=\"mv\">Qxf3</span> mantiene la estructura intacta pero pierde tiempo. Ninguna de las dos es correcta siempre: hay que preguntarse qué columna se abre, qué casillas se controlan y qué pasa con la seguridad del rey. Recapturar hacia el centro (por ejemplo, <span class=\"mv\">hxg6</span> en vez de <span class=\"mv\">fxg6</span>) suele ser lo más sólido para el rey; recapturar hacia fuera (<span class=\"mv\">fxg6</span>) abre la columna f para las torres.</p><h4>Cómo atacar peones doblados</h4><p>Los peones doblados tienen tres defectos concretos: <b>no se defienden entre sí</b>, <b>dejan un agujero</b> en la columna vecina y <b>pierden movilidad</b>. El plan del atacante es:</p><ol><li><b>Fijar</b> el peón delantero para que no pueda avanzar ni cambiarse (en la Nimzoindia, el bloqueo en c5 contra el peón c4 blanco).</li><li><b>Atacar</b> el peón fijado con piezas que no puedan ser desalojadas: el caballo en a5, el alfil en a6, la torre en la columna c.</li><li><b>Simplificar</b>: cada cambio quita al rival piezas activas que compensaban la estructura, y en el final los doblados pesan el doble.</li></ol><p>El bando con los doblados, en cambio, quiere lo contrario: actividad inmediata, columnas abiertas y, si puede, cambiar uno de los peones doblados para curar la estructura (por ejemplo, con la ruptura c4-c5 o con d4-d5 en la Nimzoindia).</p><h4>Los doblados en el final de peones</h4><p>El efecto más claro de los peones doblados aparece en el final de peones. Una mayoría de tres contra dos con dos peones doblados no puede crear un pasado, mientras que una mayoría sana del rival sí. Por eso, el bando con estructura sana busca cambiar todas las piezas: el final de peones resultante puede ser ganador aunque el material esté igualado. Otro efecto importante: los peones doblados <b>dan tiempos de reserva</b> si están en su posición inicial (el peón trasero puede avanzar una o dos casillas), y en los finales de oposición esos tiempos pueden decidir la partida a favor de quien los tiene.</p><h4>Errores típicos</h4><ul><li>Evitar siempre los doblados aunque a cambio se ofrezca la pareja de alfiles o una columna decisiva.</li><li>Con los doblados, buscar los cambios: cada cambio acerca el final, donde la estructura pesa más.</li><li>Contra los doblados, atacarlos antes de fijarlos: el rival los avanza, los cambia y la debilidad desaparece.</li></ul><p><b>Lista de comprobación:</b> ¿los doblados están aislados o tienen un vecino que los proteja? ¿qué se obtuvo a cambio? ¿puede el rival fijarlos y atacarlos con piezas? ¿qué pasa si se cambian todas las piezas?</p>",
   "keyPoints": [
    "Fija primero el peón doblado, después atácalo con piezas y finalmente simplifica.",
    "Con los peones doblados, busca actividad y evita el final de peones."
@@ -432,7 +432,7 @@
     "comments": [
      "El rey se acerca al centro.",
      "El rey negro también.",
-     "Las blancas empiezan a mover su mayoría sana: cuatro contra tres en el flanco de rey producirán un peón pasado.",
+     "Las blancas empiezan a mover su mayoría sana: tres contra dos en el flanco de rey producirán un peón pasado.",
      "Las negras ganan espacio en el flanco de dama, pero con los peones c doblados no podrán crear un pasado.",
      "Se controla d4 y se prepara b3 para frenar a los peones negros.",
      "El rey negro se activa.",
@@ -577,7 +577,7 @@
      "Rad1"
     ],
     "comments": [
-     "Las negras no se apresuran a tomar en d5: si ...Bxd5 y exd5, las blancas quedarían con la pareja de alfiles y presión en la columna c. Primero desarrollan.",
+     "Las negras no se apresuran a tomar en d5: después de ...Bxd5 exd5 las blancas ganarían espacio con un peón en d5, y a las negras les quedaría solo el alfil de casillas negras, el malo, detrás de d6 y e5. Primero desarrollan.",
      "Las blancas refuerzan el caballo de d5 con un peón.",
      "El alfil malo sale por g5, fuera de la cadena: podrá cambiarse por una pieza activa.",
      "Las blancas ganan espacio en el flanco de dama.",
@@ -645,7 +645,7 @@
    },
    {
     "fen": "8/1p2bppp/p2pk3/4p3/2r1P3/2N2P2/PPPR1KPP/8 w - - 0 1",
-    "caption": "Juegan blancas: final con el peón negro d6 retrasado. La torre negra amenaza e4. Encuentra la mejor casilla para el caballo.",
+    "caption": "Juegan blancas: final con el peón negro d6 retrasado. Encuentra la mejor casilla para el caballo.",
     "line": [
      "Nd5",
      "Bg5",
@@ -654,7 +654,7 @@
     "comments": [
      "El caballo ocupa d5, la casilla de delante del peón retrasado: no puede ser expulsado por peones, bloquea d6 y su sitio es inmejorable. Las jugadas de espera, como Re2 o Ke1, dejan la posición igualada.",
      "El alfil busca la diagonal c1-h6, la única activa que tiene; no puede disputar d5 porque es de casillas negras.",
-     "La torre defiende e4 y la segunda fila. El plan: c3, rey al centro y presión sobre d6; el alfil negro queda malo, detrás de d6 y e5."
+     "La torre se aparta del ataque del alfil y protege la segunda fila. El plan: c3, rey al centro y presión sobre d6; el alfil negro queda malo, detrás de d6 y e5."
     ]
    }
   ]
@@ -703,11 +703,11 @@
      "h4"
     ],
     "comments": [
-     "El caballo va hacia f1 o b1-d2: al no haber tensión en d4, las blancas tienen tiempo.",
+     "El caballo sale por d2, desde donde puede seguir a f1-g3 o presionar c4: al no haber tensión en d4, las blancas tienen tiempo.",
      "Las negras ocupan b3 y presionan el flanco de dama.",
      "Desarrollo tranquilo: el centro cerrado no exige prisa.",
      "Las negras completan su desarrollo.",
-     "Prepara b4 para romper la cadena negra por su base.",
+     "Prepara b3 para atacar la punta c4 de la cadena negra; contra la base e6, el plan blanco es f4-f5.",
      "La dama se aparta de la columna b.",
      "Las blancas ganan espacio en el flanco de rey, adonde apunta el peón e5. Posición equilibrada con planes claros para los dos."
     ]
@@ -747,7 +747,7 @@
      "Las negras toman.",
      "Se recupera con peón y se insiste contra e6.",
      "Las negras cambian para no quedarse con un peón débil en e6.",
-     "El rey blanco come d5 y queda con dos peones pasados centrales unidos: ganan con facilidad."
+     "El rey blanco come d5: el peón d4 es pasado, el e5 lo apoya y el rey está en el centro. Ganan con facilidad."
     ]
    },
    {
@@ -761,7 +761,7 @@
     "comments": [
      "La ruptura en el flanco hacia donde apunta el peón e5. Si las negras no toman, fxg5 y el peón h5 avanza. Las jugadas de rey pierden.",
      "Las negras toman.",
-     "¡Segunda ruptura! Si ...hxg5, h6 y el peón corona; si ...f3, gxh6 y el peón h llega antes."
+     "¡Segunda ruptura! Si ...hxg5, h6 y el peón corona; si ...f3, gxh6 f2 h7 f1=D h8=D, y la dama blanca entra con jaques y gana los peones f7 y e6."
     ]
    },
    {
@@ -908,7 +908,7 @@
   ]
  },
  "m2-espacio": {
-  "html": "<h4>Cómo se gana espacio sin crear debilidades</h4><p>Ganar espacio es avanzar peones, y todo avance de peón tiene un precio: las casillas que el peón deja de controlar detrás. Un peón en e5 controla d6 y f6, pero ya no controla d5 ni f5, y la casilla d4 que tenía detrás queda sin defensa de peón. Por eso un avance que gana espacio debe cumplir dos condiciones: que el peón avanzado <b>se pueda sostener</b> (con otro peón o con piezas) y que las casillas que quedan detrás <b>no puedan ser ocupadas</b> por el rival. Un peón avanzado que no se puede sostener no da espacio: da un objetivo.</p><h4>La técnica del bando con más espacio</h4><ul><li><b>Restringir antes que atacar.</b> El objetivo inmediato no es dar mate, sino quitarle al rival sus rupturas y sus buenas casillas. Una jugada como <span class=\"mv\">a4</span> contra …b5 o <span class=\"mv\">Nd5</span> contra …d5 no amenaza nada, pero quita al rival su única forma de respirar.</li><li><b>Usar el espacio para maniobrar.</b> Detrás de tus peones tienes casillas para mover piezas de un flanco a otro. El rival, con sus piezas apretadas, tarda más en seguirte.</li><li><b>Abrir solo cuando estés listo.</b> El momento de romper llega cuando tus piezas están mejor colocadas que las del rival en el sector elegido; antes de eso, abrir solo le da aire.</li></ul><h4>La técnica del bando con menos espacio</h4><p>Las posiciones con poco espacio no son malas si son <b>sólidas y tienen una ruptura</b>. El defensor debe cambiar las piezas que se estorban (por ejemplo, el alfil que no tiene casillas o un caballo sin puestos), mantener los peones en casillas donde no ofrezcan blancos y tener preparada al menos una ruptura de peón. Mientras la ruptura siga siendo posible, el rival no puede relajarse. Una idea muy útil es <b>provocar el avance</b> de los peones rivales: cada paso hacia adelante deja casillas detrás para tus piezas.</p><h4>Errores típicos</h4><ul><li>Con más espacio: cambiar piezas sin necesidad, sobre todo las del rival que estaban mal colocadas; avanzar peones solo porque se puede; dejar que el rival haga su ruptura «por descuido».</li><li>Con menos espacio: romper antes de tiempo (la ruptura prematura abre líneas para las piezas del rival, que están mejor); colocar las piezas en casillas donde se bloquean entre sí; aceptar una posición sin ninguna ruptura posible.</li></ul><p>Una idea que verás en los ejercicios: cuando el centro está bloqueado, el bando con más espacio puede llevar el rey o las piezas al otro flanco con calma, porque el rival, encerrado detrás de sus peones, tarda más en reaccionar. El espacio no solo sirve para atacar: sirve para elegir dónde se jugará la partida.</p><p><b>Lista de comprobación:</b> ¿quién tiene más espacio y dónde? ¿cuál es la ruptura del bando con menos espacio y puedo impedirla con una jugada? ¿qué cambio aliviaría al rival y cómo lo evito? ¿mis peones avanzados están sostenidos?</p>",
+  "html": "<h4>Cómo se gana espacio sin crear debilidades</h4><p>Ganar espacio es avanzar peones, y todo avance de peón tiene un precio: las casillas que el peón deja de controlar detrás. Un peón en e5 controla d6 y f6, pero ya no controla d5 ni f5, y la casilla e4 que deja atrás puede convertirse en un puesto para una pieza rival. Por eso un avance que gana espacio debe cumplir dos condiciones: que el peón avanzado <b>se pueda sostener</b> (con otro peón o con piezas) y que las casillas que quedan detrás <b>no puedan ser ocupadas</b> por el rival. Un peón avanzado que no se puede sostener no da espacio: da un objetivo.</p><h4>La técnica del bando con más espacio</h4><ul><li><b>Restringir antes que atacar.</b> El objetivo inmediato no es dar mate, sino quitarle al rival sus rupturas y sus buenas casillas. Una jugada como <span class=\"mv\">a4</span> contra …b5 o <span class=\"mv\">Nd5</span> contra …d5 no amenaza nada, pero quita al rival su única forma de respirar.</li><li><b>Usar el espacio para maniobrar.</b> Detrás de tus peones tienes casillas para mover piezas de un flanco a otro. El rival, con sus piezas apretadas, tarda más en seguirte.</li><li><b>Abrir solo cuando estés listo.</b> El momento de romper llega cuando tus piezas están mejor colocadas que las del rival en el sector elegido; antes de eso, abrir solo le da aire.</li></ul><h4>La técnica del bando con menos espacio</h4><p>Las posiciones con poco espacio no son malas si son <b>sólidas y tienen una ruptura</b>. El defensor debe cambiar las piezas que se estorban (por ejemplo, el alfil que no tiene casillas o un caballo sin puestos), mantener los peones en casillas donde no ofrezcan blancos y tener preparada al menos una ruptura de peón. Mientras la ruptura siga siendo posible, el rival no puede relajarse. Una idea muy útil es <b>provocar el avance</b> de los peones rivales: cada paso hacia adelante deja casillas detrás para tus piezas.</p><h4>Errores típicos</h4><ul><li>Con más espacio: cambiar piezas sin necesidad, sobre todo las del rival que estaban mal colocadas; avanzar peones solo porque se puede; dejar que el rival haga su ruptura «por descuido».</li><li>Con menos espacio: romper antes de tiempo (la ruptura prematura abre líneas para las piezas del rival, que están mejor); colocar las piezas en casillas donde se bloquean entre sí; aceptar una posición sin ninguna ruptura posible.</li></ul><p>Una idea que verás en los ejercicios: cuando el centro está bloqueado, el bando con más espacio puede llevar el rey o las piezas al otro flanco con calma, porque el rival, encerrado detrás de sus peones, tarda más en reaccionar. El espacio no solo sirve para atacar: sirve para elegir dónde se jugará la partida.</p><p><b>Lista de comprobación:</b> ¿quién tiene más espacio y dónde? ¿cuál es la ruptura del bando con menos espacio y puedo impedirla con una jugada? ¿qué cambio aliviaría al rival y cómo lo evito? ¿mis peones avanzados están sostenidos?</p>",
   "keyPoints": [
    "Un peón avanzado da espacio solo si se puede sostener; si no, es un objetivo.",
    "Con más espacio, primero restringe: quita al rival sus rupturas y sus buenas casillas."
@@ -1158,7 +1158,7 @@
   ]
  },
  "m2-color": {
-  "html": "<h4>Alfil bueno, alfil malo y alfil activo</h4><p>Se llama <b>alfil malo</b> al que tiene sus propios peones centrales fijos en casillas de su color, y <b>alfil bueno</b> al que los tiene en el color contrario. La definición se refiere a la estructura, no a la actividad: un alfil malo puede estar activo por fuera de la cadena (por ejemplo, delante de sus peones), y en el medio juego defiende precisamente las casillas que sus peones ya no cubren. El problema aparece en el final, cuando el alfil malo queda detrás de sus peones defendiéndolos y el rival ataca las casillas del otro color. Por eso es tan habitual <b>cambiar el alfil bueno del rival</b> y dejarle el malo: es una forma de crear una debilidad de color permanente.</p><h4>El plan para dominar un color</h4><ol><li><b>Cambia el defensor de ese color.</b> Normalmente el alfil de esas casillas; a veces un caballo que las cubre.</li><li><b>Fija los peones del rival</b> en el color contrario, de forma que no puedan volver a cubrir las casillas débiles.</li><li><b>Ocupa las casillas débiles</b> con piezas, empezando por el caballo, que no puede ser desalojado por peones ni por el alfil rival (que es del otro color).</li><li><b>Coordina la dama con el alfil</b> del color dominado: juntas crean amenazas de mate o de penetración en casillas que nadie defiende.</li></ol><h4>Alfiles de distinto color</h4><p>Con alfiles de distinto color, el control de las casillas de un color es absoluto: tu alfil ataca casillas que el alfil rival nunca podrá defender. En el medio juego, esto favorece al <b>atacante</b>: el alfil propio actúa como una pieza de más en las casillas que el rival no controla. En el final, en cambio, los alfiles de distinto color tienden a las tablas porque el defensor bloquea los peones en las casillas de su alfil. Conclusión práctica: con alfiles de distinto color, ataca con piezas en el medio juego y evita simplificar si vas por detrás en material.</p><h4>Errores típicos</h4><ul><li>Colocar los peones en el color de tu propio alfil cuando el rival ya no tiene alfil de ese color: tus peones tapan a tu alfil y dejan el otro color sin defensa.</li><li>Cambiar el alfil que defiende las casillas débiles de tu enroque (por ejemplo, el de g7 tras …g6).</li><li>Ocupar una casilla débil con la pieza equivocada: un alfil en una casilla que el alfil rival puede disputar, en vez de un caballo.</li></ul><p>En el final, la debilidad de color abre la puerta al rey: si todos los peones rivales están en casillas blancas, tu rey camina por las negras sin que ningún peón lo moleste. Es el mecanismo de uno de los ejercicios, y también la razón por la que el bando de la Stonewall teme los finales.</p><p><b>Lista de comprobación:</b> ¿qué alfiles quedan y de qué color? ¿en qué color están los peones fijos de cada bando? ¿qué casillas no puede controlar ningún peón ni alfil del rival? ¿qué pieza propia puede instalarse allí?</p>",
+  "html": "<h4>Alfil bueno, alfil malo y alfil activo</h4><p>Se llama <b>alfil malo</b> al que tiene sus propios peones centrales fijos en casillas de su color, y <b>alfil bueno</b> al que los tiene en el color contrario. La definición se refiere a la estructura, no a la actividad: un alfil malo puede estar activo por fuera de la cadena (por ejemplo, delante de sus peones), y en el medio juego defiende precisamente las casillas que sus peones ya no cubren. El problema aparece en el final, cuando el alfil malo queda detrás de sus peones defendiéndolos y el rival ataca las casillas del otro color. Por eso es tan habitual <b>cambiar el alfil bueno del rival</b> y dejarle el malo: es una forma de crear una debilidad de color permanente.</p><h4>El plan para dominar un color</h4><ol><li><b>Cambia el defensor de ese color.</b> Normalmente el alfil de esas casillas; a veces un caballo que las cubre.</li><li><b>Fija los peones del rival</b> en el color contrario, de forma que no puedan volver a cubrir las casillas débiles.</li><li><b>Ocupa las casillas débiles</b> con piezas, empezando por el caballo, que no puede ser desalojado por peones ni por el alfil rival (que es del otro color).</li><li><b>Coordina la dama con el alfil</b> del color dominado: juntas crean amenazas de mate o de penetración en casillas que nadie defiende.</li></ol><h4>Alfiles de distinto color</h4><p>Con alfiles de distinto color, el control de las casillas de un color es absoluto: tu alfil ataca casillas que el alfil rival nunca podrá defender. En el medio juego, esto favorece al <b>atacante</b>: el alfil propio actúa como una pieza de más en las casillas que el rival no controla. En el final, en cambio, los alfiles de distinto color tienden a las tablas porque el defensor bloquea los peones en las casillas de su alfil. Conclusión práctica: con alfiles de distinto color, ataca con piezas en el medio juego; si vas por delante en material, evita simplificar, y si vas por detrás, busca los cambios hacia el final de alfiles de distinto color.</p><h4>Errores típicos</h4><ul><li>Colocar los peones en el color de tu propio alfil cuando el rival ya no tiene alfil de ese color: tus peones tapan a tu alfil y dejan el otro color sin defensa.</li><li>Cambiar el alfil que defiende las casillas débiles de tu enroque (por ejemplo, el de g7 tras …g6).</li><li>Ocupar una casilla débil con la pieza equivocada: un alfil en una casilla que el alfil rival puede disputar, en vez de un caballo.</li></ul><p>En el final, la debilidad de color abre la puerta al rey: si todos los peones rivales están en casillas blancas, tu rey camina por las negras sin que ningún peón lo moleste. Es el mecanismo de uno de los ejercicios, y también la razón por la que el bando de la Stonewall teme los finales.</p><p><b>Lista de comprobación:</b> ¿qué alfiles quedan y de qué color? ¿en qué color están los peones fijos de cada bando? ¿qué casillas no puede controlar ningún peón ni alfil del rival? ¿qué pieza propia puede instalarse allí?</p>",
   "keyPoints": [
    "Cambia el alfil bueno del rival y déjale el malo: es una debilidad de color permanente.",
    "Con alfiles de distinto color, en el medio juego manda el atacante; en el final, el defensor."
@@ -1334,7 +1334,7 @@
      "Las blancas ganan el peón de d5.",
      "Las negras contraatacan contra f3 y d4.",
      "Las blancas simplifican.",
-     "La dama recaptura. Posición dinámica con ligera ventaja blanca (unas tres décimas): la ventaja temporal de actividad se transformó en un peón de más a cambio de la presión negra."
+     "La dama recaptura. Posición dinámica e igualada según el motor: la ventaja temporal de actividad se transformó en un peón de más, pero la presión negra sobre d4 y f3 lo compensa."
     ]
    }
   ],
@@ -1459,7 +1459,7 @@
      "Ng7"
     ],
     "comments": [
-     "Las negras cambian su alfil malo de casillas blancas.",
+     "Las negras cambian su alfil de casillas blancas, el bueno, por el alfil blanco de e2, un buen defensor del centro blanco; así alivian la falta de espacio.",
      "Las blancas preparan a3 y b4 en el flanco de dama.",
      "Desarrollo.",
      "El caballo va hacia d3 para apoyar b4 o f4.",

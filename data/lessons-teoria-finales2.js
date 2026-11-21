@@ -646,7 +646,7 @@
    },
    {
     "fen": "8/8/8/8/kP6/r1P5/8/K6R w - - 0 1",
-    "caption": "Juegan blancas: el rey negro está muy activo y amenaza tus peones. ¿Qué pieza tiene que activarse?",
+    "caption": "Juegan blancas: estás en jaque y el rey negro amenaza tus peones. ¿A qué casilla va tu rey?",
     "line": [
      "Kb2",
      "Rb3+",
@@ -655,7 +655,7 @@
     "comments": [
      "El rey ataca la torre. Kb1? Rxc3 y el negro elimina un peón: tablas.",
      "La mejor defensa del negro: jaque.",
-     "El rey sigue atacando la torre y protege c3. El negro tiene que entregar la torre por un peón (Rxb4 cxb4) o perder los dos peones de todos modos: en ambos casos las blancas ganan."
+     "El rey protege c3 y se acerca a los peones. La torre negra tiene que retirarse (Ra3) y el rey blanco sigue con Kd3: con el apoyo del rey los peones avanzan y las blancas ganan."
     ]
    },
    {
@@ -762,7 +762,7 @@
      "Kc8"
     ],
     "comments": [
-     "Kc8 ataca la torre y se coloca delante del peón. Kd8? Rb8+ y Rxf8, y Ke8? Rb8+ igual: un ensarte en la octava pierde la torre."
+     "Kc8 ataca la torre y se coloca delante del peón. Kd8? o Ke8? permiten Rb8+, que fuerza el cambio de torres (Ke7 Rxf8 Kxf8), y el final de peones con el rey blanco en d5 está perdido para el negro."
     ]
    }
   ]
@@ -1125,7 +1125,7 @@
      "Cae el primer peón: los peones negros, fijos en casillas negras, eran objetivos indefendibles.",
      "Jaque desde atrás.",
      "El rey sigue avanzando por las casillas blancas.",
-     "El alfil ataca el peón de a4.",
+     "El alfil se coloca en b4, protegido por el peón de a5, pero solo puede mirar casillas negras: no puede defender nada en las casillas blancas por las que entra el rey blanco.",
      "El peón de c avanza y se convierte en pasado: la ventaja blanca es decisiva."
     ]
    },
@@ -1150,14 +1150,10 @@
     "fen": "B7/5k1p/6p1/n7/8/8/2K3PP/8 w - - 0 1",
     "caption": "Juegan blancas: el caballo negro está en el borde. ¿Puedes atraparlo?",
     "line": [
-     "Kc3",
-     "g5",
-     "Kb4"
+     "Kc3"
     ],
     "comments": [
-     "El rey quita b3 y c4, y el alfil de a8 ya controla b7 y c6: el caballo no tiene ninguna casilla. Bd5+? o Kd3? le dan tiempo al caballo para salir por c6 o c4.",
-     "El negro no puede salvar el caballo e intenta crear contrajuego en el flanco de rey (Ke6 tampoco ayuda).",
-     "El rey ataca el caballo, que sigue sin casillas: en la jugada siguiente cae. El alfil detendrá los peones negros y el final está ganado."
+     "El rey quita b3 y c4, y el alfil de a8 ya controla b7 y c6: el caballo no tiene ninguna casilla. Si g5, Kb4 y el caballo cae; el alfil detendrá los peones negros. Bd5+? o Kd3? le dan tiempo al caballo para salir por c6 o c4."
     ]
    },
    {
@@ -1188,14 +1184,10 @@
     "fen": "8/3k4/5K2/1p1p1p2/pP1P1P2/P3b3/8/2N5 w - - 0 1",
     "caption": "Juegan blancas: los peones negros están fijos. ¿Qué ruta debe seguir el caballo?",
     "line": [
-     "Ne2",
-     "Bf2",
-     "Kxf5"
+     "Ne2"
     ],
     "comments": [
-     "Ne2 ataca el alfil y se dirige a c3, desde donde atacará b5 y d5. Nd3? permite que el alfil se coloque mejor y la presión se diluye.",
-     "El alfil se aparta y vigila d4.",
-     "El rey captura el peón de f5: los peones negros fijos en casillas blancas no pueden ser defendidos por el alfil de casillas negras. Después el rey seguirá hacia e5 y el caballo hacia c3. Ke5? es menos preciso."
+     "Ne2 ataca el alfil y se dirige a c3, desde donde atacará b5 y d5. Si Bf2, Kxf5 se come el peón: los peones negros fijos en casillas blancas no pueden ser defendidos por el alfil de casillas negras. Nd3? permite que el alfil se coloque mejor y la presión se diluye."
     ]
    }
   ]
@@ -1298,7 +1290,7 @@
      "b8=Q"
     ],
     "comments": [
-     "El peón avanza: el alfil negro de g1 no controla b8 (está en la diagonal a7-g1). Ba5? defiende el alfil, pero el negro lleva su alfil a la diagonal h2-b8 y es tablas.",
+     "¡El peón avanza! El alfil de g1 atacaba b6, así que defender tu alfil con Ba5? pierde el peón (Bxb6) y es tablas. Si el negro responde Bh2 para vigilar b8, Ba5 y Bc7 interponen el alfil en la diagonal h2-b8 y el peón corona.",
      "El negro captura el alfil, pero no puede detener el peón.",
      "Corona: dama contra alfil, final ganado."
     ]
@@ -1473,7 +1465,7 @@
    },
    {
     "fen": "8/8/8/2p1K3/k1P5/8/8/8 w - - 0 1",
-    "caption": "Juegan blancas: los dos reyes van a por el peón contrario. ¿Quién llega primero?",
+    "caption": "Juegan blancas: los dos reyes van por el peón contrario. ¿Quién llega primero?",
     "line": [
      "Kd6"
     ],
@@ -1505,7 +1497,7 @@
     ],
     "comments": [
      "Kc7 ataca el peón de b7. Ke5? o Ke6? solo hacen tablas: el rey negro captura c4 y defiende sus peones.",
-     "El rey negro va a por el peón de c4.",
+     "El rey negro va por el peón de c4.",
      "El rey captura b7 y luego b6: los dos peones negros caen y el peón de b5 coronará. En cambio Kxb6? solo hace tablas."
     ]
    }

@@ -133,7 +133,7 @@
      "Qxc3",
      "Qxd5",
      "Rad1",
-     "h6"
+     "Qc4"
     ],
     "comments": [
      "Las blancas rompen con todas las piezas desarrolladas: amenazan dxc6 y abrir las diagonales hacia el rey.",
@@ -143,7 +143,7 @@
      "Las blancas recuperan con la dama, que ahora mira a la gran diagonal.",
      "Las negras recuperan el peón, pero siguen con una calidad de menos.",
      "La torre entra en la columna d con tempo sobre la dama.",
-     "Las blancas tienen una calidad de más y piezas muy activas: el motor da una ventaja decisiva. La ruptura d5 transformó el aislado en material."
+     "La dama se retira. Las blancas tienen calidad por peón y piezas muy activas: ventaja clara, alrededor de un peón y medio según el motor. La ruptura d5 transformó el aislado en material."
     ]
    },
    {
@@ -261,7 +261,7 @@
      "La dama negra se activa, pero no hay amenazas reales.",
      "El caballo se retira a una casilla segura.",
      "Las negras usan la columna b.",
-     "La torre se instala en d5, delante del peón aislado de c5.",
+     "La torre se instala en d5, la casilla central que dejó el colgante al avanzar, y ataca el peón aislado de c5.",
      "Las blancas tienen casi tres peones de ventaja según el motor: el avance de un colgante sin amenaza concreta solo entregó una casilla y un peón."
     ]
    },
@@ -353,7 +353,7 @@
   ]
  },
  "m-maroczy": {
-  "html": "<h4>Por qué el cerrojo es tan incómodo</h4><p>Con peones en <span class=\"mv\">c4</span> y <span class=\"mv\">e4</span>, las blancas controlan <span class=\"mv\">d5</span> con dos peones y suelen añadir un caballo en <span class=\"mv\">c3</span>. Las negras tienen una posición sin debilidades reales, pero les falta espacio: sus piezas se estorban, y las rupturas habituales de la Siciliana (<span class=\"mv\">d5</span>) no son posibles. A cambio, las casillas oscuras <span class=\"mv\">d4</span> y <span class=\"mv\">c5</span> quedaron debilitadas por el avance <span class=\"mv\">c4</span>, y el alfil de <span class=\"mv\">g7</span> apunta a la gran diagonal. Toda la lucha gira en torno a esas casillas oscuras y a las rupturas laterales <span class=\"mv\">b5</span> y <span class=\"mv\">f5</span>.</p><h4>El plan blanco, paso a paso</h4><ol><li>Completar el desarrollo con <span class=\"mv\">Be2</span>, <span class=\"mv\">O-O</span>, <span class=\"mv\">Be3</span> y la dama en <span class=\"mv\">d2</span>.</li><li>Neutralizar el alfil de <span class=\"mv\">g7</span>: a menudo con <span class=\"mv\">Bd4</span> para cambiarlo, o con <span class=\"mv\">f3</span> que cierra la diagonal hacia <span class=\"mv\">e4</span>.</li><li>Impedir las rupturas: <span class=\"mv\">a4</span> o <span class=\"mv\">b3</span> contra <span class=\"mv\">b5</span>; <span class=\"mv\">f3</span> o un caballo que controle <span class=\"mv\">f5</span> contra <span class=\"mv\">f5</span>.</li><li>Llevar torres a c1 y d1 y presionar el peón de <span class=\"mv\">d6</span>, que es la única debilidad estática negra.</li><li>Evitar cambios de caballos: las negras los necesitan para respirar.</li></ol><h4>El plan negro, paso a paso</h4><ol><li>Cambiar piezas menores, sobre todo con <span class=\"mv\">Ng4</span> (contra el alfil de <span class=\"mv\">e3</span>) o <span class=\"mv\">Nxd4</span> seguido de <span class=\"mv\">Be6</span>.</li><li>Ocupar casillas oscuras: caballo en <span class=\"mv\">c5</span> o <span class=\"mv\">d7</span>, alfil en <span class=\"mv\">g7</span>, dama en <span class=\"mv\">a5</span>.</li><li>Preparar <span class=\"mv\">b5</span> con <span class=\"mv\">a6</span> y <span class=\"mv\">Rb8</span>, o <span class=\"mv\">f5</span> tras mover el caballo de <span class=\"mv\">f6</span>.</li><li>Si la ruptura llega en buen momento, el peón de <span class=\"mv\">c4</span> o de <span class=\"mv\">e4</span> se convierte en un blanco y la posición se abre a favor del alfil de <span class=\"mv\">g7</span>.</li></ol><h4>Errores frecuentes</h4><ul><li>Blancas: jugar <span class=\"mv\">f4</span> demasiado pronto y dejar <span class=\"mv\">e4</span> y la diagonal <span class=\"mv\">g7</span>-<span class=\"mv\">a1</span> sin defensa.</li><li>Blancas: cambiar el caballo de <span class=\"mv\">d4</span> sin necesidad; cada cambio alivia a las negras.</li><li>Negras: esperar pasivamente. El cerrojo no se rompe solo: sin <span class=\"mv\">b5</span> o <span class=\"mv\">f5</span> el espacio blanco crece.</li><li>Negras: romper con <span class=\"mv\">b5</span> o <span class=\"mv\">f5</span> sin preparación, dejando un peón débil y casillas libres para los caballos blancos.</li></ul><h4>Cómo pensarlo</h4><p>Con blancas, la pregunta es «¿qué ruptura prepara el rival y qué jugada la impide sin crear una debilidad nueva?». Con negras, «¿qué pieza blanca controla mi casilla de ruptura y puedo cambiarla?». En el cerrojo, la mitad de las buenas jugadas son profilácticas.</p><h4>El momento de las rupturas</h4><p>Una ruptura en el cerrojo se juzga igual que cualquier otra: ¿quedan las piezas propias más activas después del cambio? Si …b5 o …f5 dejan un peón débil (el de e7 o el de d6) y una casilla libre para los caballos blancos (e4, d5), la ruptura fue prematura. Si en cambio abren la diagonal del alfil de g7 o la columna c contra un peón blanco fijo, las negras igualan. Por eso las negras preparan la ruptura con varias jugadas (…a6, …Rb8, …Nd7) y las blancas, mientras tanto, colocan sus piezas justo donde la ruptura les daría ventaja.</p>",
+  "html": "<h4>Por qué el cerrojo es tan incómodo</h4><p>Con peones en <span class=\"mv\">c4</span> y <span class=\"mv\">e4</span>, las blancas controlan <span class=\"mv\">d5</span> con dos peones y suelen añadir un caballo en <span class=\"mv\">c3</span>. Las negras tienen una posición sin debilidades reales, pero les falta espacio: sus piezas se estorban, y las rupturas habituales de la Siciliana (<span class=\"mv\">d5</span>) no son posibles. A cambio, las casillas oscuras <span class=\"mv\">d4</span> y <span class=\"mv\">c5</span> quedaron debilitadas por el avance <span class=\"mv\">c4</span>, y el alfil de <span class=\"mv\">g7</span> apunta a la gran diagonal. Toda la lucha gira en torno a esas casillas oscuras y a las rupturas laterales <span class=\"mv\">b5</span> y <span class=\"mv\">f5</span>.</p><h4>El plan blanco, paso a paso</h4><ol><li>Completar el desarrollo con <span class=\"mv\">Be2</span>, <span class=\"mv\">O-O</span>, <span class=\"mv\">Be3</span> y la dama en <span class=\"mv\">d2</span>.</li><li>Neutralizar el alfil de <span class=\"mv\">g7</span>: a menudo con <span class=\"mv\">Bd4</span> para cambiarlo. La jugada <span class=\"mv\">f3</span>, por su parte, sostiene <span class=\"mv\">e4</span> y quita la casilla <span class=\"mv\">g4</span> al caballo negro.</li><li>Impedir las rupturas: <span class=\"mv\">a4</span> o <span class=\"mv\">b3</span> contra <span class=\"mv\">b5</span>; <span class=\"mv\">f3</span> o un caballo que controle <span class=\"mv\">f5</span> contra <span class=\"mv\">f5</span>.</li><li>Llevar torres a c1 y d1 y presionar el peón de <span class=\"mv\">d6</span>, que es la única debilidad estática negra.</li><li>Evitar cambios de caballos: las negras los necesitan para respirar.</li></ol><h4>El plan negro, paso a paso</h4><ol><li>Cambiar piezas menores, sobre todo con <span class=\"mv\">Ng4</span> (contra el alfil de <span class=\"mv\">e3</span>) o <span class=\"mv\">Nxd4</span> seguido de <span class=\"mv\">Be6</span>.</li><li>Ocupar casillas oscuras: caballo en <span class=\"mv\">c5</span> o <span class=\"mv\">d7</span>, alfil en <span class=\"mv\">g7</span>, dama en <span class=\"mv\">a5</span>.</li><li>Preparar <span class=\"mv\">b5</span> con <span class=\"mv\">a6</span> y <span class=\"mv\">Rb8</span>, o <span class=\"mv\">f5</span> tras mover el caballo de <span class=\"mv\">f6</span>.</li><li>Si la ruptura llega en buen momento, el peón de <span class=\"mv\">c4</span> o de <span class=\"mv\">e4</span> se convierte en un blanco y la posición se abre a favor del alfil de <span class=\"mv\">g7</span>.</li></ol><h4>Errores frecuentes</h4><ul><li>Blancas: jugar <span class=\"mv\">f4</span> demasiado pronto y dejar <span class=\"mv\">e4</span> y la diagonal <span class=\"mv\">g7</span>-<span class=\"mv\">a1</span> sin defensa.</li><li>Blancas: cambiar el caballo de <span class=\"mv\">d4</span> sin necesidad; cada cambio alivia a las negras.</li><li>Negras: esperar pasivamente. El cerrojo no se rompe solo: sin <span class=\"mv\">b5</span> o <span class=\"mv\">f5</span> el espacio blanco crece.</li><li>Negras: romper con <span class=\"mv\">b5</span> o <span class=\"mv\">f5</span> sin preparación, dejando un peón débil y casillas libres para los caballos blancos.</li></ul><h4>Cómo pensarlo</h4><p>Con blancas, la pregunta es «¿qué ruptura prepara el rival y qué jugada la impide sin crear una debilidad nueva?». Con negras, «¿qué pieza blanca controla mi casilla de ruptura y puedo cambiarla?». En el cerrojo, la mitad de las buenas jugadas son profilácticas.</p><h4>El momento de las rupturas</h4><p>Una ruptura en el cerrojo se juzga igual que cualquier otra: ¿quedan las piezas propias más activas después del cambio? Si …b5 o …f5 dejan un peón débil (el de e7 o el de d6) y una casilla libre para los caballos blancos (e4, d5), la ruptura fue prematura. Si en cambio abren la diagonal del alfil de g7 o la columna c contra un peón blanco fijo, las negras igualan. Por eso las negras preparan la ruptura con varias jugadas (…a6, …Rb8, …Nd7) y las blancas, mientras tanto, colocan sus piezas justo donde la ruptura les daría ventaja.</p>",
   "keyPoints": [
    "En el Maroczy las blancas impiden b5 y f5; las negras cambian piezas y preparan esas rupturas.",
    "Las casillas oscuras d4 y c5 son la compensación negra por la falta de espacio."
@@ -561,7 +561,7 @@
      "Nxd7"
     ],
     "comments": [
-     "No: al saltar el caballo de c6 a e5, el alfil de d7 ataca al de b5. Si Nxe5, …Bxb5 y las negras ganan una pieza. La «clavada» no sostenía nada.",
+     "No: al saltar el caballo de c6 a e5, el alfil de d7 ataca al de b5. Si Nxe5, …Bxb5 y las negras ganan un peón y quedan mejor. La «clavada» no sostenía nada.",
      "Lo mejor que tienen las blancas: cambiar los alfiles con jaque.",
      "Las negras se quedan con un peón de más y la cadena blanca perdió la cabeza: el peón de d4 queda como blanco."
     ]
@@ -634,7 +634,7 @@
      "El caballo sigue su camino.",
      "Las negras rompen con …f6 a tiempo: el alfil malo se libera en cuanto cambia un peón.",
      "Las blancas cambian.",
-     "El rey recaptura enseguida.",
+     "El rey se acerca para recuperar el peón de f6.",
      "El caballo llega a d3, pero c5 ya no tiene objetivos claros.",
      "Tablas según el motor: sin un puesto que ataque algo y sin entrada para el rey, el caballo no puede ganar."
     ]
@@ -748,7 +748,7 @@
     "comments": [
      "El cambio en d8 desvía la torre de c8.",
      "Forzado.",
-     "Antes de ir a la séptima, el rey cubre d1 para evitar …Rd1 mate.",
+     "Antes de ir a la séptima, el rey se acerca al centro: si …Rd1+, tiene la casilla e2 y ya no hay mate del pasillo.",
      "Las negras dan aire a su rey.",
      "Ahora sí: la torre en la séptima ataca a7 y f7.",
      "Las negras defienden con los peones.",
@@ -767,12 +767,12 @@
     ],
     "comments": [
      "El cambio en d8 obliga a recapturar con la torre de c8, y la columna c queda en manos de la torre de c1. Si las blancas cambian en c8, es al revés: las negras se quedan con la columna d. Las demás jugadas permiten a las negras cambiar primero.",
-     "Forzado. Ojo: ahora no se juega Rc7 de inmediato, porque …Rd1+ sería mate del pasillo. Primero Kf1 (da salida y cubre d1) y después Rc7, con la torre en la séptima y ventaja clara."
+     "Forzado. Ojo: ahora no se juega Rc7 de inmediato, porque …Rd1+ sería mate del pasillo. Primero Kf1 (si …Rd1+, el rey sale a e2) y después Rc7, con la torre en la séptima y ventaja clara."
     ]
    },
    {
     "fen": "8/6kp/4ppp1/p7/r7/2R3P1/5PKP/8 w - - 0 2",
-    "caption": "Juegan blancas: tienen un peón menos en este final de torres. ¿Dónde debe ir su torre?",
+    "caption": "Juegan blancas: tienen dos peones menos en este final de torres. ¿Dónde debe ir su torre?",
     "line": [
      "Rc7+",
      "Kh6"
@@ -811,7 +811,7 @@
   ]
  },
  "m-alfiles": {
-  "html": "<h4>Por qué la pareja vale más que la suma</h4><p>Un alfil solo controla casillas de un color; el rival puede colocar sus peones y su rey en el otro color y escapar de él. Dos alfiles juntos controlan todo el tablero: no hay casilla donde esconderse. Además, se complementan en el ataque y en la defensa, y en el final apoyan peones pasados de cualquier color. Su fuerza crece cuando la posición está <b>abierta</b> (pocos peones en el centro) y cuando hay <b>peones en ambos flancos</b>, porque las piezas de corto alcance no pueden atender las dos alas a la vez.</p><h4>Cómo se juega con la pareja</h4><ol><li><b>Abrir la posición</b>: rupturas de peones que eliminen las cadenas centrales. Cada peón cambiado aumenta el alcance de los alfiles.</li><li><b>Quitar casillas a los caballos</b>: avanzar peones (a menudo en la cuarta fila) para que los caballos rivales no encuentren puestos estables. Es la técnica clásica de Steinitz: restringir antes de atacar.</li><li><b>No cambiar un alfil sin motivo</b>: a menudo basta mantener la tensión y obligar al rival a cambiar en malas condiciones. Si hay que cambiar, normalmente se entrega el alfil menos activo, no la pareja entera.</li><li><b>Llevar la partida al final</b>: con menos piezas, la ventaja de los alfiles se hace más pura. Un final de dos alfiles contra alfil y caballo con peones en ambos flancos es una ventaja seria.</li></ol><h4>Cómo jugar contra la pareja</h4><ul><li>Mantener el centro cerrado y los peones fijos.</li><li>Conseguir un puesto avanzado permanente para un caballo.</li><li>Cambiar uno de los alfiles, aunque cueste un pequeño concesión: el alfil restante ya no es tan temible.</li><li>Crear amenazas concretas: la pareja es una ventaja a largo plazo; si el poseedor tiene que defenderse, sus alfiles valen poco.</li></ul><h4>Excepciones y errores frecuentes</h4><ul><li>Con la posición bloqueada, dos alfiles pueden ser peores que alfil y caballo: un alfil que choca contra sus propios peones es malo aunque tenga compañero.</li><li>Abrir la posición cuando el rival está mejor desarrollado: los alfiles necesitan tiempo para colocarse.</li><li>Conservar la pareja a toda costa y perder tempos: «tener la pareja» no es un plan, es una ventaja que hay que usar.</li></ul><h4>Preguntas para la partida</h4><ul><li>¿Qué ruptura abre la posición a favor de mis alfiles?</li><li>¿Dónde querría poner el rival sus caballos? ¿Puedo quitarles esas casillas con peones?</li><li>¿Me conviene cambiar damas y torres para ir a un final?</li></ul><h4>Una pregunta de control</h4><p>Antes de cada cambio, quien tiene la pareja debe preguntarse: «¿pierdo la pareja con esta jugada? ¿Qué recibo a cambio?». A veces la respuesta es un peón o una estructura mejor, y entonces el cambio es correcto: la pareja es una ventaja, no un tesoro que se guarda para siempre.</p>",
+  "html": "<h4>Por qué la pareja vale más que la suma</h4><p>Un alfil solo controla casillas de un color; el rival puede colocar sus peones y su rey en el otro color y escapar de él. Dos alfiles juntos controlan todo el tablero: no hay casilla donde esconderse. Además, se complementan en el ataque y en la defensa, y en el final apoyan peones pasados de cualquier color. Su fuerza crece cuando la posición está <b>abierta</b> (pocos peones en el centro) y cuando hay <b>peones en ambos flancos</b>, porque las piezas de corto alcance no pueden atender las dos alas a la vez.</p><h4>Cómo se juega con la pareja</h4><ol><li><b>Abrir la posición</b>: rupturas de peones que eliminen las cadenas centrales. Cada peón cambiado aumenta el alcance de los alfiles.</li><li><b>Quitar casillas a los caballos</b>: avanzar peones (a menudo en la cuarta fila) para que los caballos rivales no encuentren puestos estables. Es la técnica clásica de Steinitz: restringir antes de atacar.</li><li><b>No cambiar un alfil sin motivo</b>: a menudo basta mantener la tensión y obligar al rival a cambiar en malas condiciones. Si hay que cambiar, normalmente se entrega el alfil menos activo, no la pareja entera.</li><li><b>Llevar la partida al final</b>: con menos piezas, la ventaja de los alfiles se hace más pura. Un final de dos alfiles contra alfil y caballo con peones en ambos flancos es una ventaja seria.</li></ol><h4>Cómo jugar contra la pareja</h4><ul><li>Mantener el centro cerrado y los peones fijos.</li><li>Conseguir un puesto avanzado permanente para un caballo.</li><li>Cambiar uno de los alfiles, aunque cueste una pequeña concesión: el alfil restante ya no es tan temible.</li><li>Crear amenazas concretas: la pareja es una ventaja a largo plazo; si el poseedor tiene que defenderse, sus alfiles valen poco.</li></ul><h4>Excepciones y errores frecuentes</h4><ul><li>Con la posición bloqueada, dos alfiles pueden ser peores que alfil y caballo: un alfil que choca contra sus propios peones es malo aunque tenga compañero.</li><li>Abrir la posición cuando el rival está mejor desarrollado: los alfiles necesitan tiempo para colocarse.</li><li>Conservar la pareja a toda costa y perder tempos: «tener la pareja» no es un plan, es una ventaja que hay que usar.</li></ul><h4>Preguntas para la partida</h4><ul><li>¿Qué ruptura abre la posición a favor de mis alfiles?</li><li>¿Dónde querría poner el rival sus caballos? ¿Puedo quitarles esas casillas con peones?</li><li>¿Me conviene cambiar damas y torres para ir a un final?</li></ul><h4>Una pregunta de control</h4><p>Antes de cada cambio, quien tiene la pareja debe preguntarse: «¿pierdo la pareja con esta jugada? ¿Qué recibo a cambio?». A veces la respuesta es un peón o una estructura mejor, y entonces el cambio es correcto: la pareja es una ventaja, no un tesoro que se guarda para siempre.</p>",
   "keyPoints": [
    "Con la pareja: abran la posición y quiten casillas a los caballos con peones.",
    "Contra la pareja: cierren el centro y busquen un puesto fijo para el caballo."
@@ -993,7 +993,7 @@
      "Bxh5"
     ],
     "comments": [
-     "Be2 ataca h5. Para defenderlo, el alfil negro tendría que ir a e8 y quedar atado a dos peones a la vez (b5 y h5): los peones en el color del propio alfil son blancos fijos. Las demás jugadas no consiguen nada (el motor da casi dos peones con Be2 y cero con las otras).",
+     "Be2 ataca h5, y el alfil negro no puede defenderlo: sus propios peones de f7 y e6 le cierran el camino hacia h5 y g4. Los peones en el color del propio alfil son blancos fijos. Las demás jugadas no consiguen nada (el motor da cerca de un peón y medio con Be2 y cero con las otras).",
      "Las negras no tienen una defensa cómoda.",
      "Bxh5 gana un peón. Las blancas quedan con ventaja y las negras siguen con su alfil malo."
     ]
@@ -1119,18 +1119,6 @@
     "comments": [
      "El peón de g4 está adelantado y lejos de su rey. Nd1 y luego Nf2 (o Ne3): desde allí el caballo lo ataca y el alfil, encerrado detrás de sus peones, no llega a defenderlo. Una retirada que en realidad es un avance. Las jugadas de rey dan una ventaja mínima.",
      "El rey negro no llega a tiempo. Tras Nf2 y Nxg4 las blancas ganan un peón con ventaja decisiva."
-    ]
-   },
-   {
-    "fen": "6k1/3b1p2/4p1p1/Pp1pP2p/3P1P1P/2N3P1/6K1/8 w - - 0 1",
-    "caption": "Juegan blancas: tienen un peón pasado en a5. ¿Cuál es la ruta del caballo?",
-    "line": [
-     "Na2",
-     "Bc8"
-    ],
-    "comments": [
-     "Na2 y luego Nb4: desde b4 el caballo ataca d5, controla a6 y c6 y apoya el avance del peón de a. El alfil negro no puede controlar las casillas negras por donde avanza el caballo. Otras jugadas (a6, Kf3) dan bastante menos.",
-     "El alfil vuelve a c8 para vigilar a6, pero tras Nb4 las negras quedan atadas a la defensa del flanco de dama mientras el rey blanco se acerca."
     ]
    }
   ]
@@ -1441,7 +1429,7 @@
     "comments": [
      "¡La torre se entrega por el caballo de d4! Así el alfil de h6 queda sin protección (la dama, que lo defendía, debe recapturar en d4). Las alternativas (…Nxe4, …Bxh6) dan mucho menos.",
      "Si no recapturan, las negras se quedan con una pieza de más.",
-     "Las negras ganan el alfil: devolvieron la calidad, pero ganaron una pieza menor y un peón, conservando un alfil de casillas negras muy activo. Unos tres peones de ventaja según el motor."
+     "Las negras ganan el alfil: entregaron la torre por caballo y alfil, y quedan con dos piezas menores por torre y un alfil de casillas negras muy activo. Casi tres peones de ventaja según el motor."
     ]
    },
    {
@@ -1570,7 +1558,7 @@
     "comments": [
      "El sacrificio en f7 saca al rey negro al centro y abre el camino para la dama. Con el rey sin enrocar y las piezas en casa, las tácticas aparecen solas.",
      "Forzado; si …Ke7, la dama entra en d5 igualmente.",
-     "Jaque doble: al rey y a la torre de a8.",
+     "Jaque con doble ataque: al rey y a la torre de a8.",
      "Lo único para tapar el jaque.",
      "Las blancas ganan la torre: unos tres peones de ventaja según el motor. Una sola jugada lenta en la apertura puede costar la partida cuando el rival tiene el desarrollo."
     ]
@@ -1585,7 +1573,7 @@
     ],
     "comments": [
      "Bg5 desarrolla con amenaza sobre la dama de d8: cada jugada debe obligar al rival a responder. Recuperar el peón enseguida (cxd4) es más lento y deja a las negras consolidar.",
-     "Las negras tapan con el caballo, pero quedan con dos caballos en el borde y el rey en el centro.",
+     "Las negras tapan con el caballo, pero el de h6 sigue en el borde y el rey en el centro.",
      "Ahora sí, la dama recupera el peón centralizada y ataca g7 y h8. Más de dos peones y medio de ventaja según el motor."
     ]
    },
@@ -1684,7 +1672,7 @@
    },
    {
     "fen": "6k1/5p2/8/p4p1p/P6P/1R4P1/r4PK1/8 w - - 0 1",
-    "caption": "Juegan blancas: final de torres. La torre negra está detrás del peón de a5 y ataca el de a4. ¿Dónde está la segunda debilidad negra?",
+    "caption": "Juegan blancas: final de torres. La torre negra está detrás del peón blanco de a4 y lo ataca. ¿Dónde está la segunda debilidad negra?",
     "line": [
      "Rf3",
      "f4",
@@ -1700,28 +1688,10 @@
     "fen": "8/8/1p3k2/p1p3p1/P1P1K1P1/1P6/8/8 w - - 0 1",
     "caption": "Juegan blancas: los peones negros del flanco de dama están fijos. ¿Hacia dónde va el rey blanco?",
     "line": [
-     "Kd5",
-     "Ke7",
-     "Kc6"
+     "Kd5"
     ],
     "comments": [
-     "Al flanco de dama: Kd5 y Kc6 atacan b6 y luego c5. El peón de g5 es la otra debilidad, que el rey blanco recogerá más tarde. Las jugadas de espera (Kd3, Kf3) llevan a las tablas.",
-     "El rey negro corre a defender.",
-     "El rey blanco entra: tras Kxb6 y Kxc5 las negras no tienen defensa. Ventaja decisiva."
-    ]
-   },
-   {
-    "fen": "8/5pk1/6p1/2p4p/2P2P1P/1P1K4/5P2/8 w - - 0 1",
-    "caption": "Juegan blancas: final de reyes y peones con una mayoría en el flanco de dama. ¿Cómo crean una segunda debilidad?",
-    "line": [
-     "b4",
-     "cxb4",
-     "c5"
-    ],
-    "comments": [
-     "Con una ruptura: b4 obliga a cambiar el peón de c5 y crea un peón pasado. Ese peón será la segunda debilidad: el rey negro tendrá que ir hacia él y dejar libre el flanco de rey. Las jugadas de rey (Ke4) dan bastante menos.",
-     "Si las negras no toman, bxc5 deja igualmente un peón pasado.",
-     "El peón de c es pasado y el rey blanco recogerá además el de b4. Más de siete peones de ventaja según el motor."
+     "Kd5: el rey se mete entre las dos debilidades (b6/c5 y g5) y el rey negro no puede cubrir ambas: Kc6 contra b6 o Ke5 contra g5. Las jugadas de espera (Kd3, Kf3) llevan a las tablas. Ventaja decisiva."
     ]
    }
   ]
@@ -1906,20 +1876,8 @@
     ],
     "comments": [
      "La peor pieza es el caballo de b3, y el objetivo es el peón de g4. Ruta: c5-d3-f2 y Nxg4. Nc5 además ataca e6 y obliga al alfil a moverse. Las jugadas sin plan (Na5, f5) dejan apenas ventaja.",
-     "El alfil se coloca para defender por h5.",
+     "El alfil se aparta del ataque, pero no puede ayudar al peón de g4: sus propios peones de f7 y g6 le cierran la diagonal hacia h5.",
      "Siguiente paso de la maniobra: Nf2 y el peón de g4 cae. Más de cuatro peones de ventaja según el motor."
-    ]
-   },
-   {
-    "fen": "8/5pk1/6p1/2p4p/2P2P2/P2K2PP/8/8 w - - 0 1",
-    "caption": "Juegan blancas: final de reyes y peones. ¿Cuál es el plan más rápido?",
-    "line": [
-     "a4",
-     "Kf6"
-    ],
-    "comments": [
-     "Crear un peón pasado alejado: el peón de a no tiene oposición y el rey negro está lejos. Las jugadas de rey (Ke4) o f5 también ganan ventaja, pero mucho menos clara.",
-     "El rey negro se acerca, pero el peón ya está lejos: a5-a6 y el peón corona o desvía al rey negro mientras el rey blanco entra en el flanco de rey. Más de nueve peones de ventaja según el motor."
     ]
    },
    {

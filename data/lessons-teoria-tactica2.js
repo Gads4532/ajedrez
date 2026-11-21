@@ -2,7 +2,7 @@
 (function () {
   const X = {
  "t2-sueltas": {
-  "html": "<h4>El principio de las piezas sueltas, con matices</h4><p>El gran maestro John Nunn popularizó una regla de tres letras en inglés que se suele traducir como «las piezas sueltas se caen». No es una ley absoluta: una pieza sin defensa no se pierde por sí sola. Lo que ocurre es que <b>cada pieza suelta es un objetivo gratuito</b> para cualquier ataque doble, y en una partida real aparecen ataques dobles con mucha más frecuencia de lo que parece. Hay excepciones razonables: un caballo bien centralizado que ninguna pieza rival puede alcanzar, o una torre en su casilla inicial cuando el rival no tiene diagonales ni columnas abiertas hacia ella. La pregunta correcta no es «¿está defendida?», sino «¿puede el rival atacarla <i>con ganancia de tiempo</i>?».</p><h4>Las cinco formas de castigar una pieza suelta</h4><ul><li><b>Doble ataque de dama</b>, sobre todo si uno de los dos ataques es jaque o amenaza de mate: el rival atiende lo urgente y pierde lo otro.</li><li><b>Horquilla de caballo</b>: las torres sin conectar en la primera fila son la presa favorita, porque el caballo ataca casillas del mismo color separadas por dos columnas.</li><li><b>Jaque a la descubierta</b>: una pieza se aparta con captura o con amenaza y descubre un jaque de la pieza de atrás. El rival responde al jaque y la segunda amenaza se cumple.</li><li><b>Ataque de peón</b>: un peón que avanza atacando dos piezas a la vez gana material casi siempre.</li><li><b>Cambio que deja una pieza sin protección</b>: a veces la combinación empieza con un cambio que elimina al único defensor o que obliga a recapturar con la pieza que defendía otra.</li></ul><h4>Errores típicos de los aficionados</h4><p>El más frecuente es <b>mover la pieza que defendía otra</b> sin darse cuenta: el caballo de f6 sale a buscar actividad y el peón de h7, o el alfil de d5, quedan solos. El segundo es <b>capturar un peón con una pieza que queda suelta en territorio rival</b>, sobre todo con la dama. El tercero, muy típico en la apertura, es cambiar damas cuando las propias torres no están conectadas: tras el cambio en d8, un caballo que salta a f7 o c7 ataca dos torres a la vez. Y el cuarto es mirar solo las piezas, olvidando que una torre en a8 se queda suelta en cuanto el alfil de b7 o el caballo de b8 abandonan su puesto.</p><h4>Cómo pensarlo en la partida</h4><ol><li>Después de cada jugada del rival, repasa en dos segundos: ¿qué piezas mías han quedado sin defensa? ¿Y cuáles suyas?</li><li>Si hay dos piezas rivales sueltas, busca la casilla desde la que una dama, un caballo o un peón las ataque a la vez.</li><li>Si solo hay una, busca un <b>jaque</b> o una <b>amenaza de mate</b> que la acompañe: el segundo objetivo puede ser el rey.</li><li>Antes de jugar tu candidata, comprueba que la pieza que mueves no deja otra pieza tuya suelta.</li></ol><p>Con la práctica este inventario se vuelve automático y deja de costar tiempo en el reloj.</p>",
+  "html": "<h4>El principio de las piezas sueltas, con matices</h4><p>El gran maestro John Nunn popularizó una sigla de cuatro letras en inglés (LPDO, Loose Pieces Drop Off) que se suele traducir como «las piezas sueltas se caen». No es una ley absoluta: una pieza sin defensa no se pierde por sí sola. Lo que ocurre es que <b>cada pieza suelta es un objetivo gratuito</b> para cualquier ataque doble, y en una partida real aparecen ataques dobles con mucha más frecuencia de lo que parece. Hay excepciones razonables: un caballo bien centralizado que ninguna pieza rival puede alcanzar, o una torre en su casilla inicial cuando el rival no tiene diagonales ni columnas abiertas hacia ella. La pregunta correcta no es «¿está defendida?», sino «¿puede el rival atacarla <i>con ganancia de tiempo</i>?».</p><h4>Las cinco formas de castigar una pieza suelta</h4><ul><li><b>Doble ataque de dama</b>, sobre todo si uno de los dos ataques es jaque o amenaza de mate: el rival atiende lo urgente y pierde lo otro.</li><li><b>Horquilla de caballo</b>: el rey y una torre sin defender en la última fila son la presa favorita (por ejemplo, <span class=\"mv\">Nf7+</span> contra el rey en d8 y la torre en h8).</li><li><b>Jaque a la descubierta</b>: una pieza se aparta con captura o con amenaza y descubre un jaque de la pieza de atrás. El rival responde al jaque y la segunda amenaza se cumple.</li><li><b>Ataque de peón</b>: un peón que avanza atacando dos piezas a la vez gana material casi siempre.</li><li><b>Cambio que deja una pieza sin protección</b>: a veces la combinación empieza con un cambio que elimina al único defensor o que obliga a recapturar con la pieza que defendía otra.</li></ul><h4>Errores típicos de los aficionados</h4><p>El más frecuente es <b>mover la pieza que defendía otra</b> sin darse cuenta: el caballo de f6 sale a buscar actividad y el peón de h7, o el alfil de d5, quedan solos. El segundo es <b>capturar un peón con una pieza que queda suelta en territorio rival</b>, sobre todo con la dama. El tercero, muy típico en la apertura, es cambiar damas cuando las propias torres no están conectadas: tras el cambio en d8, un caballo que salta a f7 o c7 ataca a la vez al rey y a una torre. Y el cuarto es mirar solo las piezas, olvidando que una torre en a8 se queda suelta en cuanto el alfil de b7 o el caballo de b8 abandonan su puesto.</p><h4>Cómo pensarlo en la partida</h4><ol><li>Después de cada jugada del rival, repasa en dos segundos: ¿qué piezas mías han quedado sin defensa? ¿Y cuáles suyas?</li><li>Si hay dos piezas rivales sueltas, busca la casilla desde la que una dama, un caballo o un peón las ataque a la vez.</li><li>Si solo hay una, busca un <b>jaque</b> o una <b>amenaza de mate</b> que la acompañe: el segundo objetivo puede ser el rey.</li><li>Antes de jugar tu candidata, comprueba que la pieza que mueves no deja otra pieza tuya suelta.</li></ol><p>Con la práctica este inventario se vuelve automático y deja de costar tiempo en el reloj.</p>",
   "keyPoints": [
    "Una pieza suelta no se pierde sola: se pierde cuando el rival encuentra un ataque doble con ganancia de tiempo.",
    "Tras cada jugada del rival, repasa qué piezas tuyas y suyas han quedado sin defensa.",
@@ -19,8 +19,8 @@
      "Qxb4"
     ],
     "comments": [
-     "Jaque por la diagonal b5-e8 y, a la vez, ataque al alfil por la fila. El alfil clavaba al caballo, pero nadie lo protegía.",
-     "Tapar con la dama es lo más sólido; si 1...Nd7 o 1...Kf8, la dama también captura en b4.",
+     "Jaque por la diagonal b5-e8 y, a la vez, ataque al alfil por la columna b. Nadie protege al alfil.",
+     "Tapar con la dama es lo más sólido; si 1...Kf8, la dama también captura en b4.",
      "Las blancas ganan una pieza limpia. El inventario de piezas sueltas lo habría previsto: el alfil de b4 no tenía ningún defensor."
     ],
     "arrows": [
@@ -108,7 +108,7 @@
     "comments": [
      "El alfil se aparta de la columna e capturando un peón: jaque a la descubierta de la torre de e1 y, a la vez, ataque a la torre de a8.",
      "Las negras deben atender el jaque (también 1...Kf8, 1...Be7 o 1...Ne5); ninguna de esas jugadas salva la torre.",
-     "La torre de a8 cae. Las blancas recuperan la calidad que tenían de menos y quedan con un peón de ventaja."
+     "La torre de a8 cae. Las blancas recuperan la torre que tenían de menos y quedan con dos peones de ventaja."
     ]
    },
    {
@@ -262,7 +262,7 @@
   ]
  },
  "t2-conteo": {
-  "html": "<h4>Contar no es solo sumar</h4><p>El recuento de atacantes y defensores es la primera aproximación, pero el resultado de una secuencia de capturas depende de tres cosas: <b>cuántas</b> piezas participan, <b>en qué orden</b> capturan y <b>cuándo conviene detenerse</b>. Cualquiera de los dos bandos puede interrumpir la secuencia en el momento que más le convenga. Por eso no basta con llegar al final de todas las capturas: en cada paso hay que preguntarse si al bando que va a capturar le conviene seguir o quedarse como está. Un ejemplo sencillo: si un peón está atacado por caballo y torre y defendido por caballo y dama, la cuenta dice dos contra dos; pero si capturas con el caballo y el rival recaptura con el suyo, tu torre ya no debe seguir, porque la dama recapturaría la torre. La secuencia se detiene en el momento en que continuar cuesta más de lo que se gana.</p><h4>Los factores que cambian la cuenta</h4><ul><li><b>Las baterías</b>: una torre detrás de otra torre o de la dama cuenta como atacante adicional (ataque en rayos X), pero solo entra en juego cuando la de delante ya ha capturado.</li><li><b>Las piezas clavadas</b>: un caballo clavado contra la dama o contra el rey no defiende de verdad. Si recaptura, pierde la pieza de atrás.</li><li><b>La eliminación del defensor</b>: si una casilla está igualada (dos contra dos), capturar antes a uno de los defensores en otra parte del tablero inclina la balanza.</li><li><b>Los defensores sobrecargados</b>: una pieza que defiende dos cosas solo puede recapturar en una de ellas.</li><li><b>El valor del primer capturador</b>: cuando la pieza objetivo vale más que el atacante más barato, la captura gana aunque haya más defensores que atacantes. Un peón que ataca un caballo lo gana siempre.</li></ul><h4>El orden correcto de las capturas</h4><p>La regla general es capturar primero con la pieza de <b>menor valor</b>, porque así, si el rival recaptura, lo que entregas vale poco. La excepción aparece cuando una pieza de más valor está en una batería por delante de otra (una torre delante de la dama, por ejemplo): entonces el orden lo marca la geometría. Otra excepción es la captura que da jaque o que elimina a un defensor de otra casilla: a veces conviene capturar con la pieza grande para no dar tiempo al rival.</p><h4>Errores típicos</h4><ul><li>Contar las piezas pero no su valor: atacar tres veces un caballo defendido por un peón no gana nada.</li><li>Olvidar que el rival puede no recapturar y usar ese tiempo para otra cosa.</li><li>No ver las baterías del rival detrás de sus piezas.</li><li>Contar como defensor a una pieza clavada, o no ver que la propia pieza atacante está clavada.</li></ul><h4>Lista de comprobación</h4><ol><li>Escribe los atacantes de menor a mayor valor y lo mismo con los defensores.</li><li>Descarta los clavados y suma los que están en batería.</li><li>Simula la secuencia y, en cada paso, decide si el bando que mueve se detiene.</li><li>Si la cuenta está igualada, busca cómo eliminar o desviar a un defensor antes de empezar.</li></ol>",
+  "html": "<h4>Contar no es solo sumar</h4><p>El recuento de atacantes y defensores es la primera aproximación, pero el resultado de una secuencia de capturas depende de tres cosas: <b>cuántas</b> piezas participan, <b>en qué orden</b> capturan y <b>cuándo conviene detenerse</b>. Cualquiera de los dos bandos puede interrumpir la secuencia en el momento que más le convenga. Por eso no basta con llegar al final de todas las capturas: en cada paso hay que preguntarse si al bando que va a capturar le conviene seguir o quedarse como está. Un ejemplo sencillo: si un peón está atacado por caballo y torre y defendido por caballo y dama, la cuenta dice dos contra dos; pero si capturas con el caballo y el rival recaptura con el suyo, ya has dado un caballo por un peón, y si sigues con la torre, la dama la recaptura y pierdes aún más. Aquí lo correcto es no empezar: una secuencia de capturas solo conviene si, en cada paso, lo que capturas vale al menos lo que puedes perder. La secuencia se detiene en el momento en que continuar cuesta más de lo que se gana.</p><h4>Los factores que cambian la cuenta</h4><ul><li><b>Las baterías</b>: una torre detrás de otra torre o de la dama cuenta como atacante adicional (ataque en rayos X), pero solo entra en juego cuando la de delante ya ha capturado.</li><li><b>Las piezas clavadas</b>: un caballo clavado contra la dama o contra el rey no defiende de verdad. Si recaptura, pierde la pieza de atrás.</li><li><b>La eliminación del defensor</b>: si una casilla está igualada (dos contra dos), capturar antes a uno de los defensores en otra parte del tablero inclina la balanza.</li><li><b>Los defensores sobrecargados</b>: una pieza que defiende dos cosas solo puede recapturar en una de ellas.</li><li><b>El valor del primer capturador</b>: cuando la pieza objetivo vale más que el atacante más barato, la captura gana aunque haya más defensores que atacantes. Un peón que ataca un caballo lo gana siempre.</li></ul><h4>El orden correcto de las capturas</h4><p>La regla general es capturar primero con la pieza de <b>menor valor</b>, porque así, si el rival recaptura, lo que entregas vale poco. La excepción aparece cuando una pieza de más valor está en una batería por delante de otra (una torre delante de la dama, por ejemplo): entonces el orden lo marca la geometría. Otra excepción es la captura que da jaque o que elimina a un defensor de otra casilla: a veces conviene capturar con la pieza grande para no dar tiempo al rival.</p><h4>Errores típicos</h4><ul><li>Contar las piezas pero no su valor: atacar tres veces un caballo defendido por un peón no gana nada.</li><li>Olvidar que el rival puede no recapturar y usar ese tiempo para otra cosa.</li><li>No ver las baterías del rival detrás de sus piezas.</li><li>Contar como defensor a una pieza clavada, o no ver que la propia pieza atacante está clavada.</li></ul><h4>Lista de comprobación</h4><ol><li>Escribe los atacantes de menor a mayor valor y lo mismo con los defensores.</li><li>Descarta los clavados y suma los que están en batería.</li><li>Simula la secuencia y, en cada paso, decide si el bando que mueve se detiene.</li><li>Si la cuenta está igualada, busca cómo eliminar o desviar a un defensor antes de empezar.</li></ol>",
   "keyPoints": [
    "En cada paso de la secuencia, el bando que va a capturar puede detenerse: simula decidiendo en cada jugada.",
    "Una pieza clavada no defiende, y eliminar a un defensor antes de capturar cambia la cuenta.",
@@ -270,18 +270,20 @@
   ],
   "positions": [
    {
-    "fen": "3q1rk1/pp3ppp/5n2/3p2B1/8/2N5/PP2QPPP/3R2K1 w - - 0 1",
+    "fen": "2bq1rk1/pp3ppp/5n2/3p2B1/8/2N5/PP2QPPP/3R2K1 w - - 0 1",
     "orientation": "white",
     "caption": "El peón de d5 parece defendido dos veces (caballo y dama), pero el caballo de f6 está clavado contra la dama.",
     "line": [
      "Nxd5",
      "Qxd5",
-     "Bxf6"
+     "Rxd5",
+     "Nxd5"
     ],
     "comments": [
      "El caballo captura: el de f6 no puede recapturar, porque 1...Nxd5?? 2.Bxd8 perdería la dama. A efectos prácticos solo hay un defensor de verdad.",
      "La dama recaptura, pero ahora queda en la columna de la torre de d1.",
-     "El alfil elimina al caballo de f6 y la dama de d5, atacada por la torre, no puede recapturar en f6 y salvarse a la vez. Las blancas ganan una pieza."
+     "La torre captura la dama: ahora el caballo de f6 ya no está clavado y puede recapturar…",
+     "…pero las blancas han dado caballo y torre por dama y peón, y quedan con ventaja decisiva. El caballo de f6, clavado, nunca fue un defensor real de d5."
     ]
    },
    {
@@ -524,7 +526,7 @@
      "El peón captura el alfil.",
      "Las negras recuperan el peón…",
      "…y tras el cambio de damas…",
-     "…las blancas quedan con una pieza por un peón. Sin el despeje, el alfil de b2 no hacía nada."
+     "…las blancas quedan con dos piezas menores contra una torre y una ventaja clara. Sin el despeje, el alfil de b2 no hacía nada."
     ],
     "arrows": [
      [
@@ -566,7 +568,7 @@
     ],
     "comments": [
      "El alfil se aparta capturando con jaque, y la torre de d1 ataca de repente a la dama de d8.",
-     "Las negras deben responder al jaque; capturar es lo mejor (si 1...Kh8, 2.Rxd8 y la torre de f8 no puede recapturar porque el alfil la ataca).",
+     "Las negras deben responder al jaque; capturar es lo mejor (si 1...Kh8, 2.Rxd8 Rcxd8 y las blancas quedan con dama y alfil contra dos torres).",
      "La torre captura la dama.",
      "Las negras recuperan la torre. Las blancas han dado torre y alfil por dama y peón y la posición queda igualada."
     ]
@@ -588,7 +590,7 @@
   ]
  },
  "t2-bloqueo": {
-  "html": "<h4>El mecanismo: obligar a una pieza a estorbar</h4><p>Todo rey necesita casillas de escape, y las más peligrosas para el defensor son las que ocupan sus propias piezas. El sacrificio de bloqueo convierte una casilla libre en una casilla ocupada: se entrega material de forma que la única respuesta del rival sea capturar (o interponer) <b>en la casilla que su rey necesitaba</b>. Después llega un jaque que, con esa casilla tapada, resulta ser mate. En el mate ahogado clásico el caballo da el golpe final porque es la única pieza cuyo jaque no se puede tapar. Este recurso tiene una parte psicológica: el defensor suele confiar en que sus piezas protegen al rey, y no imagina que la misma pieza que lo defiende será la que lo encierre. Por eso conviene mirar con desconfianza las casillas vecinas al rey rival ocupadas o accesibles para sus propias piezas, sobre todo torres en la octava fila y caballos que pueden interponerse. Cuantas más piezas rodean al rey, más candidato es a un mate de este tipo. El ejemplo más antiguo y conocido se atribuye a la tradición clásica y lleva el nombre de Philidor.</p><h4>Tres variantes del recurso</h4><ul><li><b>Bloqueo por captura</b>: la dama se entrega en g8 o g1 y una torre la captura, tapando la salida de su rey (patrón de Philidor).</li><li><b>Bloqueo por interposición</b>: un jaque en la última fila solo se puede tapar con una pieza que, al interponerse, ocupa la casilla de escape. Si esa pieza es un caballo, no defiende la casilla desde la que llega el siguiente jaque.</li><li><b>Bloqueo con pieza clavada</b>: cuando las demás capturas son imposibles porque las piezas están clavadas, la única recaptura legal es justamente la que bloquea.</li></ul><h4>El orden de las jugadas importa</h4><p>En el patrón de Philidor el orden es rígido: primero un jaque de caballo que lleve al rey a la esquina, luego un jaque doble (caballo y dama) que lo devuelva, después el sacrificio de dama y por último el mate. Si se altera el orden, el rey encuentra una casilla libre o una torre puede capturar al caballo. Calcula siempre la secuencia completa antes del primer jaque.</p><h4>Errores comunes</h4><ul><li>Sacrificar sin comprobar que la captura es obligada: si el rey puede escapar o hay otra recaptura, el sacrificio solo pierde material.</li><li>No ver que la pieza que captura también defiende la casilla del mate final.</li><li>Olvidar los jaques del rival: un jaque intermedio del defensor deshace todo el plan.</li></ul><h4>Cómo detectarlo</h4><ol><li>¿Cuántas casillas libres tiene el rey rival? Si tiene una, ¿qué pieza suya podría ocuparla?</li><li>¿Puedo dar un jaque o hacer una amenaza en esa casilla de modo que la única respuesta sea capturar o interponer allí?</li><li>¿Tengo preparado el jaque siguiente, sobre todo con caballo?</li></ol>",
+  "html": "<h4>El mecanismo: obligar a una pieza a estorbar</h4><p>Todo rey necesita casillas de escape, y las más peligrosas para el defensor son las que ocupan sus propias piezas. El sacrificio de bloqueo convierte una casilla libre en una casilla ocupada: se entrega material de forma que la única respuesta del rival sea capturar (o interponer) <b>en la casilla que su rey necesitaba</b>. Después llega un jaque que, con esa casilla tapada, resulta ser mate. En el mate ahogado clásico el caballo da el golpe final porque es la única pieza cuyo jaque no se puede tapar. Este recurso tiene una parte psicológica: el defensor suele confiar en que sus piezas protegen al rey, y no imagina que la misma pieza que lo defiende será la que lo encierre. Por eso conviene mirar con desconfianza las casillas vecinas al rey rival ocupadas o accesibles para sus propias piezas, sobre todo torres en la octava fila y caballos que pueden interponerse. Cuantas más piezas rodean al rey, más candidato es a un mate de este tipo. El ejemplo más antiguo y conocido se atribuye a la tradición clásica y lleva el nombre de Philidor.</p><h4>Tres variantes del recurso</h4><ul><li><b>Bloqueo por captura</b>: la dama se entrega en g8 o g1 y una torre la captura, tapando la salida de su rey (patrón de Philidor).</li><li><b>Bloqueo por interposición</b>: un jaque en la última fila solo se puede tapar con una pieza que, al interponerse, ocupa la casilla de escape. Si esa pieza es un caballo, no defiende la casilla desde la que llega el siguiente jaque.</li><li><b>Bloqueo con pieza clavada</b>: cuando las demás capturas son imposibles porque las piezas están clavadas, la única recaptura legal es justamente la que bloquea.</li></ul><h4>El orden de las jugadas importa</h4><p>En el patrón de Philidor el orden es rígido: primero el jaque de caballo en f7, que saca al rey de la esquina; luego un jaque doble (caballo y dama) que lo devuelve a ella; después el sacrificio de dama en g8 y por último el mate. (Si el rey aún no está en la esquina, un jaque previo de dama por la diagonal a2-g8 lo lleva allí.) Si se altera el orden, el rey encuentra una casilla libre o una torre puede capturar al caballo. Calcula siempre la secuencia completa antes del primer jaque.</p><h4>Errores comunes</h4><ul><li>Sacrificar sin comprobar que la captura es obligada: si el rey puede escapar o hay otra recaptura, el sacrificio solo pierde material.</li><li>No ver que la pieza que captura también defiende la casilla del mate final.</li><li>Olvidar los jaques del rival: un jaque intermedio del defensor deshace todo el plan.</li></ul><h4>Cómo detectarlo</h4><ol><li>¿Cuántas casillas libres tiene el rey rival? Si tiene una, ¿qué pieza suya podría ocuparla?</li><li>¿Puedo dar un jaque o hacer una amenaza en esa casilla de modo que la única respuesta sea capturar o interponer allí?</li><li>¿Tengo preparado el jaque siguiente, sobre todo con caballo?</li></ol>",
   "keyPoints": [
    "El sacrificio obliga a una pieza rival a ocupar la casilla de escape de su propio rey.",
    "Si la interposición es con caballo, no defiende la casilla desde la que llega el jaque siguiente.",
@@ -711,10 +713,10 @@
      "El rey se acerca al enemigo en vez de dar jaques. (Kxd7 también funciona: lo importante es la idea.)",
      "Las negras corren con su peón, demasiado lento.",
      "La dama empuja al rey hacia el borde.",
-     "Única casilla: a8 y c8 quedarían también en la red.",
+     "El rey va a a6. Las otras casillas también pierden: 2...Ka7 o 2...Ka8, 3.Kc7 y 4.Qb7#; 2...Kc8, 3.Qb6 y 4.Qc7#.",
      "Otra jugada tranquila: el rey quita b7 y b8.",
      "El peón llega a la segunda fila, pero ya es tarde.",
-     "Mate: la dama controla a5, a7 y b-file, y el rey blanco cubre b7."
+     "Mate: la dama controla a5, a7 y la columna b, y el rey blanco cubre b7."
     ]
    },
    {
@@ -807,7 +809,7 @@
   ]
  },
  "t2-septima": {
-  "html": "<h4>La casilla de coronación como centro del cálculo</h4><p>Cuando un peón llega a la séptima, la partida gira alrededor de una sola casilla. El defensor necesita al menos una pieza que la controle o que bloquee el peón, y esa pieza queda <b>atada</b>: no puede alejarse, no puede capturar en otra parte y suele ser el blanco de desviaciones, interferencias y ataques dobles. Por eso, con un peón en séptima, el primer paso es identificar al guardián y preguntarse cómo apartarlo, cambiarlo o cortarlo. El valor práctico de un peón en séptima es enorme incluso en el medio juego: obliga a mantener una pieza pegada a la casilla de coronación, y una pieza pegada es una pieza que no defiende al rey ni participa en el juego. Muchas partidas se ganan no coronando, sino aprovechando que el rival tiene una pieza atada al peón.</p><h4>Recursos tácticos típicos</h4><ul><li><b>Desviación</b>: se ofrece una pieza en una casilla que el guardián debe atender.</li><li><b>Enfilada</b>: con el peón en séptima y la torre delante (en la octava), la torre se aparta lateralmente; si la torre rival captura el peón, un jaque en la séptima la gana por enfilada.</li><li><b>Subcoronación a caballo</b>: cuando la coronación da jaque y crea una horquilla.</li><li><b>Subcoronación a torre</b>: cuando la dama dejaría al rey rival sin jugadas.</li><li><b>Ruptura</b>: varios peones contra varios, con el rey rival lejos.</li></ul><h4>El final de torre con peón en séptima</h4><p>Un caso que todo jugador debe conocer: torre en a8, peón en a7 y la torre rival detrás del peón. Si el rey defensor está en g7 o h7, las casillas que controla impiden el truco y la posición suele ser tablas. Pero si el rey está en otra casilla, la jugada lateral <span class=\"mv\">Rh8</span> amenaza coronar y, si la torre rival captura en a7, el jaque <span class=\"mv\">Rh7+</span> la gana. Es el ejemplo perfecto de cómo el peón en séptima crea dos amenazas a la vez. La defensa ideal contra un peón en séptima es una torre situada detrás de él, en su misma columna: desde allí vigila el peón sin quedar expuesta y puede dar jaques laterales cuando el rey rival se acerca. Si el defensor la tiene, los trucos tácticos son mucho más escasos.</p><h4>Errores comunes</h4><ul><li>Coronar dama por reflejo sin mirar si el rival queda ahogado.</li><li>Empujar el peón a séptima sin apoyo, de modo que el rey rival lo captura.</li><li>No ver la defensa por detrás: una torre en la columna del peón, por detrás, es el mejor defensor y el más molesto.</li><li>En la ruptura, olvidar contar si el rey rival llega al cuadrado del peón.</li></ul><h4>Antes de coronar, tres preguntas</h4><ol><li>¿Qué pieza rival controla la casilla de coronación y cómo la desvío?</li><li>¿Corona con jaque alguna pieza? ¿Hay horquilla de caballo?</li><li>Después de coronar, ¿tiene el rival al menos una jugada legal?</li></ol>",
+  "html": "<h4>La casilla de coronación como centro del cálculo</h4><p>Cuando un peón llega a la séptima, la partida gira alrededor de una sola casilla. El defensor necesita al menos una pieza que la controle o que bloquee el peón, y esa pieza queda <b>atada</b>: no puede alejarse, no puede capturar en otra parte y suele ser el blanco de desviaciones, interferencias y ataques dobles. Por eso, con un peón en séptima, el primer paso es identificar al guardián y preguntarse cómo apartarlo, cambiarlo o cortarlo. El valor práctico de un peón en séptima es enorme incluso en el medio juego: obliga a mantener una pieza pegada a la casilla de coronación, y una pieza pegada es una pieza que no defiende al rey ni participa en el juego. Muchas partidas se ganan no coronando, sino aprovechando que el rival tiene una pieza atada al peón.</p><h4>Recursos tácticos típicos</h4><ul><li><b>Desviación</b>: se ofrece una pieza en una casilla que el guardián debe atender.</li><li><b>Enfilada</b>: con el peón en séptima y la torre delante (en la octava), la torre se aparta lateralmente; si la torre rival captura el peón, un jaque en la séptima la gana por enfilada.</li><li><b>Subcoronación a caballo</b>: cuando la coronación da jaque y crea una horquilla.</li><li><b>Subcoronación a torre</b>: cuando la dama dejaría al rey rival sin jugadas.</li><li><b>Ruptura</b>: varios peones contra varios, con el rey rival lejos.</li></ul><h4>El final de torre con peón en séptima</h4><p>Un caso que todo jugador debe conocer: torre en a8, peón en a7 y la torre rival detrás del peón. Si el rey defensor está en g7 o h7, las casillas que controla impiden el truco y la posición suele ser tablas. Pero si el rey defensor está en la séptima fila y fuera de g7 y h7 (por ejemplo en e7 o f7), la jugada lateral <span class=\"mv\">Rh8</span> amenaza coronar y, si la torre rival captura en a7, el jaque <span class=\"mv\">Rh7+</span> la gana por enfilada. Es el ejemplo perfecto de cómo el peón en séptima crea dos amenazas a la vez. La defensa ideal contra un peón en séptima es una torre situada detrás de él, en su misma columna: desde allí vigila el peón sin quedar expuesta y puede dar jaques laterales cuando el rey rival se acerca. Si el defensor la tiene, los trucos tácticos son mucho más escasos.</p><h4>Errores comunes</h4><ul><li>Coronar dama por reflejo sin mirar si el rival queda ahogado.</li><li>Empujar el peón a séptima sin apoyo, de modo que el rey rival lo captura.</li><li>No ver la defensa por detrás: una torre en la columna del peón, por detrás, es el mejor defensor y el más molesto.</li><li>En la ruptura, olvidar contar si el rey rival llega al cuadrado del peón.</li></ul><h4>Antes de coronar, tres preguntas</h4><ol><li>¿Qué pieza rival controla la casilla de coronación y cómo la desvío?</li><li>¿Corona con jaque alguna pieza? ¿Hay horquilla de caballo?</li><li>Después de coronar, ¿tiene el rival al menos una jugada legal?</li></ol>",
   "keyPoints": [
    "Con un peón en séptima, identifica al guardián de la casilla de coronación y busca cómo desviarlo o cortarlo.",
    "Torre delante del peón en la octava: la jugada lateral amenaza coronar y prepara una enfilada.",
@@ -851,7 +853,7 @@
      "El rey negro no puede hacer nada contra la coronación.",
      "Ahora sí: la dama corona con jaque.",
      "Única casilla.",
-     "Jugada tranquila: la dama corta al rey y amenaza Qb5# y Qa3#.",
+     "Jugada tranquila: la dama corta al rey y amenaza Qb5#.",
      "El peón no cambia nada.",
      "Mate: la torre de b3 controla a3 y la columna b."
     ]
@@ -1002,12 +1004,12 @@
    },
    {
     "fen": "1Q5q/5pkp/5p1p/8/7r/8/5PPP/6K1 w - - 0 1",
-    "caption": "Juegan blancas: las negras amenazan Rxh2 con mate. Salva la partida.",
+    "caption": "Juegan blancas: vas con una torre menos y la dama de h8 ataca a tu dama por la octava. Salva la partida.",
     "line": [
      "Qg3+"
     ],
     "comments": [
-     "La única jugada que salva: jaque por la columna g. El rey no puede ir a h8 (su dama) ni a h7 (su peón): debe ir hacia el centro, y la dama lo persigue con Qb8+ y Qg3+ (o Qd6+). Cualquier otra jugada permite Rxh2 y mate."
+     "La única jugada que salva: jaque por la columna g. Si 1...Rg4, 2.Qxg4+. El rey solo puede ir a f8, y la dama lo persigue con Qb8+ y Qg3+ (o Qd6+). Cualquier otra jugada pierde: o la dama cae por 1...Qxb8, o las negras se quedan con una torre de más."
     ]
    },
    {
@@ -1102,7 +1104,7 @@
    },
    {
     "fen": "8/q6k/8/8/8/6Rp/7P/7K w - - 0 1",
-    "caption": "Juegan blancas: la dama negra amenaza Qg1#. Tu única pieza móvil es la torre. Úsala.",
+    "caption": "Juegan blancas: la dama negra amenaza ...Qa1+ con mate en pocas jugadas. Tu única pieza móvil es la torre. Úsala.",
     "line": [
      "Rg7+",
      "Qxg7"
@@ -1157,7 +1159,7 @@
    {
     "fen": "7k/8/6K1/3BN2P/8/8/4r3/8 b - - 0 1",
     "orientation": "black",
-    "caption": "Defender eliminando la pieza clave: amenaza Nf7#, y la torre devuelve la calidad para llegar a una posición segura.",
+    "caption": "Las blancas tienen caballo, alfil y peón contra torre y buscan tejer una red alrededor del rey negro. La torre elimina al caballo, la pieza clave, y llega a una posición segura.",
     "line": [
      "Rxe5",
      "Bc4",
@@ -1246,7 +1248,7 @@
    },
    {
     "fen": "6k1/4Q3/6p1/3q4/7r/5R2/5PPP/6K1 b - - 0 1",
-    "caption": "Juegan negras: las blancas amenazan Qe8+ y Rf8#. No te defiendas: llega antes.",
+    "caption": "Juegan negras: las blancas amenazan Rf8#. No te defiendas: llega antes.",
     "line": [
      "Qd1+",
      "Qe1",
@@ -1347,8 +1349,8 @@
     "comments": [
      "Las blancas coronan primero.",
      "El peón negro también corre.",
-     "Jugada tranquila: la dama domina la octava fila y amenaza Qb7# y Ra6#. (2.Qxg2? deja escapar al rey.)",
-     "Si 3...g1=Q, 4.Qb7# o Ra6#. Nada salva a las negras.",
+     "Jugada tranquila: la dama domina la octava fila y amenaza Ra6#. (2.Qxg2? deja escapar al rey.)",
+     "Si 3...g1=Q, 4.Ra6# igualmente. Nada salva a las negras.",
      "Mate: la torre en a6 y la dama en c8 encierran al rey."
     ]
    }

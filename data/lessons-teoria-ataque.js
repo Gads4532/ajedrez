@@ -40,7 +40,7 @@
    {
     "fen": "r1bqkb1r/p4ppp/2p2n2/nB2p1N1/8/8/PPPP1PPP/RNBQK2R w KQkq - 0 8",
     "orientation": "white",
-    "caption": "Dos Caballos con 4.Ng5: las negras tienen un peón menos pero mucho mejor desarrollo. ¿Es buena idea sacar la dama blanca a f3?",
+    "caption": "Dos Caballos con 4.Ng5: las negras tienen un peón menos pero mucho mejor desarrollo. ¿Qué ocurre si la dama blanca sale a f3?",
     "line": [
      "Qf3",
      "Rb8",
@@ -55,7 +55,7 @@
      "El alfil tiene que retroceder. Las blancas siguen con el flanco de dama sin mover.",
      "Otra pieza negra entra en juego, apuntando a g5.",
      "Las blancas abren paso a su alfil de c1: van muy atrasadas.",
-     "Las negras enrocan. El motor da una ligera ventaja negra pese al peón de menos: la dama blanca salió pronto y solo ayudó al rival a desarrollarse con ganancia de tiempo."
+     "Las negras enrocan. La posición está equilibrada (el motor da una ventaja mínima negra): 8.Qf3 es una línea teórica válida, pero las negras desarrollan sus piezas ganando tiempos y el peón de menos queda compensado por el desarrollo."
     ]
    }
   ],
@@ -284,7 +284,7 @@
      "Única casilla.",
      "El peón captura la dama blanca.",
      "La torre de f1 recupera la dama en h1...",
-     "...y la torre de h8 la captura. Saldo: las negras quedan con una torre de ventaja (el motor da más de tres peones). La columna h y el peón g hicieron el trabajo."
+     "...y la torre de h8 la captura. El material está igualado, pero el peón de g4 ataca al caballo de f3 y el de f4 presiona e3: las negras ganan una pieza por dos peones en las jugadas siguientes (el motor da más de tres peones). La columna h y el peón g hicieron el trabajo."
     ]
    },
    {
@@ -421,7 +421,7 @@
      "Aceptar es lo correcto.",
      "Segundo sacrificio: el caballo toma en e5 con jaque para seguir dando jaques.",
      "Las negras capturan: tienen dos piezas por dos peones.",
-     "Jaque doble: la dama ataca al rey y al caballo de e5.",
+     "Jaque con doble ataque: la dama da jaque al rey y a la vez ataca al caballo de e5.",
      "El rey se aparta y entrega el caballo.",
      "Las blancas recuperan una pieza y atacan el alfil de c5.",
      "Las negras defienden el alfil y abren su alfil de c8. Balance: pieza por dos peones y casi tres peones de ventaja negra según el motor. El rey en f8 está incómodo, pero las blancas no tienen más piezas desarrolladas para atacarlo."
@@ -624,7 +624,7 @@
     ],
     "comments": [
      "¡La dama se entrega en g2! Abre la columna g para la torre de g7 y deja al rey blanco sin peón protector.",
-     "Forzado: si el rey va a h1 o h3, la torre de g7 da mate o gana la dama blanca.",
+     "Única jugada legal: la dama de g2 controla h1 y h3, así que el rey tiene que capturar.",
      "Jaque doble: el alfil da jaque desde e4 y, al apartarse de g6, la torre de g7 también ataca al rey por la columna g. Ante un jaque doble solo vale mover el rey.",
      "El rey vuelve a h2; si va a h3, el mate es el mismo: la torre de c1 llega a h1.",
      "Mate: la torre de c1 llega a h1. La dama blanca de h6, tan amenazante, no participó en la defensa."
@@ -901,7 +901,7 @@
   ]
  },
  "a-sac-f5-d5": {
-  "html": "<h4>Por qué el caballo molesta aunque no lo tomen</h4><p>Un caballo blanco en f5 ataca d6, e7, g7 y h6; en d5 ataca c7, e7, f6 y b6. Contra una estructura con peones en d6 y e6 esas casillas son exactamente las que sostienen la posición negra. Por eso el sacrificio tiene una doble función: si lo aceptan, se abre la columna e; si lo rechazan, el caballo se queda clavado en el corazón de la posición y las negras tienen que retroceder piezas para cubrir sus casillas. Antes de jugarlo pregúntate qué hará el caballo si nadie lo toca.</p><h4>Las tres respuestas que hay que calcular</h4><ol><li><b>Aceptar</b> (<span class=\"mv\">exf5</span> o <span class=\"mv\">exd5</span>): calcula tu recaptura y qué columna o diagonal se abre. Muchas veces la recaptura con el peón amenaza descubrir un jaque o avanzar (<span class=\"mv\">exd6</span> al paso, <span class=\"mv\">e6</span>).</li><li><b>Rechazar</b>: ¿el caballo puede quedarse? ¿Gana algo por sí mismo (una captura en g7 o e7 con jaque)?</li><li><b>Contraatacar</b>: el defensor puede ignorar el caballo y atacar otra cosa, por ejemplo tu dama o tu rey. Si eso funciona, el sacrificio fracasa.</li></ol><h4>Los golpes de apoyo</h4><p>El sacrificio casi siempre va acompañado de un golpe táctico concreto. Los más frecuentes: un jaque de alfil en la diagonal a2-g8 (<span class=\"mv\">Bc4+</span>) cuando el peón e6 ha desaparecido; la torre que entra en e7 con jaque (<span class=\"mv\">Rxe7+</span>) aprovechando que la columna e está abierta; una clavada del caballo de f6 que impide su defensa; y la captura en g7 que destapa la dama hacia h7. Si no encuentras ningún golpe de apoyo, el sacrificio es solo una apuesta.</p><h4>El peón que recaptura</h4><p>Tras <span class=\"mv\">Nd5</span> <span class=\"mv\">exd5</span> <span class=\"mv\">exd5</span>, el peón de d5 corta en dos la posición negra: el alfil de c8 y la dama quedan separados del flanco de rey, y la casilla e6 deja de estar protegida. Tras <span class=\"mv\">Nf5</span> <span class=\"mv\">exf5</span> <span class=\"mv\">exf5</span>, el peón de f5 se convierte en ariete: amenaza <span class=\"mv\">f6</span> y abre la columna e. En ambos casos la columna e abierta frente al rey negro es la compensación principal.</p><h4>Errores comunes</h4><ul><li>Sacrificar cuando las negras pueden enrocar en la jugada siguiente: el rey se va y la columna e queda vacía.</li><li>Recapturar con una pieza en lugar del peón y perder el efecto de apertura.</li><li>No ver que el defensor puede devolver la pieza para cambiar damas.</li></ul><h4>Pensarlo en la partida</h4><p>Una forma práctica de decidir: imagina la posición tras la captura y la recaptura con el peón, y cuenta cuántas piezas tuyas atacan el rey negro y cuántas negras lo defienden. Si tienes al menos una pieza más en la zona y el rey no puede enrocar en una jugada, el sacrificio suele ser correcto aunque no veas un mate. Si el balance es igual, necesitas un golpe táctico concreto que lo justifique.</p>",
+  "html": "<h4>Por qué el caballo molesta aunque no lo tomen</h4><p>Un caballo blanco en f5 ataca d6, e7, g7 y h6; en d5 ataca c7, e7, f6 y b6. Contra una estructura con peones en d6 y e6 esas casillas son exactamente las que sostienen la posición negra. Por eso el sacrificio tiene una doble función: si lo aceptan, se abre la columna e; si lo rechazan, el caballo se queda clavado en el corazón de la posición y las negras tienen que retroceder piezas para cubrir sus casillas. Antes de jugarlo pregúntate qué hará el caballo si nadie lo toca.</p><h4>Las tres respuestas que hay que calcular</h4><ol><li><b>Aceptar</b> (<span class=\"mv\">exf5</span> o <span class=\"mv\">exd5</span>): calcula tu recaptura y qué columna o diagonal se abre. Muchas veces la recaptura con el peón abre la columna e para tus torres (el peón negro de e6 ya no está) y deja un peón avanzado que amenaza seguir (<span class=\"mv\">d6</span> o <span class=\"mv\">f6</span>).</li><li><b>Rechazar</b>: ¿el caballo puede quedarse? ¿Gana algo por sí mismo (una captura en g7 o e7 con jaque)?</li><li><b>Contraatacar</b>: el defensor puede ignorar el caballo y atacar otra cosa, por ejemplo tu dama o tu rey. Si eso funciona, el sacrificio fracasa.</li></ol><h4>Los golpes de apoyo</h4><p>El sacrificio casi siempre va acompañado de un golpe táctico concreto. Los más frecuentes: un jaque de alfil en la diagonal a2-g8 (<span class=\"mv\">Bc4+</span>) cuando el peón e6 ha desaparecido; la torre que entra en e7 con jaque (<span class=\"mv\">Rxe7+</span>) aprovechando que la columna e está abierta; una clavada del caballo de f6 que impide su defensa; y la captura en g7 que destapa la dama hacia h7. Si no encuentras ningún golpe de apoyo, el sacrificio es solo una apuesta.</p><h4>El peón que recaptura</h4><p>Tras <span class=\"mv\">Nd5</span> <span class=\"mv\">exd5</span> <span class=\"mv\">exd5</span>, el peón de d5 corta en dos la posición negra: el alfil de c8 y la dama quedan separados del flanco de rey, y la casilla e6 deja de estar protegida. Tras <span class=\"mv\">Nf5</span> <span class=\"mv\">exf5</span> <span class=\"mv\">exf5</span>, el peón de f5 se convierte en ariete: amenaza <span class=\"mv\">f6</span> y abre la columna e. En ambos casos la columna e abierta frente al rey negro es la compensación principal.</p><h4>Errores comunes</h4><ul><li>Sacrificar cuando las negras pueden enrocar en la jugada siguiente: el rey se va y la columna e queda vacía.</li><li>Recapturar con una pieza en lugar del peón y perder el efecto de apertura.</li><li>No ver que el defensor puede devolver la pieza para cambiar damas.</li></ul><h4>Pensarlo en la partida</h4><p>Una forma práctica de decidir: imagina la posición tras la captura y la recaptura con el peón, y cuenta cuántas piezas tuyas atacan el rey negro y cuántas negras lo defienden. Si tienes al menos una pieza más en la zona y el rey no puede enrocar en una jugada, el sacrificio suele ser correcto aunque no veas un mate. Si el balance es igual, necesitas un golpe táctico concreto que lo justifique.</p>",
   "keyPoints": [
    "Calcula tres respuestas: aceptar, rechazar y contraatacar.",
    "Busca siempre el golpe de apoyo: Bc4+, Rxe7+, clavadas, captura en g7.",
@@ -1297,9 +1297,9 @@
     "comments": [
      "El caballo captura en h6 con jaque. Si gxh6, el rey pierde el peón g y la diagonal hacia f7 queda abierta.",
      "Capturar es lo más natural; si el rey se aparta, el caballo de h6 sigue causando estragos junto a f7.",
-     "Segundo golpe: el alfil captura en f7 con jaque. El rey tiene que tomar.",
-     "Si el rey no captura, el alfil de f7 y la dama ganan aún más.",
-     "Jaque doble de dama: ataca al rey y, por la quinta fila, al alfil de c5. Las blancas recuperan el material invertido y el rey negro queda al descubierto."
+     "Segundo golpe: el alfil captura en f7 con jaque.",
+     "Tomar el alfil expone al rey. Era mejor no capturar (Kh7), aunque tras Bxe8 las blancas ganan la calidad y siguen con ventaja decisiva.",
+     "Jaque con doble ataque: la dama da jaque al rey y, por la quinta fila, ataca al alfil de c5. Las blancas recuperan el material invertido y el rey negro queda al descubierto."
     ]
    },
    {
@@ -1661,7 +1661,7 @@
      "Las blancas buscan contrajuego con jaque en la octava fila.",
      "Se tapa con la torre. Por eso tenías que calcular el jaque antes de capturar: la torre de f4 vuelve a tiempo a f8.",
      "Otro jaque, desde c4.",
-     "El rey se esconde en h8 y los jaques se acaban. La amenaza de mate en h2 sigue en pie y las blancas no pueden pararla."
+     "El rey se esconde en h8 y los jaques se acaban. Las blancas solo pueden cubrir h2 con Rxf8+ Nxf8 y Qf4, pero quedan con una pieza menos y el ataque negro sigue (más de cinco peones según el motor)."
     ]
    },
    {
