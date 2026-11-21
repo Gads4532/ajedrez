@@ -70,7 +70,7 @@ node tools/build-exercises.js [profundidad=11] [procesos=4]
   segunda opción del motor) y la posición no está perdida.
 - Hay que volver a ejecutarlo cada vez que se añaden o cambian lecciones (tarda unos segundos).
 
-Resultado actual: **las 133 lecciones tienen ejercicios de posición**: 359 ejercicios con 875 jugadas a encontrar.
+Resultado actual: **las 133 lecciones tienen ejercicios**: 1.278 ítems con 2.997 jugadas a encontrar, de los cuales **613 son ejercicios nuevos** (posiciones que no salen en la lección) con 1.289 jugadas.
 Las lecciones cuyas posiciones son solo ilustrativas (estructuras, mates básicos) tienen además ejercicios propios
 (`drills`) en `data/lessons-drills-estrategia.js` y `data/lessons-drills-finales.js`, escritos para practicar la idea de
 la lección y verificados con Stockfish a profundidad 16 (cada jugada del alumno es la mejor o pierde ≤ 4 puntos).
