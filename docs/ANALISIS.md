@@ -81,6 +81,31 @@ cómo defenderse / defensa; mate escapado → patrones de mate / mate en 2; mate
 amenazas / ganar material; peón regalado → contar atacantes y defensores). Si el motivo no es concreto, se recomienda
 según la fase: apertura, medio juego (cálculo) o final.
 
+### 2.2d Análisis profundo (`js/deep.js`)
+Además de la clasificación, cada revisión incluye:
+
+- **Profundidad elegible**: Rápida (12), Profunda (16, por defecto), Muy profunda (20) y Máxima (24), en el informe
+  («Reanalizar»). Se guarda en `S.settings.revDepth`. Más profundidad = más precisión y más tiempo.
+- **Cómo fue la partida** (`narrative`): la partida dividida en tramos según tu probabilidad de ganar (igualada, mejor,
+  ganadora, peor, perdida) y la jugada que cambió cada tramo.
+- **Motivos tácticos** (`motifs`): en cada uno de tus errores se examina la mejor línea del motor (lo que no viste) y la
+  respuesta del rival (con qué te castigaron), y se reconocen horquillas (de caballo, de peón y ataques dobles),
+  clavadas, enfiladas, ataques descubiertos, jaques a la descubierta, jaques dobles, mates del pasillo y mates ahogados,
+  y piezas que quedan sin defensa tras una captura. Se cuentan por tipo («No viste: horquilla ×2»).
+- **Factores de la posición** (`factors`) en tres momentos (salida de la apertura, medio juego y final), tú frente al
+  rival: seguridad del rey (escudo de peones, columnas abiertas y piezas rivales cerca, de 0 a 10), actividad de las
+  piezas (casillas que controlan), control del centro (d4, e4, d5, e5), espacio (casillas del campo rival controladas) y
+  estructura (peones doblados, aislados y pasados), con consejos cuando la diferencia es grande.
+- **Uso del tiempo** (`clocks`, `timeReport`): si el PGN trae relojes `[%clk]` (chess.com y Lichess los incluyen), un
+  gráfico del tiempo de cada jugada tuya (los errores en color), el tiempo medio, las pensadas más largas, desde qué
+  jugada estuviste en apuro (menos del 10 % del tiempo o 30 s) y los errores jugados demasiado rápido.
+- **Jugada a jugada**: además de la explicación, «Análisis profundo» con la evaluación, los motivos de la mejor jugada y
+  de la amenaza del rival, y qué cambió en la posición (seguridad del rey, actividad, centro, estructura, peones
+  pasados, espacio). El botón **▶ Ver la línea** reproduce en el tablero la línea del motor sin cambiar la partida.
+
+Los factores y motivos son heurísticos (reglas sencillas sobre el tablero), no una evaluación del motor: sirven para
+explicar, y la evaluación de Stockfish sigue siendo la referencia.
+
 ### 2.3 Explicación de cada error
 `explain()` busca, por este orden, el motivo concreto:
 - **Permite mate en N** (la evaluación posterior es mate para el rival).

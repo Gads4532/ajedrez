@@ -52,7 +52,7 @@ async function goodMove(fen, san) {
 
 async function buildLesson(L) {
   const items = [];
-  // drills: posiciones pensadas solo como ejercicio (se tratan igual que las de la lección)
+  // drills: posiciones pensadas solo como ejercicio (marcadas con d:1; la práctica usa estas, que no salen en la lección)
   for (const [pi, P] of [...(L.positions || []), ...(L.drills || [])].entries()) {
     if (!P.line || !P.line.length) {
       // Posición sin línea: se pregunta la mejor jugada solo si es claramente la mejor (mate, o 12+ puntos sobre la segunda).
@@ -61,7 +61,7 @@ async function buildLesson(L) {
       const clear = r.mate || r.cp2 == null || wp(r.cp) - wp(r.cp2) >= 12;
       if (!clear || wp(r.cp) < 40) continue;
       const m = c0.move({ from: r.best.slice(0, 2), to: r.best.slice(2, 4), promotion: r.best[4] || 'q' }); if (!m) continue;
-      items.push({ fen: P.fen, line: [m.san], ask: [0], o: new Chess(P.fen).turn(), title: P.caption || `Posición ${pi + 1}`, find: 1 });
+      items.push({ d: pi >= (L.positions || []).length ? 1 : undefined, fen: P.fen, line: [m.san], ask: [0], o: new Chess(P.fen).turn(), title: P.caption || `Posición ${pi + 1}`, find: 1 });
       continue;
     }
     const g = new Chess(P.fen), side = g.turn(), fens = [g.fen()];
@@ -80,13 +80,13 @@ async function buildLesson(L) {
     }
     if (L.area === 'partidas') {
       // jugadas clave de la partida: preguntas sueltas (cada una desde su posición), como mucho 6
-      ask.slice(0, 6).forEach(k => items.push({ fen: fens[k], line: [P.line[k]], ask: [0], cm: [(P.comments || [])[k] || ''], o: new Chess(fens[k]).turn(), title: `Jugada ${fens[k].split(' ')[5]}: ¿qué jugó ${new Chess(fens[k]).turn() === 'w' ? 'el blanco' : 'el negro'}?` }));
+      ask.slice(0, 6).forEach(k => items.push({ d: pi >= (L.positions || []).length ? 1 : undefined, fen: fens[k], line: [P.line[k]], ask: [0], cm: [(P.comments || [])[k] || ''], o: new Chess(fens[k]).turn(), title: `Jugada ${fens[k].split(' ')[5]}: ¿qué jugó ${new Chess(fens[k]).turn() === 'w' ? 'el blanco' : 'el negro'}?` }));
       continue;
     }
     if (!ask.length) continue;
     const last = ask[ask.length - 1];
     const cm = (P.comments || []).slice(0, last + 1); // comentarios de la lección para explicar cada jugada
-    items.push({ fen: P.fen, line: P.line.slice(0, last + 1), ask, o: me, title: P.caption || `Posición ${pi + 1}`, ...(cm.some(Boolean) ? { cm } : {}) });
+    items.push({ d: pi >= (L.positions || []).length ? 1 : undefined, fen: P.fen, line: P.line.slice(0, last + 1), ask, o: me, title: P.caption || `Posición ${pi + 1}`, ...(cm.some(Boolean) ? { cm } : {}) });
   }
   return items;
 }

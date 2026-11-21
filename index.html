@@ -424,6 +424,18 @@ details.acc>div{padding:0 18px 16px}
 .co-hist{font-size:14px;line-height:1.7}
 .co-stats{font-size:12.5px}
 .co-help{background:var(--bg3);border-radius:8px;padding:8px 12px;font-size:13.5px}.co-help ul{margin:4px 0 0;padding-left:18px}.co-help code{background:var(--panel);padding:0 4px;border-radius:4px}
+.rv-deep{border-top:1px solid var(--line);padding-top:8px}
+.dp-facs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:6px}
+.dp-fac{background:var(--bg3);border-radius:8px;padding:8px 10px;display:grid;gap:4px}
+.dp-row{display:grid;grid-template-columns:1fr auto 70px auto;gap:6px;align-items:center;font-size:12.5px}
+.dp-row small{grid-column:2/5;color:var(--fg3)}
+.dp-bar{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--line)}
+.dp-me{background:#81b64c;margin-left:auto}.dp-op{background:#e58f2a}
+.dp-bar .dp-me{order:0}.dp-bar{justify-content:center}
+.dp-dot{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle}.dp-dot.me{background:#81b64c}.dp-dot.op{background:#e58f2a}
+.dp-time{display:flex;align-items:flex-end;gap:2px;height:70px;background:var(--bg3);border-radius:6px;padding:6px}
+.dp-time div{flex:1;min-width:2px;border-radius:2px 2px 0 0}
+.dp-depth{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .ex-endless{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;font-size:13.5px;color:var(--fg2)}
 .ex-dots .sep{width:2px;height:14px;background:var(--fg3);margin:-3px 4px 0;border-radius:1px}
 .ex-dots span.cur{background:var(--blue)} .ex-dots span.ok{background:var(--green)} .ex-dots span.half{background:var(--yellow)} .ex-dots span.bad{background:var(--red)}
@@ -530,6 +542,7 @@ svg.chart{width:100%;height:auto;display:block}
 <script src="js/purpose.js"></script>
 <script src="js/v-learn.js"></script>
 <script src="js/review.js"></script>
+<script src="js/deep.js"></script>
 <script src="js/v-play.js"></script>
 <script src="js/v-strategy.js"></script>
 <script src="js/v-games.js"></script>

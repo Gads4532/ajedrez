@@ -181,6 +181,7 @@
       <div class="sp-tabs" id="at"><button data-t="an" class="on">Análisis</button><button data-t="rev">Revisión</button><button data-t="imp">Cargar</button></div>
       <div class="sp-body" id="ab"></div><div class="sp-foot" id="af"></div></div>`);
     layout.appendChild(panel); v.appendChild(layout);
+    let clk = null; const DEPTHS = { 12: 'Rápida', 16: 'Profunda', 20: 'Muy profunda', 24: 'Máxima' }; const depthOf = () => +(S().settings.revDepth || 16);
     let startFen = START, sans = [], fens = [START], moves = [], cur = 0, review = null, engineOn = true, tab = 'an', headers = {}, reviewMe = null, reviewRes = null, reviewGameD = null;
     const g = new Chess();
     board.game = g; board.opts.movable = 'both'; board.opts.interactive = true;
@@ -188,7 +189,7 @@
     const load = (fen, mvList) => {
       startFen = fen; const t = new Chess(fen); fens = [t.fen()]; sans = []; moves = [];
       for (const m of mvList || []) { const r = t.move(m, { sloppy: true }); if (!r) break; fens.push(t.fen()); sans.push(r.san); moves.push(r); }
-      review = null; reviewRes = null; reviewGameD = null; go(fens.length - 1);
+      review = null; reviewRes = null; reviewGameD = null; clk = null; go(fens.length - 1);
     };
     const go = (k) => {
       retry = null;
@@ -284,7 +285,7 @@
     const paint = () => {
       if (tab === 'an' && !sans.length) {
         $('#ab', v).innerHTML = `<div class="paste-box"><div class="sec-t">Pega los movimientos de tu partida</div><p class="dim" style="font-size:13px;margin:4px 0 8px">Sirve el PGN de chess.com o Lichess (también tus partidas <b>contra los bots de chess.com</b>: abre la partida → <b>Compartir</b> → <b>PGN</b> → copiar), o una lista como <b>1. e4 e5 2. Nf3 Nc6</b> (también en español: <b>2. Cf3 Cc6</b>).</p><textarea id="pasteMv" placeholder="1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 …"></textarea><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="btn pri" id="pasteGo">★ Analizar partida</button><button class="btn" id="pasteLd">Solo cargar</button></div><p class="dim" style="font-size:12.5px;margin:10px 0 0">O mueve las piezas en el tablero para analizar una posición.</p></div><div id="ml" hidden></div>`;
-        const take = (rev) => { const r = parseMoves($('#pasteMv', v).value); if (!r) { toast('No pude leer esas jugadas. Revisa que sean legales.'); return; } headers = r.hdr || {}; load(r.fen, r.moves); applySide(headers); toast(`${r.moves.length} jugadas cargadas`); if (rev) runReview(); };
+        const take = (rev) => { const raw = $('#pasteMv', v).value, r = parseMoves(raw); if (!r) { toast('No pude leer esas jugadas. Revisa que sean legales.'); return; } headers = r.hdr || {}; load(r.fen, r.moves); clk = window.Deep ? Deep.clocks(raw) : null; applySide(headers); toast(`${r.moves.length} jugadas cargadas`); if (rev) runReview(); };
         $('#pasteGo', v).onclick = () => take(true); $('#pasteLd', v).onclick = () => take(false);
         return;
       }
@@ -318,12 +319,20 @@
         <ul class="rv-why">${x.why.map(w => `<li>${fixMv(w)}</li>`).join('')}</ul>
         ${bad && x.best ? `<div class="rv-best"><span class="bd" style="background:${BADGES.best.c}">${BADGES.best.t}</span><div>La mejor era <b>${esc(san(x.best))}</b>${x.bestLine.length > 1 ? `<small>Línea: ${line(x.bestLine)}</small>` : ''}</div></div>` : ''}
         ${bad && x.reply && x.replyLine.length ? `<div class="dim" style="font-size:12.5px">Respuesta del rival: ${line(x.replyLine.slice(0, 5))}</div>` : ''}
+        ${(() => { if (!window.Deep) return ''; const out = [];
+          if (bad) { Deep.motifs(fens[i], review.pv[i], 5).slice(0, 2).forEach(m => out.push(`<li class="good">La mejor tenía: ${fixMv(m.t)} (${esc(san(m.san))})</li>`)); Deep.motifs(fens[i + 1], review.pv[i + 1], 5).slice(0, 2).forEach(m => out.push(`<li class="fix">El rival amenaza: ${fixMv(m.t)} (${esc(san(m.san))})</li>`)); }
+          else Deep.motifsAfter(new Chess(fens[i + 1]), moves[i]).slice(0, 2).forEach(t => out.push(`<li class="good">${fixMv(t)}</li>`));
+          Deep.factorChanges(fens[i], fens[i + 1], moves[i].color).slice(0, 3).forEach(f => out.push(`<li class="${f.k}">${f.t}</li>`));
+          const ev = review.evals[i + 1]; const evT = ev ? EvalUtil.fmt(ev) : '';
+          return `<div class="rv-deep"><div class="sec-t" style="font-size:11.5px">Análisis profundo ${evT ? `<span class="dim" style="font-weight:700">· evaluación ${esc(evT)}</span>` : ''}</div>${out.length ? `<ul class="rv-list">${out.join('')}</ul>` : '<div class="dim" style="font-size:12.5px">Sin cambios importantes en la estructura ni motivos tácticos.</div>'}</div>`; })()}
         ${recs.length ? `<div class="rv-recs"><div class="sec-t" style="font-size:11.5px">Ejercicios para corregirlo</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px">${recs.map(r => `<a class="btn sm" href="${r[0]}">${esc(r[1])}</a>`).join('')}</div></div>` : ''}
-        <div class="rv-acts">${bad && x.best ? `<button class="btn sm" id="rvShow">${BADGES.best.t} Ver la mejor</button><button class="btn sm" id="rvRetry">↻ Reintentar</button>` : ''}<button class="btn sm ghost" id="rvNext">Siguiente error ⏭</button></div></div>`;
+        <div class="rv-acts">${bad && x.best ? `<button class="btn sm" id="rvShow">${BADGES.best.t} Ver la mejor</button><button class="btn sm" id="rvLine">▶ Ver la línea</button><button class="btn sm" id="rvRetry">↻ Reintentar</button>` : ''}<button class="btn sm ghost" id="rvNext">Siguiente error ⏭</button></div></div>`;
     };
     const bindComment = (i) => {
       const x = review.R.explain(i);
       const s = $('#rvShow', v); if (s) s.onclick = () => { const u = review.bestUci[i]; if (u) { g.load(fens[i]); board.setPosition(fens[i], true); board.setLastMove(null); board.badge(null); board.setArrows([[u.slice(0, 2), u.slice(2, 4), 'g']]); } };
+      // Reproduce en el tablero la línea del motor desde la posición anterior a la jugada (sin cambiar la partida)
+      const ln = $('#rvLine', v); if (ln) ln.onclick = () => { const pvu = (review.pv[i] || []).slice(0, 8); const t = new Chess(fens[i]); board.setPosition(fens[i], false); board.setArrows([]); board.badge(null); let k = 0; const step = () => { if (k >= pvu.length || cur !== i + 1) return; const m = t.move({ from: pvu[k].slice(0, 2), to: pvu[k].slice(2, 4), promotion: pvu[k][4] || 'q' }); if (!m) return; board.setPosition(t.fen(), true); board.setLastMove([m.from, m.to]); playSound(m); k++; setTimeout(step, 900); }; setTimeout(step, 400); toast('Línea del motor: vuelve con ◀ ▶ a la partida'); };
       const r = $('#rvRetry', v); if (r) r.onclick = () => {
         g.load(fens[i]); board.setPosition(fens[i], true); board.setLastMove(null); board.badge(null); board.setArrows([]);
         retry = { i, best: review.bestUci[i] };
@@ -338,13 +347,13 @@
       if (!sans.length) { toast('Carga o juega una partida primero'); return; }
       tab = 'rev'; paintTabs();
       const n = fens.length; const evals = [], bests = [], second = [], pv = [];
-      $('#ab', v).innerHTML = `<div class="fb info"><span class="dot">⏳</span><div>Analizando con ${esc(engineLabel())}<small id="rp">0 / ${n}</small></div></div><div class="meter"><div id="rm" style="width:0"></div></div>`;
+      $('#ab', v).innerHTML = `<div class="fb info"><span class="dot">⏳</span><div>Analizando con ${esc(engineLabel())} · profundidad ${depthOf()} (${DEPTHS[depthOf()] || ''})<small id="rp">0 / ${n}</small></div></div><div class="meter"><div id="rm" style="width:0"></div></div>`;
       liveId++; eng.stop();
       for (let i = 0; i < n; i++) {
         const t = new Chess(fens[i]);
         if (t.in_checkmate()) { evals[i] = { cp: t.turn() === 'w' ? -10000 : 10000, mate: null }; bests[i] = null; pv[i] = []; continue; }
         if (t.game_over()) { evals[i] = { cp: 0, mate: null }; bests[i] = null; pv[i] = []; continue; }
-        const r = await eng.analyze(fens[i], { depth: 14, multipv: 2 });
+        const r = await eng.analyze(fens[i], { depth: depthOf(), multipv: 2 });
         if (!r) { toast('Revisión interrumpida'); return; }
         evals[i] = r.lines[0] || { cp: 0, mate: null }; second[i] = r.lines[1] || null;
         bests[i] = r.lines[0] && r.lines[0].pv[0] ? r.lines[0].pv[0] : r.bestmove; pv[i] = (r.lines[0] && r.lines[0].pv) || [];
@@ -361,6 +370,55 @@
       review = { evals, cls: R.cls, R, me, bestUci: bests, acc: R.acc, second, pv, result };
       if (reviewGameD) { const gm = S().games.find(x => x.d === reviewGameD); if (gm) { gm.rev = R.summary; save(); } }
       showReview(); Sound.good();
+    };
+
+    /* ---------- Análisis profundo (js/deep.js) ---------- */
+    const deepHTML = () => {
+      if (!window.Deep) return '';
+      const mv = (x) => `<span class="mv">${x}</span>`;
+      const R = review.R, me = review.me, opp = me === 'w' ? 'b' : 'w', n = sans.length;
+      const mineIdx = [...Array(n).keys()].filter(i => moves[i].color === me);
+      const bad = mineIdx.filter(i => ['inaccuracy', 'mistake', 'miss', 'blunder'].includes(review.cls[i]));
+      // 1. Cómo fue la partida
+      const story = Deep.narrative(review.evals, review.cls, sans, fens, me, EvalUtil.winPct);
+      // 2. Motivos tácticos: lo que no viste (mejor línea) y con qué te castigaron (respuesta del rival)
+      const missed = {}, suffered = {}, kind = (t) => t.split(':')[0].replace(/ en [a-h][1-8].*/, '').replace(/ \(.*/, '');
+      const exMissed = [], exSuffered = [];
+      bad.forEach(i => {
+        Deep.motifs(fens[i], review.pv[i], 5).forEach(m => { const k = kind(m.t); missed[k] = (missed[k] || 0) + 1; if (exMissed.length < 4) exMissed.push(`${fens[i].split(' ')[5]}${moves[i].color === 'w' ? '.' : '...'} en vez de ${mv(sans[i])}: ${m.t} con ${mv(m.san)}`); });
+        Deep.motifs(fens[i + 1], review.pv[i + 1], 5).forEach(m => { const k = kind(m.t); suffered[k] = (suffered[k] || 0) + 1; if (exSuffered.length < 4) exSuffered.push(`tras ${mv(sans[i])}: ${m.t} con ${mv(m.san)}`); });
+      });
+      const cnt = (o) => Object.entries(o).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<span class="tag">${esc(k)} ×${v}</span>`).join(' ');
+      // 3. Factores posicionales en tres momentos
+      const at = []; [Math.min(n, 24), Math.round(n * 0.7), n].forEach(x => { if (!at.some(y => Math.abs(y - x) < 6) || x === n) at.push(x); }); const at2 = at.filter((x, k) => !(x !== n && at.includes(n) && Math.abs(n - x) < 6));
+      const FX = [['kingSafety', 'Seguridad del rey', 10], ['activity', 'Actividad de las piezas', 40], ['center', 'Control del centro', 10], ['space', 'Espacio', 24]];
+      const facs = at2.map(k => ({ k, f: Deep.factors(fens[k]) }));
+      const bar = (a, b, max) => { const pa = Math.min(100, a / max * 100), pb = Math.min(100, b / max * 100); return `<div class="dp-bar"><div class="dp-me" style="width:${pa / 2}%"></div><div class="dp-op" style="width:${pb / 2}%"></div></div>`; };
+      const facTable = facs.map(({ k, f }) => `<div class="dp-fac"><div class="dim" style="font-size:12px;font-weight:800">${k >= n ? 'POSICIÓN FINAL' : `JUGADA ${fens[k].split(' ')[5]}`}</div>${FX.map(([key, t, max]) => `<div class="dp-row"><span>${t}</span><b>${f[me][key]}</b>${bar(f[me][key], f[opp][key], max)}<b>${f[opp][key]}</b></div>`).join('')}<div class="dp-row"><span>Estructura</span><small>${[f[me].doubled ? f[me].doubled + ' peón(es) doblado(s)' : '', f[me].isolated ? f[me].isolated + ' aislado(s)' : '', f[me].passed ? f[me].passed + ' pasado(s)' : ''].filter(Boolean).join(' · ') || 'sin debilidades'}</small></div></div>`).join('');
+      const last = facs[facs.length - 1].f, tips = [];
+      if (last[me].kingSafety < last[opp].kingSafety - 2) tips.push('Tu rey terminó más expuesto que el del rival: cuida el escudo de peones y no abras columnas delante de tu enroque.');
+      if (last[me].activity < last[opp].activity - 8) tips.push('Las piezas del rival fueron más activas: busca casillas centrales y columnas abiertas para las tuyas.');
+      if (facs[0].f[me].center < facs[0].f[opp].center - 2) tips.push('Saliste de la apertura con menos control del centro que el rival.');
+      if (last[me].space > last[opp].space + 6) tips.push('Ganaste espacio: con más espacio, evita cambios innecesarios y prepara rupturas.');
+      // 4. Uso del tiempo
+      const T = clk ? Deep.timeReport(clk, review.cls, me, headers && headers.TimeControl) : null;
+      const fmt = (x) => x >= 60 ? `${Math.floor(x / 60)}:${String(Math.round(x % 60)).padStart(2, '0')} min` : `${Math.round(x)} s`;
+      const timeBox = T ? (() => {
+        const mine = T.used.map((u, i) => ({ u, i })).filter(x => (x.i % 2 === 0) === (me === 'w')); const mx = Math.max(...mine.map(x => x.u), 1);
+        const bars = mine.map(x => { const c = review.cls[x.i]; const col = ['blunder', 'mistake', 'miss'].includes(c) ? BADGES[c].c : 'var(--fg3)'; return `<div title="${fens[x.i].split(' ')[5]}. ${esc(san(sans[x.i]))}: ${fmt(x.u)}" style="height:${Math.max(3, x.u / mx * 100)}%;background:${col}"></div>`; }).join('');
+        const tl = [`Tiempo medio por jugada: <b>${fmt(T.avg)}</b>.`, `Pensadas más largas: ${T.longest.map(x => `${fens[x.i].split(' ')[5]}. ${mv(sans[x.i])} (${fmt(x.u)})`).join(', ')}.`];
+        if (T.trouble != null) tl.push(`Apuro de tiempo desde la jugada ${fens[T.trouble].split(' ')[5]}${T.errorsInTrouble ? `, con ${T.errorsInTrouble} error(es) después` : ''}.`);
+        if (T.fastErrors.length) tl.push(`Errores jugados demasiado rápido: ${T.fastErrors.map(i => `${fens[i].split(' ')[5]}. ${mv(sans[i])}`).join(', ')}. En posiciones críticas, tómate tu tiempo.`);
+        return `<div class="dp-time">${bars}</div><ul class="rv-list">${tl.map(t => `<li class="info">${fixMv(t)}</li>`).join('')}</ul>`;
+      })() : '<p class="dim" style="font-size:13px;margin:0">Sin datos de reloj. Si pegas el PGN de chess.com o Lichess con los tiempos ([%clk]), aquí verás cuánto pensaste cada jugada y si los errores llegaron por apuro de tiempo.</p>';
+      return `<details class="acc rv-sec" open><summary>🔬 Análisis profundo</summary><div style="display:grid;gap:12px">
+        ${story.length ? `<div><div class="sec-t">Cómo fue la partida</div><ul class="rv-list">${story.map(t => `<li class="info">${fixMv(t)}</li>`).join('')}</ul></div>` : ''}
+        <div><div class="sec-t">Motivos tácticos</div>${Object.keys(missed).length ? `<p style="margin:6px 0 2px;font-size:13.5px">No viste: ${cnt(missed)}</p><ul class="rv-list">${exMissed.map(t => `<li class="fix">${fixMv(t)}</li>`).join('')}</ul>` : '<p class="dim" style="font-size:13px;margin:4px 0">No se te escaparon golpes tácticos claros.</p>'}
+          ${Object.keys(suffered).length ? `<p style="margin:6px 0 2px;font-size:13.5px">El rival te castigó con: ${cnt(suffered)}</p><ul class="rv-list">${exSuffered.map(t => `<li class="fix">${fixMv(t)}</li>`).join('')}</ul>` : ''}</div>
+        <div><div class="sec-t">Factores de la posición <span class="dim" style="font-weight:600">(tú <span class="dp-dot me"></span> · rival <span class="dp-dot op"></span>)</span></div><div class="dp-facs">${facTable}</div>${tips.length ? `<ul class="rv-list">${tips.map(t => `<li class="info">${t}</li>`).join('')}</ul>` : ''}</div>
+        <div><div class="sec-t">Uso del tiempo</div>${timeBox}</div>
+        <div class="dp-depth"><span class="dim" style="font-size:13px">Profundidad del análisis: <b>${depthOf()}</b></span>${Object.entries(DEPTHS).map(([d, t]) => `<button class="chip ${+d === depthOf() ? 'on' : ''}" data-dep="${d}">${t} (${d})</button>`).join('')}<button class="btn sm" id="dpRe">↻ Reanalizar</button></div>
+      </div></details>`;
     };
     const coachTitle = (acc, res) => res === 'win' ? (acc >= 85 ? '¡Gran victoria, muy bien jugada!' : 'Ganaste, aunque hay cosas que pulir.') : res === 'loss' ? (acc >= 85 ? 'Perdiste, pero jugaste a buen nivel.' : 'Partida para aprender: vamos a ver qué pasó.') : res === 'draw' ? 'Tablas: veamos dónde había más.' : (acc >= 85 ? '¡Gran partida!' : acc >= 70 ? 'Buena partida, con cosas que pulir.' : 'Partida para aprender: vamos a ver qué pasó.');
     const showReview = () => {
@@ -386,15 +444,17 @@
         ${rep.keys.length ? `<div><div class="sec-t">Momentos clave</div><div class="rv-keys">${rep.keys.map(i => `<button class="rv-key" data-k="${i + 1}"><span class="bd" style="background:${BADGES[R.cls[i]].c}">${BADGES[R.cls[i]].t}</span>${esc(fens[i].split(' ')[5] + (moves[i].color === 'w' ? '.' : '...') + ' ' + san(sans[i]))}</button>`).join('')}</div></div>` : ''}
         <div class="grid g2 rv-gb"><div class="card rv-good"><div class="sec-t">✓ Aciertos</div><ul class="rv-list">${(rep.good.length ? rep.good : ['Revisa los momentos clave para encontrar tus mejores ideas.']).map(t => `<li class="good">${fixMv(t)}</li>`).join('')}</ul></div>
           <div class="card rv-fix"><div class="sec-t">✕ A corregir</div><ul class="rv-list">${(rep.fix.length ? rep.fix : ['Nada importante: ¡bien jugado!']).map(t => `<li class="fix">${fixMv(t)}</li>`).join('')}</ul></div></div>
-        ${sec('Apertura', '📖', rep.opening)}${sec('Estrategia usada', '🧭', rep.strategy)}${sec('Táctica', '⚔️', rep.tactics)}${sec('Finales', '♜', rep.endgame)}${sec('Gestión de la ventaja', '📈', rep.advantage)}
+        ${deepHTML()}${sec('Apertura', '📖', rep.opening)}${sec('Estrategia usada', '🧭', rep.strategy)}${sec('Táctica', '⚔️', rep.tactics)}${sec('Finales', '♜', rep.endgame)}${sec('Gestión de la ventaja', '📈', rep.advantage)}
         <div class="card" style="background:var(--bg3)"><div class="sec-t">Para mejorar: estudia esto</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">${rep.suggest.map(s => `<a class="btn sm" href="${esc(s.href)}">${esc(s.t)}</a>`).join('')}</div></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn pri" id="toAn">Ver jugada a jugada</button><button class="btn" id="rvCopy">📋 Copiar jugadas y análisis</button></div>
-        <p class="dim" style="font-size:12.5px;margin:0">Clasificación según la pérdida de probabilidad de ganar de cada jugada (Stockfish, profundidad 14). La precisión usa la fórmula pública de Lichess; el rendimiento es una estimación orientativa a partir de la precisión.</p>`;
+        <p class="dim" style="font-size:12.5px;margin:0">Clasificación según la pérdida de probabilidad de ganar de cada jugada (Stockfish, profundidad ${depthOf()}). La precisión usa la fórmula pública de Lichess; el rendimiento es una estimación orientativa a partir de la precisión.</p>`;
       const toMove = (k) => { tab = 'an'; paintTabs(); $('#ab', v).innerHTML = ''; paint(); go(k); };
       $('#eg', v).onclick = (e) => { const r = e.currentTarget.getBoundingClientRect(); toMove(Math.round((e.clientX - r.left) / r.width * (n - 1))); };
       $$('.rv-key', v).forEach(b => b.onclick = () => toMove(+b.dataset.k));
       $$('#rvMe .chip', v).forEach(b => b.onclick = () => { reviewMe = b.dataset.c; runRebuild(); });
       $('#rvCopy', v).onclick = copyDialog;
+      $$('[data-dep]', v).forEach(b => b.onclick = () => { S().settings.revDepth = +b.dataset.dep; save(); $$('[data-dep]', v).forEach(x => x.classList.toggle('on', x === b)); toast(`Profundidad ${b.dataset.dep}: presiona «Reanalizar»`); });
+      const dr = $('#dpRe', v); if (dr) dr.onclick = () => { const keep = clk; runReview().then(() => { }); clk = keep; };
       $('#toAn', v).onclick = () => { const k = review.R.report.keys[0]; toMove(k != null ? k + 1 : 1); };
     };
     // Recalcula el informe para el otro bando sin volver a analizar.
@@ -416,7 +476,7 @@
       const openOne = (pg) => {
         const t = new Chess(); const clean = pg.replace(/\{[^}]*\}/g, ' ').replace(/\$\d+/g, ' ');
         if (!t.load_pgn(clean, { sloppy: true })) return false;
-        const hist = t.history(); const hdr = t.header(); const f = hdr.FEN || START; headers = hdr; load(f, hist); applySide(hdr);
+        const hist = t.history(); const hdr = t.header(); const f = hdr.FEN || START; headers = hdr; load(f, hist); clk = window.Deep ? Deep.clocks(pg) : null; applySide(hdr);
         tab = 'an'; paintTabs(); $('#ab', v).innerHTML = ''; paint(); toast(`${hist.length} jugadas cargadas`); return true;
       };
       const parseMany = (txt) => txt.replace(/\r/g, '').split(/\n\s*\n(?=\[Event )/).map(s => s.trim()).filter(Boolean);

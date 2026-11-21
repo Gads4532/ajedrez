@@ -113,7 +113,7 @@
     const fb = (cls, ic, t, sub) => { $('#exFb', v).innerHTML = `<div class="fb ${cls}" style="animation:none"><span class="dot">${ic}</span><div>${t}${sub ? `<small>${sub}</small>` : ''}</div></div>`; };
     const foot = (html) => { $('#exFoot', v).innerHTML = html; };
     const nMc = steps.filter(x => x.kind === 'mc').length, nPr = steps.length - nMc;
-    const label = (kind) => kind === 'mc' ? `PARTE 1 · TEORÍA · PREGUNTA ${i + 1} DE ${nMc}` : `${nMc ? 'PARTE 2 · ' : ''}PRÁCTICA · EJERCICIO ${i - nMc + 1} DE ${nPr} · ${kind === 'quiz' ? 'POSICIÓN DE LA LECCIÓN' : 'PUZLE DEL TEMA'}`;
+    const label = (kind) => kind === 'mc' ? `PARTE 1 · TEORÍA · PREGUNTA ${i + 1} DE ${nMc}` : `${nMc ? 'PARTE 2 · ' : ''}PRÁCTICA · EJERCICIO ${i - nMc + 1} DE ${nPr} · ${kind === 'quiz' ? (steps[i] && steps[i].item && steps[i].item.d ? 'EJERCICIO NUEVO' : 'POSICIÓN DE LA LECCIÓN') : 'PUZLE DEL TEMA'}`;
     // Al pasar de la teoría a la práctica, una pantalla intermedia con el resultado de la teoría.
     const next = () => {
       i++;
@@ -195,6 +195,7 @@
   }
 
   const starsOf = (pct) => { const [a, b] = EXIG[LEVEL()].stars; return pct >= a ? 3 : pct >= b ? 2 : 1; };
+  const shuffleSeed = (arr, seed) => { let x = seed % 2147483647 || 1; const r = () => (x = x * 16807 % 2147483647) / 2147483647; return arr.map(v => [r(), v]).sort((a, b) => a[0] - b[0]).map(v => v[1]); };
   const lessonSteps = (L, mode) => {
     const quiz = (window.EXERCISES && EXERCISES[L.id]) || [];
     const [nA, nB] = EXIG[LEVEL()].pz; const nPz = quiz.length >= 3 ? nB : nA;
@@ -202,11 +203,14 @@
     const strict = L.area === 'basico' || L.area === 'partidas';
     const mc = ((window.LESSON_QUIZ || {})[L.id] || []).filter(q => LEVEL() !== 'normal' || q.lvl !== 'pro').map(q => ({ kind: 'mc', q, fen: (L.positions && L.positions[0] && L.positions[0].fen) || null, o: L.positions && L.positions[0] && L.positions[0].orientation }));
     if (mode === 'teoria') return mc;
-    const practica = [...quiz.map(item => ({ kind: 'quiz', item, strict })), ...pickPuzzles(themesFor(L), nPz, L.level, L.area, mode === 'practica' ? Date.now() : seed).map(p => ({ kind: 'puzzle', p }))];
+    // Práctica: ejercicios NUEVOS (drills, d:1), no las jugadas que ya se vieron en la lección. Las posiciones de la
+    // lección solo se usan en las partidas magistrales («¿qué jugó el maestro?») o si la lección no tiene ejercicios propios.
+    const drills = quiz.filter(x => x.d), own = (L.area === 'partidas' || !drills.length) ? quiz.filter(x => !x.d) : [];
+    const practica = [...shuffleSeed(drills, mode === 'practica' ? Date.now() : seed), ...own].map(item => ({ kind: 'quiz', item, strict })).concat(pickPuzzles(themesFor(L), nPz, L.level, L.area, mode === 'practica' ? Date.now() : seed).map(p => ({ kind: 'puzzle', p })));
     return mode === 'practica' ? practica : [...mc, ...practica];
   };
   const poolSize = (L) => { const th = themesFor(L); return (window.PUZZLES || []).filter(p => (p.themes || []).some(t => th.includes(t))).length; };
-  App.lessonExercises = (L) => { const q = (window.EXERCISES && EXERCISES[L.id]) || [], [nA, nB] = EXIG[LEVEL()].pz; return { mc: ((window.LESSON_QUIZ || {})[L.id] || []).filter(x => LEVEL() !== 'normal' || x.lvl !== 'pro').length, quiz: q.length, puzzles: q.length >= 3 ? nB : nA, level: EXIG[LEVEL()].t, practice: !!L.practice, pool: poolSize(L) }; };
+  App.lessonExercises = (L) => { const q = (window.EXERCISES && EXERCISES[L.id]) || [], [nA, nB] = EXIG[LEVEL()].pz; return { mc: ((window.LESSON_QUIZ || {})[L.id] || []).filter(x => LEVEL() !== 'normal' || x.lvl !== 'pro').length, quiz: (L.area === 'partidas' || !q.some(x => x.d)) ? q.length : q.filter(x => x.d).length + 0, puzzles: q.length >= 3 ? nB : nA, level: EXIG[LEVEL()].t, practice: !!L.practice, pool: poolSize(L) }; };
 
   const introOf = (L) => `<p>${fixMv(esc(L.summary || ''))}</p>${(L.keyPoints || []).length ? `<ul>${L.keyPoints.map(k => `<li>${fixMv(esc(k))}</li>`).join('')}</ul>` : ''}`;
   const recapOf = (L) => (L.keyPoints || []).length ? `<ul>${L.keyPoints.slice(0, 4).map(k => `<li>${fixMv(esc(k))}</li>`).join('')}</ul>` : '';

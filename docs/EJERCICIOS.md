@@ -41,7 +41,7 @@ pantalla muestra cuántas preguntas acertaste y permite releer la lección antes
 | Parte | Contenido | Cuántos |
 |---|---|---|
 | **Teoría** | Preguntas de triple elección sobre las ideas de la lección (`data/quiz-*.js`), con explicación tras responder. Las opciones se mezclan cada vez. Hay 8 por lección (4 básicas y 4 profesionales; 1.064 en total). | 4 (normal) u 8 (alta y gran maestro) |
-| **Posiciones de la lección** | Las posiciones de la propia lección: juegas un bando y el rival responde siguiendo la línea. | Las que haya en `data/exercises.js` |
+| **Ejercicios nuevos** | Posiciones que **no salen en la lección** (`drills`, marcadas `d:1` en `data/exercises.js`), escritas para practicar la idea y verificadas con Stockfish: juegas un bando y el rival responde con su mejor defensa. Las posiciones de la lección solo se usan en *Partidas magistrales* («¿qué jugó el maestro?») o si una lección no tiene ejercicios propios. | Los de `data/exercises.js` |
 | **Puzles del tema** | Puzles de `data/puzzles.js` con los temas de la lección. | 3 si hay 3+ posiciones; si no, 5 |
 | **Práctica contra el motor** | La posición de práctica de la lección (si la tiene), como remate opcional. | 0 o 1 |
 
