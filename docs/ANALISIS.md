@@ -49,6 +49,30 @@ Lichess, una lista numerada (`1. e4 e5 2. Nf3 Nc6`) o notación en español (`2.
 comentarios `{…}`, variantes `(…)` y resultados. **★ Analizar partida** carga y revisa; **Solo cargar** la deja en el
 tablero (`parseMoves` en `js/v-play.js`).
 
+### 2.2b-2 Partidas contra los bots de chess.com
+Las partidas contra bots no salen en la API pública de chess.com, así que se pegan: en chess.com abre la partida →
+**Compartir** → **PGN** → copiar, y pégala en **Análisis** (o en Cargar). La app detecta qué bando eres (`detectSide`):
+- si una cabecera coincide con tu usuario guardado en **Mi análisis**, ese bando;
+- si no, si un jugador es un bot (nombre de la lista de bots de chess.com como Martin, Elani, Nelson, Antonio, Mittens…,
+  o que contenga «bot», «computer», Komodo o Stockfish, o el evento dice «bot»/«computer»), tú eres el otro.
+Entonces gira el tablero hacia tu lado, revisa la partida desde tu punto de vista y la **guarda en Mi análisis**
+(`opp: "<bot> (bot)"`, `bot: 1`), para que cuente en tus tendencias. Si no se puede saber, eliges el bando con
+«Tú juegas con» en la revisión.
+
+### 2.2b-3 Copiar las jugadas y el análisis
+El botón **📋 Copiar** (abajo, en Análisis y Revisión, y «Copiar jugadas y análisis» en el informe) abre un cuadro con
+el texto listo para copiar o compartir:
+
+| Formato | Contenido |
+|---|---|
+| Jugadas en español | `1. e4 e5 2. Cf3 Cc6 …` (con !!, !, ?!, ?, ?? si la partida está revisada) |
+| Jugadas con el análisis | Precisión, apertura y cada jugada con su clasificación; en las importantes, la explicación y la mejor alternativa con su línea |
+| Jugadas en inglés | `1. e4 e5 2. Nf3 Nc6 …`, como en chess.com y Lichess |
+| PGN | Cabeceras y jugadas, para cargar la partida en otra web |
+| PGN con el análisis | Con símbolos ($1 !, $3 !!, $6 ?!, $2 ?, $4 ??), evaluación `[%eval]` y comentarios `{…}`: se ven al cargarlo en chess.com o Lichess |
+
+El último formato usado se recuerda (`S.settings.copyFmt`).
+
 ### 2.2c El búho comenta cada jugada
 En la revisión, cada jugada (tuya o del rival) lleva un comentario del búho con su calidad, la explicación de por qué
 (`explain()`) y, si es una imprecisión, error, oportunidad perdida o error grave, **ejercicios para corregirlo**: una
