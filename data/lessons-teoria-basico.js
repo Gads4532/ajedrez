@@ -76,8 +76,8 @@
       keyPoints: ['Dama contra peón en séptima: gana contra peones centrales o de caballo; contra peones de alfil o torre suele haber ahogado.', 'Dama a salto de caballo del rey rival para encerrarlo sin darle jaque.', 'Antes de cada jugada de dama en el final: ¿le queda una jugada al rival?'],
       positions: [
         { fen: '8/8/2Q5/8/8/8/3pk3/K7 w - - 0 1', orientation: 'white', caption: 'Dama contra peón central en séptima: la técnica consiste en obligar al rey negro a colocarse delante de su peón.',
-          line: ['Qe4+', 'Kf2', 'Qd3', 'Ke1', 'Qe3+', 'Kd1', 'Kb2'],
-          comments: ['Jaque: el rey negro debe apartarse del peón.', 'El rey se aleja; la dama va a vigilar d1.', 'Clava y vigila la casilla de coronación. Si d1=Q, Qxd1.', 'El rey negro vuelve a proteger el peón.', 'Otro jaque…', '…y el rey negro tiene que ponerse delante de su peón, en d1. Ahora el peón no puede avanzar.', 'Ese es el momento de acercar el rey. Repitiendo la maniobra, el rey blanco llega y gana.'] },
+          line: ['Qe4+', 'Kf2', 'Qd3', 'Ke1', 'Qe3+', 'Kd1', 'Qe4', 'Kc1', 'Qb1#'],
+          comments: ['Jaque: el rey negro debe apartarse del peón.', 'El rey se aleja; la dama va a vigilar d1.', 'La dama controla la casilla de coronación: si d1=Q, Qxd1.', 'El rey negro vuelve a proteger el peón.', 'Otro jaque…', '…y el rey negro se pone delante de su peón (era algo mejor Kf1, aunque entonces Qxd2). Con el rey en d1 el peón ya no puede avanzar. ¡Atención! Kb2?? sería ahogado: el rey negro se quedaría sin jugadas.', 'Como el rey blanco ya está cerca, la dama prepara el mate dejando una casilla libre al rival.', 'Única jugada.', 'Mate: el rey de a1 protege b1 y el peón de d2 tapa la última salida. Con el rey blanco lejos, se repetiría la maniobra de jaques hasta poder acercarlo.'] },
         { fen: '8/8/8/8/8/8/pk6/4Q1K1 w - - 0 1', orientation: 'white', caption: 'Dama contra peón de torre en séptima: tablas si el rey atacante está lejos, por el recurso del ahogado.',
           line: ['Qe2+', 'Kb1', 'Qd1+', 'Kb2', 'Qd2+', 'Kb1', 'Qb4+', 'Ka1'],
           comments: ['La dama da jaques para obligar al rey a ponerse delante del peón.', 'El rey va a b1 y apoya a2.', 'Otro jaque.', 'El rey sale…', '…y la dama lo persigue.', 'Vuelve a b1.', 'Con el peón de torre esto no basta…', '…porque en a1 el rey negro ya no tiene jugadas: si la dama no deja libre b1 o b2, es ahogado. Las blancas no pueden ganar tiempo para acercar su rey: tablas.'] }
@@ -175,7 +175,7 @@
           comments: ['Doble ataque contra f7, defendido solo por el rey.', 'Las negras cortan la diagonal del alfil.', 'Las blancas capturan.', 'El caballo ataca al alfil. Recapturar en d5 permitiría el ataque Nxf7.', 'El alfil escapa con jaque.', 'Las negras tapan y entregan un peón a cambio de desarrollo.', 'Las blancas aceptan.', 'Las negras abren líneas: un peón menos, pero mucha actividad. La posición queda aproximadamente equilibrada.'] },
         { fen: '7k/8/6K1/8/4N3/8/8/6N1 w - - 0 1', orientation: 'white', caption: 'Dos caballos contra rey solo: el rey negro está en la esquina, pero el mate no se puede forzar.',
           line: ['Nf2', 'Kg8', 'Ng4', 'Kh8', 'Nf6'],
-          comments: ['Los caballos se acercan.', 'El rey negro espera.', 'El caballo vigila h6 y prepara un jaque.', 'Vuelve a la esquina.', 'Pero este «encierro» es ahogado: el rey negro no tiene jugadas y no está en jaque. Para dar mate, el otro caballo tendría que llegar a dar jaque justo a tiempo, y el defensor nunca lo permite. Tablas (0,00).'] }
+          comments: ['Los caballos se acercan.', 'El rey negro espera.', 'El caballo vigila h6 y prepara un jaque.', 'Vuelve a la esquina.', 'Pero este «encierro» es ahogado: el rey negro no tiene jugadas y no está en jaque. Para dar mate, el otro caballo tendría que llegar a dar jaque justo a tiempo, y un defensor que no se equivoque nunca lo permite. Por eso esta posición no se declara tablas de forma automática, pero en la práctica es tablas.'] }
       ],
       drills: [
         { fen: 'r3r2k/6pp/8/6N1/2Q5/8/5PPP/6K1 w - - 0 1', caption: 'Juegan blancas y dan mate en cuatro. El final es una de las combinaciones más bellas del ajedrez.',
@@ -234,9 +234,9 @@
         '<h4>Errores típicos</h4><ul><li>Enrocar «por costumbre» justo hacia donde el rival tiene preparado el ataque.</li><li>Mover los peones del enroque sin necesidad (g4, h4 sin plan).</li><li>Mover el rey una casilla en la apertura (Kf1) sin necesidad: se pierde el enroque para siempre.</li><li>Creer que no se puede enrocar porque la torre está atacada, o porque b1 está atacada.</li></ul>',
       keyPoints: ['La torre puede estar atacada o cruzar una casilla atacada; b1 (b8) puede estar atacada, pero no ocupada.', 'Un jaque solo impide enrocar en esa jugada; mover el rey quita el derecho para siempre.', 'Toca primero el rey: si tocas antes la torre, debes mover la torre.'],
       positions: [
-        { fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', orientation: 'white', caption: 'Un jaque no quita el derecho a enrocar: las blancas tapan y enrocan más tarde.',
-          line: ['d4', 'Nf6', 'c4', 'e6', 'Nf3', 'Bb4+', 'Bd2', 'Qe7', 'g3', 'Nc6', 'Bg2', 'Bxd2+', 'Nbxd2', 'd6', 'O-O'],
-          comments: ['Apertura de peón dama.', 'Desarrollo.', 'Las blancas ganan espacio.', 'Abre la diagonal del alfil de f8.', 'Desarrollo.', 'Jaque: las blancas no pueden enrocar en esta jugada.', 'Tapan con el alfil. El rey no se ha movido, así que los derechos de enroque siguen intactos.', 'Las negras protegen su alfil.', 'Preparan el fianchetto.', 'Desarrollo.', 'El alfil a la diagonal larga.', 'Las negras cambian.', 'Las blancas recapturan con el caballo.', 'Las negras abren paso a su alfil de casillas claras.', 'Y ahora el enroque, totalmente legal pese al jaque anterior. Posición equilibrada.'] },
+        { fen: 'rnbqkb1r/pppp1ppp/4pn2/8/2PP4/5N2/PP2PPPP/RNBQKB1R b KQkq - 1 3', orientation: 'white', caption: 'Un jaque no quita el derecho a enrocar: las blancas tapan y enrocan más tarde (1.d4 Nf6 2.c4 e6 3.Nf3).',
+          line: ['Bb4+', 'Bd2', 'Qe7', 'g3', 'Nc6', 'Bg2', 'Bxd2+', 'Nbxd2', 'd6', 'O-O'],
+          comments: ['Jaque: las blancas no pueden enrocar en esta jugada.', 'Tapan con el alfil. El rey no se ha movido, así que los derechos de enroque siguen intactos. Kf1?? los perdería para siempre.', 'Las negras protegen su alfil.', 'Preparan el fianchetto.', 'Desarrollo.', 'El alfil a la diagonal larga; f1 y g1 quedan libres.', 'Las negras cambian.', 'Las blancas recapturan con el caballo.', 'Las negras abren paso a su alfil de casillas claras.', 'Y ahora el enroque, totalmente legal pese al jaque anterior. Posición equilibrada.'] },
         { fen: '8/3k3b/8/8/2bn4/8/PP3PPP/R3K2R w KQ - 0 1', orientation: 'white', caption: 'El enroque corto es ilegal (el alfil de c4 ataca f1), pero el largo es legal aunque el alfil de h7 ataque b1.',
           line: ['O-O-O', 'Bcd3', 'Kd2', 'Ke7', 'f3'],
           comments: ['El rey cruza d1 y llega a c1, casillas no atacadas; que b1 esté atacada da igual. Ahora la torre clava al caballo contra el rey negro.', 'Las negras interponen un alfil en la columna d. Si Ke6, Rxd4.', 'El rey ataca al alfil de d3.', 'Las negras desclavan el caballo.', 'Las blancas quitan casillas a los caballos y alfiles negros; tienen dos torres contra dos piezas menores y el motor les da gran ventaja.'] }
@@ -267,8 +267,8 @@
       keyPoints: ['Solo en la jugada inmediatamente siguiente al doble paso.', 'Puede ser ilegal por clavada horizontal: desaparecen dos peones de la misma fila.', 'Puede abrir líneas: al paso con jaque o incluso con mate.'],
       positions: [
         { fen: '8/8/8/K2pP2r/8/8/8/4k3 w - d6 0 1', orientation: 'white', caption: 'Las negras acaban de jugar d7-d5. ¿Puede el peón de e5 capturar al paso? No: es ilegal.',
-          line: ['Kb4', 'Rxe5', 'Kc3'],
-          comments: ['exd6 retiraría a la vez los peones de d5 y e5 de la quinta fila y la torre de h5 daría jaque al rey de a5: jugada ilegal. Además, la torre ya ataca e5, así que el rey se acerca al peón negro.', 'Las negras se comen el peón de e5.', 'El rey blanco irá a d3 a por el peón de d5. Tablas probables, pero la lección es otra: antes de capturar al paso, mira la fila.'] },
+          line: ['e6', 'd4+', 'Kb6', 'd3'],
+          comments: ['exd6 retiraría a la vez los peones de d5 y e5 de la quinta fila y la torre de h5 daría jaque al rey de a5: jugada ilegal. Las blancas avanzan su peón.', '¡La misma línea! Al avanzar, el peón negro descubre el jaque de la torre por la quinta fila.', 'El rey sale del jaque.', 'Las negras tienen torre y peón pasado: ganan con facilidad. La lección: antes de capturar al paso, mira si en esa fila hay una pieza rival apuntando a tu rey.'] },
         { fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', orientation: 'white', caption: 'Captura al paso en la apertura: 1.e4 e6 2.e5 d5 3.exd6.',
           line: ['e4', 'e6', 'e5', 'd5', 'exd6', 'Bxd6'],
           comments: ['Apertura de peón rey.', 'Defensa Francesa.', 'Avance prematuro que gana espacio.', 'Doble paso: el peón de d7 pasa por d6, una casilla atacada por el peón de e5.', 'Captura al paso: el peón va a d6 y el de d5 desaparece. Había que hacerlo ahora o nunca.', 'Las negras recapturan y desarrollan el alfil con comodidad. Posición equilibrada.'] }
@@ -437,9 +437,9 @@
         { fen: 'r1bqkb1r/pppn1ppp/5n2/3N2B1/3P4/8/PP2PPPP/R2QKBNR b KQkq - 0 6', caption: 'Juegan negras (Gambito de Dama: 5.cxd5 exd5 6.Nxd5??). Las blancas creen que el caballo de f6 está clavado. Demuéstrales lo contrario.',
           line: ['Nxd5', 'Bxd8', 'Bb4+'],
           comments: ['¡El caballo captura aunque «esté clavado»! Si Bxd8, hay una jugada intermedia.', 'Las blancas se comen la dama… (si no, simplemente han perdido un caballo).', '¡Jaque! Las blancas deben tapar con Qd2, y tras Bxd2+ Kxd2 Kxd8 las negras quedan con una pieza de más.'] },
-        { fen: 'r5k1/pp2qp1p/5pp1/4n3/3P4/5N2/PP3PPP/3QR1K1 w - - 0 1', caption: 'Juegan blancas: el caballo de e5 está atacado tres veces. ¿Con qué pieza capturas?',
+        { fen: 'r5k1/pp1q1p1p/5pp1/4n3/3P4/5N2/PP3PPP/3QR1K1 w - - 0 1', caption: 'Juegan blancas: el caballo de e5 está atacado tres veces y defendido una. ¿Con qué pieza capturas?',
           line: ['dxe5'],
-          comments: ['Con el peón, la pieza de menos valor: tras fxe5 las blancas ganan pieza por peón. Si Nxe5, fxe5 y es un simple cambio; si Rxe5?, fxe5 y se pierde la calidad.'] },
+          comments: ['Con el peón, la pieza de menos valor. Las negras solo pueden cambiar damas (Qxd1 Rxd1) y recuperar un peón con fxe5: las blancas ganan pieza por peón. Si Nxe5?, fxe5 y es un simple cambio de caballos; si Rxe5?, fxe5 y se pierde la calidad.'] },
         { fen: 'r3k2r/ppp2ppp/2n5/1B6/3P4/8/PPP2PPP/R3K2R w KQkq - 0 1', caption: 'Juegan blancas. El caballo de c6 está clavado a su rey. Aprovéchalo.',
           line: ['d5', 'a6', 'Ba4', 'b5', 'dxc6'],
           comments: ['El peón ataca a la pieza clavada: el caballo no puede moverse sin dejar al rey en jaque.', 'Las negras atacan al alfil para ganar tiempo.', 'El alfil mantiene la clavada. Si Bxc6+, bxc6 y las negras recuperan algo de material.', 'Las negras insisten.', 'El peón se come el caballo con ventaja de una pieza.'] },
@@ -505,11 +505,11 @@
           line: ['Qh5+', 'Ke7', 'Qxe5+'],
           comments: ['Jaque: si g6, Qxe5+ y Qxh8.', 'Lo más resistente, pero el rey sale al centro.', 'La dama recupera material con jaque; tras Kf7 Bc4+ el ataque blanco es demoledor.'] },
         { fen: 'r1bqkb1r/pppp1ppp/2n5/4p3/2B1N3/5N2/PPPP1PPP/R1BQK2R b KQkq - 0 5', caption: 'Juegan negras (1.e4 e5 2.Nf3 Nc6 3.Bc4 Nf6 4.Nc3 Nxe4 5.Nxe4). Recupera la pieza.',
-          line: ['d5', 'Bd3', 'dxe4'],
-          comments: ['¡Horquilla de peón! Ataca a la vez al alfil de c4 y al caballo de e4.', 'El alfil se retira y defiende al caballo.', 'El peón se come el caballo: material igualado y las negras con un buen centro.'] },
-        { fen: 'r1bqkbnr/pppp1ppp/8/4N3/2BnP3/8/PPPP1PPP/RNBQK2R b KQkq - 0 4', caption: 'Juegan negras (1.e4 e5 2.Nf3 Nc6 3.Bc4 Nd4 4.Nxe5?). Las blancas se comieron el peón. Encuentra la respuesta más fuerte.',
-          line: ['Qg5'],
-          comments: ['Ataque doble: la dama ataca el caballo de e5 y el peón de g2. Si Nxf7?, Qxg2 y la amenaza Nf3# es terrible. Lo mejor para las blancas es Bxf7+, y aun así las negras quedan mejor.'] }
+          line: ['d5'],
+          comments: ['¡Horquilla de peón! Ataca a la vez al alfil de c4 y al caballo de e4: tras Bd3 dxe4 Bxe4 el material queda igualado y las negras tienen un buen centro. Cualquier otra jugada deja a las negras con una pieza menos.'] },
+        { fen: 'r1bqkbnr/pppp1ppp/8/4N3/2BnP3/8/PPPP1PPP/RNBQK2R b KQkq - 0 4', caption: 'Juegan negras (1.e4 e5 2.Nf3 Nc6 3.Bc4 Nd4 4.Nxe5?). Las blancas se comieron el peón. Encuentra la respuesta más fuerte y no te asustes después.',
+          line: ['Qg5', 'Bxf7+', 'Kd8', 'O-O', 'Qxe5'],
+          comments: ['Ataque doble: la dama ataca el caballo de e5 y el peón de g2. Si Nxf7?, Qxg2 Rf1 Qxe4+ Be2 Nf3#.', 'Lo mejor de las blancas: sacan el alfil con jaque antes de perder el caballo.', 'El rey va a d8. Con Ke7 el rey estorba a su propio alfil y las blancas obtienen más tiempos.', 'Las blancas defienden g2 enrocando.', 'La dama recupera la pieza. Las negras tienen un caballo por dos peones y la dama centralizada, aunque su rey no podrá enrocar; el motor les da una ligera ventaja.'] }
       ]
     }
   };

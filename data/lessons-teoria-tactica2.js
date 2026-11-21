@@ -270,37 +270,39 @@
       ],
       "positions": [
         {
-          "fen": "r1bq1rk1/ppp2ppp/2n5/4n3/8/2N2N2/PPP1QPPP/R3R1K1 w - - 0 1",
+          "fen": "3q1rk1/pp3ppp/5n2/3p2B1/8/2N5/PP2QPPP/3R2K1 w - - 0 1",
           "orientation": "white",
-          "caption": "El caballo de e5 está atacado dos veces (caballo y dama en batería con la torre) y defendido una vez. ¿Seguro?",
+          "caption": "El peón de d5 parece defendido dos veces (caballo y dama), pero el caballo de f6 está clavado contra la dama.",
           "line": [
-            "Nxe5",
-            "Nxe5",
-            "Qxe5",
-            "Re8"
+            "Nxd5",
+            "Nxd5",
+            "Bxd8",
+            "Rxd8"
           ],
           "comments": [
-            "Primer paso correcto: capturar con la pieza de menos valor.",
-            "Las negras recapturan con su segundo caballo.",
-            "Ahora la dama captura en e5, con la torre de e1 detrás como apoyo en rayos X.",
-            "Las negras atacan la dama, pero no tienen más capturas en e5. Balance: las blancas ganan una pieza."
+            "El caballo captura: a efectos prácticos solo hay un defensor de verdad.",
+            "Si el caballo recaptura, abandona la clavada…",
+            "…y la dama cae.",
+            "Las negras tienen caballo por dama: las blancas ganan."
           ]
         },
         {
-          "fen": "2r3k1/p4ppp/1p2bn2/3p4/8/1Q3N2/PP3PPP/3R2K1 w - - 0 1",
+          "fen": "r2q1rk1/ppp2ppp/2n5/4n3/8/2N2N2/PPP2PPP/R2QR1K1 w - - 0 1",
           "orientation": "white",
-          "caption": "Dos atacantes (dama y torre) contra dos defensores (caballo y alfil) sobre d5. ¿Conviene capturar?",
+          "caption": "El caballo de e5 tiene dos atacantes (caballo y torre) y un defensor (el caballo de c6).",
           "line": [
-            "Rxd5",
-            "Nxd5",
-            "Qxd5",
-            "Bxd5"
+            "Nxe5",
+            "Qxd1",
+            "Raxd1",
+            "Nxe5",
+            "Rxe5"
           ],
           "comments": [
-            "Un error de conteo. Con la cuenta igualada, el primero que captura suele perder material. Lo correcto era una jugada de mejora como Nd4.",
-            "El caballo recaptura la torre.",
-            "La dama sigue la secuencia hasta el final…",
-            "…y el alfil la captura. Las blancas han dado dama y torre por peón y caballo. Con igualdad de atacantes y defensores, no se empieza a capturar."
+            "Primero la pieza de menos valor.",
+            "Las negras intercalan un cambio de damas antes de recapturar…",
+            "…lo que no cambia la cuenta.",
+            "Ahora sí recapturan…",
+            "…y la torre se queda con el caballo: dos contra uno, una pieza de ventaja para las blancas."
           ]
         }
       ],
@@ -463,18 +465,10 @@
           "fen": "3r2k1/pp3ppp/8/8/8/5N2/bPP2PPP/2K1R3 w - - 0 1",
           "caption": "Juegan blancas: el alfil negro comió en a2. ¿Cómo lo dejas sin salida?",
           "line": [
-            "b3",
-            "Kf8",
-            "Kb2",
-            "Bxb3",
-            "cxb3"
+            "b3"
           ],
           "comments": [
-            "El peón, defendido por c2, cierra la diagonal a2-b3. La otra salida, b1, la controla el rey.",
-            "Las negras no tienen forma de rescatarlo.",
-            "El rey ataca el alfil.",
-            "El alfil se vende por un peón…",
-            "…y las blancas quedan con una pieza por un peón."
+            "El peón, defendido por c2, cierra la diagonal a2-b3. La otra salida, b1, la controla el rey. El alfil está perdido: el rey irá a b2 y, como mucho, las negras podrán entregarlo por un peón. Si 1.Kb1? el alfil escapa con ...Bd5."
           ]
         }
       ]
@@ -492,13 +486,13 @@
           "orientation": "white",
           "caption": "La dama de h5 quiere llegar a h7, pero su propio alfil ocupa esa casilla. Despeje de casilla.",
           "line": [
-            "Bg8",
+            "Bg8+",
             "Kxg8",
             "Qh7#"
           ],
           "comments": [
-            "El alfil deja libre h7 y además controla f7. Amenaza Qh7#. (Los jaques descubiertos como Bg6+ también ganan; esta jugada muestra la idea en su forma pura.)",
-            "Si 1...Rxg8, 2.Qxh7#: el caballo de g5 protege h7.",
+            "El alfil deja libre h7 y, de paso, descubre el jaque de la dama por la columna h. Ahora la dama puede llegar a h7. (Cualquier retirada del alfil con jaque gana; esta muestra la idea en su forma más pura.)",
+            "Si 1...Kxg8 o 1...Rxg8, la casilla h7 ya está libre. El caballo de g5 la protege.",
             "Mate: el caballo apoya a la dama, f8 la ocupa la torre negra y g7 y f7 tienen peones negros."
           ],
           "arrows": [
@@ -560,7 +554,7 @@
           "comments": [
             "El peón avanza atacando el alfil de d7 y el peón de f7, y la diagonal b2-g7 queda abierta: amenaza Qxg7#.",
             "Única defensa del mate: tapar en f6. (Si 1...Bxe6, 2.Qxg7#.)",
-            "El peón captura el alfil. Las blancas ganan una pieza por un peón."
+            "El peón captura el alfil. Las blancas ganan una pieza por un peón (2.Ne4 también conserva una ventaja similar)."
           ]
         },
         {
@@ -717,30 +711,26 @@
       ],
       "positions": [
         {
-          "fen": "4k3/7P/8/8/3pp3/1K6/R7/8 w - - 0 1",
+          "fen": "8/1k1pK3/8/8/5p2/8/8/4Q3 w - - 0 1",
           "orientation": "white",
-          "caption": "Coronar ya con jaque deja escapar al rey. Primero hay que cerrarle la séptima fila.",
+          "caption": "Dama y rey contra rey: el rey blanco se acerca con una jugada tranquila y la red se cierra en pocas jugadas.",
           "line": [
-            "Ra7",
-            "d3",
-            "h8=Q#"
+            "Kd6",
+            "f3",
+            "Qb4+",
+            "Ka6",
+            "Kc7",
+            "f2",
+            "Qb6#"
           ],
           "comments": [
-            "Jugada tranquila: la torre corta la séptima fila. Ahora el rey negro solo tiene casillas en la octava, que la nueva dama controlará. (1.h8=Q+? Kd7 y el rey se escapa.)",
-            "Las negras no tienen defensa: cualquier jugada permite el mate.",
-            "Mate: la dama domina la octava fila y la torre la séptima."
-          ],
-          "arrows": [
-            [
-              "a2",
-              "a7",
-              "g"
-            ],
-            [
-              "h7",
-              "h8",
-              "r"
-            ]
+            "El rey se acerca al enemigo en vez de dar jaques. (Kxd7 también funciona: lo importante es la idea.)",
+            "Las negras corren con su peón, demasiado lento.",
+            "La dama empuja al rey hacia el borde.",
+            "Única casilla: a8 y c8 quedarían también en la red.",
+            "Otra jugada tranquila: el rey quita b7 y b8.",
+            "El peón llega a la segunda fila, pero ya es tarde.",
+            "Mate: la dama controla a5, a7 y b-file, y el rey blanco cubre b7."
           ]
         },
         {
@@ -752,21 +742,21 @@
             "Qxf2+",
             "Kxf2",
             "Ra2+",
-            "Kg1",
-            "Rxg2+",
-            "Kxg2",
-            "Rc8",
-            "Qg7#"
+            "Kf1",
+            "Rf2+",
+            "Kxf2",
+            "g5",
+            "Qxg5#"
           ],
           "comments": [
             "La red: la dama junto al rey, protegida por el alfil que controla g7. Antes de jugarla, las blancas comprobaron que su rey sobrevive a los jaques.",
             "Primer recurso desesperado: la dama se entrega con jaque.",
             "Se captura.",
             "Otro jaque.",
-            "El rey vuelve a g1; en h1 o g3 tampoco había peligro.",
+            "El rey se aparta; no hay peligro.",
             "La torre se entrega también.",
             "Se captura.",
-            "Ya no quedan jaques.",
+            "Ya no quedan jaques: las negras intentan dar luft a su rey.",
             "Mate. La red estaba cerrada desde la primera jugada."
           ]
         }
@@ -783,7 +773,7 @@
           "comments": [
             "La dama se instala junto al rey y amenaza Qg7#, protegida por el alfil. Las negras no pueden tapar ni defender g7.",
             "Nada sirve: si 1...h5, 2.Qg7# igualmente.",
-            "Mate: f8 la ocupa la torre negra y la dama domina h8, h7 y f8."
+            "Mate (también 2.Qh8#): la torre de f8 tapa la huida y la dama domina h8, h7 y g8."
           ]
         },
         {
@@ -813,7 +803,7 @@
           ]
         },
         {
-          "fen": "8/8/3p3k/8/2Q3K1/p7/8/8 w - - 0 1",
+          "fen": "8/8/3p3k/8/6K1/p7/8/5Q2 w - - 0 1",
           "caption": "Juegan blancas: el peón negro de a3 corre a coronar. No lo persigas: teje la red alrededor del rey.",
           "line": [
             "Qf7",
@@ -823,9 +813,9 @@
             "Qg6#"
           ],
           "comments": [
-            "Jugada tranquila: la dama quita al rey g6, g7 y h7, y el rey blanco ya cubre g5 y h5. El rey negro no tiene ninguna casilla: solo puede mover peones.",
+            "Jugada tranquila: la dama quita al rey g6, g7 y h7, y el rey blanco ya cubre g5 y h5. El rey negro no tiene casillas: solo puede mover peones. (Los jaques como 1.Qf6+ solo alargan la partida.)",
             "Las negras corren con el peón.",
-            "El rey blanco se acerca y cubre g5 y g6: la red está casi cerrada.",
+            "El rey blanco se acerca y protegerá la casilla g6.",
             "Las negras coronan, pero es tarde.",
             "Mate: la dama protegida por el rey controla h5, h7 y g7."
           ]
@@ -840,21 +830,6 @@
         "Antes de coronar, revisa si otra pieza da jaque con ganancia o si la dama ahogaría al rival."
       ],
       "positions": [
-        {
-          "fen": "8/k1P5/2K5/8/8/8/8/8 w - - 0 1",
-          "orientation": "white",
-          "caption": "Coronar dama sería tablas: el rey negro quedaría sin jugadas. La torre hace el mismo trabajo sin ahogar.",
-          "line": [
-            "c8=R",
-            "Ka6",
-            "Ra8#"
-          ],
-          "comments": [
-            "Subcoronación. Con 1.c8=Q?? el rey de a7 no tendría casillas (a6, a8, b6, b7 y b8 controladas) y sería ahogado.",
-            "Única jugada: el rey sale a a6.",
-            "Mate: la torre da jaque por la columna a y el rey blanco cubre b5, b6 y b7."
-          ]
-        },
         {
           "fen": "8/r7/5PP1/8/k7/8/8/K7 w - - 0 1",
           "orientation": "white",
@@ -873,44 +848,11 @@
             "La torre vigila la octava fila…",
             "…pero no puede detener a dos peones en séptima: uno de los dos coronará."
           ]
-        }
-      ],
-      "drills": [
-        {
-          "fen": "8/3q1P1k/6p1/8/8/8/6PK/8 w - - 0 1",
-          "caption": "Juegan blancas: si coronas dama, la dama negra da jaques sin fin a tu rey desprotegido. Encuentra la coronación que gana.",
-          "line": [
-            "f8=N+",
-            "Kh6",
-            "Nxd7"
-          ],
-          "comments": [
-            "Subcoronación a caballo con jaque: el caballo ataca h7 y d7 a la vez. (1.f8=Q? Qd6+ y las negras se salvan con jaques.)",
-            "El rey debe salir del jaque.",
-            "El caballo captura la dama: final ganado de peón de más."
-          ]
-        },
-        {
-          "fen": "R7/P4k2/8/8/8/r7/6K1/8 w - - 0 1",
-          "caption": "Juegan blancas: torre delante del peón y la torre negra detrás. El rey negro está en f7, no en g7 ni h7. Aprovéchalo.",
-          "line": [
-            "Rh8",
-            "Rxa7",
-            "Rh7+",
-            "Ke6",
-            "Rxa7"
-          ],
-          "comments": [
-            "La torre se aparta y amenaza a8=Q. Si la torre negra no captura, el peón corona.",
-            "Si captura, queda en la séptima fila…",
-            "…y el jaque la gana por enfilada.",
-            "El rey debe moverse.",
-            "Final de torre contra rey: ganado. Con el rey negro en g7 o h7 el truco no existiría."
-          ]
         },
         {
           "fen": "8/3P3K/k7/4p3/8/1p3R2/8/8 w - - 0 1",
-          "caption": "Juegan blancas: coronar ya gana, pero el peón negro de b3 da contrajuego. Calcula la forma más rápida y limpia.",
+          "orientation": "white",
+          "caption": "Coronar ya gana, pero calcular un poco más da el camino más limpio: primero se elimina el contrajuego.",
           "line": [
             "Rxb3",
             "Ka5",
@@ -928,6 +870,54 @@
             "Jugada tranquila: la dama corta al rey y amenaza Qb5# y Qa3#.",
             "El peón no cambia nada.",
             "Mate: la torre de b3 controla a3 y la columna b."
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "fen": "8/3q1P1k/6p1/8/8/8/6PK/8 w - - 0 1",
+          "caption": "Juegan blancas: si coronas dama, la dama negra da jaques sin fin a tu rey desprotegido. Encuentra la coronación que gana.",
+          "line": [
+            "f8=N+",
+            "Kg7",
+            "Nxd7"
+          ],
+          "comments": [
+            "Subcoronación a caballo con jaque: el caballo ataca h7 y d7 a la vez. (1.f8=Q? Qd6+ y las negras se salvan con jaques.)",
+            "El rey debe salir del jaque (todas las casillas dan lo mismo).",
+            "El caballo captura la dama: final ganado de peón de más."
+          ]
+        },
+        {
+          "fen": "R7/P4k2/8/8/8/r7/6K1/8 w - - 0 1",
+          "caption": "Juegan blancas: torre delante del peón y la torre negra detrás. El rey negro está en f7, no en g7 ni h7. Aprovéchalo.",
+          "line": [
+            "Rh8",
+            "Rxa7",
+            "Rh7+",
+            "Ke6",
+            "Rxa7"
+          ],
+          "comments": [
+            "La torre se aparta y amenaza a8=Q. Si la torre negra no captura, el peón corona.",
+            "Capturar es lo más natural. La defensa más tenaz es dar jaques (1...Ra2+), pero el rey blanco acaba escapando hacia la torre negra y el peón corona.",
+            "…y el jaque la gana por enfilada.",
+            "El rey debe moverse.",
+            "Final de torre contra rey: ganado. Con el rey negro en g7 o h7 el truco no existiría."
+          ]
+        },
+        {
+          "fen": "4k3/7P/8/8/3pp3/1K6/R7/8 w - - 0 1",
+          "caption": "Juegan blancas: coronar ya, con jaque, deja escapar al rey negro. Busca la jugada que gana en el acto.",
+          "line": [
+            "Ra7",
+            "d3",
+            "h8=Q#"
+          ],
+          "comments": [
+            "Jugada tranquila: la torre corta la séptima fila. Ahora el rey negro solo tiene casillas en la octava, que la nueva dama controlará. (1.h8=Q+? Kd7 y el rey se escapa.)",
+            "Las negras no tienen defensa: cualquier jugada permite el mate.",
+            "Mate: la dama domina la octava fila y la torre la séptima."
           ]
         },
         {
@@ -978,7 +968,7 @@
           ]
         },
         {
-          "fen": "6k1/R4ppp/1q6/8/3Q4/8/5PPP/6K1 w - - 0 1",
+          "fen": "6k1/R4pp1/1q5p/8/3Q4/8/5PPP/6K1 w - - 0 1",
           "orientation": "white",
           "caption": "La otra cara del perpetuo: cuando vas ganando, dale una salida a tu rey antes de que la dama rival empiece a dar jaques.",
           "line": [
@@ -1000,16 +990,12 @@
           "line": [
             "Rxg7+",
             "Kh8",
-            "Rxh7+",
-            "Kg8",
-            "Qg5+"
+            "Rxh7+"
           ],
           "comments": [
             "La torre se sacrifica para abrir el rey. Si 1...Kxg7, 2.Qg5+ Kh8 3.Qf6+ Kg8 4.Qg5+ y perpetuo.",
             "El rey evita la captura, pero la torre sigue haciendo daño.",
-            "Segundo sacrificio: ahora el rey negro queda sin ningún peón.",
-            "Si 3...Kxh7, 4.Qh5+ y la dama da jaques en h5 y g5 sin descanso.",
-            "Jaque. El rey negro no tiene refugio: tras 4...Kxh7, Qh5+ y Qg5+ (o Qf5+) aseguran el perpetuo."
+            "Segundo sacrificio: ahora el rey negro queda sin peones. Si 2...Kxh7, Qh5+ y Qg5+; si 2...Kg8, Qg5+ y los jaques no terminan. Tablas."
           ]
         },
         {
@@ -1034,18 +1020,10 @@
           "fen": "1Q5q/5pkp/5p1p/8/7r/8/5PPP/6K1 w - - 0 1",
           "caption": "Juegan blancas: las negras amenazan Rxh2 con mate. Salva la partida.",
           "line": [
-            "Qg3+",
-            "Kf8",
-            "Qb8+",
-            "Kg7",
             "Qg3+"
           ],
           "comments": [
-            "Jaque por la columna g. El rey no puede ir a h8 (la ocupa su dama) ni a h7 o h6 (sus peones): debe ir hacia el centro.",
-            "El rey intenta escapar hacia el centro.",
-            "La dama lo persigue por la octava fila. Si 2...Ke7, 3.Qc7+ y los jaques siguen.",
-            "Vuelve.",
-            "Repetición: tablas."
+            "La única jugada que salva: jaque por la columna g. El rey no puede ir a h8 (su dama) ni a h7 (su peón): debe ir hacia el centro, y la dama lo persigue con Qb8+ y Qg3+ (o Qd6+). Cualquier otra jugada permite Rxh2 y mate."
           ]
         },
         {
@@ -1077,18 +1055,24 @@
       ],
       "positions": [
         {
-          "fen": "8/5P1k/5K2/8/8/8/8/8 w - - 0 1",
+          "fen": "7k/5p1p/5pp1/2b5/8/1Q5p/4q2P/7K w - - 0 1",
           "orientation": "white",
-          "caption": "Otro caso de subcoronación: la dama en f8 controlaría g7 y h6 y el rey negro quedaría ahogado.",
+          "caption": "La dama kamikaze con preparación: un jaque previo coloca al rey negro donde la captura será obligada.",
           "line": [
-            "f8=R",
+            "Qb8+",
+            "Kg7",
+            "Qg8+",
             "Kh6",
-            "Rh8#"
+            "Qxg6+",
+            "hxg6"
           ],
           "comments": [
-            "La torre no controla las diagonales: el rey negro conserva h6. 1.f8=Q?? sería ahogado.",
-            "Única jugada.",
-            "Mate: el rey de f6 cubre g5, g6 y g7, y la torre da jaque por la columna h."
+            "Primero un jaque para colocar al rey negro donde convenga.",
+            "Única casilla.",
+            "¡La dama se ofrece! Si 2...Kxg8, ahogado.",
+            "El rey escapa (2...Kxg8 también es ahogado)…",
+            "…pero la dama se entrega de nuevo con jaque. Capturarla es obligatorio.",
+            "Ahogado: g1 la controla el alfil de c5, g2 el peón de h3 y la dama de e2, y el peón de h2 está bloqueado. Tablas."
           ]
         },
         {
@@ -1119,23 +1103,17 @@
       ],
       "drills": [
         {
-          "fen": "7k/5p1p/5pp1/2b5/8/1Q5p/4q2P/7K w - - 0 1",
-          "caption": "Juegan blancas: las negras amenazan mate. Tu rey no tiene jugadas y tu peón está bloqueado. Busca las tablas.",
+          "fen": "8/k1P5/2K5/8/8/8/8/8 w - - 0 1",
+          "caption": "Juegan blancas: estás a punto de coronar, pero cuidado con dejar al rey negro sin jugadas.",
           "line": [
-            "Qb8+",
-            "Kg7",
-            "Qg8+",
-            "Kh6",
-            "Qxg6+",
-            "hxg6"
+            "c8=R",
+            "Ka6",
+            "Ra8#"
           ],
           "comments": [
-            "Primero un jaque para colocar al rey negro donde convenga.",
-            "Única casilla.",
-            "¡La dama se ofrece! Si 2...Kxg8, ahogado.",
-            "El rey escapa…",
-            "…pero la dama se entrega de nuevo con jaque. Capturarla es obligatorio.",
-            "Ahogado: g1 la controla el alfil de c5, g2 el peón de h3 y la dama de e2, y el peón de h2 está bloqueado. Tablas."
+            "Subcoronación. Con 1.c8=Q?? el rey de a7 no tendría casillas (a6, a8, b6, b7 y b8 controladas) y sería ahogado.",
+            "Única jugada: el rey sale a a6.",
+            "Mate: la torre da jaque por la columna a y el rey blanco cubre b5, b6 y b7."
           ]
         },
         {
@@ -1193,18 +1171,18 @@
       ],
       "positions": [
         {
-          "fen": "6k1/4Q3/6p1/3q4/7r/5R2/5PPP/6K1 b - - 0 1",
+          "fen": "7k/8/6K1/3BN2P/8/8/4r3/8 b - - 0 1",
           "orientation": "black",
-          "caption": "Las blancas amenazan Qe8+ y Rf8#. Defenderse es inútil: las negras llegan antes.",
+          "caption": "Defender eliminando la pieza clave: amenaza Nf7#, y la torre devuelve la calidad para llegar a una posición segura.",
           "line": [
-            "Qd1+",
-            "Qe1",
-            "Qxe1#"
+            "Rxe5",
+            "Bc4",
+            "Re4"
           ],
           "comments": [
-            "Jaque en la primera fila, la debilidad del rey blanco sin luft.",
-            "Tapar con la dama es lo único (2.Rf1 Qxf1#).",
-            "Mate. El contraataque funcionó porque cada jugada fue un jaque."
+            "La torre captura el caballo, la pieza que tejía la red de mate. Defender f7 con 1...Re7 dejaba a las blancas caballo, alfil y peón contra torre.",
+            "El alfil busca otra diagonal.",
+            "Queda torre contra alfil y peón de h, con el rey negro en el rincón y un alfil que no controla h8: posición igualada."
           ]
         },
         {
@@ -1283,13 +1261,17 @@
           ]
         },
         {
-          "fen": "7k/8/6K1/3BN2P/8/8/4r3/8 b - - 0 1",
-          "caption": "Juegan negras: las blancas amenazan Nf7#. Encuentra la única defensa que salva la partida.",
+          "fen": "6k1/4Q3/6p1/3q4/7r/5R2/5PPP/6K1 b - - 0 1",
+          "caption": "Juegan negras: las blancas amenazan Qe8+ y Rf8#. No te defiendas: llega antes.",
           "line": [
-            "Rxe5"
+            "Qd1+",
+            "Qe1",
+            "Qxe1#"
           ],
           "comments": [
-            "La torre elimina al caballo, la pieza que tejía la red. Queda torre contra alfil y peón de h, con el rey negro en el rincón y un alfil que no controla h8: las negras no corren peligro. Defender f7 con 1...Re7 o 1...Rf2 deja a las blancas con caballo, alfil y peón contra torre y muchas posibilidades de ganar."
+            "Jaque en la primera fila, la debilidad del rey blanco sin luft.",
+            "Tapar con la dama es lo único (2.Rf1 Qxf1#).",
+            "Mate. El contraataque funcionó porque cada jugada fue un jaque."
           ]
         }
       ]
@@ -1330,26 +1312,22 @@
           ]
         },
         {
-          "fen": "8/1k1pK3/8/8/5p2/8/8/4Q3 w - - 0 1",
+          "fen": "8/8/3p3k/8/2Q3K1/p7/8/8 w - - 0 1",
           "orientation": "white",
-          "caption": "Calcular también es contar tiempos: el peón negro corre, pero el rey blanco llega antes a tejer la red con la dama.",
+          "caption": "Calcular también es contar tiempos: el peón negro corre a coronar, pero la red llega antes.",
           "line": [
-            "Kd6",
-            "f3",
-            "Qb4+",
-            "Ka6",
-            "Kc7",
-            "f2",
-            "Qb6#"
+            "Qf7",
+            "a2",
+            "Kf5",
+            "a1=Q",
+            "Qg6#"
           ],
           "comments": [
-            "El rey se acerca al enemigo en vez de dar jaques. (Kxd7 también funciona: lo importante es la idea.)",
-            "Las negras corren con su peón, demasiado lento.",
-            "La dama empuja al rey hacia el borde.",
-            "Única casilla: a8 y c8 quedarían también en la red.",
-            "Otra jugada tranquila: el rey quita b7 y b8.",
-            "El peón llega a la segunda fila, pero ya es tarde.",
-            "Mate: la dama controla a5, a7 y b-file, y el rey blanco cubre b7."
+            "Jugada tranquila: la dama quita al rey g6, g7 y h7, y el rey blanco ya cubre g5 y h5. El rey negro no tiene ninguna casilla: solo puede mover peones.",
+            "Las negras corren con el peón.",
+            "El rey blanco se acerca y cubre g5 y g6: la red está casi cerrada.",
+            "Las negras coronan, pero es tarde.",
+            "Mate: la dama protegida por el rey controla h5, h7 y g7."
           ]
         }
       ],
@@ -1362,18 +1340,14 @@
             "h4",
             "Kf6",
             "Kb6",
-            "Ke5",
-            "Kxc6",
-            "Kf4"
+            "Ke5"
           ],
           "comments": [
             "La diagonal: el rey se acerca al peón negro sin alejarse del suyo. (1.Kh7? h4 y el peón corona.)",
             "Las negras corren.",
             "El rey persigue el peón y, a la vez, se acerca a c6. Si 2...h3, 3.Ke7 h2 4.c7 y ambos coronan.",
             "Las negras eliminan primero el peón blanco…",
-            "…y el rey blanco sigue con su doble objetivo: ahora entra en el cuadrado del peón de h.",
-            "El peón de c cae, pero…",
-            "…el rey alcanza el peón de h. Tablas."
+            "…y el rey blanco sigue con su doble objetivo: si 3...Kxc6, 4.Kf4 alcanza el peón de h; si 3...h3, 4.Kd6 h2 5.c7 y ambos coronan. Tablas."
           ]
         },
         {
