@@ -275,15 +275,13 @@
           "caption": "El peón de d5 parece defendido dos veces (caballo y dama), pero el caballo de f6 está clavado contra la dama.",
           "line": [
             "Nxd5",
-            "Nxd5",
-            "Bxd8",
-            "Rxd8"
+            "Qxd5",
+            "Bxf6"
           ],
           "comments": [
-            "El caballo captura: a efectos prácticos solo hay un defensor de verdad.",
-            "Si el caballo recaptura, abandona la clavada…",
-            "…y la dama cae.",
-            "Las negras tienen caballo por dama: las blancas ganan."
+            "El caballo captura: el de f6 no puede recapturar, porque 1...Nxd5?? 2.Bxd8 perdería la dama. A efectos prácticos solo hay un defensor de verdad.",
+            "La dama recaptura, pero ahora queda en la columna de la torre de d1.",
+            "El alfil elimina al caballo de f6 y la dama de d5, atacada por la torre, no puede recapturar en f6 y salvarse a la vez. Las blancas ganan una pieza."
           ]
         },
         {
@@ -968,12 +966,12 @@
           ]
         },
         {
-          "fen": "6k1/R4pp1/1q5p/8/3Q4/8/5PPP/6K1 w - - 0 1",
+          "fen": "6k1/R4pp1/2q4p/8/3Q4/8/5PPP/6K1 w - - 0 1",
           "orientation": "white",
           "caption": "La otra cara del perpetuo: cuando vas ganando, dale una salida a tu rey antes de que la dama rival empiece a dar jaques.",
           "line": [
             "h3",
-            "Qb1+",
+            "Qc1+",
             "Kh2"
           ],
           "comments": [
