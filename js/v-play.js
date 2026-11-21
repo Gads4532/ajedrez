@@ -239,6 +239,39 @@
       });
     };
     // Convierte texto pegado (PGN, «1. e4 e5 2. Nf3» o notación española «2. Cf3») en jugadas.
+    // ¿Qué bando eres? Si el PGN es contra un bot de chess.com (o un motor), eres el otro bando; si coincide con tu
+    // usuario guardado (Mi análisis), ese. Devuelve { me, bot } o null.
+    const BOTS = ['martin', 'elani', 'aron', 'emir', 'sven', 'nelson', 'antonio', 'isabel', 'wally', 'li', 'mateo', 'jimmy', 'noam', 'fatima', 'pierre', 'ahmed', 'sakura', 'karim', 'sofia', 'andrea', 'nadia', 'juan', 'jonas', 'filip', 'oliver', 'mark', 'rosen', 'manuel', 'mei', 'xavier', 'hanna', 'emma', 'ali', 'luke', 'lily', 'mittens', 'jade', 'dante', 'sienna', 'tiger', 'max', 'zara'];
+    const detectSide = (hdr) => {
+      if (!hdr || !hdr.White || !hdr.Black) return null;
+      const u = (S().settings.importUser || '').toLowerCase(), w = hdr.White.toLowerCase(), b = hdr.Black.toLowerCase();
+      const isBot = (name, elo) => /\bbot\b|-bot|computer|computadora|komodo|stockfish|engine|motor/i.test(name) || BOTS.includes(name.replace(/\s*\(.*\)\s*$/, '').trim());
+      const ev = /bot|computer|vs\.? ?comp/i.test(hdr.Event || '');
+      if (u && w === u) return { me: 'w', bot: isBot(b) || ev ? hdr.Black : null };
+      if (u && b === u) return { me: 'b', bot: isBot(w) || ev ? hdr.White : null };
+      const bw = isBot(w), bb2 = isBot(b);
+      if (bw && !bb2) return { me: 'b', bot: hdr.White };
+      if (bb2 && !bw) return { me: 'w', bot: hdr.Black };
+      return null;
+    };
+    // Guarda en «Mi análisis» una partida pegada en la que se sabe tu bando (p. ej. contra un bot de chess.com).
+    const keepPasted = (hdr, side) => {
+      if (!side) return null;
+      const t = new Chess(startFen); sans.forEach(x => t.move(x)); const pgn = t.pgn();
+      const old = S().games.find(x => x.pgn === pgn); if (old) return old.d;
+      const r = hdr.Result, res = r === '1/2-1/2' ? 'draw' : r === '1-0' ? (side.me === 'w' ? 'win' : 'loss') : r === '0-1' ? (side.me === 'b' ? 'win' : 'loss') : null;
+      let d = Date.parse(`${(hdr.UTCDate || hdr.Date || '').replace(/\./g, '-')}T${hdr.UTCTime || hdr.StartTime || '12:00:00'}Z`); if (isNaN(d)) d = Date.now();
+      while (S().games.some(x => x.d === d)) d++;
+      const opp = side.me === 'w' ? hdr.Black : hdr.White;
+      S().games.push({ pgn, res, me: side.me, d, fen: startFen !== START ? startFen : null, src: 'import', site: (hdr.Site || 'PGN').replace(/^https?:\/\//, '').split('/')[0].replace(/[<>&"']/g, ''), opp: side.bot ? `${opp} (bot)` : opp, bot: side.bot ? 1 : undefined });
+      S().games.sort((a, b) => a.d - b.d); while (S().games.length > 200) S().games.shift(); save(); return d;
+    };
+    const applySide = (hdr) => {
+      const side = detectSide(hdr); if (!side) return;
+      reviewMe = side.me; board.setOrientation(side.me === 'b' ? 'black' : 'white');
+      reviewGameD = keepPasted(hdr, side);
+      toast(side.bot ? `Partida contra el bot ${side.bot}: tú juegas con ${side.me === 'w' ? 'blancas' : 'negras'}` : `Juegas con ${side.me === 'w' ? 'blancas' : 'negras'}`);
+    };
     const parseMoves = (txt) => {
       const clean = String(txt || '').replace(/\{[^}]*\}/g, ' ').replace(/\([^)]*\)/g, ' ').replace(/\$\d+/g, ' ');
       const t = new Chess();
@@ -250,8 +283,8 @@
     };
     const paint = () => {
       if (tab === 'an' && !sans.length) {
-        $('#ab', v).innerHTML = `<div class="paste-box"><div class="sec-t">Pega los movimientos de tu partida</div><p class="dim" style="font-size:13px;margin:4px 0 8px">Sirve el PGN de chess.com o Lichess, o una lista como <b>1. e4 e5 2. Nf3 Nc6</b> (también en español: <b>2. Cf3 Cc6</b>).</p><textarea id="pasteMv" placeholder="1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 …"></textarea><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="btn pri" id="pasteGo">★ Analizar partida</button><button class="btn" id="pasteLd">Solo cargar</button></div><p class="dim" style="font-size:12.5px;margin:10px 0 0">O mueve las piezas en el tablero para analizar una posición.</p></div><div id="ml" hidden></div>`;
-        const take = (rev) => { const r = parseMoves($('#pasteMv', v).value); if (!r) { toast('No pude leer esas jugadas. Revisa que sean legales.'); return; } headers = r.hdr || {}; load(r.fen, r.moves); toast(`${r.moves.length} jugadas cargadas`); if (rev) runReview(); };
+        $('#ab', v).innerHTML = `<div class="paste-box"><div class="sec-t">Pega los movimientos de tu partida</div><p class="dim" style="font-size:13px;margin:4px 0 8px">Sirve el PGN de chess.com o Lichess (también tus partidas <b>contra los bots de chess.com</b>: abre la partida → <b>Compartir</b> → <b>PGN</b> → copiar), o una lista como <b>1. e4 e5 2. Nf3 Nc6</b> (también en español: <b>2. Cf3 Cc6</b>).</p><textarea id="pasteMv" placeholder="1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 …"></textarea><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="btn pri" id="pasteGo">★ Analizar partida</button><button class="btn" id="pasteLd">Solo cargar</button></div><p class="dim" style="font-size:12.5px;margin:10px 0 0">O mueve las piezas en el tablero para analizar una posición.</p></div><div id="ml" hidden></div>`;
+        const take = (rev) => { const r = parseMoves($('#pasteMv', v).value); if (!r) { toast('No pude leer esas jugadas. Revisa que sean legales.'); return; } headers = r.hdr || {}; load(r.fen, r.moves); applySide(headers); toast(`${r.moves.length} jugadas cargadas`); if (rev) runReview(); };
         $('#pasteGo', v).onclick = () => take(true); $('#pasteLd', v).onclick = () => take(false);
         return;
       }
@@ -355,12 +388,13 @@
           <div class="card rv-fix"><div class="sec-t">✕ A corregir</div><ul class="rv-list">${(rep.fix.length ? rep.fix : ['Nada importante: ¡bien jugado!']).map(t => `<li class="fix">${fixMv(t)}</li>`).join('')}</ul></div></div>
         ${sec('Apertura', '📖', rep.opening)}${sec('Estrategia usada', '🧭', rep.strategy)}${sec('Táctica', '⚔️', rep.tactics)}${sec('Finales', '♜', rep.endgame)}${sec('Gestión de la ventaja', '📈', rep.advantage)}
         <div class="card" style="background:var(--bg3)"><div class="sec-t">Para mejorar: estudia esto</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">${rep.suggest.map(s => `<a class="btn sm" href="${esc(s.href)}">${esc(s.t)}</a>`).join('')}</div></div>
-        <button class="btn pri" id="toAn">Ver jugada a jugada</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn pri" id="toAn">Ver jugada a jugada</button><button class="btn" id="rvCopy">📋 Copiar jugadas y análisis</button></div>
         <p class="dim" style="font-size:12.5px;margin:0">Clasificación según la pérdida de probabilidad de ganar de cada jugada (Stockfish, profundidad 14). La precisión usa la fórmula pública de Lichess; el rendimiento es una estimación orientativa a partir de la precisión.</p>`;
       const toMove = (k) => { tab = 'an'; paintTabs(); $('#ab', v).innerHTML = ''; paint(); go(k); };
       $('#eg', v).onclick = (e) => { const r = e.currentTarget.getBoundingClientRect(); toMove(Math.round((e.clientX - r.left) / r.width * (n - 1))); };
       $$('.rv-key', v).forEach(b => b.onclick = () => toMove(+b.dataset.k));
       $$('#rvMe .chip', v).forEach(b => b.onclick = () => { reviewMe = b.dataset.c; runRebuild(); });
+      $('#rvCopy', v).onclick = copyDialog;
       $('#toAn', v).onclick = () => { const k = review.R.report.keys[0]; toMove(k != null ? k + 1 : 1); };
     };
     // Recalcula el informe para el otro bando sin volver a analizar.
@@ -382,7 +416,7 @@
       const openOne = (pg) => {
         const t = new Chess(); const clean = pg.replace(/\{[^}]*\}/g, ' ').replace(/\$\d+/g, ' ');
         if (!t.load_pgn(clean, { sloppy: true })) return false;
-        const hist = t.history(); const hdr = t.header(); const f = hdr.FEN || START; headers = hdr; load(f, hist);
+        const hist = t.history(); const hdr = t.header(); const f = hdr.FEN || START; headers = hdr; load(f, hist); applySide(hdr);
         tab = 'an'; paintTabs(); $('#ab', v).innerHTML = ''; paint(); toast(`${hist.length} jugadas cargadas`); return true;
       };
       const parseMany = (txt) => txt.replace(/\r/g, '').split(/\n\s*\n(?=\[Event )/).map(s => s.trim()).filter(Boolean);
@@ -410,12 +444,72 @@
       $('#cf', v).onclick = () => copy(fens[cur], 'FEN');
       $$('[data-g]', v).forEach(r => r.onclick = () => { const gm = S().games[+r.dataset.g]; const t = new Chess(); t.load_pgn(gm.pgn); load(gm.fen || START, t.history()); reviewGameD = gm.d; reviewRes = gm.res; reviewMe = gm.me || null; if (gm.me === 'b') board.setOrientation('black'); tab = 'an'; paintTabs(); $('#ab', v).innerHTML = ''; paint(); });
     };
+    /* ---------- Copiar las jugadas (solas, con el análisis o como PGN comentado) ---------- */
+    const NAG = { brilliant: '$3', great: '$1', inaccuracy: '$6', mistake: '$2', miss: '$2', blunder: '$4' };
+    const SYM = { brilliant: '!!', great: '!', inaccuracy: '?!', mistake: '?', miss: '?', blunder: '??' };
+    const KEY = ['brilliant', 'great', 'inaccuracy', 'mistake', 'miss', 'blunder'], BAD = ['inaccuracy', 'mistake', 'miss', 'blunder'];
+    const toText = (html, es) => { const d = document.createElement('div'); d.innerHTML = es ? fixMv(html) : String(html).replace(/<span class="mv">([^<]*)<\/span>/g, '$1'); return d.textContent.replace(/\s+/g, ' ').trim(); };
+    const numbered = (fn) => { const t0 = new Chess(startFen); let n = +startFen.split(' ')[5] || 1, turn = t0.turn(); return sans.map((x, i) => { const r = fn(x, i, turn === 'w' ? `${n}.` : `${n}...`, turn, i === 0); if (turn === 'b') n++; turn = turn === 'w' ? 'b' : 'w'; return r; }); };
+    const moveText = (es, withSym) => numbered((x, i, num, turn, first) => { const c = review && review.cls[i]; const mv = (es ? san(x) : x) + (withSym && SYM[c] ? SYM[c] : ''); return turn === 'w' ? `${num} ${mv}` : (first ? `${num} ${mv}` : mv); }).join(' ');
+    const resultTag = () => { if (headers && headers.Result) return headers.Result; const t = new Chess(fens[fens.length - 1]); return t.in_checkmate() ? (t.turn() === 'w' ? '0-1' : '1-0') : t.in_draw() ? '1/2-1/2' : '*'; };
+    const players = () => headers && headers.White ? `${headers.White}${headers.WhiteElo ? ' (' + headers.WhiteElo + ')' : ''} – ${headers.Black}${headers.BlackElo ? ' (' + headers.BlackElo + ')' : ''}` : '';
+    // Análisis en texto (español): precisión y cada jugada con su símbolo; en las importantes, la explicación y la mejor alternativa.
+    const analysisText = () => {
+      const R = review.R, bk = startFen === START ? bookInfo(sans) : { name: null };
+      const out = [`Partida${players() ? ': ' + players() : ''} · ${resultTag()}`];
+      if (bk.name) out.push(`Apertura: ${bk.name}`);
+      out.push(`Precisión: blancas ${(R.acc.w || 0).toFixed(1)} · negras ${(R.acc.b || 0).toFixed(1)}`, '');
+      numbered((x, i, num) => {
+        const c = review.cls[i]; let l = `${num} ${san(x)}${SYM[c] || ''}${c ? ' — ' + (CLS[c] || '') : ''}`;
+        if (KEY.includes(c)) { const e = R.explain(i); if (e.why.length) l += '. ' + e.why.map(w => toText(w, true)).join(' '); if (e.best && BAD.includes(c)) l += ` Mejor: ${san(e.best)}${e.bestLine.length > 1 ? ' (' + e.bestLine.slice(0, 5).map(y => san(y)).join(' ') + ')' : ''}.`; }
+        return l;
+      }).forEach(l => out.push(l));
+      out.push('', 'Analizado con Ajedrez Pro Academia (Stockfish).');
+      return out.join('\n');
+    };
+    // PGN estándar, con símbolos ($1…$6), evaluación [%eval] y comentarios {…} si se pide el análisis.
+    const pgnText = (annot) => {
+      const d = new Date(); const hdr = Object.assign({ Event: 'Ajedrez Pro', Site: 'Ajedrez Pro Academia', Date: d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0'), White: '?', Black: '?', Result: resultTag() }, headers || {});
+      if (startFen !== START) { hdr.SetUp = '1'; hdr.FEN = startFen; }
+      const head = Object.keys(hdr).filter(k => hdr[k] != null && hdr[k] !== '').map(k => `[${k} "${String(hdr[k]).replace(/"/g, "'")}"]`).join('\n');
+      const body = numbered((x, i, num, turn, first) => {
+        let t = turn === 'w' || first ? `${num} ${x}` : x;
+        if (annot && review) {
+          const c = review.cls[i]; if (NAG[c]) t += ' ' + NAG[c];
+          const e = review.evals[i + 1], ev = e ? (e.mate != null ? '#' + e.mate : (e.cp / 100).toFixed(2)) : null;
+          let cm = c ? (CLS[c] || '') : '';
+          if (KEY.includes(c)) { const ex = review.R.explain(i); if (ex.why.length) cm += '. ' + ex.why.map(w => toText(w, false)).join(' '); if (ex.best && BAD.includes(c)) cm += ` Mejor: ${ex.best}.`; }
+          t += ` {${ev != null ? `[%eval ${ev}] ` : ''}${cm.replace(/[{}]/g, '')}}`;
+        }
+        return t;
+      }).join(' ');
+      return `${head}\n\n${body} ${hdr.Result}\n`;
+    };
+    const copyDialog = () => {
+      if (!sans.length) { toast('Carga o juega una partida primero'); return; }
+      const opts = [['es', 'Jugadas en español', 'Ej.: 1. e4 e5 2. Cf3 Cc6'], ['en', 'Jugadas en inglés', 'Ej.: 1. e4 e5 2. Nf3 Nc6 (como en chess.com y Lichess)'], ['pgn', 'PGN', 'Para cargar la partida en chess.com, Lichess u otra web']];
+      if (review) { opts.splice(1, 0, ['an', 'Jugadas con el análisis', 'Cada jugada con su símbolo (!!, ?!, ??), la explicación de las importantes y la mejor alternativa']); opts.push(['pgnA', 'PGN con el análisis', 'Con símbolos, evaluación y comentarios: se ven al cargarlo en chess.com o Lichess']); }
+      const d = App.dialog(`<h2 style="font-size:22px;font-weight:900;margin-bottom:6px">Copiar las jugadas</h2>${review ? '' : '<p class="muted" style="margin:0 0 10px;font-size:13.5px">Para copiar también el análisis, primero presiona <b>★ Revisar partida</b>.</p>'}
+        <div class="chips" id="cpO" style="margin-bottom:8px">${opts.map(o => `<button class="chip" data-k="${o[0]}">${esc(o[1])}</button>`).join('')}</div><p class="dim" id="cpD" style="font-size:13px;margin:0 0 6px"></p>
+        <textarea id="cpT" readonly style="width:100%;min-height:200px;font-family:ui-monospace,monospace;font-size:13px"></textarea>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn pri" id="cpGo">📋 Copiar</button>${navigator.share ? '<button class="btn" id="cpSh">Compartir</button>' : ''}<button class="btn ghost" id="cpX">Cerrar</button></div>`);
+      const build = { es: () => moveText(true, !!review), en: () => moveText(false, !!review), an: analysisText, pgn: () => pgnText(false), pgnA: () => pgnText(true) };
+      const saved = S().settings.copyFmt; let k = saved && opts.some(o => o[0] === saved) ? saved : (review ? 'an' : 'es');
+      const show = () => { $$('#cpO .chip', d).forEach(c => c.classList.toggle('on', c.dataset.k === k)); $('#cpD', d).textContent = opts.find(o => o[0] === k)[2]; $('#cpT', d).value = build[k](); };
+      $$('#cpO .chip', d).forEach(c => c.onclick = () => { k = c.dataset.k; S().settings.copyFmt = k; save(); show(); });
+      $('#cpGo', d).onclick = () => { const txt = $('#cpT', d).value; (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => toast('Copiado'), () => { $('#cpT', d).select(); try { document.execCommand('copy'); toast('Copiado'); } catch (e) { toast('Texto seleccionado: cópialo'); } }); };
+      if ($('#cpSh', d)) $('#cpSh', d).onclick = () => navigator.share({ title: 'Partida de ajedrez', text: $('#cpT', d).value }).catch(() => { });
+      $('#cpX', d).onclick = () => App.closeDialog();
+      show();
+    };
+    App.copyGame = copyDialog;
     const paintTabs = () => {
       $$('#at button', v).forEach(b => b.classList.toggle('on', b.dataset.t === tab));
       $('#af', v).innerHTML = '';
       const nb = h(`<div class="nav-btns" style="flex:1"><button class="btn sm" data-a="0">⏮</button><button class="btn sm" data-a="-1">◀</button><button class="btn sm" data-a="1">▶</button><button class="btn sm" data-a="9">⏭</button><button class="btn sm" data-a="f" title="Girar tablero">⇅</button></div>`);
       $$('[data-a]', nb).forEach(b => b.onclick = () => { const a = b.dataset.a; if (a === 'f') { board.flip(); setEval(bb.evalbar, review && review.evals[cur], board.opts.orientation); return; } go(a === '0' ? 0 : a === '9' ? fens.length - 1 : cur + +a); });
       $('#af', v).appendChild(nb);
+      if (tab !== 'imp') { const cb = h('<button class="btn sm" id="cpb" title="Copiar las jugadas o el análisis">📋 Copiar</button>'); cb.onclick = copyDialog; $('#af', v).appendChild(cb); }
       if (tab === 'an') $('#af', v).appendChild(h('<button class="btn pri sm" id="rvb">★ Revisar partida</button>'));
       const rb = $('#rvb', v); if (rb) rb.onclick = runReview;
     };
