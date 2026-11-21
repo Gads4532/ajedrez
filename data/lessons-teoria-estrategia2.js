@@ -563,24 +563,28 @@
     ]
    },
    {
-    "fen": "2r5/1p2bppp/p2pk3/4p3/4P3/2N2P2/PPP2KPP/3R4 w - - 0 1",
-    "orientation": "white",
-    "caption": "Excepción: un peón retrasado bien defendido por el rey en el final puede ser suficiente para las tablas.",
+    "fen": "rn1q1rk1/1p3ppp/p2pbb2/3Np3/4P3/1N6/PPP1BPPP/R2Q1RK1 b - - 1 11",
+    "orientation": "black",
+    "caption": "El caballo ya está en d5. Las armas del defensor: no cambiar por cambiar y activar el alfil malo. Posición equilibrada.",
     "line": [
-     "Ke3",
-     "f5",
-     "Kd3",
-     "Rf8",
-     "Ke2",
-     "Rc8"
+     "Nd7",
+     "c4",
+     "Bg5",
+     "a4",
+     "a5",
+     "Qc2",
+     "Rc8",
+     "Rad1"
     ],
     "comments": [
-     "El rey blanco se acerca, pero el negro ya protege d6 y d5 desde e6.",
-     "Las negras rompen en el flanco de rey para activar la torre.",
-     "El rey blanco defiende el centro.",
-     "La torre negra apunta a f3.",
-     "Las blancas defienden.",
-     "Las negras vuelven a la columna c. El motor marca 0.00: sin segunda debilidad y con el rey negro en e6, no hay forma de progresar."
+     "Las negras no se apresuran a tomar en d5: si ...Bxd5 y exd5, las blancas quedarían con la pareja de alfiles y presión en la columna c. Primero desarrollan.",
+     "Las blancas refuerzan el caballo de d5 con un peón.",
+     "El alfil malo sale por g5, fuera de la cadena: podrá cambiarse por una pieza activa.",
+     "Las blancas ganan espacio en el flanco de dama.",
+     "Las negras frenan a4-a5 y fijan b4 para su caballo.",
+     "La dama vigila c4 y la columna c.",
+     "La torre se prepara para ...b5 o ...f5.",
+     "Las blancas presionan d6. El motor da una pequeña ventaja a las negras (unas tres décimas): el caballo de d5 es fuerte, pero las negras tienen contrajuego y su alfil ya no es malo."
     ]
    }
   ],
@@ -640,17 +644,17 @@
     ]
    },
    {
-    "fen": "2r5/1p1kbppp/p2p4/4p3/4P3/2N2P2/PPPR1KPP/8 w - - 0 1",
-    "caption": "Juegan blancas: final con el peón negro d6 retrasado. Encuentra la mejor casilla para el caballo.",
+    "fen": "8/1p2bppp/p2pk3/4p3/2r1P3/2N2P2/PPPR1KPP/8 w - - 0 1",
+    "caption": "Juegan blancas: final con el peón negro d6 retrasado. La torre negra amenaza e4. Encuentra la mejor casilla para el caballo.",
     "line": [
      "Nd5",
-     "Bh4+",
-     "Ke2"
+     "Bg5",
+     "Re2"
     ],
     "comments": [
-     "El caballo ocupa d5, la casilla de delante del peón retrasado: no puede ser expulsado por peones y bloquea el peón d6. Es claramente mejor que las jugadas de espera.",
-     "El alfil da un jaque buscando actividad, pero no puede cambiarse por el caballo.",
-     "El rey se acerca al centro y protege f3. El plan: c3, Kd3 y doblar la presión; el alfil negro de casillas negras queda malo, detrás de d6 y e5."
+     "El caballo ocupa d5, la casilla de delante del peón retrasado: no puede ser expulsado por peones, bloquea d6 y su sitio es inmejorable. Las jugadas de espera, como Re2 o Ke1, dejan la posición igualada.",
+     "El alfil busca la diagonal c1-h6, la única activa que tiene; no puede disputar d5 porque es de casillas negras.",
+     "La torre defiende e4 y la segunda fila. El plan: c3, rey al centro y presión sobre d6; el alfil negro queda malo, detrás de d6 y e5."
     ]
    }
   ]
@@ -1003,7 +1007,7 @@
      "Kg3",
      "Ke6",
      "Kg4",
-     "Ke7",
+     "Kf7",
      "f5"
     ],
     "comments": [
@@ -1020,16 +1024,12 @@
     "line": [
      "Kb3",
      "Ne8",
-     "Ka4",
-     "Ng7",
-     "Kxa5"
+     "Ka4"
     ],
     "comments": [
      "El rey va al flanco de dama, donde hay peones negros débiles. Las demás jugadas no ganan.",
      "El caballo negro busca f5 para contraatacar.",
-     "El rey sigue hacia a5.",
-     "El caballo negro llega tarde al flanco de rey.",
-     "Cae el peón a5: el bando con más espacio trasladó su rey al otro flanco antes que el rival."
+     "El rey sigue hacia a5: caerán los peones del flanco de dama. El bando con más espacio trasladó su rey al otro flanco antes de que el caballo negro pudiera crear contrajuego."
     ]
    }
   ]
@@ -1346,15 +1346,15 @@
      "Rxd5",
      "exd5",
      "Kd4",
-     "Kc6",
-     "a3"
+     "b4",
+     "Kxd5"
     ],
     "comments": [
      "El cambio de torres deja un final de peones ganado: el peón d5 negro será débil y el rey blanco entrará. Con las torres en el tablero es tablas.",
      "Recaptura obligada.",
      "El rey ataca d5 enseguida.",
-     "El rey negro defiende.",
-     "Jugada de espera: las negras se quedan sin jugadas útiles y deben ceder d5 o e6. Zugzwang."
+     "Las negras buscan contrajuego en el flanco de dama, pero el rey blanco está más cerca.",
+     "Cae el peón d5 y el rey blanco queda en el centro: e5-e6 y la entrada en el flanco de rey deciden. Las demás jugadas son tablas."
     ]
    },
    {
